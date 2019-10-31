@@ -1,0 +1,16 @@
+
+.tab{
+    border-bottom: 0.6px solid #00000033;
+}
+.tab> *{
+    cursor: pointer;
+    padding: 4px 8px;
+    color: #999999;
+
+    display: inline-block;
+}
+.tab .active{
+    color: #000000;
+    border: 0.6px solid #00000033;
+    border-bottom: 0.6px solid white;
+}

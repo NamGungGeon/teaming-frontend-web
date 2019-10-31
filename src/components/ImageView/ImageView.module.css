@@ -1,0 +1,9 @@
+.square{
+
+}
+.rounding{
+    border-radius: 8px;
+}
+.circle{
+    border-radius: 100%;
+}

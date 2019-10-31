@@ -1,0 +1,26 @@
+
+.wrapper{
+    display: flex;
+    justify-content: flex-start;
+    align-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.wrapper> *{
+    width: 30%;
+    min-width: 250px;
+    margin: 18px 1.5%;
+
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .wrapper{
+        justify-content: space-between;
+    }
+    .wrapper> *{
+        width: 100%;
+        margin: 16px 0;
+    }
+}

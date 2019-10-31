@@ -1,0 +1,25 @@
+
+.group{
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+}
+.group> div{
+    max-width: 30%;
+    margin-right: 8px;
+
+    text-align: center;
+}
+.group> div img{
+    max-width: 64px;
+    height: auto;
+}
+.group> div .label{
+    display: block;
+    margin-top: 4px;
+    font-size: 0.8rem;
+}

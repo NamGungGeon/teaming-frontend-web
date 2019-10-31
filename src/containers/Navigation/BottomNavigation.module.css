@@ -1,0 +1,15 @@
+nav.vertical{
+    position: fixed;
+    width: 100%;
+    background: white;
+    padding: 4px 8px;
+    z-index: 9999;
+    border-top: 0.6px solid #00000033;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

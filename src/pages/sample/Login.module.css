@@ -1,0 +1,33 @@
+
+
+
+.parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.child{
+    width: 400px;
+}
+.child{
+    text-align: center;
+}
+.form{
+    text-align: left;
+}
+.form .buttons *:nth-child(1){
+    width: 45%;
+    margin-right: 5%;
+}
+.form .buttons *:nth-child(2){
+    width: 45%;
+    margin-left: 5%;
+}
+.icon{
+    width: 80%;
+    max-width: 200px;
+    height: auto;
+
+    margin-bottom: 18px;
+}

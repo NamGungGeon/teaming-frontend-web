@@ -1,0 +1,16 @@
+.toaster{
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+    z-index: 99999;
+    text-align: right;
+}
+
+.toast{
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #dc3545;
+    color: white;
+    margin: 4px;
+}

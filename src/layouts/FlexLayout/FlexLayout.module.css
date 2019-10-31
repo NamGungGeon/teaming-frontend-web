@@ -1,0 +1,25 @@
+
+
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    width: 100%;
+}
+.wrapper> *{
+    height: auto;
+}
+
+
+@media(max-width: 500px){
+    .wrapper{
+        justify-content: center;
+    }
+    .responsive> *{
+        margin: 8px 0!important;
+        width: calc(100% - 8px)!important;
+    }
+}

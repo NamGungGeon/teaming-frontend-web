@@ -1,0 +1,39 @@
+nav.horizontal{
+    position: fixed;
+    float: left;
+    width: 250px;
+    height: calc(100% - 48px);
+    z-index: 9998;
+    padding: 16px;
+
+    background-color: #f9f9f9;
+
+    border-right: 0.6px solid #00000022;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+nav.horizontal+ div{
+    float: left;
+    width: calc(100% - 250px);
+    text-align: left;
+    margin-left: 250px;
+    padding: 16px;
+}
+.icon{
+    width: 100%;
+    height: auto;
+}
+nav.horizontal> div{
+    text-align: right;
+}
+nav.horizontal> div> *{
+    margin: 8px 0;
+    transition-property: transform;
+    transition-duration: 0.3s;
+    color: #333333;
+}
+nav.horizontal> div *:hover{
+    transform: translateX(-4px);
+}

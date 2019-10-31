@@ -1,0 +1,29 @@
+nav.vertical{
+    position: fixed;
+    width: 100%;
+    background: #222222;
+    padding: 4px 8px;
+    z-index: 9999;
+    border-bottom: 0.6px solid #ffffff33;
+
+    color: white;
+}
+
+.left{
+    float: left;
+}
+.icon{
+    cursor: pointer;
+    height: 40px;
+}
+
+.right{
+    margin-top: 8px;
+    float: right;
+
+    color: white;
+}
+.right > *{
+    color: #666666;
+    margin: 0 8px;
+}
