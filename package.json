@@ -22,6 +22,7 @@
     "reactstrap": "^8.0.1",
     "redux": "^4.0.4",
     "redux-actions": "^2.6.5",
+    "sendbird": "^3.0.111",
     "universal": "^0.1.1",
     "universal-cookie": "^4.0.2"
   },
