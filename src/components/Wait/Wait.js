@@ -1,5 +1,7 @@
-import React, { Component } from "react";
-import styles from "./Wait.module.css";
+import React, { Component } from 'react';
+import styles from './Wait.module.css';
+
+// TODO: <br /> 태그는 css로 대체하기
 
 class Wait extends Component {
   render() {

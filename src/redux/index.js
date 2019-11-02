@@ -22,7 +22,6 @@ export const quickConnect = component => {
 
   const connected = connect(
     state => {
-      console.log(state);
       return {
         uiKit: state.uikit,
         auth: state.auth,
