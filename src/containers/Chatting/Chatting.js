@@ -32,26 +32,36 @@ class Chatting extends Component {
     needScroll: false
   };
 
-  componentDidMount() {
-    /*
-    window.setInterval(() => {
-      const { msgs } = this.state;
-      msgs.push({
-        encounter: true,
-        msg: randStr(10),
-        profile: null
-      });
-      this.setState({
-        ...this.state,
-        msgs
-      });
-    }, 800);
-    */
-  }
+  handleSubmit = text => event => {
+    event.preventDefault();
 
-  componentWillUpdate(nextProps, nextState, nextContext) {
-    if (isEndScroll(this.msgBox) && !this.state.needScroll)
-      nextState.needScroll = true;
+    const { uiKit } = this.props;
+    const { msgs } = this.state;
+    if (!text) {
+      uiKit.toaster.cooking('텍스트를 입력하세요');
+    }
+    // TODO: Send message via sendbird
+    this.setState({
+      msgs: [...msgs, { profile: null, msg: text, encounter: false }]
+    });
+
+    scrollToBottom(this.msgBox);
+  };
+
+  render() {
+    const { msgs } = this.state;
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.chatMsgs} ref={ref => (this.msgBox = ref)}>
+          {msgs.map((msg, idx) => {
+            return <ChatMsg key={idx} {...msg} />;
+          })}
+        </div>
+        <div className={styles.chatInput}>
+          <ChatInputBox onSubmit={this.handleSubmit} />
+        </div>
+      </div>
+    );
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -71,30 +81,12 @@ class Chatting extends Component {
       });
     }
   }
+}
 
-  render() {
-    const { uiKit } = this.props;
-    const { msgs, ring } = this.state;
-    return (
-      <div className={styles.wrapper}>
-        <div className={styles.chatMsgs} ref={ref => (this.msgBox = ref)}>
-          {msgs.map((msg, idx) => {
-            return <ChatMsg {...msg} />;
-          })}
+export default quickConnect(Chatting);
 
-          {ring && (
-            <div
-              className={styles.ring}
-              onClick={() => {
-                scrollToBottom(this.msgBox);
-              }}
-            >
-              {msgs[msgs.length - 1].msg}
-            </div>
-          )}
-        </div>
-        <div className={styles.chatInput}>
-          <ChatInputBox
+/*
+<ChatInputBox
             submit={msg => {
               if (!msg) {
                 uiKit.toaster.cooking('텍스트를 입력하세요');
@@ -110,23 +102,6 @@ class Chatting extends Component {
                 msgs
               });
               scrollToBottom(this.msgBox);
-              this.inputBox.flush();
-            }}
-            ref={ref => {
-              ReactDOM.findDOMNode(this).addEventListener('scroll', e => {
-                if (isEndScroll(ref))
-                  this.setState({
-                    ...this.state,
-                    ring: false
-                  });
-              });
-              this.inputBox = ref;
             }}
           />
-        </div>
-      </div>
-    );
-  }
-}
-
-export default quickConnect(Chatting);
+ */

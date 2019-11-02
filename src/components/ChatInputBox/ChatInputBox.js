@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import styles from './ChatInputBox.module.css';
-import Input from 'reactstrap/es/Input';
 import PropTypes from 'prop-types';
-import { InputGroupAddon, InputGroupText } from 'reactstrap';
-import InputGroup from 'reactstrap/es/InputGroup';
+import { Form, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import { quickConnect } from '../../redux';
 import Button from 'reactstrap/es/Button';
 import { Send } from '@material-ui/icons';
@@ -12,55 +10,50 @@ class ChatInputBox extends Component {
   static propTypes = {
     hint: PropTypes.string,
     type: PropTypes.string,
-    submit: PropTypes.func
+    onSubmit: PropTypes.func.isRequired
   };
+
   static defaultProps = {
     hint: '',
-    type: 'text',
-    submit: () => {}
-  };
-  state = {
-    value: ''
+    type: 'text'
   };
 
-  flush = () => {
-    this.inputBox.value = '';
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+  }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevState.value !== this.state.value) console.log(this.state.value);
+    if (prevState.value !== this.state.value) {
+      console.log(this.state.value);
+    }
   }
 
   render() {
-    const { hint, type, submit } = this.props;
+    const { hint, type, onSubmit: submit } = this.props;
+    const { value } = this.state;
+
     return (
-      <div className={styles.wrapper}>
+      <Form className="chat-submission-form" onSubmit={submit(value)}>
         <InputGroup>
           <Input
             type={type}
             innerRef={ref => (this.inputBox = ref)}
             placeholder={hint}
-            onKeyDown={e => {
-              if (e.key === 'Enter') {
-                if (submit(this.state.value)) this.flush();
-              }
-            }}
-            onChange={e => {
-              this.setState({ ...this.state, value: e.target.value });
+            onChange={event => {
+              event.preventDefault();
+              this.setState({ value: event.target.value });
             }}
           />
           <InputGroupAddon addonType="append">
-            <Button
-              onClick={() => {
-                if (submit(this.state.value)) this.flush();
-              }}
-              color={'danger'}
-            >
+            <Button type="submit" color={'danger'}>
               <Send color={'white'} style={{ fontSize: '1rem' }} />
             </Button>
           </InputGroupAddon>
         </InputGroup>
-      </div>
+      </Form>
     );
   }
 }
