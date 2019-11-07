@@ -1,15 +1,13 @@
-import React, { Component } from "react";
-import styles from "./ChampionSelect.module.css";
-import Popup from "../../components/Popup/Popup";
-import ImageSelect from "../../components/ImageSelect/ImageSelect";
-import { quickConnect } from "../../redux";
-import SearchBox from "../../components/SearchBox/SearchBox";
+import React, { Component } from 'react';
+import ImageSelect from '../../components/ImageSelect/ImageSelect';
+import { quickConnect } from '../../redux';
+import SearchBox from '../../components/SearchBox/SearchBox';
 
-import champions from "../../res/lol/champions/champs";
+import champions from '../../res/lol/champions/champs';
 
 class ChampionSelect extends Component {
   state = {
-    keyword: ""
+    keyword: ''
   };
 
   getChampions = () => {
@@ -47,7 +45,7 @@ class ChampionSelect extends Component {
         />
         <br />
         <br />
-        <div style={popup ? { overflow: "scroll", maxHeight: "400px" } : {}}>
+        <div style={popup ? { overflow: 'scroll', maxHeight: '400px' } : {}}>
           <ImageSelect
             multiple={5}
             icons={this.getChampions()}

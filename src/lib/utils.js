@@ -1,7 +1,5 @@
-import React from 'react';
-
 export const checkEmail = email => {
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
 
@@ -37,7 +35,7 @@ export const formatToMoney = num => {
   let money = '';
   while (num !== 0) {
     const checker = money.replace(',', '');
-    if (checker.length !== 0 && checker.length % 3 == 0) money += ',';
+    if (checker.length !== 0 && checker.length % 3 === 0) money += ',';
     money += num % 10;
     num = parseInt(num / 10);
   }

@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import styles from "./Window.module.css";
-import classNames from "classnames";
-import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons";
+import React, { Component } from 'react';
+import styles from './Window.module.css';
+import classNames from 'classnames';
+import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 
 class Window extends Component {
   state = {
     folded: false
   };
   static defaultProps = {
-    title: "",
-    children: "",
+    title: '',
+    children: '',
     position: null,
     startBottom: false,
     foldable: false,
     styles: {},
-    className: ""
+    className: ''
   };
 
   render() {
@@ -24,7 +24,7 @@ class Window extends Component {
         <div
           className={classNames([
             styles.title,
-            `${foldable ? "clickable" : ""}`
+            `${foldable ? 'clickable' : ''}`
           ])}
           onClick={() => {
             if (foldable)

@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import styles from "./SearchBox.module.css";
-import Input from "reactstrap/es/Input";
-import PropTypes from "prop-types";
-import { InputGroupAddon, InputGroupText } from "reactstrap";
-import InputGroup from "reactstrap/es/InputGroup";
-import { quickConnect } from "../../redux";
-import Button from "reactstrap/es/Button";
-import { Search } from "@material-ui/icons";
+import React, { Component } from 'react';
+import styles from './SearchBox.module.css';
+import Input from 'reactstrap/es/Input';
+import PropTypes from 'prop-types';
+import { InputGroupAddon } from 'reactstrap';
+import InputGroup from 'reactstrap/es/InputGroup';
+import { quickConnect } from '../../redux';
+import Button from 'reactstrap/es/Button';
+import { Search } from '@material-ui/icons';
 
 class SearchBox extends Component {
   static propTypes = {
@@ -15,21 +15,17 @@ class SearchBox extends Component {
     submit: PropTypes.func
   };
   static defaultProps = {
-    hint: "",
-    type: "text",
+    hint: '',
+    type: 'text',
     submit: () => {}
   };
   state = {
-    value: ""
+    value: ''
   };
 
   flush = () => {
-    this.inputBox.value = "";
+    this.inputBox.value = '';
   };
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevState.value !== this.state.value) console.log(this.state.value);
-  }
 
   render() {
     const { hint, type, submit, onChange } = this.props;
@@ -41,7 +37,7 @@ class SearchBox extends Component {
             innerRef={ref => (this.inputBox = ref)}
             placeholder={hint}
             onKeyDown={e => {
-              if (e.key === "Enter") {
+              if (e.key === 'Enter') {
                 if (submit(this.state.value)) this.flush();
               }
             }}
@@ -55,9 +51,9 @@ class SearchBox extends Component {
               onClick={() => {
                 if (submit(this.state.value)) this.flush();
               }}
-              color={"danger"}
+              color={'danger'}
             >
-              <Search color={"white"} />
+              <Search color={'white'} />
             </Button>
           </InputGroupAddon>
         </InputGroup>

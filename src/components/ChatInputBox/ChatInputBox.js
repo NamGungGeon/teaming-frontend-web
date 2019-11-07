@@ -51,7 +51,7 @@ class ChatInputBox extends Component {
           />
           <InputGroupAddon addonType="append">
             <Button type="submit" color={'danger'}>
-              <Send color={'white'} style={{ fontSize: '1rem' }} />
+              <Send color="primary" style={{ fontSize: '1rem' }} />
             </Button>
           </InputGroupAddon>
         </InputGroup>

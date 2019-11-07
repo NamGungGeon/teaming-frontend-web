@@ -43,7 +43,7 @@ class Lol extends Component {
 
   requestStart = () => {
     const { uiKit, history } = this.props;
-    const { gameType, tier, champions, ban, mainPos, subPos } = this.state;
+    const { tier, champions, mainPos, subPos } = this.state;
     if (!tier) {
       uiKit.toaster.cooking('티어를 선택하세요');
       return;
@@ -63,10 +63,6 @@ class Lol extends Component {
 
     history.push(getPath(`/teambuild/lol/build`));
   };
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(this.state);
-  }
 
   render() {
     return (
@@ -179,7 +175,6 @@ class Lol extends Component {
                   label: '',
                   onClick: () => {
                     this.openChampions(this.state.ban, selections => {
-                      console.log('ban', selections);
                       this.setState({
                         ...this.state,
                         ban: selections

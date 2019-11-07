@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Chatting from '../../containers/Chatting/Chatting';
-import Wait from '../../components/Wait/Wait';
-import FixedCenter from '../../layouts/FixedCenter/FixedCenter';
+import Chatting from '../containers/Chatting/Chatting';
+import Wait from '../components/Wait/Wait';
+import FixedCenter from '../layouts/FixedCenter/FixedCenter';
 import SendBird from 'sendbird';
 
 class Chat extends Component {

@@ -21,7 +21,7 @@ class Chatting extends Component {
     registerHandler(handler);
   }
 
-  handleMessageReceived = (channel, message) => {
+  handleMessageReceived = (_channel, message) => {
     const { msgs } = this.state;
     this.setState({
       msgs: [
@@ -42,7 +42,7 @@ class Chatting extends Component {
       uiKit.toaster.cooking('텍스트를 입력하세요');
     }
 
-    channel.sendUserMessage(text, (message, error) => {
+    channel.sendUserMessage(text, (message, _error) => {
       if (message) {
         this.setState({
           msgs: [

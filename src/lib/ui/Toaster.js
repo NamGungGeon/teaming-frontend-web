@@ -1,5 +1,5 @@
-import ToastMessage from "../../components/Msg/ToastMessage";
-import React from "react";
+import ToastMessage from '../../components/Msg/ToastMessage';
+import React from 'react';
 
 export const Toaster = component => {
   return {
@@ -27,7 +27,7 @@ export const Toaster = component => {
       return component.state.msg ? (
         <ToastMessage msg={component.state.msg} />
       ) : (
-        ""
+        ''
       );
     }
   };

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import styles from "./Popup.module.css";
+import React, { Component } from 'react';
+import styles from './Popup.module.css';
 
 class Popup extends Component {
   render() {
@@ -9,7 +9,7 @@ class Popup extends Component {
         className={styles.background}
         onMouseUp={plzClose}
         onKeyDown={e => {
-          if (e.key === "esc") plzClose();
+          if (e.key === 'esc') plzClose();
         }}
       >
         <div

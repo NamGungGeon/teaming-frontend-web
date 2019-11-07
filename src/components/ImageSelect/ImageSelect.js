@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import ImageView from "../ImageView/ImageView";
-import styles from "./ImageSelect.module.css";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import ImageView from '../ImageView/ImageView';
+import styles from './ImageSelect.module.css';
+import PropTypes from 'prop-types';
 
 class ImageSelect extends Component {
   state = {
@@ -32,19 +32,16 @@ class ImageSelect extends Component {
     const { selected } = this.state;
     const { selected: prevSelected } = prevState;
 
-    console.log("prev", prevState.selected);
-    console.log("current", selected);
     if (selected !== prevSelected) {
-      console.log("update!", this.props.selections);
       this.props.selections(
-        multiple === 1 ? (selected.length === 0 ? "" : selected[0]) : selected
+        multiple === 1 ? (selected.length === 0 ? '' : selected[0]) : selected
       );
     }
   }
 
   select = id => {
     const { selected } = this.state;
-    const { multiple, selections } = this.props;
+    const { multiple } = this.props;
 
     let newSelected = selected.slice();
 
@@ -84,7 +81,7 @@ class ImageSelect extends Component {
                 className={`${
                   selected.findIndex(s => s === id) !== -1
                     ? styles.selected
-                    : ""
+                    : ''
                 }`}
               />
               {icon.label && <span className={styles.label}>{label}</span>}

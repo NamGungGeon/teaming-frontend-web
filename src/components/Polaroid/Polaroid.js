@@ -1,24 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
-  Button,
   Card,
   CardBody,
   CardImg,
   CardSubtitle,
   CardText,
   CardTitle
-} from "reactstrap";
-import fullSizeIcon from "../../res/full_icon.png";
-import { formatToMoney } from "../../lib/utils";
-import PropTypes from "prop-types";
-import empty from "../../res/empty.png";
-import classNames from "classnames";
+} from 'reactstrap';
+import PropTypes from 'prop-types';
+import empty from '../../res/empty.png';
+import classNames from 'classnames';
 
 class Polaroid extends Component {
   static defaultProps = {
-    title: "",
-    explain: "",
-    content: "",
+    title: '',
+    explain: '',
+    content: '',
     buttons: []
   };
   static propTypes = {
@@ -57,12 +54,12 @@ class Polaroid extends Component {
           <CardBody>
             <CardTitle>{title}</CardTitle>
             <CardSubtitle>
-              <p className={"explain"}>{explain}</p>
+              <p className={'explain'}>{explain}</p>
             </CardSubtitle>
             <CardText>{content}</CardText>
             <br />
 
-            <div className={"centering childMargin"}>
+            <div className={'centering childMargin'}>
               {buttons.map(button => {
                 return button;
               })}

@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import ImageView from "../../components/ImageView/ImageView";
-import styles from "./ImageViewGroup.module.css";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React, { Component } from 'react';
+import ImageView from '../../components/ImageView/ImageView';
+import styles from './ImageViewGroup.module.css';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class ImageViewGroup extends Component {
   static defaultProps = {
     icons: [],
-    width: "auto"
+    width: 'auto'
   };
   static propTypes = {
     icons: PropTypes.array,
@@ -22,7 +22,7 @@ class ImageViewGroup extends Component {
           const { img, label, onClick, shape, width } = icon;
           return (
             <div
-              className={classNames({ clickable: !!onClick })}
+              className={classNames({ clickable: onClick })}
               onClick={onClick ? onClick : () => {}}
             >
               <ImageView

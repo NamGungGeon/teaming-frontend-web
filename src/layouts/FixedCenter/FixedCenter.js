@@ -1,14 +1,8 @@
-import React, { Component } from "react";
-import styles from "./FixedCenter.module.css";
+import React from 'react';
+import styles from './FixedCenter.module.css';
 
-class FixedCenter extends Component {
-  render() {
-    return (
-      <div className={styles.wrapper}>
-        <div>{this.props.children}</div>
-      </div>
-    );
-  }
-}
-
-export default FixedCenter;
+export default ({ children }) => (
+  <div className={styles.wrapper}>
+    <div>{children}</div>
+  </div>
+);

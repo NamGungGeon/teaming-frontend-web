@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import styles from "./ToastMessage.module.css";
+import React, { Component } from 'react';
+import styles from './ToastMessage.module.css';
 
 class ToastMessage extends Component {
   render() {
@@ -8,7 +8,6 @@ class ToastMessage extends Component {
       <div className={styles.toaster}>
         {msg &&
           msg.map(value => {
-            if (!value) return;
             return (
               <div>
                 <div className={styles.toast}>{value}</div>

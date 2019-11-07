@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import styles from "./NavTabs.module.css";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React, { Component } from 'react';
+import styles from './NavTabs.module.css';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class NavTabs extends Component {
   state = {

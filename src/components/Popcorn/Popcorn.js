@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import styles from "./Popcorn.module.css";
+import React, { Component } from 'react';
+import styles from './Popcorn.module.css';
 
 class Popcorn extends Component {
   render() {

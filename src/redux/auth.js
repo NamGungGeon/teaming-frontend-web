@@ -1,5 +1,5 @@
 import { handleActions, createAction } from 'redux-actions';
-import { delay, randStr } from '../lib/utils';
+import { randStr } from '../lib/utils';
 import Cookies from 'universal-cookie';
 
 const emailKey = 'asrgawersasfwaerawg';

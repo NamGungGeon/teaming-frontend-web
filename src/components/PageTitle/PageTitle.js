@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import classNames from "classnames";
-import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 
 class PageTitle extends Component {
   static defaultProps = {
-    titleColor: "white",
-    explain: ""
+    titleColor: 'white',
+    explain: ''
   };
   render() {
     const { title, titleColor, explain, centering, noMargin } = this.props;
     return (
-      <AlignLayout align={centering ? "center" : "left"}>
+      <AlignLayout align={centering ? 'center' : 'left'}>
         {!noMargin && (
           <div>
             <br />
@@ -18,15 +18,15 @@ class PageTitle extends Component {
           </div>
         )}
         <p
-          className={classNames("title")}
+          className={classNames('title')}
           style={{ fontFamily: "'Do Hyeon', sans-serif", color: titleColor }}
         >
           {title}
         </p>
         {explain && (
           <p
-            className={classNames("explain")}
-            style={{ color: titleColor, opacity: "0.8" }}
+            className={classNames('explain')}
+            style={{ color: titleColor, opacity: '0.8' }}
           >
             {explain}
           </p>

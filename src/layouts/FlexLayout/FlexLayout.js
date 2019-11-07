@@ -9,7 +9,6 @@ export default function FlexLayout({
   fixed,
   style
 }) {
-  // weights 랑 sumweights 는 무슨의도임?
   return (
     <div
       className={classNames({

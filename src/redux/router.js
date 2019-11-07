@@ -13,8 +13,9 @@ export default handleActions(
   {
     [INIT]: (bundle, action) => {
       if (!action.payload)
-        throw 'history init is fail since passed payload is null (redux/router.js)';
-
+        throw new Error(
+          'history init is fail since passed payload is null (redux/router.js)'
+        );
       return action.payload;
     }
   },
