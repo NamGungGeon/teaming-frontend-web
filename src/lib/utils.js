@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const checkEmail = email => {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -6,9 +6,9 @@ export const checkEmail = email => {
 };
 
 export const randStr = length => {
-  let text = "";
+  let text = '';
   const possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const endIdx = length ? length : 10;
   for (let i = 0; i < endIdx; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -32,23 +32,24 @@ export const updateState = (compoenent, obj) => {
 };
 
 export const formatToMoney = num => {
-  if (num === 0) return "0";
+  if (num === 0) return '0';
 
-  let money = "";
+  let money = '';
   while (num !== 0) {
-    const checker = money.replace(",", "");
-    if (checker.length !== 0 && checker.length % 3 == 0) money += ",";
+    const checker = money.replace(',', '');
+    if (checker.length !== 0 && checker.length % 3 == 0) money += ',';
     money += num % 10;
     num = parseInt(num / 10);
   }
 
   return money
-    .split("")
+    .split('')
     .reverse()
-    .join("");
+    .join('');
 };
+
 export const formatFromMoney = money => {
-  const num = money.replaceAll(",", "");
+  const num = money.replaceAll(',', '');
   return parseInt(num);
 };
 
@@ -64,8 +65,11 @@ export const scrollToBottom = ref => {
   const { scrollHeight, clientHeight } = ref;
   ref.scrollTop = scrollHeight - clientHeight;
 };
+
 export const isEndScroll = ref => {
-  if (!ref) return false;
+  if (!ref) {
+    return false;
+  }
 
   const { scrollHeight, clientHeight } = ref;
   //console.log(`scrollTop: ${ref.scrollTop}`, `subtract: ${scrollHeight-clientHeight}`, `hit: ${ref.scrollTop>= scrollHeight-clientHeight}`);

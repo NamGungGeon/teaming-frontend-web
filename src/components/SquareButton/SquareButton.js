@@ -1,38 +1,34 @@
-import React, { Component } from "react";
-import styles from "./SquareButton.module.css";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React from 'react';
+import styles from './SquareButton.module.css';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import logo from '../../res/icon.png';
 
-class SquareButton extends Component {
-  static defaultProps = {
-    img: "",
-    backgroundColor: "#ffd000",
-    onClick: () => {},
-    minHeight: "350px"
-  };
-  static propTypes = {
-    img: PropTypes.string,
-    backgroundColor: PropTypes.oneOf(["#ffd000", "#fc0474", "#03d8fe"]),
-    onClick: PropTypes.func,
-    minHeight: PropTypes.string
-  };
-
-  render() {
-    const { children, img, backgroundColor, onClick, minHeight } = this.props;
-    return (
-      <div
-        className={classNames([
-          styles.button,
-          `${onClick ? styles.enable : ""}`
-        ])}
-        style={{ backgroundColor, minHeight }}
-        onClick={onClick}
-      >
-        {children}
-        {img}
-      </div>
-    );
-  }
+export default function SquareButton({
+  children,
+  backgroundColor,
+  onClick,
+  minHeight
+}) {
+  return (
+    <div
+      className={classNames([styles.button, `${onClick ? styles.enable : ''}`])}
+      style={{ backgroundColor, minHeight }}
+      onClick={onClick}
+    >
+      {children}
+      <img src={logo} alt="teaming-logo-bottom-right" />
+    </div>
+  );
 }
 
-export default SquareButton;
+SquareButton.defaultProps = {
+  backgroundColor: '#ffd000',
+  minHeight: '350px'
+};
+
+SquareButton.propTypes = {
+  backgroundColor: PropTypes.oneOf(['#ffd000', '#fc0474', '#03d8fe']),
+  onClick: PropTypes.func.isRequired,
+  minHeight: PropTypes.string
+};

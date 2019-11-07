@@ -13,7 +13,9 @@ export default handleActions(
   {
     [INIT]: (bundle, action) => {
       if (!action.payload)
-        throw 'uiBundle init is fail since passed payload is null (redux/uikit.js)';
+        throw new Error(
+          'uiBundle init is fail since passed payload is null (redux/uikit.js)'
+        );
 
       return action.payload;
     }

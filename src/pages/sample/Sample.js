@@ -12,7 +12,6 @@ import Windows from './Windows';
 class Sample extends Component {
   render() {
     const { match } = this.props;
-    console.log(getPath(`${match.url}/polaroids`));
     return (
       <div>
         <Route exact path={getPath(`${match.url}/`)} component={List} />

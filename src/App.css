@@ -1,75 +1,79 @@
-
-*{
+* {
   margin: 0;
   padding: 0;
   font-family: 'Nanum Gothic', sans-serif;
   color: white;
 }
-a{
-  color: inherit!important;
+a {
+  color: inherit !important;
 }
-a:hover{
-  text-decoration: none!important;
-  color: inherit!important;
+a:hover {
+  text-decoration: none !important;
+  color: inherit !important;
 }
-a:visited{
-  text-decoration: none!important;
-  color: inherit!important;
+a:visited {
+  text-decoration: none !important;
+  color: inherit !important;
 }
-body{
-  background-color: #333333!important;
+body {
+  background-color: #333333 !important;
 }
-label{
+label {
   font-weight: 600;
 }
-.form-check{
+.form-check {
   display: inline;
 }
-.clickable{
+.clickable {
   cursor: pointer;
 }
-.hide{
-  display: none!important;
+.hide {
+  display: none !important;
 }
-h1,h2,h3,h4,h5,h6{
-  font-weight: 600!important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600 !important;
 }
-.table td{
-  vertical-align: middle!important;
+.table td {
+  vertical-align: middle !important;
 }
 
-.title{
+.title {
   font-size: 1.8rem;
   font-weight: 600;
   margin: 0;
 }
 
-.explain{
+.explain {
   font-size: 0.8rem;
   font-style: italic;
 }
-.shadowing{
+.shadowing {
   box-shadow: 4px 8px 16px #00000022;
 }
 
-.floatingBtn{
+.floatingBtn {
   position: fixed;
   z-index: 9999;
   border-radius: 100%;
   cursor: pointer;
   box-shadow: 4px 8px 16px #00000022;
 
-  background-color: #E1006088;
+  background-color: #e1006088;
   bottom: 32px;
   right: 32px;
 }
-.floatingBtn > img{
+.floatingBtn > img {
   margin: 24px;
   width: 10px;
   height: 10px;
 }
 
-.floatingBtn > b{
+.floatingBtn > b {
   display: inline-block;
   width: 14px;
   height: 14px;
@@ -79,9 +83,7 @@ h1,h2,h3,h4,h5,h6{
   transform: translate(1px, -8px);
 }
 
-
-
-.fullDisplay{
+.fullDisplay {
   position: absolute;
   top: 48px;
   width: 100%;
@@ -93,16 +95,16 @@ h1,h2,h3,h4,h5,h6{
   justify-content: center;
   align-items: center;
 }
-.fullDisplay > *, .stretch{
+.fullDisplay > *,
+.stretch {
   width: 100%;
   height: 100%;
 }
-.table > thead{
+.table > thead {
   background-color: #f9f9f9;
 }
 
-
-.guideLine{
+.guideLine {
   padding: 32px 0;
   text-align: left;
   display: inline-block;
@@ -111,29 +113,29 @@ h1,h2,h3,h4,h5,h6{
 
   position: absolute;
 }
-.guide-small{
+.guide-small {
   max-width: 500px;
 }
-.padding-normal{
+.padding-normal {
   padding: 16px;
 }
-.blank{
+.blank {
   display: inline-block;
   width: 10%;
   height: 100%;
 }
-.hide{
-  display: none!important;
+.hide {
+  display: none !important;
 }
 
-.desktop{
+.desktop {
   display: initial;
 }
-.mobile{
-  display: none!important;
+.mobile {
+  display: none !important;
 }
 
-.flexBox{
+.flexBox {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -141,42 +143,42 @@ h1,h2,h3,h4,h5,h6{
 
   width: 100%;
 }
-.flexBox> div{
+.flexBox > div {
   border-radius: 4px;
   border: 1px solid #00000033;
   width: calc(50% - 16px);
   margin: 8px 0;
   padding: 16px;
 }
-.border-box{
+.border-box {
   border-radius: 4px;
   border: 1px solid #00000033;
   padding: 16px;
   margin: 8px 0;
 }
-.childMargin> *{
+.childMargin > * {
   margin: 0 4px;
 }
-table.noHead tr> td:nth-child(1){
+table.noHead tr > td:nth-child(1) {
   font-weight: 700;
 }
-@media(max-width: 500px){
-  .mobile{
-    display: initial!important;
+@media (max-width: 500px) {
+  .mobile {
+    display: initial !important;
   }
-  .desktop{
-    display: none!important;
+  .desktop {
+    display: none !important;
   }
-  .fullDisplay{
+  .fullDisplay {
     min-width: 0;
     padding: 0 8px;
   }
-  .guideLine{
+  .guideLine {
     padding: 32px 8px;
     width: 100%;
   }
 
-  .flexBox> div{
+  .flexBox > div {
     width: calc(100% - 16px);
   }
 }
