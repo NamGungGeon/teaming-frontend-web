@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styles from './ChatInputBox.module.css';
 import PropTypes from 'prop-types';
 import { Form, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import { quickConnect } from '../../redux';
@@ -10,7 +9,7 @@ class ChatInputBox extends Component {
   static propTypes = {
     hint: PropTypes.string,
     type: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired
+    sendMessage: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -25,27 +24,30 @@ class ChatInputBox extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevState.value !== this.state.value) {
-      console.log(this.state.value);
-    }
-  }
+  handleChange = event => {
+    event.preventDefault();
+    this.setState({ value: event.target.value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const { sendMessage } = this.props;
+    const { value } = this.state;
+    sendMessage(value);
+    this.setState({ value: '' });
+  };
 
   render() {
-    const { hint, type, onSubmit: submit } = this.props;
-    const { value } = this.state;
-
+    const { hint, type } = this.props;
     return (
-      <Form className="chat-submission-form" onSubmit={submit(value)}>
+      <Form className="chat-submission-form" onSubmit={this.handleSubmit}>
         <InputGroup>
           <Input
             type={type}
+            value={this.state.value}
             innerRef={ref => (this.inputBox = ref)}
             placeholder={hint}
-            onChange={event => {
-              event.preventDefault();
-              this.setState({ value: event.target.value });
-            }}
+            onChange={this.handleChange}
           />
           <InputGroupAddon addonType="append">
             <Button type="submit" color={'danger'}>
