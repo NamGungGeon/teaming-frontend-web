@@ -6,10 +6,10 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import reduxChunk from './redux';
+import reduxChunk from './components/redux';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { getPath } from './lib/url';
+import { getPath } from './components/utils/url';
 
 const store = createStore(reduxChunk);
 

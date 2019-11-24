@@ -1,0 +1,14 @@
+.square{
+
+}
+.rounding{
+    border-radius: 8px;
+}
+.circle{
+    border-radius: 100%;
+}
+
+.img{
+    width: 48px;
+    height: 48px;
+}

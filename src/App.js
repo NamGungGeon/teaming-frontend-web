@@ -1,11 +1,15 @@
 import './App.css';
 import { Route } from 'react-router-dom';
-import VerticalNavigation from './containers/Navigation/VerticalNavigation';
+import VerticalNavigation from './components/containers/Navigation/TopNavigation';
 import React, { Component } from 'react';
-import { UiBundle } from './lib/ui';
-import { quickConnect } from './redux';
-import { getPath } from './lib/url';
-import { Home, Chat, Teambuild } from './pages';
+import { UiBundle } from './components/utils/hoc';
+import { quickConnect } from './components/redux';
+import { getPath } from './components/utils/url';
+import {Home, Chat, Teambuild, Auth, Trash, Rooms} from './components/pages';
+import MyPage from "./components/pages/mypage/MyPage";
+import Trade from "./components/pages/trade/Trade";
+import Privacy from "./components/pages/Privacy";
+import Footer from "./components/containers/Footer/Footer";
 
 // App 은 최상단 컴포넌트인데 mstp를 connected 하는건 좋은패턴이 아님
 // UIKit 이랑 Router dispatcher 하는 코드를 어떤 패턴으로 구현했는지 해석이 좀 어려운데
@@ -19,21 +23,31 @@ class App extends Component {
 
   componentDidMount() {
     this.props.UIKitDispatcher.init(UiBundle(this));
-    this.props.RouterDispatcher.init(this.props.history);
   }
 
   render() {
     return (
       <div>
-        {this.props.uiKit ? this.props.uiKit.render() : ''}
-        <VerticalNavigation />
-        <div className="fullDisplay">
-          <div className="guideLine">
-            <Route exact path={getPath('/')} component={Home} />
-            <Route path={getPath('/teambuild')} component={Teambuild} />
-            <Route exact path={getPath('/chat')} component={Chat} />
+        {this.props.uiKit && (
+          <div>
+            {this.props.uiKit.render()}
+            <VerticalNavigation history={this.props.history}/>
+            <div className="fullDisplay">
+              <div className="guideLine">
+                <Route exact path={getPath('/')} component={Home} />
+                <Route path={getPath('/teambuild')} component={Teambuild} />
+                <Route exact path={getPath('/chat')} component={Chat} />
+                <Route path={getPath('/auth')} component={Auth} />
+                <Route path={getPath('/trash')} component={Trash} />
+                <Route path={getPath('/rooms')} component={Rooms} />
+                <Route path={getPath('/mypage')} component={MyPage} />
+                <Route path={getPath('/trade')} component={Trade} />
+                <Route path={getPath('/privacy')} component={Privacy} />
+              </div>
+              <Footer/>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

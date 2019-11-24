@@ -1,0 +1,33 @@
+.wrapper{
+    display: inline-block;
+    height: 90%;
+    width: 100%;
+}
+.ring{
+    cursor: pointer;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 56px;
+
+    display: inline-block;
+    padding: 16px;
+
+    background-color: #ffffff99;
+}
+.chatMsgs{
+    position: relative;
+
+    background-color: #444444;
+    border: 0.6px solid #ffffff33;
+
+    display: inline-block;
+    width: 100%;
+    height: 90%;
+    min-height: 550px;
+
+    overflow-y: scroll;
+}
+.chatInput{
+    width: 100%;
+}

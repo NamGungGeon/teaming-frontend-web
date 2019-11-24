@@ -1,0 +1,28 @@
+
+footer{
+    background-color: #222222;
+    border-top: 0.6px solid #ffffff33;
+    width: 100%;
+    padding: 32px;
+
+    color: #b9b9b9;
+    font-size: 0.9rem;
+
+    display: flex!important;
+    justify-content: center;
+    align-items: center;
+}
+footer> .guide{
+    width: 100%;
+    max-width: 1200px;
+}
+
+.list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.list> *{
+    padding: 0 4px;
+    color: #b9b9b9;
+}

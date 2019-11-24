@@ -1,0 +1,22 @@
+.frame{
+    border: 0.6px solid #ffffff33;
+    box-sizing: border-box;
+    background-color: #444444;
+}
+.title{
+    border-bottom: 0.6px solid #ffffff33;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 8px;
+}
+.title .mileStone{
+    float: right;
+}
+.body{
+    padding: 8px;
+    transition-property: height;
+}
+.body.folded{
+    display: none!important;
+}

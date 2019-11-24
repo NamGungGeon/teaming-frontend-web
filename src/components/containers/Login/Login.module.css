@@ -1,0 +1,42 @@
+
+
+
+.parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.child{
+    border-radius: 4px;
+    border: 0.6px solid #FFFFFF33;
+    width: 500px;
+
+    padding: 36px;
+    padding-top: 0!important;
+    margin-bottom: 36px;
+}
+.form{
+    text-align: left;
+}
+.form .buttons{
+    display: flex;
+    justify-content: space-between;
+}
+.form .buttons> *{
+    width: 48%;
+}
+.icon{
+    width: 80%;
+    max-width: 200px;
+    height: auto;
+
+    margin: 36px 0;
+}
+
+@media (max-width: 500px) {
+    .child{
+        padding: 16px;
+        width: 100%;
+    }
+}

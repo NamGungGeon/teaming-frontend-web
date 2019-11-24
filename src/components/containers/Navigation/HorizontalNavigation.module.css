@@ -1,0 +1,14 @@
+.topic{
+    display: block;
+    cursor: pointer;
+}
+.portal{
+    cursor: pointer;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+}
+.portal:hover{
+    opacity: 1;
+}

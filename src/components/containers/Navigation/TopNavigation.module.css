@@ -1,0 +1,35 @@
+nav.vertical{
+    position: fixed;
+    width: 100%;
+    background: #222222;
+    padding: 4px 0;
+    z-index: 9999;
+    border-bottom: 0.6px solid #ffffff33;
+
+    display: flex;
+    justify-content: center;
+
+    color: white;
+}
+.guideLine{
+    display: flex;
+    width: 95%;
+    max-width: 1200px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon{
+    margin: 4px 0;
+    cursor: pointer;
+    height: 32px;
+}
+
+.right{
+    color: white;
+}
+.right > *{
+    cursor: pointer;
+    color: #e9e9e9;
+    margin-left: 16px;
+}

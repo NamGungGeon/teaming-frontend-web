@@ -1,0 +1,14 @@
+.wrapper{
+    padding-bottom: 16px;
+    cursor: pointer;
+}
+.content{
+    word-break: break-all;
+}
+
+.comments{
+    padding-left: 32px;
+}
+.create{
+    margin: 8px 0;
+}

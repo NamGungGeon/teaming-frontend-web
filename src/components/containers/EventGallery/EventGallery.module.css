@@ -1,0 +1,37 @@
+.wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.event{
+    margin: 8px;
+    width: calc(33% - 16px);
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 2px solid #ffffff;
+
+    transition-property: border, transform, box-shadow;
+    transition-duration: 0.3s;
+}
+.event:hover{
+    transform: translateY(-4px);
+    box-shadow: 4px 8px 16px #ffffff33;
+}
+.event> .title{
+    text-align: center;
+    padding: 8px 0;
+    background-color: #444444;
+}
+.event> img{
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 500px) {
+    .event{
+        width: 95%;
+    }
+}
+
