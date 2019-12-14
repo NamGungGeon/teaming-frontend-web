@@ -51,7 +51,7 @@ class ItemList extends Component {
                 items.map(item=>{
                   return {
                     title: `${item.title} [${item.commentCnt}]`,
-                    exp_l: `${item.date}  /  ${item.user}`,
+                    exp_l: `${item.user}    (${item.date})`,
                     exp_r: `(${item.type==='cash'? '현금': '게임머니'}) ${formatToMoney(item.price)}원`,
                     thumbnail: icon,
                     onClick: ()=>{

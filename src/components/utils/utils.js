@@ -76,8 +76,7 @@ export const isEndScroll = ref => {
 };
 
 export const authorized= auth=>{
-  console.log('auth', auth);
- return auth && auth.email && auth.token && auth.refresh;
+ return auth && auth.email && auth.token && auth.refresh && auth.id;
 };
 
 export const randNum= limit=>{

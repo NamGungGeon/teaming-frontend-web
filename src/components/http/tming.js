@@ -35,3 +35,56 @@ export const signin= (email, password)=>{
     }
   });
 };
+
+export const getTrashes= (auth)=>{
+  return axios.request({
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+    },
+    url: `${url}/feelings`,
+  });
+};
+
+export const createTrash= (auth, text)=>{
+  return axios.request({
+    method: 'POST',
+    url: `${url}/feelings`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+    },
+    data: {
+      text
+    }
+  });
+};
+export const getTrashComments= (auth, id,)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/feelings/${id}/replies`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+    }
+  });
+};
+export const createTrashComment= (auth, id, text)=>{
+  return axios.request({
+    method: 'POST',
+    url: `${url}/feelings/${id}/replies`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+    },
+    data: {
+      text
+    }
+  });
+};
+export const deleteTrashComment= (auth, feelId, replyId)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/feelings/${feelId}/replies/${replyId}`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+    },
+  });
+};

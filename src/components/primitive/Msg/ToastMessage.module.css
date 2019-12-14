@@ -4,10 +4,12 @@
     bottom: 8px;
     z-index: 99999;
     text-align: right;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .toast{
-    display: block;
     padding: 4px 8px;
     border-radius: 4px;
     background-color: #dc3545;

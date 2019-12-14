@@ -12,7 +12,7 @@
     transition-property: transform, box-shadow, background-color;
     transition-duration: 0.3s;
 
-    border-radius: 4px;
+    border-radius: 16px;
 
     background-size: 100% auto;
     background-position: 50% 50%;
@@ -37,7 +37,6 @@
 }
 
 .button:hover:not(.disable){
-    background-color: #fc0474;
     transform: translateY(-4px);
     box-shadow: 4px 8px 16px #00000033;
 

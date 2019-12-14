@@ -69,7 +69,7 @@ class ImageSelect extends Component {
     return (
       <div className={styles.group} style={style}>
         {icons.map(icon => {
-          const { img, label, id, shape } = icon;
+          const { img, label, id, shape, height } = icon;
           return (
             <div
               key={randStr(5)}
@@ -80,6 +80,7 @@ class ImageSelect extends Component {
               <ImageView
                 img={img}
                 shape={shape}
+                height={height}
                 className={`${
                   selected.findIndex(s => s === id) !== -1
                     ? styles.selected

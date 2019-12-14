@@ -6,6 +6,10 @@ import PageTitle from '../../primitive/PageTitle/PageTitle';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 
 import {randStr} from "../../utils/utils";
+import FlexLayout from "../../layouts/FlexLayout/FlexLayout";
+import FormGroup from "reactstrap/es/FormGroup";
+import Col from "reactstrap/es/Col";
+import {Input} from "reactstrap";
 
 class Category extends Component {
   state = {
@@ -31,14 +35,15 @@ class Category extends Component {
           this.go(getPath(`/trade/dnf`));
         }
       },
-    ]
+    ],
+    filter: '',
   };
 
   go = path => {
     this.props.history.push(path);
   };
   render() {
-    const { gameList } = this.state;
+    const { gameList, filter } = this.state;
     return (
       <div>
         <AlignLayout align={'center'}>
@@ -48,18 +53,41 @@ class Category extends Component {
             align={'center'}
           />
         </AlignLayout>
-        <Popcorn>
-          {gameList.map(game => {
+
+        <AlignLayout align={'right'}>
+          <FormGroup row>
+            <Col sm={8}/>
+            <Col sm={4}>
+              <Input
+                className={'transparent'}
+                onChange={e=>{
+                  this.setState({
+                    ...this.state,
+                    filter: e.target.value,
+                  })
+                }}
+                placeholder="게임 검색"/>
+            </Col>
+          </FormGroup>
+        </AlignLayout>
+        <FlexLayout responsive margin={16}>
+          {gameList.map((game, idx) => {
+            if(filter!== '' && !game.label.includes(filter))
+              return '';
             return (
               <div key={randStr(5)}>
                 <SquareButton
+                  style={{
+                    animationDelay: `${0.1*idx}s`,
+                  }}
+                  enableAnimation
                   {...game}
                 />
                 <br />
               </div>
             );
           })}
-        </Popcorn>
+        </FlexLayout>
       </div>
     );
   }

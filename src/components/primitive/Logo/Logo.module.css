@@ -1,0 +1,15 @@
+.wrapper{
+    display: none;
+}
+.logo{
+    width: 200px;
+}
+
+@media (max-width: 500px) {
+    .wrapper{
+        display: block;
+    }
+    .logo{
+        width: 55%;
+    }
+}

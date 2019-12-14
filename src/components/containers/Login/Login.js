@@ -36,9 +36,10 @@ class Login extends Component {
         const {id, access, refresh}= response.data;
 
         AuthDispatcher.login({
-          email: id,
+          email: email,
           token: access,
-          refresh
+          refresh,
+          id: id,
         });
         history.push(getPath(`/mypage`));
       })

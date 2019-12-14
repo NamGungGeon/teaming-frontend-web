@@ -1,18 +1,15 @@
 .wrapper{
-    width: 90%;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1200px;
     display: inline-block;
+    border-radius: 16px;
     padding: 16px;
-
-    text-align: left;
+}
+.outline{
     border: 0.6px solid #FFFFFF33;
-    border-radius: 4px;
 }
-.wrapper> .section{
-    margin: 16px 0;
-}
-.wrapper> .section:nth-last-child(1){
-    margin: 0;
+.fill{
+    background-color: #444444;
 }
 
 

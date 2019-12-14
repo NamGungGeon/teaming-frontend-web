@@ -9,7 +9,7 @@
 .wrapper> .border{
     flex: 1;
     height: 1px;
-    background-color: white;
+    background-color: #ffffff66;
 }
 .wrapper> .label{
     font-size: 1.3rem;

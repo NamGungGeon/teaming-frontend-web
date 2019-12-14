@@ -1,0 +1,18 @@
+.notice{
+    cursor: pointer;
+    text-align: left;
+
+    transition-property: transform;
+    transition-duration: 0.3s;
+}
+.notice:hover{
+    transform: translateX(4px);
+}
+
+.notice> .date{
+    font-size: 0.8rem;
+    color: #ffffff99;
+}
+.notice> .title{
+    font-weight: 600;
+}

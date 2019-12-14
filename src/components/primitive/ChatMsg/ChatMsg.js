@@ -22,6 +22,7 @@ class ChatMsg extends Component {
         <ImageView
           img={profile ? profile : logo}
           width={'30px'}
+          height={'30px'}
           className={styles.profile}
           shape={'circle'}
         />

@@ -7,6 +7,7 @@ import classNames from 'classnames';
 class ImageView extends Component {
   static defaultProps = {
     width: '48px',
+    height: 'auto',
     img: empty,
     shape: 'square',
     border: '0.6px solid #33333300',
@@ -21,6 +22,7 @@ class ImageView extends Component {
     border: PropTypes.string,
     shadow: PropTypes.bool,
     width: PropTypes.string,
+    height: PropTypes.string,
     style: PropTypes.object,
     onClick: PropTypes.func,
     className: PropTypes.string
@@ -32,6 +34,7 @@ class ImageView extends Component {
       shape,
       border,
       width,
+      height,
       shadow,
       style,
       onClick,
@@ -56,6 +59,7 @@ class ImageView extends Component {
             ...style,
             border: border,
             width,
+            height,
           }}
           onClick={onClick ? onClick : () => {}}
         />

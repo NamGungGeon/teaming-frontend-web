@@ -1,27 +1,38 @@
-import React, { Component } from 'react';
-import SquareButton from '../../primitive/SquareButton/SquareButton';
-import { getPath } from '../../utils/url';
-import PageTitle from '../../primitive/PageTitle/PageTitle';
-import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-
-import lol from '../../resource/icon/lol.jpg';
-import overwatch from '../../resource/icon/overwatch.png';
-import battleground from '../../resource/icon/battleground.png';
-import {randStr} from "../../utils/utils";
-import FlexLayout from "../../layouts/FlexLayout/FlexLayout";
-import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
+import React, {Component} from 'react';
+import lol from "../../resource/icon/lol.jpg";
+import {getPath} from "../../utils/url";
+import overwatch from "../../resource/icon/overwatch.png";
+import battleground from "../../resource/icon/battleground.png";
+import PageTitle from "../../primitive/PageTitle/PageTitle";
+import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import FormGroup from "reactstrap/es/FormGroup";
 import Col from "reactstrap/es/Col";
+import {Input} from "reactstrap";
 import Popcorn from "../../primitive/Popcorn/Popcorn";
+import FlexLayout from "../../layouts/FlexLayout/FlexLayout";
+import {randStr} from "../../utils/utils";
+import SquareButton from "../../primitive/SquareButton/SquareButton";
 
-class GameList extends Component {
+class Category extends Component {
   state = {
     gameList: [
+      {
+        label: '자유게시판',
+        onClick: () => {
+          this.go(getPath(`/community/freedom`));
+        }
+      },
+      {
+        label: '익명게시판',
+        onClick: () => {
+          this.go(getPath(`/community/anonymous`));
+        }
+      },
       {
         label: '리그 오브 레전드',
         icon: lol,
         onClick: () => {
-          this.go(getPath(`/teambuild/lol`));
+          this.go(getPath(`/community/lol`));
         }
       },
       {
@@ -44,8 +55,8 @@ class GameList extends Component {
     return (
       <div>
         <PageTitle
-          title={'팀 매칭'}
-          explain={'팀 매칭이 필요한 게임을 선택하세요'}
+          title={'커뮤니티'}
+          explain={'마음껏 즐기세요!'}
           align={'center'}
         />
         <AlignLayout align={'right'}>
@@ -60,7 +71,7 @@ class GameList extends Component {
                     filter: e.target.value,
                   })
                 }}
-                placeholder="게임 검색"/>
+                placeholder="카테고리 검색"/>
             </Col>
           </FormGroup>
         </AlignLayout>
@@ -86,4 +97,4 @@ class GameList extends Component {
   }
 }
 
-export default GameList;
+export default Category;

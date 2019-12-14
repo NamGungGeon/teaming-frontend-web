@@ -6,10 +6,11 @@ import { getPath } from '../../utils/url';
 import classNames from 'classnames';
 import {quickConnect} from "../../redux";
 import {authorized} from "../../utils/utils";
+import queryString from 'query-string';
 
 
 
-const TopNavigation= ({auth, history, AuthDispatcher})=> {
+const TopNavigation= ({auth, history, location, AuthDispatcher})=> {
   const quickMenus = [
     {
       title: '로그인',
@@ -41,8 +42,16 @@ const TopNavigation= ({auth, history, AuthDispatcher})=> {
       requireAuth: true,
     }
   ];
+
+  const query= queryString.parse(location.search);
+  const {hideNav}= query;
+
   return (
-    <nav className={classNames(styles.vertical)}>
+    <nav
+      style={{
+        display: hideNav? 'none': 'flex',
+      }}
+      className={classNames(styles.vertical)}>
       <div className={`${styles.guideLine}`}>
         <span className={styles.left}>
           <NavLink to={getPath('/')}>
