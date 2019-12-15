@@ -1,13 +1,19 @@
 import { bindActionCreators, combineReducers } from 'redux';
-import uikit from './uikit';
+
+import uiKit from './uikit';
 import auth from './auth';
+import config from './config';
+
 import * as Auth from './auth';
 import * as UIKit from './uikit';
+import * as Config from './config';
+
 import { connect } from 'react-redux';
 
 export default combineReducers({
-  uikit,
+  uiKit,
   auth,
+  config,
 });
 
 export const quickConnect = component => {
@@ -20,14 +26,16 @@ export const quickConnect = component => {
   const connected = connect(
     state => {
       return {
-        uiKit: state.uikit,
+        uiKit: state.uiKit,
         auth: state.auth,
+        config: state.config,
       };
     },
     dispatch => {
       return {
         UIKitDispatcher: bindActionCreators(UIKit, dispatch),
         AuthDispatcher: bindActionCreators(Auth, dispatch),
+        ConfigDispatcher: bindActionCreators(Config, dispatch),
       };
     },
     null,

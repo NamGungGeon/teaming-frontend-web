@@ -10,7 +10,7 @@ import queryString from 'query-string';
 
 
 
-const TopNavigation= ({auth, history, location, AuthDispatcher})=> {
+const TopNavigation= ({auth, history, location, AuthDispatcher, config})=> {
   const quickMenus = [
     {
       title: '로그인',
@@ -43,8 +43,7 @@ const TopNavigation= ({auth, history, location, AuthDispatcher})=> {
     }
   ];
 
-  const query= queryString.parse(location.search);
-  const {hideNav}= query;
+  const {hideNav}= config;
 
   return (
     <nav

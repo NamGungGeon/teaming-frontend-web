@@ -24,13 +24,17 @@ class App extends Component {
   }
 
   componentDidMount() {
+
+    const query= queryString.parse(this.props.location.search);
+    const {hideNav}= query;
+    if(hideNav)
+      this.props.ConfigDispatcher.hideNav();
+
     this.props.UIKitDispatcher.init(UiBundle(this));
   }
 
   render() {
-
-    const query= queryString.parse(this.props.location.search);
-    const {hideNav}= query;
+    const {config}= this.props;
 
     return (
       <div>
@@ -42,7 +46,7 @@ class App extends Component {
               location={this.props.location}/>
             <div
               style={{
-                top: hideNav? '0': '48px',
+                top: config.hideNav? '0': '48px',
               }}
               className="fullDisplay">
               <div className="guideLine">
