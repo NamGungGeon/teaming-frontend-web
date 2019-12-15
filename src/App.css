@@ -18,7 +18,7 @@ a:visited {
   color: inherit !important;
 }
 body {
-  background-color: #333333 !important;
+  background-color: #202020 !important;
 }
 label {
   font-weight: 600;
@@ -199,3 +199,34 @@ table.noHead tr > td:nth-child(1) {
     width: calc(100% - 16px);
   }
 }
+
+
+.MuiFormControl-root{
+  width: 100%;
+  max-width: 500px;
+}
+.MuiFormControl-root>*{
+  color: white!important;
+}
+.MuiOutlinedInput-notchedOutline{
+  border: 1px solid #ffffff99!important;
+}
+.MuiOutlinedInput-notchedOutline:focus{
+  border: 1px solid white!important;
+}
+.MuiPaper-root *{
+  background: none!important;
+}
+.MuiPaper-root> *{
+  background: #333333!important;
+}
+.MuiInput-underline *{
+  font-style: initial!important;
+}
+.MuiInput-underline:before{
+  border-bottom: none!important;
+}
+.MuiInput-underline:after{
+  border-bottom: none!important;
+}
+

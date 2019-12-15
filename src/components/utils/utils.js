@@ -81,4 +81,4 @@ export const authorized= auth=>{
 
 export const randNum= limit=>{
   return parseInt(Math.random()*10000%limit);
-}
+};

@@ -41,7 +41,7 @@ class Login extends Component {
           refresh,
           id: id,
         });
-        history.push(getPath(`/mypage`));
+        history.goBack();
       })
       .catch((e)=> {
         uiKit.toaster.cooking(errMsg(e));

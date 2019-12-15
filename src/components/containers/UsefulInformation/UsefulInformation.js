@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import styles from './UsefulInformation.module.css';
-import EventList from "../../pages/events/EventList";
 import EventGallery from "../EventGallery/EventGallery";
-import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import Notices from "../Notices/Notices";
 import Section from "../../primitive/Section/Section";
 

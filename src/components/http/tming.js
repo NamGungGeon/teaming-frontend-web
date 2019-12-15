@@ -64,6 +64,9 @@ export const getTrashComments= (auth, id,)=>{
     url: `${url}/feelings/${id}/replies`,
     headers: {
       Authorization: 'Bearer '+ auth.token,
+    },
+    params:{
+      limit: 10000,
     }
   });
 };

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 const Section= ({children, divideStyle})=> {
 
   return (
-    <AlignLayout align="center">
+    <AlignLayout align="left">
       <div
         className={classNames(styles.wrapper, styles[divideStyle])}>
         {
@@ -19,7 +19,7 @@ const Section= ({children, divideStyle})=> {
 };
 
 Section.defaultProps= {
-  divideStyle: 'fill',
+  divideStyle: 'outline',
 };
 Section.propTypes= {
   divideStyle: PropTypes.oneOf(['outline', 'fill'])

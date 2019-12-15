@@ -1,10 +1,10 @@
 nav.vertical{
     position: fixed;
     width: 100%;
-    background: #222222;
+    background: #333333;
     padding: 4px 0;
     z-index: 9999;
-    border-bottom: 0.6px solid #ffffff66;
+    box-shadow: 4px 4px 8px black;
 
     display: flex;
     justify-content: center;

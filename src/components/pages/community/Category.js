@@ -12,6 +12,9 @@ import Popcorn from "../../primitive/Popcorn/Popcorn";
 import FlexLayout from "../../layouts/FlexLayout/FlexLayout";
 import {randStr} from "../../utils/utils";
 import SquareButton from "../../primitive/SquareButton/SquareButton";
+import ButtonsWrapper from "../../primitive/ButtonsWrapper/ButtonsWrapper";
+import TextField from "@material-ui/core/TextField";
+import Window from "../../primitive/Window/Window";
 
 class Category extends Component {
   state = {
@@ -54,44 +57,39 @@ class Category extends Component {
     const { gameList, filter } = this.state;
     return (
       <div>
-        <PageTitle
-          title={'커뮤니티'}
-          explain={'마음껏 즐기세요!'}
-          align={'center'}
-        />
-        <AlignLayout align={'right'}>
-          <FormGroup row>
-            <Col sm={8}/>
-            <Col sm={4}>
-              <Input
-                className={'transparent'}
-                onChange={e=>{
-                  this.setState({
-                    ...this.state,
-                    filter: e.target.value,
-                  })
-                }}
-                placeholder="카테고리 검색"/>
-            </Col>
-          </FormGroup>
-        </AlignLayout>
-        <Popcorn>
-          <FlexLayout responsive margin={16}>
-            {gameList.map(game => {
-              if(filter!== '' && !game.label.includes(filter))
-                return '';
+        <Window title={'메뉴'} foldable>
+          <AlignLayout align={'right'}>
+            <TextField
+              size={'small'}
+              onChange={e=>{
+                this.setState({
+                  ...this.state,
+                  filter: e.target.value,
+                })
+              }}
+              color={'white'}
+              label="카테고리 검색"
+              variant="outlined" />
+          </AlignLayout>
+          <br/>
+          <ButtonsWrapper
+            buttons={
+              gameList.map(game => {
+                if(filter!== '' && !game.label.includes(filter))
+                  return '';
 
-              return (
-                <div key={randStr(5)}>
+                return (
                   <SquareButton
+                    style={{
+                      width: '100%'
+                    }}
+                    key={randStr(5)}
                     {...game}
                   />
-                  <br />
-                </div>
-              );
-            })}
-          </FlexLayout>
-        </Popcorn>
+                );
+              })
+            }/>
+        </Window>
       </div>
     );
   }

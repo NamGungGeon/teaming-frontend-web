@@ -1,0 +1,16 @@
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.wrapper>*{
+    width: 31.33%;
+    margin: 1%;
+}
+
+@media (max-width: 500px) {
+    .wrapper> *{
+        width: 48%!important;
+    }
+}
