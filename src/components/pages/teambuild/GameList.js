@@ -36,6 +36,10 @@ class GameList extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
   go = path => {
     this.props.history.push(path);
   };

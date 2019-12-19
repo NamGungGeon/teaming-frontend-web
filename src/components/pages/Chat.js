@@ -6,6 +6,7 @@ import SendBird from 'sendbird';
 import ChatLayout from "../primitive/ChatLayout/ChatLayout";
 import Window from "../primitive/Window/Window";
 import Button from "reactstrap/es/Button";
+import {scrollToTop} from "../utils/utils";
 
 class Chat extends Component {
   constructor(props) {
@@ -25,6 +26,8 @@ class Chat extends Component {
   }
 
   async componentDidMount() {
+    scrollToTop();
+
     const user = this.chatApp.connect(this.userID);
     const channel = await this.chatApp.OpenChannel.getChannel(
       'teamingSampleOpen'

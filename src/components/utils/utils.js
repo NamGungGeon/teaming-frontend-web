@@ -57,18 +57,16 @@ export const getDays = milliSecond => {
 };
 
 export const scrollToBottom = ref => {
-  if (!ref) return;
-
   //console.log('scroll go!');
   const { scrollHeight, clientHeight } = ref;
   ref.scrollTop = scrollHeight - clientHeight;
 };
 
-export const isEndScroll = ref => {
-  if (!ref) {
-    return false;
-  }
+export const scrollToTop= ()=>{
+  window.scrollTo(0,0);
+}
 
+export const isEndScroll = ref => {
   const { scrollHeight, clientHeight } = ref;
   //console.log(`scrollTop: ${ref.scrollTop}`, `subtract: ${scrollHeight-clientHeight}`, `hit: ${ref.scrollTop>= scrollHeight-clientHeight}`);
 
@@ -76,7 +74,7 @@ export const isEndScroll = ref => {
 };
 
 export const authorized= auth=>{
- return auth && auth.email && auth.token && auth.refresh && auth.id;
+ return auth && auth.token && auth.refresh && auth.id;
 };
 
 export const randNum= limit=>{

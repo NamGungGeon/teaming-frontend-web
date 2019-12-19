@@ -3,6 +3,10 @@ import PageTitle from "../primitive/PageTitle/PageTitle";
 import {privacy} from "../utils/strings";
 
 class Privacy extends Component {
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
   render() {
     return (
       <div>

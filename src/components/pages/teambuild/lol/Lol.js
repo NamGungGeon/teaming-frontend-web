@@ -5,6 +5,9 @@ import Option from "./Option";
 import Start from "./Start";
 
 class Lol extends Component {
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
   render() {
     return (
       <div>

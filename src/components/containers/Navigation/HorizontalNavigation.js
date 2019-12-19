@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Collapse from "reactstrap/es/Collapse";
 import styles from './HorizontalNavigation.module.css';
 import {randStr} from "../../utils/utils";
+import MenuItem from "@material-ui/core/MenuItem";
 
 class HorizontalNavigation extends Component {
   state= {
@@ -57,12 +58,12 @@ class HorizontalNavigation extends Component {
                   {
                     nav[topic].map(portal=>{
                       return (
-                        <div
+                        <MenuItem
                           key={portal.label}
                           className={styles.portal}
                           onClick={portal.onClick}>
                           {portal.label}
-                        </div>);
+                        </MenuItem>);
                     })
                   }
                   <br/>

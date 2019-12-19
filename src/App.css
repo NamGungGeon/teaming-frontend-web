@@ -122,8 +122,6 @@ tbody tr{
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
-  position: absolute;
 }
 .guideLine {
   padding: 32px 8px;
@@ -132,7 +130,6 @@ tbody tr{
   width: 100%;
   min-height: 100%;
   max-width: 1200px;
-
 }
 .guide-small {
   max-width: 500px;
@@ -214,10 +211,7 @@ table.noHead tr > td:nth-child(1) {
 .MuiOutlinedInput-notchedOutline:focus{
   border: 1px solid white!important;
 }
-.MuiPaper-root *{
-  background: none!important;
-}
-.MuiPaper-root> *{
+.MuiPaper-root:not(.MuiButtonBase-root)> *{
   background: #333333!important;
 }
 .MuiInput-underline *{
@@ -230,3 +224,11 @@ table.noHead tr > td:nth-child(1) {
   border-bottom: none!important;
 }
 
+.ck.ck-editor__main{
+}
+.ck.ck-content{
+  height: 500px;
+}
+.ck.ck-content> *{
+  color: black;
+}

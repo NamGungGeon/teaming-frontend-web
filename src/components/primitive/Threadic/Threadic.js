@@ -12,6 +12,7 @@ import {quickConnect} from "../../redux";
 import {createTrashComment, deleteTrashComment, getTrashComments} from "../../http/tming";
 import {errMsg} from "../../http/util";
 import moment from "moment";
+import Comment from "../Comment/Comment";
 
 class Threadic extends Component {
   state= {
@@ -188,17 +189,14 @@ class Threadic extends Component {
                 </InputGroupAddon>
               </InputGroup>
             </div>
+            <br/>
             {
               comments.map(comment=>
-                (<div
-                  onClick={()=>{
-                    this.removeComment(comment.id);
-                  }}>
-                  ㄴ&nbsp;{comment.text}
-                  <br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <sub>2019.11.14 작성됨</sub>
-                </div>)
+                (
+                  <Comment
+                    text={comment.text}
+                    createdAt={new Date().toString()}/>
+                )
               )
             }
           </Collapse>

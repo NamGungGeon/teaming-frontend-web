@@ -35,7 +35,7 @@ class Window extends Component {
               });
           }}
         >
-          {title}
+          <b>{title}</b>
           {foldable && (
             <div className={styles.mileStone}>
               {this.state.folded ? <MdExpandMore /> : <MdExpandLess/>}

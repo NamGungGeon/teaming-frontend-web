@@ -12,6 +12,8 @@ import Logo from "../primitive/Logo/Logo";
 import ButtonsWrapper from "../primitive/ButtonsWrapper/ButtonsWrapper";
 
 export default function Home(props) {
+  window.scrollTo(0,0);
+  
   const go = path => {
     props.history.push(path);
   };

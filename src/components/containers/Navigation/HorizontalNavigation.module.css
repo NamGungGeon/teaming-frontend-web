@@ -1,6 +1,7 @@
 .topic{
     display: block;
     cursor: pointer;
+    margin-bottom: 4px;
 }
 .portal{
     cursor: pointer;

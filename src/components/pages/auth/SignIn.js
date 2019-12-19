@@ -9,8 +9,8 @@ class SignIn extends Component {
     const {auth, history, location, AuthDispatcher}= this.props;
 
     const query= urlQuery(location);
-    const {email, id, token, refresh }= query;
-    if(email && id && token && refresh){
+    const {id, token, refresh }= query;
+    if(id && token && refresh){
       AuthDispatcher.login(query);
       return;
     }

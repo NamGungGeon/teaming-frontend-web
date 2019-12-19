@@ -6,6 +6,9 @@ import PwChange from "./PwChange";
 import Escape from "./Escape";
 
 class Info extends Component {
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
   render() {
     return (
       <div>

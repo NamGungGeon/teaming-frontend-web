@@ -8,13 +8,12 @@ const refreshKey= 'agarwrt3qrtrhresadfgawgg';
 const idKey= '34tw5ehyes5tushe';
 
 const cookie = new Cookies();
-const initAuth = (newEmail, newToken, newRefresh, newId) => {
-  const email = newEmail ? newEmail : cookie.get(emailKey);
+const initAuth = ( newToken, newRefresh, newId) => {
   const token = newToken ? newToken : cookie.get(tokenKey);
   const refresh= newRefresh? newRefresh: cookie.get(refreshKey);
   const id= newId? newId: cookie.get(idKey);
   return {
-    email, token, refresh,id
+    token, refresh,id
   };
 };
 const user = initAuth();
@@ -28,19 +27,17 @@ export const logout = createAction(LOGOUT);
 export default handleActions(
   {
     [LOGIN]: (beforeAuth, action) => {
-      const { email, token, refresh, id } = action.payload;
+      const { token, refresh, id } = action.payload;
 
-      cookie.set(emailKey, email);
       cookie.set(tokenKey, token);
       cookie.set(refreshKey, refresh);
       cookie.set(idKey, id);
 
-      console.log(email, token, refresh, id);
+      console.log(token, refresh, id);
 
-      return initAuth(email, token, refresh, id);
+      return initAuth(token, refresh, id);
     },
     [LOGOUT]: () => {
-      cookie.set(emailKey, null);
       cookie.set(tokenKey, null);
       cookie.set(refreshKey, null);
       cookie.set(idKey, null);

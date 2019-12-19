@@ -12,6 +12,10 @@ import Col from "reactstrap/es/Col";
 import {Input} from "reactstrap";
 
 class Category extends Component {
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
   state = {
     gameList: [
       {

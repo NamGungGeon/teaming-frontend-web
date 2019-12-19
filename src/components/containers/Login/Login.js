@@ -36,7 +36,6 @@ class Login extends Component {
         const {id, access, refresh}= response.data;
 
         AuthDispatcher.login({
-          email: email,
           token: access,
           refresh,
           id: id,

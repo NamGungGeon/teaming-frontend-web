@@ -6,27 +6,27 @@ import {getPath} from "../../utils/url";
 const notices= [
   {
     id: randNum(1000),
-    title: `${randStr(30)}`,
+    title: `${randStr(20)}`,
     date: `${new Date().toString()}`,
   },
   {
     id: randNum(1000),
-    title: `${randStr(30)}`,
+    title: `${randStr(20)}`,
     date: `${new Date().toString()}`,
   },
   {
     id: randNum(1000),
-    title: `${randStr(30)}`,
+    title: `${randStr(20)}`,
     date: `${new Date().toString()}`,
   },
   {
     id: randNum(1000),
-    title: `${randStr(30)}`,
+    title: `${randStr(20)}`,
     date: `${new Date().toString()}`,
   },
   {
     id: randNum(1000),
-    title: `${randStr(30)}`,
+    title: `${randStr(20)}`,
     date: `${new Date().toString()}`,
   },
 ];

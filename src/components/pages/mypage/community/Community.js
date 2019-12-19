@@ -7,6 +7,10 @@ import Route from "react-router-dom/es/Route";
 import Message from "./Message";
 
 class Community extends Component {
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
   render() {
     return (
       <div>

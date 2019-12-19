@@ -3,13 +3,21 @@ import {getPath} from "../../utils/url";
 import Option from "../teambuild/lol/Option";
 import Start from "../teambuild/lol/Start";
 import Route from "react-router-dom/es/Route";
-import Category from "./Category";
 import Contents from "./Contents";
 import Content from "./Content";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import HorizontalSlicedLayout from "../../layouts/HorizontalSlicedLayout/HorizontalSlicedLayout";
+import Window from "../../primitive/Window/Window";
+import HorizontalNavigation from "../../containers/Navigation/HorizontalNavigation";
+import {randNum} from "../../utils/utils";
+import lol from "../../resource/icon/lol.jpg";
+import overwatch from "../../resource/icon/overwatch.png";
+import battleground from "../../resource/icon/battleground.png";
+import CommunityCategory from "../../containers/CommunityCategory/CommunityCategory";
+import Write from "./Write";
 
 class Community extends Component {
+
   render() {
     return (
       <div>
@@ -19,8 +27,13 @@ class Community extends Component {
           align={'center'}
         />
         <HorizontalSlicedLayout>
-          <Route path={getPath(`/community/`)} component={Category}/>
-          <Route exact path={getPath(`/community/:category`)} component={Contents}/>
+          <CommunityCategory
+            history={this.props.history}/>
+          <div>
+            <Route exact path={getPath(`/community/write`)} component={Write}/>
+            <Route exact path={getPath(`/community`)} component={Contents}/>
+            <Route exact path={getPath(`/community/read/:id`)} component={Content}/>
+          </div>
         </HorizontalSlicedLayout>
       </div>
     );
