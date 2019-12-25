@@ -13,7 +13,7 @@ import Service from "./service/Service";
 
 const MyPage =({auth, history, match, location})=> {
 
-
+  console.log('mypage', auth);
   if(!authorized(auth)){
     window.alert('로그인이 필요한 서비스입니다');
     history.push(getPath(`/`));

@@ -91,3 +91,10 @@ export const deleteTrashComment= (auth, feelId, replyId)=>{
     },
   });
 };
+
+export const getNotices= ()=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/admin/notices`,
+  });
+};
