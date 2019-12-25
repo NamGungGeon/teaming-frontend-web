@@ -94,7 +94,35 @@ export const deleteTrashComment= (auth, feelId, replyId)=>{
 
 export const getNotices= ()=>{
   return axios.request({
-    method: 'DELETE',
+    method: 'GET',
     url: `${url}/admin/notices`,
   });
 };
+export const getEvents= ()=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/admin/events`,
+  });
+};
+
+export const getMyProfile= (auth)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/me`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+    },
+  });
+};
+export const uploadProfileImage= (auth, file)=>{
+  return axios.request({
+    method: 'PATCH',
+    url: `${url}/me/picture`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+    },
+    data: {
+      image: file,
+    }
+  });
+}

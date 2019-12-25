@@ -18,12 +18,12 @@ class PageTitle extends Component {
             <br />
           </div>
         )}
-        <p
+        <h3
           className={classNames('title')}
-          style={{ fontFamily: "'Do Hyeon', sans-serif", color: titleColor }}
+          style={{ color: titleColor }}
         >
           {title}
-        </p>
+        </h3>
         {explain && (
           <p
             className={classNames('explain')}

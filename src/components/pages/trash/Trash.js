@@ -24,42 +24,39 @@ class Trash extends Component {
   }
   loadTrashes= async ()=>{
     const {auth, history, uiKit}= this.props;
-    if(!authorized(auth)){
-      history.push(getPath('/auth/signin'));
-    }else{
-      uiKit.loading.start();
-      await getTrashes(auth).then(response=>{
-        const {data}= response.data;
 
-        if(!data || !data.length) {
-          uiKit.toaster.cooking(
-            (<div>
-              아직 게시글이 없습니다
-              <br/>
-              첫 글의 주인공이 되어보세요!
-            </div>));
-          return;
-        }
-        console.log(data);
-        this.setState({
-          ...this.state,
-          trashes: data.map(trash=>{
-              return {
-                user: "익명",
-                content: trash.text,
-                createdAt: trash.createdAt,
-                comments: trash.replies,
-                id: trash.id,
-              }
+    uiKit.loading.start();
+    await getTrashes(auth).then(response=>{
+      const {data}= response.data;
+
+      if(!data || !data.length) {
+        uiKit.toaster.cooking(
+          (<div>
+            아직 게시글이 없습니다
+            <br/>
+            첫 글의 주인공이 되어보세요!
+          </div>));
+        return;
+      }
+      console.log(data);
+      this.setState({
+        ...this.state,
+        trashes: data.map(trash=>{
+            return {
+              user: "익명",
+              content: trash.text,
+              createdAt: trash.createdAt,
+              comments: trash.replies,
+              id: trash.id,
             }
-          )
-        });
-      }).catch(e=>{
-        console.log(e);
-        uiKit.toaster.cooking(errMsg(e));
+          }
+        )
       });
-      uiKit.loading.end();
-    }
+    }).catch(e=>{
+      console.log(e);
+      uiKit.toaster.cooking(errMsg(e));
+    });
+    uiKit.loading.end();
   }
 
   componentWillUnmount() {

@@ -4,25 +4,36 @@ import AlignLayout from '../layouts/AlignLayout/AlignLayout';
 import PageTitle from '../primitive/PageTitle/PageTitle';
 import SquareButton from '../primitive/SquareButton/SquareButton';
 import FlexLayout from '../layouts/FlexLayout/FlexLayout';
-import { getPath } from '../utils/url';
+import {getPath, urlQuery} from '../utils/url';
 import logo from '../resource/icon.png';
 import people from '../resource/icon/people.png';
 import UsefulInformation from "../containers/UsefulInformation/UsefulInformation";
 import Logo from "../primitive/Logo/Logo";
 import ButtonsWrapper from "../primitive/ButtonsWrapper/ButtonsWrapper";
+import {quickConnect} from "../redux";
 
-export default function Home(props) {
+function Home({AuthDispatcher, history, location}) {
+
+  //check auth query
+  const query= urlQuery(location);
+
+  const {id, token, refresh }= query;
+  if(id && token && refresh){
+    AuthDispatcher.login(query);
+  }
+  //end check
+
   window.scrollTo(0,0);
   
   const go = path => {
-    props.history.push(path);
+    history.push(path);
   };
 
   return (
     <AlignLayout align="center">
       <Logo/>
       <UsefulInformation
-        history={props.history}/>
+        history={history}/>
       <br/>
       <ButtonsWrapper
         buttons={[
@@ -79,3 +90,5 @@ export default function Home(props) {
     </AlignLayout>
   );
 }
+
+export default quickConnect(Home);
