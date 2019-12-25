@@ -14,7 +14,6 @@ export default handleActions(
   {
     [HIDE_NAV]: (beforeState, action) => {
       beforeState.hideNav= true;
-
       return defaultConfig;
     },
   },

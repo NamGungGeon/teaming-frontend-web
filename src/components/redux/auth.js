@@ -38,10 +38,10 @@ export default handleActions(
       return initAuth(token, refresh, id);
     },
     [LOGOUT]: () => {
-      cookie.set(tokenKey, null);
-      cookie.set(refreshKey, null);
-      cookie.set(idKey, null);
-      return null;
+      cookie.set(tokenKey, '');
+      cookie.set(refreshKey, '');
+      cookie.set(idKey, '');
+      return {};
     }
   },
   user

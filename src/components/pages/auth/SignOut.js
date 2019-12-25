@@ -12,7 +12,7 @@ class SignOut extends Component {
   render() {
     return (
       <div>
-
+        로그아웃
       </div>
     );
   }

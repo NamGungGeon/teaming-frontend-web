@@ -12,6 +12,7 @@ class SignIn extends Component {
     const {id, token, refresh }= query;
     if(id && token && refresh){
       AuthDispatcher.login(query);
+      history.push(getPath(`/`));
       return;
     }
 
