@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import AlignLayout from '../layouts/AlignLayout/AlignLayout';
 
 import PageTitle from '../primitive/PageTitle/PageTitle';
@@ -12,32 +12,38 @@ import Logo from "../primitive/Logo/Logo";
 import ButtonsWrapper from "../primitive/ButtonsWrapper/ButtonsWrapper";
 import {quickConnect} from "../redux";
 
-function Home({AuthDispatcher, history, location}) {
+class Home extends Component{
 
-  //check auth query
-  const query= urlQuery(location);
+  componentDidMount() {
+    const {AuthDispatcher, location}= this.props;
+    //check auth query
+    const query= urlQuery(location);
 
-  const {id, token, refresh }= query;
-  if(id && token && refresh){
-    AuthDispatcher.login(query);
+    const {id, token, refresh }= query;
+    if(id && token && refresh){
+      AuthDispatcher.login(query);
+    }
+    //end check
+
+    window.scrollTo(0,0);
   }
-  //end check
 
-  window.scrollTo(0,0);
-  
-  const go = path => {
-    history.push(path);
-  };
+  render() {
+    const {history}= this.props;
 
-  return (
-    <AlignLayout align="center">
-      <Logo/>
-      <UsefulInformation
-        history={history}/>
-      <br/>
-      <ButtonsWrapper
-        buttons={[
-          (<SquareButton
+    const go = path => {
+      history.push(path);
+    };
+
+    return (
+      <AlignLayout align="center">
+        <Logo/>
+        <UsefulInformation
+          history={history}/>
+        <br/>
+        <ButtonsWrapper
+          buttons={[
+            (<SquareButton
               style={{backgroundColor: '#fc0474'}}
               onClick={() => {
                 go(getPath(`/teambuild`));
@@ -45,31 +51,31 @@ function Home({AuthDispatcher, history, location}) {
               icon={people}
               label={'팀 매칭'}
             />),
-          (<SquareButton
-            style={{backgroundColor: '#2ab3fe'}}
-            onClick={() => {
-              go(getPath(`/chat`));
-            }}
-            icon={logo}
-            label={'랜덤채팅'}
-          />),
-          (<SquareButton
-            style={{backgroundColor: '#fc0474'}}
-            icon={logo}
-            label={'커뮤니티'}
-            onClick={()=>{
-              go(getPath(`/community`));
-            }}
-          />),
-          (<SquareButton
-            style={{backgroundColor: '#2ab3fe'}}
-            icon={logo}
-            onClick={()=>{
-              go(getPath(`/trash`))
-            }}
-            label={'화장실'}
-          />),
-          (<SquareButton
+            (<SquareButton
+              style={{backgroundColor: '#2ab3fe'}}
+              onClick={() => {
+                go(getPath(`/chat`));
+              }}
+              icon={logo}
+              label={'랜덤채팅'}
+            />),
+            (<SquareButton
+              style={{backgroundColor: '#fc0474'}}
+              icon={logo}
+              label={'커뮤니티'}
+              onClick={()=>{
+                go(getPath(`/community`));
+              }}
+            />),
+            (<SquareButton
+              style={{backgroundColor: '#2ab3fe'}}
+              icon={logo}
+              onClick={()=>{
+                go(getPath(`/trash`))
+              }}
+              label={'화장실'}
+            />),
+            (<SquareButton
               style={{backgroundColor: '#fc0474'}}
               icon={logo}
               label={'거래소'}
@@ -77,7 +83,7 @@ function Home({AuthDispatcher, history, location}) {
                 go(getPath(`/trade`))
               }}
             />),
-          (<SquareButton
+            (<SquareButton
               icon={logo}
               style={{backgroundColor: '#2ab3fe'}}
               label={'커플 매칭'}
@@ -85,10 +91,11 @@ function Home({AuthDispatcher, history, location}) {
 
               }}
             />)
-        ]}
-      />
-    </AlignLayout>
-  );
+          ]}
+        />
+      </AlignLayout>
+    );
+  }
 }
 
 export default quickConnect(Home);
