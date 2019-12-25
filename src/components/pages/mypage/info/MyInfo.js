@@ -13,7 +13,7 @@ import ImageIcon from '@material-ui/icons/Image';
 
 class MyInfo extends Component {
   state={
-    profile: '',
+    profile: null,
   }
 
   async componentDidMount() {
@@ -23,7 +23,7 @@ class MyInfo extends Component {
     await getMyProfile(this.props.auth).then(response=>{
       this.setState({
         ...this.state,
-        ...response.data,
+        profile: response.data,
       })
     });
     uiKit.loading.end();
@@ -92,6 +92,10 @@ class MyInfo extends Component {
 
   render() {
     const {uiKit, auth}= this.props;
+    const {profile}= this.state;
+
+    if(!profile)
+      return (<div/>);
 
     return (
       <div>

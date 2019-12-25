@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { UiBundle } from './components/utils/hoc';
 import { quickConnect } from './components/redux';
 import { getPath } from './components/utils/url';
-import {Home, Chat, Teambuild, Auth, Trash, Rooms, Events} from './components/pages';
+import {Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices} from './components/pages';
 import MyPage from "./components/pages/mypage/MyPage";
 import Trade from "./components/pages/trade/Trade";
 import Privacy from "./components/pages/Privacy";
@@ -61,6 +61,7 @@ class App extends Component {
                 <Route path={getPath('/privacy')} component={Privacy} />
                 <Route path={getPath('/events')} component={Events} />
                 <Route path={getPath('/community')} component={Community} />
+                <Route path={getPath('/important/notices/')} component={Notices} />
               </div>
               <Footer/>
             </div>

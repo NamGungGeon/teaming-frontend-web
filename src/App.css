@@ -109,7 +109,7 @@ tbody tr{
   transform: translate(1px, -8px);
 }
 
-.fullDisplay {
+.fullDisplay{
   position: absolute;
   top: 48px;
   width: 100%;
@@ -121,6 +121,8 @@ tbody tr{
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  background-color: #202020;
 }
 .guideLine {
   padding: 32px 8px;

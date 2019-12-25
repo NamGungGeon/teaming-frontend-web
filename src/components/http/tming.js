@@ -98,12 +98,24 @@ export const getNotices= ()=>{
     url: `${url}/admin/notices`,
   });
 };
+export const getNotice= (id)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/admin/notices/${id}`,
+  });
+}
 export const getEvents= ()=>{
   return axios.request({
     method: 'GET',
     url: `${url}/admin/events`,
   });
 };
+export const getEvent= (id)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/admin/events/${id}`,
+  });
+}
 
 export const getMyProfile= (auth)=>{
   return axios.request({
