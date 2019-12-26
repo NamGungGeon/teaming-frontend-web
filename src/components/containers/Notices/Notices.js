@@ -40,7 +40,7 @@ class Notices extends Component{
                 <p
                   className={styles.notice}
                   onClick={()=>{
-                    history.push(getPath(`/notices/${notice.id}`));
+                    history.push(getPath(`/important/notices/${notice.id}`));
                   }}>
                 <span className={styles.title}>
                 {notice.title}

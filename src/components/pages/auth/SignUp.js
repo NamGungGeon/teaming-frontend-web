@@ -14,6 +14,7 @@ import {signup} from "../../http/tming";
 import {errMsg, responseCode} from "../../http/util";
 import {getPath} from "../../utils/url";
 import {privacy} from "../../utils/strings";
+import {authorized} from "../../utils/utils";
 
 class SignUp extends Component {
   state= {
@@ -26,6 +27,12 @@ class SignUp extends Component {
   validator= new Validator();
 
   componentDidMount() {
+    const {auth, history}= this.props;
+    if(authorized(auth)){
+      history.push(getPath(`/`));
+      return;
+    }
+
     this.openPrivacyRule();
   }
 
@@ -79,7 +86,6 @@ class SignUp extends Component {
     uiKit.loading.start();
     await signup(email, pw, nickname, gender)
       .then(response=>{
-        const {data}= response;
         uiKit.popup.make((
           <div>
             <h4>회원가입이 완료되었습니다</h4>

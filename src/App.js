@@ -59,9 +59,9 @@ class App extends Component {
                 <Route path={getPath('/mypage')} component={MyPage} />
                 <Route path={getPath('/trade')} component={Trade} />
                 <Route path={getPath('/privacy')} component={Privacy} />
-                <Route path={getPath('/events')} component={Events} />
                 <Route path={getPath('/community')} component={Community} />
-                <Route path={getPath('/important/notices/')} component={Notices} />
+                <Route path={getPath('/important/notices')} component={Notices} />
+                <Route path={getPath('/important/events')} component={Events} />
               </div>
               <Footer/>
             </div>

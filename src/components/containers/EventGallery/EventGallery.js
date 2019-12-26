@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import styles from './EventGallery.module.css';
 import {getPath} from "../../utils/url";
-import {randStr} from "../../utils/utils";
-import eventImg from '../../resource/event1.png';
-import Button from "reactstrap/es/Button";
 import classNames from "classnames";
 import {getEvents} from "../../http/tming";
 import Spinner from "reactstrap/es/Spinner";
+import {quickConnect} from "../../redux";
 
 class EventGallery extends Component {
   state={
@@ -14,14 +12,22 @@ class EventGallery extends Component {
   };
 
   componentDidMount() {
-    getEvents().then(response=>{
+    this.reload();
+  }
+
+  reload= async ()=>{
+    const {uiKit}= this.props;
+
+    uiKit.loading.start();
+    await getEvents().then(response=>{
       const {data}= response.data;
       this.setState({
         ...this.state,
         events: data,
       });
     });
-  }
+    uiKit.loading.end();
+  };
 
   render() {
     const {history, limit, style}= this.props;
@@ -43,10 +49,10 @@ class EventGallery extends Component {
                 return (
                   <div className={styles.event}>
                     <img
-                      src={event.img}
+                      src={event.banner}
                       alt=""
                       onClick={()=>{
-                        history.push(getPath(`/events/${event.id}`));
+                        history.push(getPath(`/important/events/${event.id}`));
                       }}/>
                     <div className={styles.title}>
                       (1일 남음)
@@ -57,13 +63,7 @@ class EventGallery extends Component {
                 )
               })
               :
-              (<div style={{
-                  width: '100%',
-                  textAlign: 'center',
-                  padding: '32px',
-                }}>
-                  <Spinner/>
-                </div>)
+              ''
           }
         </div>
       </div>
@@ -71,4 +71,4 @@ class EventGallery extends Component {
   }
 }
 
-export default EventGallery;
+export default quickConnect(EventGallery);

@@ -1,5 +1,6 @@
 import { randStr } from "../utils/utils";
 import axios from "axios";
+import moment from "moment";
 
 //base
 const url= `https://api.tming.kr/v0.1`;
@@ -103,7 +104,21 @@ export const getNotice= (id)=>{
     method: 'GET',
     url: `${url}/admin/notices/${id}`,
   });
-}
+};
+export const createNotice= (auth, title, text)=>{
+  const after30= moment().add(30, 'days').format("YYYY-MM-DD");
+
+  return axios.request({
+    method: 'POST',
+    url: `${url}/admin/notices`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+    },
+    data: {
+      title, text, until: after30,
+    }
+  });
+};
 export const getEvents= ()=>{
   return axios.request({
     method: 'GET',
@@ -115,7 +130,26 @@ export const getEvent= (id)=>{
     method: 'GET',
     url: `${url}/admin/events/${id}`,
   });
-}
+};
+export const createEvent= (auth, title, text, banner, startDate, endDate)=>{
+  const data= new FormData();
+  data.append('title', title);
+  data.append('text', text);
+  data.append('banner', banner);
+  data.append('startDate', startDate);
+  data.append('endDate', endDate);
+
+  return axios.request({
+    method: 'POST',
+    url: `${url}/admin/events`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+      'Content-Type': 'multipart/form-data',
+    },
+    data,
+  });
+};
+
 
 export const getMyProfile= (auth)=>{
   return axios.request({
@@ -127,14 +161,13 @@ export const getMyProfile= (auth)=>{
   });
 };
 export const uploadProfileImage= (auth, file)=>{
-  return axios.request({
-    method: 'PATCH',
-    url: `${url}/me/picture`,
+  const formdata = new FormData();
+  formdata.append('image', file);
+
+  return axios.patch(`${url}/me/picture`, formdata, {
     headers: {
       Authorization: 'Bearer '+ auth.token,
-    },
-    data: {
-      image: file,
+      'Content-Type': 'multipart/form-data',
     }
-  });
-}
+  })
+};

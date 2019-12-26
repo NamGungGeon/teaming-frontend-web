@@ -13,6 +13,8 @@ class Notice extends Component {
   }
 
   async componentDidMount() {
+    window.scrollTo(0,0);
+
     const {uiKit, match}= this.props;
     const {params}= match;
 
