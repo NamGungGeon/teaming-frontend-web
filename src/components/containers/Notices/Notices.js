@@ -4,6 +4,7 @@ import styles from './Notices.module.css';
 import {getPath} from "../../utils/url";
 import {getNotices} from "../../http/tming";
 import Spinner from "reactstrap/es/Spinner";
+import moment from "moment";
 
 class Notices extends Component{
   state={
@@ -19,6 +20,10 @@ class Notices extends Component{
       })
     });
   }
+
+  dateFormatting= (date)=>{
+    return moment(date, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]').format('YYYY[년]MM[월]DD[일 ]HH[시]mm[분]');
+  };
 
   render() {
     const {history}= this.props;
@@ -42,11 +47,11 @@ class Notices extends Component{
                   onClick={()=>{
                     history.push(getPath(`/important/notices/${notice.id}`));
                   }}>
-                <span className={styles.title}>
-                {notice.title}
-                </span>
+                  <span className={styles.title}>
+                  {notice.title}
+                  </span>
                   <div className={styles.date}>
-                    {notice.until}
+                    {this.dateFormatting(notice.until)}까지 표시됩니다
                   </div>
                 </p>
               )

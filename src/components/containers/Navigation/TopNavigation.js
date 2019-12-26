@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styles from './TopNavigation.module.css';
 import logo from '../../resource/logo_txt_white.png';
 import { NavLink } from 'react-router-dom';
@@ -6,61 +6,146 @@ import { getPath } from '../../utils/url';
 import classNames from 'classnames';
 import {quickConnect} from "../../redux";
 import {authorized} from "../../utils/utils";
-import queryString from 'query-string';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import PersonIcon from '@material-ui/icons/Person';
+import IconButton from "@material-ui/core/IconButton";
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import {Badge} from "@material-ui/core";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
+class TopNavigation extends Component{
+  state={
+    openOptions: false,
+    anchor: 0,
+  };
 
-const TopNavigation= ({auth, history, location, AuthDispatcher, config})=> {
-  const quickMenus = [
-    {
-      title: '로그인',
-      click: ()=>{
-        history.push(getPath('/auth/signin'));
+  render() {
+    const {auth, history, AuthDispatcher, config}= this.props;
+    const quickMenus = [
+      {
+        title: (
+          <IconButton>
+            <VpnKeyIcon/>
+          </IconButton>),
+        click: ()=>{
+          history.push(getPath('/auth/signin'));
+        },
+        requireAuth: false,
       },
-      requireAuth: false,
-    },
-    {
-      title: '회원가입',
-      click: ()=>{
-        history.push(getPath('/auth/signup'));
+      {
+        title: (
+          <IconButton>
+            <PersonAddIcon/>
+          </IconButton>),
+        click: ()=>{
+          history.push(getPath('/auth/signup'));
+        },
+        requireAuth: false,
       },
-      requireAuth: false,
-    },
-    {
-      title: '마이페이지',
-      click: ()=>{
-        history.push(getPath(`/mypage`));
+      {
+        title: (
+          <IconButton>
+            <PersonIcon/>
+          </IconButton>
+        ),
+        click: ()=>{
+          history.push(getPath(`/mypage`));
+        },
+        requireAuth: true,
       },
-      requireAuth: true,
-    },
-    {
-      title: '로그아웃',
-      click: ()=>{
-        AuthDispatcher.logout();
-        window.alert('로그아웃 되었습니다');
+      {
+        title: (
+          <span>
+            <IconButton
+              aria-label="more"
+              aria-controls="long-menu"
+              aria-haspopup="true"
+              onClick={(e)=>{
+                console.log(e.currentTarget);
+                this.setState({
+                  ...this.state,
+                  openOptions: true,
+                  anchor: e.currentTarget
+                })
+              }}
+            >
+              <Badge badgeContent={1} color={'primary'}>
+                <NotificationsIcon/>
+              </Badge>
+            </IconButton>
+            <Menu
+              style={{
+                zIndex: 99999,
+              }}
+              anchorEl={this.state.anchor}
+              keepMounted
+              open={this.state.openOptions}
+              onClose={()=>{
+                this.setState({
+                  ...this.state,
+                  openOptions: false,
+                })
+              }}
+              PaperProps={{
+                style: {
+                  width: 300,
+                },
+              }}
+            >
+              <MenuItem
+                onClick={()=>{
+                }}>
+                알림!
+              </MenuItem>
+            </Menu>
+          </span>
+        ),
+        click: ()=>{
+        },
+        requireAuth: true,
       },
-      requireAuth: true,
-    }
-  ];
+      {
+        title: (
+          <IconButton>
+            <ExitToAppIcon/>
+          </IconButton>
+        ),
+        click: ()=>{
+          AuthDispatcher.logout();
+          window.alert('로그아웃 되었습니다');
+        },
+        requireAuth: true,
+      },
+    ];
 
-  const {hideNav}= config;
+    const {hideNav}= config;
 
-  return (
-    <nav
-      style={{
-        display: hideNav? 'none': 'flex',
-      }}
-      className={classNames(styles.vertical)}>
-      <div className={`${styles.guideLine}`}>
+    return (
+      <nav
+        style={{
+          display: hideNav? 'none': 'flex',
+        }}
+        className={classNames(styles.vertical)}>
+        <div className={`${styles.guideLine}`}>
         <span className={styles.left}>
           <NavLink to={getPath('/')}>
             <img src={logo} alt="" className={styles.icon} />
           </NavLink>
         </span>
-        <span className={styles.right}>
+          <span className={styles.right}>
           {quickMenus.map((value, index) =>
             value.requireAuth === !!authorized(auth) || value.alwaysShow ? (
-              <span key={index} onClick={value.click}>
+              <span
+                style={{
+                  marginLeft: typeof value.title=== 'string'? '16px': '0',
+                }}
+                key={index}
+                onClick={value.click}>
                 {value.title}
               </span>
             ) : (
@@ -68,9 +153,10 @@ const TopNavigation= ({auth, history, location, AuthDispatcher, config})=> {
             )
           )}
         </span>
-      </div>
-    </nav>
-  );
+        </div>
+      </nav>
+    );
+  }
 };
 
 TopNavigation.defaultProps= {

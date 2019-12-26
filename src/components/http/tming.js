@@ -131,6 +131,16 @@ export const getEvent= (id)=>{
     url: `${url}/admin/events/${id}`,
   });
 };
+export const removeNotice= (auth, id)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/admin/events/${id}`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
 export const createEvent= (auth, title, text, banner, startDate, endDate)=>{
   const data= new FormData();
   data.append('title', title);
@@ -149,7 +159,15 @@ export const createEvent= (auth, title, text, banner, startDate, endDate)=>{
     data,
   });
 };
-
+export const removeEvent= (auth, id)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/admin/events/${id}`,
+    headers: {
+      Authorization: 'Bearer '+ auth.token,
+    },
+  });
+}
 
 export const getMyProfile= (auth)=>{
   return axios.request({

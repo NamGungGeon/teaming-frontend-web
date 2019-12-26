@@ -4,11 +4,14 @@ import EventGallery from "../EventGallery/EventGallery";
 import Notices from "../Notices/Notices";
 import Section from "../../primitive/Section/Section";
 import {getPath} from "../../utils/url";
+import moment from "moment";
 
 const UsefulInformation= ({history,})=> {
+
+
   return (
     <div className={styles.wrapper}>
-      <Section>
+      <Section divideStyle={'fill'}>
         <p style={{
           textAlign: 'left',
         }}>
@@ -28,7 +31,7 @@ const UsefulInformation= ({history,})=> {
           }}
           history={history}/>
       </Section>
-      <Section>
+      <Section divideStyle={'fill'}>
         <p style={{
           textAlign: 'left',
         }}>

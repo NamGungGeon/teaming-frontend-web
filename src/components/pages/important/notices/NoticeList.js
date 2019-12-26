@@ -15,6 +15,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import {getPath} from "../../../utils/url";
 import Section from "../../../primitive/Section/Section";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
+import moment from "moment";
 
 class NoticeList extends Component {
   state={
@@ -106,6 +107,10 @@ class NoticeList extends Component {
     ), true);
   };
 
+  dateFormatting= (date)=>{
+    return moment(date, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]').format('YYYY[년]MM[월]DD[일 ]HH[시]mm[분]');
+  };
+
   render() {
     const {notices}= this.state;
     const {history}= this.props;
@@ -140,9 +145,15 @@ class NoticeList extends Component {
                         }}
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content">
-                        <b>
-                          {notice.title}
-                        </b>
+                        <div>
+                          <b>
+                            {notice.title}
+                          </b>
+                          <br/>
+                          <span className={'explain'}>
+                            {this.dateFormatting(notice.until)}까지 표시됩니다
+                          </span>
+                        </div>
                       </ExpansionPanelSummary>
                     </ExpansionPanel>
                   );

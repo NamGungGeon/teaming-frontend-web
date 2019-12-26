@@ -11,6 +11,7 @@ import UsefulInformation from "../containers/UsefulInformation/UsefulInformation
 import Logo from "../primitive/Logo/Logo";
 import ButtonsWrapper from "../primitive/ButtonsWrapper/ButtonsWrapper";
 import {quickConnect} from "../redux";
+import HelpAppInstall from "../containers/HelpAppInstall/HelpAppInstall";
 
 class Home extends Component{
 
@@ -24,12 +25,11 @@ class Home extends Component{
       AuthDispatcher.login(query);
     }
     //end check
-
     window.scrollTo(0,0);
   }
 
   render() {
-    const {history}= this.props;
+    const {history, location}= this.props;
 
     const go = path => {
       history.push(path);
@@ -37,10 +37,13 @@ class Home extends Component{
 
     return (
       <AlignLayout align="center">
+        {
+          !urlQuery(location).imapp && (<HelpAppInstall/>)
+        }
         <Logo/>
         <UsefulInformation
           history={history}/>
-        <br/>
+        <br/><br/>
         <ButtonsWrapper
           buttons={[
             (<SquareButton

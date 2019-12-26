@@ -3,19 +3,21 @@ import Divider from "../../../primitive/Divider/Divider";
 import EventGallery from "../../../containers/EventGallery/EventGallery";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import {quickConnect} from "../../../redux";
-import {getEvent, getEvents} from "../../../http/tming";
+import {getEvent, getEvents, removeEvent} from "../../../http/tming";
 import {getPath, urlQuery} from "../../../utils/url";
 import {errMsg} from "../../../http/util";
 import ImageView from "../../../primitive/ImageView/ImageView";
 import moment from "moment";
+import Section from "../../../primitive/Section/Section";
+import Button from "@material-ui/core/Button";
 
-class EventView extends Component {
+class Event extends Component {
   state= {
     event: null,
   };
 
   async componentDidMount() {
-    const {uiKit, location, match}= this.props;
+    const {uiKit, match}= this.props;
 
     uiKit.loading.start();
     await getEvent(match.params.id).then(response=>{
@@ -42,7 +44,46 @@ class EventView extends Component {
     const endDate= moment(end, 'YYYY-MM-DD[T]HH:mm:ss.ZZZ[Z]');
 
     return endDate.diff(startDate, 'days');
-  }
+  };
+
+  removeEvent= ()=> {
+    const {uiKit, auth, match, history} = this.props;
+
+    uiKit.popup.make(
+      (<div>
+        <h5>이 이벤트를 삭제하시겠습니까?</h5>
+        <br/>
+        <AlignLayout align={'right'}>
+          <Button
+            color={'primary'}
+            variant={'contained'}
+            onClick={async ()=>{
+              uiKit.loading.start();
+              await removeEvent(auth, match.params.id).then(response => {
+                //ok removed!
+                uiKit.popup.destroy();
+                alert('삭제되었습니다');
+                history.push(getPath(`/important/events`));
+              }).catch(e=>{
+                uiKit.toaster.cooking(errMsg(e));
+              });
+              uiKit.loading.end();
+            }}>
+            삭제
+          </Button>
+          &nbsp;&nbsp;
+          <Button
+            color={'secondary'}
+            variant={'contained'}
+            onClick={()=>{
+              uiKit.popup.destroy();
+            }}>
+            닫기
+          </Button>
+        </AlignLayout>
+      </div>)
+    , true);
+  };
 
   render() {
     const {event}= this.state;
@@ -52,6 +93,18 @@ class EventView extends Component {
         {
           event &&
           (<div>
+            <Section divideStyle={'fill'}>
+              <h5>관리자 메뉴</h5>
+              <AlignLayout align={'right'}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.removeEvent}>
+                  이 이벤트 삭제
+                </Button>
+              </AlignLayout>
+            </Section>
+            <br/>
             <h3>{event.title}</h3>
             <p className={'explain'}>
               {this.dateFormatting(event.startDate)}부터 {this.dateFormatting(event.endDate)}까지
@@ -73,4 +126,4 @@ class EventView extends Component {
   }
 }
 
-export default quickConnect(EventView);
+export default quickConnect(Event);

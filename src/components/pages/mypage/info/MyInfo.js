@@ -65,8 +65,8 @@ class MyInfo extends Component {
             }}>
             <ImageView
               img={url}
-              width={'256px'}
-              height={'256px'}/>
+              width={'128px'}
+              height={'128px'}/>
             <AlignLayout
               style={{
                 flex: '1',
@@ -116,8 +116,6 @@ class MyInfo extends Component {
 
     return (
       <div>
-        <PageTitle title={'내 정보'} noMargin/>
-        <br/>
         {
           profile &&
           (
@@ -135,8 +133,8 @@ class MyInfo extends Component {
                   <div>
                     <ImageView
                       img={this.state.profile.profilePicture}
-                      width={'256px'}
-                      height={'256px'}/>
+                      width={'128px'}
+                      height={'128px'}/>
                   </div>
                   <AlignLayout
                     style={{

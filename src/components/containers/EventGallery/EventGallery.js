@@ -54,16 +54,19 @@ class EventGallery extends Component {
                       onClick={()=>{
                         history.push(getPath(`/important/events/${event.id}`));
                       }}/>
-                    <div className={styles.title}>
-                      (1일 남음)
-                      &nbsp;&nbsp;
-                      {event.title}
-                    </div>
                   </div>
                 )
               })
               :
-              ''
+              (
+                <div style={{
+                  width: '100%',
+                  textAlign: 'center',
+                  padding: '32px',
+                }}>
+                  <Spinner/>
+                </div>
+              )
           }
         </div>
       </div>
