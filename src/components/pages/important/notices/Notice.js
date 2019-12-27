@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import {quickConnect} from "../../../redux";
-import {getNotice, removeNotice} from "../../../http/tming";
+import {getMyProfile, getNotice, removeNotice} from "../../../http/tming";
 import {errMsg} from "../../../http/util";
 import Section from "../../../primitive/Section/Section";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import Button from "@material-ui/core/Button";
 import {getPath} from "../../../utils/url";
+import {authorized} from "../../../utils/utils";
 
 class Notice extends Component {
   state={
     notice: null,
+    isAdmin: false,
   }
   removeNotice= ()=> {
     const {uiKit, auth, match, history} = this.props;
@@ -53,7 +55,7 @@ class Notice extends Component {
   async componentDidMount() {
     window.scrollTo(0,0);
 
-    const {uiKit, match}= this.props;
+    const {uiKit, match, auth}= this.props;
     const {params}= match;
 
     const {id}= params;
@@ -67,34 +69,53 @@ class Notice extends Component {
       uiKit.toaster.cooking(errMsg(e));
     });
     uiKit.loading.end();
+
+
+
+    if(authorized(auth))
+      getMyProfile(auth).then(response=>{
+        const {role}= response.data;
+        if(role=== 'ADMIN')
+          this.setState({
+            ...this.state,
+            isAdmin: true,
+          })
+      });
   }
 
   render() {
-    const {notice}= this.state;
+    const {notice, isAdmin}= this.state;
     return (
       <div>
         {
           notice?
             (<div>
-              <Section divideStyle={'fill'}>
-                <h5>관리자 메뉴</h5>
-                <AlignLayout align={'right'}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={this.removeNotice}>
-                    이 공지사항 삭제
-                  </Button>
-                </AlignLayout>
-              </Section>
-              <br/>
-              <h3>
-                {notice.title}
-              </h3>
-              <br/>
-              <p>
-                {notice.text}
-              </p>
+              {
+                isAdmin &&
+                (
+                  <Section divideStyle={'fill'}>
+                    <h5>관리자 메뉴</h5>
+                    <AlignLayout align={'right'}>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={this.removeNotice}>
+                        이 공지사항 삭제
+                      </Button>
+                    </AlignLayout>
+                  </Section>
+                )
+              }
+              <div>
+                <br/>
+                <h3>
+                  {notice.title}
+                </h3>
+                <br/>
+                <p>
+                  {notice.text}
+                </p>
+              </div>
             </div>):
             (<div/>)
         }

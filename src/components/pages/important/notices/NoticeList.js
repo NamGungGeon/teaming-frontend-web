@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
 import {quickConnect} from "../../../redux";
-import {createNotice, getNotices} from "../../../http/tming";
+import {createNotice, getMyProfile, getNotices} from "../../../http/tming";
 import {errMsg} from "../../../http/util";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/core/SvgIcon/SvgIcon";
@@ -16,6 +16,7 @@ import {getPath} from "../../../utils/url";
 import Section from "../../../primitive/Section/Section";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import moment from "moment";
+import {authorized} from "../../../utils/utils";
 
 class NoticeList extends Component {
   state={
@@ -23,10 +24,11 @@ class NoticeList extends Component {
     newNoticeTitle: '',
     newNoticeText: '',
 
+    isAdmin: false,
   };
 
   async componentDidMount() {
-    const {uiKit}= this.props;
+    const {uiKit, auth}= this.props;
 
     uiKit.loading.start();
     await getNotices().then(response=>{
@@ -38,6 +40,16 @@ class NoticeList extends Component {
       uiKit.toaster.cooking(errMsg(e));
     });
     uiKit.loading.end();
+
+    if(authorized(auth))
+      getMyProfile(auth).then(response=>{
+        const {role}= response.data;
+        if(role=== 'ADMIN')
+          this.setState({
+            ...this.state,
+            isAdmin: true,
+          })
+      });
   };
 
   createNewNotice= ()=>{
@@ -112,7 +124,7 @@ class NoticeList extends Component {
   };
 
   render() {
-    const {notices}= this.state;
+    const {notices, isAdmin}= this.state;
     const {history}= this.props;
 
     return (
@@ -121,17 +133,22 @@ class NoticeList extends Component {
           title={'공지사항 리스트'}
           explain={'주요 공지사항입니다'}
           align={'center'}/>
-        <Section divideStyle={'fill'}>
-          <h5>관리자 메뉴</h5>
-          <AlignLayout align={'right'}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.createNewNotice}>
-              새로운 공지사항 등록
-            </Button>
-          </AlignLayout>
-        </Section>
+        {
+          isAdmin &&
+          (
+            <Section divideStyle={'fill'}>
+              <h5>관리자 메뉴</h5>
+              <AlignLayout align={'right'}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={this.createNewNotice}>
+                  새로운 공지사항 등록
+                </Button>
+              </AlignLayout>
+            </Section>
+          )
+        }
         {
           notices &&
             (notices.length>0?

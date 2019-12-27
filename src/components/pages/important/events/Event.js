@@ -3,21 +3,23 @@ import Divider from "../../../primitive/Divider/Divider";
 import EventGallery from "../../../containers/EventGallery/EventGallery";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import {quickConnect} from "../../../redux";
-import {getEvent, getEvents, removeEvent} from "../../../http/tming";
+import {getEvent, getEvents, getMyProfile, removeEvent} from "../../../http/tming";
 import {getPath, urlQuery} from "../../../utils/url";
 import {errMsg} from "../../../http/util";
 import ImageView from "../../../primitive/ImageView/ImageView";
 import moment from "moment";
 import Section from "../../../primitive/Section/Section";
 import Button from "@material-ui/core/Button";
+import {authorized} from "../../../utils/utils";
 
 class Event extends Component {
   state= {
     event: null,
+    isAdmin: false,
   };
 
   async componentDidMount() {
-    const {uiKit, match}= this.props;
+    const {uiKit, match, auth}= this.props;
 
     uiKit.loading.start();
     await getEvent(match.params.id).then(response=>{
@@ -30,6 +32,17 @@ class Event extends Component {
       uiKit.toaster.cooking(errMsg(e));
     });
     uiKit.loading.end();
+
+
+    if(authorized(auth))
+      getMyProfile(auth).then(response=>{
+        const {role}= response.data;
+        if(role=== 'ADMIN')
+          this.setState({
+            ...this.state,
+            isAdmin: true,
+          })
+      });
   }
 
   componentWillUnmount() {
@@ -86,24 +99,29 @@ class Event extends Component {
   };
 
   render() {
-    const {event}= this.state;
+    const {event, isAdmin}= this.state;
 
     return (
       <div>
         {
           event &&
           (<div>
-            <Section divideStyle={'fill'}>
-              <h5>관리자 메뉴</h5>
-              <AlignLayout align={'right'}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.removeEvent}>
-                  이 이벤트 삭제
-                </Button>
-              </AlignLayout>
-            </Section>
+            {
+              isAdmin &&
+              (
+                <Section divideStyle={'fill'}>
+                  <h5>관리자 메뉴</h5>
+                  <AlignLayout align={'right'}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={this.removeEvent}>
+                      이 이벤트 삭제
+                    </Button>
+                  </AlignLayout>
+                </Section>
+              )
+            }
             <br/>
             <h3>{event.title}</h3>
             <p className={'explain'}>
