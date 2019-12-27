@@ -11,6 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import IconButton from "@material-ui/core/IconButton";
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import ListIcon from '@material-ui/icons/List';
 
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -25,7 +26,8 @@ class TopNavigation extends Component{
   };
 
   render() {
-    const {auth, history, AuthDispatcher, config}= this.props;
+    const {auth, history, AuthDispatcher, config, sideNav, SideNavDispatcher}= this.props;
+    const {hideNav}= config;
     const quickMenus = [
       {
         title: (
@@ -122,8 +124,7 @@ class TopNavigation extends Component{
         requireAuth: true,
       },
     ];
-
-    const {hideNav}= config;
+    console.log('sideNav', sideNav.content);
 
     return (
       <nav
@@ -131,12 +132,29 @@ class TopNavigation extends Component{
           display: hideNav? 'none': 'flex',
         }}
         className={classNames(styles.vertical)}>
-        <div className={`${styles.guideLine}`}>
-        <span className={styles.left}>
-          <NavLink to={getPath('/')}>
-            <img src={logo} alt="" className={styles.icon} />
-          </NavLink>
-        </span>
+        <div className={styles.guideLine}>
+          <span className={styles.left}>
+            <span className={'mobile'}>
+              <span
+                onClick={()=>{
+                  SideNavDispatcher.toggle();
+                }}
+                style={
+                  sideNav.content? {
+                    display: `initial`,
+                  }:{}
+                }
+                className={styles.openOption}>
+                <IconButton>
+                  <ListIcon/>
+                </IconButton>
+              </span>
+            </span>
+            &nbsp;
+            <NavLink to={getPath('/')}>
+              <img src={logo} alt="" className={styles.icon} />
+            </NavLink>
+          </span>
           <span className={styles.right}>
           {quickMenus.map((value, index) =>
             value.requireAuth === !!authorized(auth) || value.alwaysShow ? (

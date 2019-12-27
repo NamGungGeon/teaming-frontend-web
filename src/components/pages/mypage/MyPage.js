@@ -13,6 +13,27 @@ import Service from "./service/Service";
 
 class MyPage extends Component{
   async componentDidMount() {
+    //init sideNav
+    this.props.SideNavDispatcher.set((
+      <HorizontalNavigation
+        nav={{
+          '회원정보': [
+            {label: '내 정보', onClick: ()=>{history.push(getPath(`/mypage/info`))}},
+            {label: '비밀번호 변경', onClick: ()=>{history.push(getPath(`/mypage/info/change/pw`))}},
+            {label: '회원탈퇴', onClick: ()=>{history.push(getPath(`/mypage/info/escape`))}},
+          ],
+          '커뮤니티': [
+            {label: '친구목록', onClick: ()=>{history.push(getPath(`/mypage/community/friends`))}},
+            {label: '차단관리', onClick: ()=>{history.push(getPath(`/mypage/community/shield`))}},
+            {label: '쪽지함', onClick: ()=>{history.push(getPath(`/mypage/community/message`))}}
+          ],
+          '고객센터': [
+            {label: '내 문의내역', onClick: ()=>{history.push(getPath(`/mypage/service/asked`))}}
+            , {label: '1:1 문의', onClick: ()=>{history.push(getPath(`/mypage/service/asking`))}}
+            , {label: '제재내역', onClick: ()=>{history.push(getPath(`/mypage/service/illegal`))}}
+          ],
+        }}/>));
+
     //check auth query
     const {auth, AuthDispatcher, history, match, location}= this.props;
     const query= urlQuery(location);
@@ -28,42 +49,33 @@ class MyPage extends Component{
     }
   }
 
+  componentWillUnmount() {
+    this.props.SideNavDispatcher.remove();
+  }
+
   render() {
-    const {auth, history, match, location}= this.props;
+    const {SideNavDispatcher, auth, history, match, location}= this.props;
     return (
-      <div>
-        <PageTitle title={'마이페이지'} explain={'내 정보'} align={'center'}/>
-        <HorizontalSlicedLayout>
-          <Window title={'메뉴'} foldable>
-            <HorizontalNavigation
-              nav={{
-                '회원정보': [
-                  {label: '내 정보', onClick: ()=>{history.push(getPath(`/mypage/info`))}},
-                  {label: '비밀번호 변경', onClick: ()=>{history.push(getPath(`/mypage/info/change/pw`))}},
-                  {label: '회원탈퇴', onClick: ()=>{history.push(getPath(`/mypage/info/escape`))}},
-                ],
-                '커뮤니티': [
-                  {label: '친구목록', onClick: ()=>{history.push(getPath(`/mypage/community/friends`))}},
-                  {label: '차단관리', onClick: ()=>{history.push(getPath(`/mypage/community/shield`))}},
-                  {label: '쪽지함', onClick: ()=>{history.push(getPath(`/mypage/community/message`))}}
-                ],
-                '고객센터': [
-                  {label: '내 문의내역', onClick: ()=>{history.push(getPath(`/mypage/service/asked`))}}
-                  , {label: '1:1 문의', onClick: ()=>{history.push(getPath(`/mypage/service/asking`))}}
-                  , {label: '제재내역', onClick: ()=>{history.push(getPath(`/mypage/service/illegal`))}}
-                ],
-              }}/>
-          </Window>
-          {
-            location.pathname!== '/mypage' &&(
-              <div>
-                <Route path={getPath(`/mypage/info`)} component={Info}/>
-                <Route path={getPath(`/mypage/community`)} component={Community}/>
-                <Route path={getPath(`/mypage/service`)} component={Service}/>
-              </div>
-            )
-          }
-        </HorizontalSlicedLayout>
+      <div style={{
+        padding: '16px'
+      }}>
+        <Route exact path={getPath(`/mypage`)} component={()=>{
+          return (
+            <div>
+              <h3>마이페이지</h3>
+              <br/>
+              <p className={'mobile'}>
+                좌측 상단 메뉴 아이콘을 클릭하여 마이페이지 메뉴를 이용하실 수 있습니다
+              </p>
+              <p className={'desktop'}>
+                좌측 네비게이션으로 마이페이지 메뉴를 이용하실 수 있습니다
+              </p>
+            </div>
+          );
+        }}/>
+        <Route path={getPath(`/mypage/info`)} component={Info}/>
+        <Route path={getPath(`/mypage/community`)} component={Community}/>
+        <Route path={getPath(`/mypage/service`)} component={Service}/>
       </div>
     );
   }

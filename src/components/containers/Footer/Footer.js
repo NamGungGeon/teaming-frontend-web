@@ -10,7 +10,7 @@ class Footer extends Component {
       <footer>
         <div className={styles.guide}>
           <div>
-            <img src={logo} alt="" height={48}/>
+            <img src={logo} alt="" height={36}/>
           </div>
           <br/>
           <div>

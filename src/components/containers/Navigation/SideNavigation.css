@@ -1,0 +1,24 @@
+
+.sidenav{
+    position: fixed;
+    top: 48px;
+    left: 0;
+    z-index: 998;
+    display: initial;
+
+    box-sizing: border-box;
+    padding: 32px 16px;
+    width: 240px;
+    height: calc(100% - 48px);
+
+    border-right: 0.6px solid #ffffff66;
+    background-color: #333333;
+
+    text-align: left;
+}
+
+@media (max-width: 500px) {
+    .sidenav{
+        display: none;
+    }
+}

@@ -12,6 +12,8 @@ import Privacy from "./components/pages/Privacy";
 import Footer from "./components/containers/Footer/Footer";
 import Community from "./components/pages/community/Community";
 import queryString from "query-string";
+import SideNavigation from "./components/containers/Navigation/SideNavigation";
+import MobileSideNavigation from "./components/containers/Navigation/MobileSideNavigation";
 
 // App 은 최상단 컴포넌트인데 mstp를 connected 하는건 좋은패턴이 아님
 // UIKit 이랑 Router dispatcher 하는 코드를 어떤 패턴으로 구현했는지 해석이 좀 어려운데
@@ -44,12 +46,15 @@ class App extends Component {
             <VerticalNavigation
               history={this.props.history}
               location={this.props.location}/>
+              <MobileSideNavigation/>
             <div
-              style={{
-                top: config.hideNav? '0': '48px',
-              }}
               className="fullDisplay">
-              <div className="guideLine">
+              <SideNavigation/>
+              <div
+                style={{
+                  top: config.hideNav? '0': '55px',
+                }}
+                className="guideLine">
                 <Route exact path={getPath('/')} component={Home} />
                 <Route path={getPath('/teambuild')} component={Teambuild} />
                 <Route exact path={getPath('/chat')} component={Chat} />
@@ -62,8 +67,8 @@ class App extends Component {
                 <Route path={getPath('/community')} component={Community} />
                 <Route path={getPath('/important/notices')} component={Notices} />
                 <Route path={getPath('/important/events')} component={Events} />
+                <Footer/>
               </div>
-              <Footer/>
             </div>
           </div>
         )}
