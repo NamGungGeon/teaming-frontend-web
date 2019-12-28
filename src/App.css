@@ -221,11 +221,25 @@ table.noHead tr > td:nth-child(1) {
 .MuiOutlinedInput-notchedOutline{
   border: 1px solid #ffffff99!important;
 }
+.MuiStep-root.MuiStep-horizontal.MuiStep-alternativeLabel, .MuiStep-root.MuiStep-horizontal{
+  background: #202020!important;
+}
+.MuiStepLabel-label{
+  color: #ffffff99!important;
+}
+.MuiStepIcon-text{
+  fill: #202020!important;
+}
+.MuiStepLabel-label.MuiStepLabel-active{
+  font-size: 1.1rem;
+  color: white!important;
+  font-weight: bold;
+}
 .MuiOutlinedInput-notchedOutline:focus{
   border: 1px solid white!important;
 }
 .MuiPaper-root:not(.MuiButtonBase-root)> *{
-  background: #333333!important;
+  background: #333333;
 }
 .MuiInput-underline *{
   font-style: initial!important;

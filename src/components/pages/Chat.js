@@ -72,9 +72,7 @@ class Chat extends Component {
             </Window>
           </ChatLayout>
         ) : (
-          <FixedCenter>
-            <Wait msg={'매칭 중 입니다'} />
-          </FixedCenter>
+          <Wait msg={'매칭 중 입니다'} />
         )}
       </div>
     );

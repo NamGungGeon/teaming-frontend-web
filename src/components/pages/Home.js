@@ -10,14 +10,6 @@ import Logo from "../primitive/Logo/Logo";
 import ButtonsWrapper from "../primitive/ButtonsWrapper/ButtonsWrapper";
 import {quickConnect} from "../redux";
 import HelpAppInstall from "../containers/HelpAppInstall/HelpAppInstall";
-import HorizontalNavigation from "../containers/Navigation/HorizontalNavigation";
-
-import GamepadIcon from '@material-ui/icons/Gamepad';
-import PeopleIcon from '@material-ui/icons/People';
-import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
-import ChatIcon from '@material-ui/icons/Chat';
-import { IoIosHeart, } from "react-icons/io";
-import { FaToiletPaper } from "react-icons/fa";
 import GoogleAdvertise from "../containers/GoogleAdvertise/GoogleAdvertise";
 
 class Home extends Component{

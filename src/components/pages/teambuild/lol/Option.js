@@ -89,8 +89,10 @@ class Option extends Component {
         <PageTitle
           title={'팀 매칭 사전준비'}
           explain={'리그 오브 레전드 팀 매칭을 위한 사전 정보 입력'}
-          align={'center'}
+          align={'left'}
         />
+        <br/>
+
         <Section>
           <div style={{
             textAlign: 'left',
@@ -108,6 +110,7 @@ class Option extends Component {
                   }}/>
               </div>
             </div>
+            <br/>
             <div>
               <PageTitle title={'목표'} noMargin/>
               <ButtonGroup>
@@ -131,6 +134,7 @@ class Option extends Component {
                 </Button>
               </ButtonGroup>
             </div>
+            <br/>
             <div>
               <PageTitle title={'게임 모드'} noMargin/>
               <ButtonGroup>
@@ -180,6 +184,7 @@ class Option extends Component {
                 </Button>
               </ButtonGroup>
             </div>
+            <br/>
             <div>
               <Collapse isOpen={mode!=='normal'}>
                 <div>
@@ -192,6 +197,7 @@ class Option extends Component {
                     }}
                   />
                 </div>
+                <br/>
               </Collapse>
             </div>
             <Collapse isOpen={mode!== 'chess'}>

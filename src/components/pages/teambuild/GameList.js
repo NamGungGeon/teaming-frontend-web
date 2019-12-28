@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import SquareButton from '../../primitive/SquareButton/SquareButton';
 import { getPath } from '../../utils/url';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
-import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 
 import lol from '../../resource/icon/lol.jpg';
 import overwatch from '../../resource/icon/overwatch.png';
 import battleground from '../../resource/icon/battleground.png';
 import {randStr} from "../../utils/utils";
-import FlexLayout from "../../layouts/FlexLayout/FlexLayout";
-import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
+import {Input} from "reactstrap";
 import FormGroup from "reactstrap/es/FormGroup";
 import Col from "reactstrap/es/Col";
-import Popcorn from "../../primitive/Popcorn/Popcorn";
 import CardWrapper from "../../primitive/CardWrapper/CardWrapper";
 
 class GameList extends Component {
@@ -38,12 +35,14 @@ class GameList extends Component {
   };
 
   componentDidMount() {
+    this.props.stepping(0);
     window.scrollTo(0,0);
   }
 
   go = path => {
     this.props.history.push(path);
   };
+
   render() {
     const { gameList, filter } = this.state;
     return (
