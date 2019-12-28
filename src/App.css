@@ -236,6 +236,11 @@ table.noHead tr > td:nth-child(1) {
 .MuiInput-underline:after{
   border-bottom: none!important;
 }
+.MuiTypography-colorTextSecondary{
+  font-size: 0.8rem!important;
+  color: #ffffff99!important;
+}
+
 
 .ck.ck-editor__main{
 }

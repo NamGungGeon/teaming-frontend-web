@@ -13,6 +13,7 @@ import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
 import FormGroup from "reactstrap/es/FormGroup";
 import Col from "reactstrap/es/Col";
 import Popcorn from "../../primitive/Popcorn/Popcorn";
+import CardWrapper from "../../primitive/CardWrapper/CardWrapper";
 
 class GameList extends Component {
   state = {
@@ -66,23 +67,24 @@ class GameList extends Component {
           </Col>
           <Col sm={8}/>
         </FormGroup>
-        <Popcorn>
-          <FlexLayout responsive margin={16}>
-            {gameList.map(game => {
-              if(filter!== '' && !game.label.includes(filter))
-                return '';
 
-              return (
-                <div key={randStr(5)}>
-                  <SquareButton
-                    {...game}
-                  />
-                  <br />
-                </div>
-              );
-            })}
-          </FlexLayout>
-        </Popcorn>
+        <br/>
+
+        <CardWrapper>
+          {gameList.map(game => {
+            if(filter!== '' && !game.label.includes(filter))
+              return '';
+
+            return (
+              <div key={randStr(5)}>
+                <SquareButton
+                  {...game}
+                />
+                <br />
+              </div>
+            );
+          })}
+        </CardWrapper>
       </div>
     );
   }

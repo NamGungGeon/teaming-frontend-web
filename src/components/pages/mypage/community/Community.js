@@ -1,4 +1,4 @@
-import Shield from "./Shield";
+import Block from "./Blocks";
 import Friends from "./Friends";
 import React, {Component} from 'react';
 import {getPath} from "../../../utils/url";
@@ -15,7 +15,7 @@ class Community extends Component {
   render() {
     return (
       <div>
-        <Route exact path={getPath(`/mypage/community/shield`)} component={Shield}/>
+        <Route exact path={getPath(`/mypage/community/blocks`)} component={Block}/>
         <Route exact path={getPath(`/mypage/community/friends`)} component={Friends}/>
         <Route exact path={getPath(`/mypage/community/message`)} component={Message}/>
       </div>
