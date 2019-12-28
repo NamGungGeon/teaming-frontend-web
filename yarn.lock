@@ -8514,6 +8514,11 @@ react-router-dom@^5.0.1:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
+react-router-global-history@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-router-global-history/-/react-router-global-history-1.0.2.tgz#46deaedf7081a6362d0fc32409601293fbfb28fd"
+  integrity sha512-bxAFwlZunXs/wIP8jVFOAq0rJT3vTJhg8oLLDxKtIRZ8bd2ppHjL0YE/lUYuhSNDkoDl656SUZKDdkG0Z0LMeA==
+
 react-router@5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-5.0.1.tgz#04ee77df1d1ab6cb8939f9f01ad5702dbadb8b0f"

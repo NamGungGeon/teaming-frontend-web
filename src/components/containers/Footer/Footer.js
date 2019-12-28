@@ -12,17 +12,18 @@ class Footer extends Component {
           <div>
             <img src={logo} alt="" height={36}/>
           </div>
-          <br/>
-          <div>
-            사업문의: tming.dev@gmail.com
-          </div>
-          <div className={styles.list}>
-            <NavLink to={getPath('/privacy')}>
-              개인정보처리방침
-            </NavLink>
-            <NavLink to={getPath('/privacy')}>
-              이용약관
-            </NavLink>
+          <div className={styles.texts}>
+            <div>
+              사업문의: tming.dev@gmail.com
+            </div>
+            <div className={styles.list}>
+              <NavLink to={getPath('/privacy')}>
+                개인정보처리방침
+              </NavLink>
+              <NavLink to={getPath('/privacy')}>
+                이용약관
+              </NavLink>
+            </div>
           </div>
         </div>
       </footer>

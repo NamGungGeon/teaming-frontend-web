@@ -17,6 +17,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import {Badge} from "@material-ui/core";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Tooltip from "@material-ui/core/Tooltip";
 
 
 class TopNavigation extends Component{
@@ -31,9 +32,11 @@ class TopNavigation extends Component{
     const quickMenus = [
       {
         title: (
-          <IconButton>
-            <VpnKeyIcon/>
-          </IconButton>),
+          <Tooltip title={'로그인'}>
+            <IconButton>
+              <VpnKeyIcon/>
+            </IconButton>
+          </Tooltip>),
         click: ()=>{
           history.push(getPath('/auth/signin'));
         },
@@ -41,9 +44,11 @@ class TopNavigation extends Component{
       },
       {
         title: (
-          <IconButton>
-            <PersonAddIcon/>
-          </IconButton>),
+          <Tooltip title={'회원가입'}>
+            <IconButton>
+              <PersonAddIcon/>
+            </IconButton>
+          </Tooltip>),
         click: ()=>{
           history.push(getPath('/auth/signup'));
         },
@@ -51,9 +56,11 @@ class TopNavigation extends Component{
       },
       {
         title: (
-          <IconButton>
-            <PersonIcon/>
-          </IconButton>
+          <Tooltip title={'마이페이지'}>
+            <IconButton>
+              <PersonIcon/>
+            </IconButton>
+          </Tooltip>
         ),
         click: ()=>{
           history.push(getPath(`/mypage`));
@@ -62,50 +69,52 @@ class TopNavigation extends Component{
       },
       {
         title: (
-          <span>
-            <IconButton
-              aria-label="more"
-              aria-controls="long-menu"
-              aria-haspopup="true"
-              onClick={(e)=>{
-                console.log(e.currentTarget);
-                this.setState({
-                  ...this.state,
-                  openOptions: true,
-                  anchor: e.currentTarget
-                })
-              }}
-            >
-              <Badge badgeContent={1} color={'primary'}>
-                <NotificationsIcon/>
-              </Badge>
-            </IconButton>
-            <Menu
-              style={{
-                zIndex: 99999,
-              }}
-              anchorEl={this.state.anchor}
-              keepMounted
-              open={this.state.openOptions}
-              onClose={()=>{
-                this.setState({
-                  ...this.state,
-                  openOptions: false,
-                })
-              }}
-              PaperProps={{
-                style: {
-                  width: 300,
-                },
-              }}
-            >
-              <MenuItem
-                onClick={()=>{
-                }}>
-                알림!
-              </MenuItem>
-            </Menu>
-          </span>
+          <Tooltip title={'알림'}>
+            <span>
+              <IconButton
+                aria-label="more"
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                onClick={(e)=>{
+                  console.log(e.currentTarget);
+                  this.setState({
+                    ...this.state,
+                    openOptions: true,
+                    anchor: e.currentTarget
+                  })
+                }}
+              >
+                <Badge badgeContent={1} color={'primary'}>
+                  <NotificationsIcon/>
+                </Badge>
+              </IconButton>
+              <Menu
+                style={{
+                  zIndex: 99999,
+                }}
+                anchorEl={this.state.anchor}
+                keepMounted
+                open={this.state.openOptions}
+                onClose={()=>{
+                  this.setState({
+                    ...this.state,
+                    openOptions: false,
+                  })
+                }}
+                PaperProps={{
+                  style: {
+                    width: 300,
+                  },
+                }}
+              >
+                <MenuItem
+                  onClick={()=>{
+                  }}>
+                  알림!
+                </MenuItem>
+              </Menu>
+            </span>
+          </Tooltip>
         ),
         click: ()=>{
         },
@@ -113,9 +122,11 @@ class TopNavigation extends Component{
       },
       {
         title: (
-          <IconButton>
-            <ExitToAppIcon/>
-          </IconButton>
+          <Tooltip title={'로그아웃'}>
+            <IconButton>
+              <ExitToAppIcon/>
+            </IconButton>
+          </Tooltip>
         ),
         click: ()=>{
           AuthDispatcher.logout();

@@ -132,7 +132,7 @@ class NoticeList extends Component {
         <PageTitle
           title={'공지사항 리스트'}
           explain={'주요 공지사항입니다'}
-          align={'center'}/>
+          align={'left'}/>
         {
           isAdmin &&
           (

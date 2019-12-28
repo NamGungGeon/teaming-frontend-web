@@ -50,24 +50,22 @@ class GameList extends Component {
         <PageTitle
           title={'팀 매칭'}
           explain={'팀 매칭이 필요한 게임을 선택하세요'}
-          align={'center'}
+          align={'left'}
         />
-        <AlignLayout align={'right'}>
-          <FormGroup row>
-            <Col sm={8}/>
-            <Col sm={4}>
-              <Input
-                className={'transparent'}
-                onChange={e=>{
-                  this.setState({
-                    ...this.state,
-                    filter: e.target.value,
-                  })
-                }}
-                placeholder="게임 검색"/>
-            </Col>
-          </FormGroup>
-        </AlignLayout>
+        <FormGroup row>
+          <Col sm={4}>
+            <Input
+              className={'transparent'}
+              onChange={e=>{
+                this.setState({
+                  ...this.state,
+                  filter: e.target.value,
+                })
+              }}
+              placeholder="게임 검색"/>
+          </Col>
+          <Col sm={8}/>
+        </FormGroup>
         <Popcorn>
           <FlexLayout responsive margin={16}>
             {gameList.map(game => {

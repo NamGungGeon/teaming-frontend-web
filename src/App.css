@@ -130,7 +130,8 @@ tbody tr{
   text-align: left;
   width: 100%;
   max-width: 1200px;
-  min-height: 110%;
+  min-height: calc(100% - 55px);
+  padding: 32px;
 
   display: flex;
   flex-direction: column;

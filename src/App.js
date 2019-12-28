@@ -67,7 +67,6 @@ class App extends Component {
                 <Route path={getPath('/community')} component={Community} />
                 <Route path={getPath('/important/notices')} component={Notices} />
                 <Route path={getPath('/important/events')} component={Events} />
-                <Footer/>
               </div>
             </div>
           </div>

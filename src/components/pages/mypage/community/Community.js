@@ -5,6 +5,7 @@ import {getPath} from "../../../utils/url";
 import PwChange from "../info/PwChange";
 import Route from "react-router-dom/es/Route";
 import Message from "./Message";
+import PageTitle from "../../../primitive/PageTitle/PageTitle";
 
 class Community extends Component {
   componentDidMount() {

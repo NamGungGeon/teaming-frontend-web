@@ -181,7 +181,10 @@ class EventList extends Component {
 
     return (
       <div>
-        <PageTitle title={'진행중인 이벤트'} explain={'진행중인 모든 이벤트를 확인할 수 있습니다'} align={'center'}/>
+        <PageTitle
+          title={'진행중인 이벤트'}
+          explain={'진행중인 모든 이벤트를 확인할 수 있습니다'}
+          align={'left'}/>
         {
           isAdmin &&
           (

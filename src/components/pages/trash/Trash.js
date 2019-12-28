@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
-import {authorized, randNum, randStr} from "../../utils/utils";
+import {authorized} from "../../utils/utils";
 import Threadic from "../../primitive/Threadic/Threadic";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
-import HorizontalSlicedLayout from "../../layouts/HorizontalSlicedLayout/HorizontalSlicedLayout";
-import Window from "../../primitive/Window/Window";
-import SquareButton from "../../primitive/SquareButton/SquareButton";
-import icon from '../../resource/icon.png';
-import Button from "reactstrap/es/Button";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import {quickConnect} from "../../redux";
 import Input from "reactstrap/es/Input";
-import {getPath} from "../../utils/url";
 import {createTrash, getTrashes} from "../../http/tming";
-import {errMsg, responseCode} from "../../http/util";
+import {errMsg} from "../../http/util";
+import Button from "@material-ui/core/Button";
 
 class Trash extends Component {
   state={
@@ -88,6 +83,7 @@ class Trash extends Component {
         <br/>
         <AlignLayout align={'right'}>
           <Button
+            variant={'contained'}
             color={'primary'}
             onClick={async ()=>{
               //commit and close
@@ -115,15 +111,25 @@ class Trash extends Component {
   render() {
     return (
       <div>
-        <PageTitle title={'화장실'} explain={'뿌직....뿌직...뿌지직....'} align={'center'}/>
+        <PageTitle
+          title={'화장실'}
+          explain={'뿌직....뿌직...뿌지직....'}
+          align={'left'}/>
+        <br/>
         <div>
           <AlignLayout
-            align={'right'}>
-            <Button color={'primary'} onClick={this.throwThresh}>
+            align={'left'}>
+            <Button
+              variant={'contained'}
+              color={'primary'}
+              onClick={this.throwThresh}>
               배설
             </Button>
             &nbsp;&nbsp;
-            <Button color={'info'} onClick={this.loadTrashes}>
+            <Button
+              variant={'contained'}
+              color={'secondary'}
+              onClick={this.loadTrashes}>
               새로고침
             </Button>
           </AlignLayout>

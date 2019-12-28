@@ -25,7 +25,7 @@ class MyPage extends Component{
           '커뮤니티': [
             {label: '친구목록', onClick: ()=>{history.push(getPath(`/mypage/community/friends`))}},
             {label: '차단관리', onClick: ()=>{history.push(getPath(`/mypage/community/shield`))}},
-            {label: '쪽지함', onClick: ()=>{history.push(getPath(`/mypage/community/message`))}}
+            {label: '쪽지함', onClick: ()=>{history.push(getPath(`/mypage/community/message`))}},
           ],
           '고객센터': [
             {label: '내 문의내역', onClick: ()=>{history.push(getPath(`/mypage/service/asked`))}}

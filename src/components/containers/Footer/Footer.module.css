@@ -1,7 +1,6 @@
 
 footer{
     width: 100%;
-    padding: 16px;
 
     margin-top: 32px;
     width: 100%;
@@ -15,6 +14,9 @@ footer{
 footer> .guide{
     width: 100%;
     text-align: left;
+}
+.texts{
+    font-size: 0.7rem;
 }
 
 .list{

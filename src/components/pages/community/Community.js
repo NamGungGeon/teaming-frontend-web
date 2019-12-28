@@ -9,6 +9,8 @@ import overwatch from "../../resource/icon/overwatch.png";
 import battleground from "../../resource/icon/battleground.png";
 import Write from "./Write";
 import {quickConnect} from "../../redux";
+import PageTitle from "../../primitive/PageTitle/PageTitle";
+import getHistory from 'react-router-global-history';
 
 class Community extends Component {
 
@@ -57,6 +59,10 @@ class Community extends Component {
     );
   }
 
+  go= (path)=>{
+    getHistory().push(path);
+  }
+
   componentWillUnmount() {
     this.props.SideNavDispatcher.remove();
   }
@@ -64,9 +70,12 @@ class Community extends Component {
   render() {
     return (
       <div>
-        <div style={{
-          padding: '16px',
-        }}>
+        <div>
+          <PageTitle
+            title={'커뮤니티'}
+            explain={'커뮤니티입니다'}
+            align={'left'}/>
+          <br/>
           <Route exact path={getPath(`/community/write`)} component={Write}/>
           <Route exact path={getPath(`/community`)} component={Contents}/>
           <Route exact path={getPath(`/community/read/:id`)} component={Content}/>

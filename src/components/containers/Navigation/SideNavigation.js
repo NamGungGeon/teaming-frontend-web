@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {quickConnect} from "../../redux";
 import './SideNavigation.css';
+import Footer from "../Footer/Footer";
 
 class SideNavigation extends Component {
   render() {
@@ -13,7 +14,12 @@ class SideNavigation extends Component {
     return (
       <div
         className={'sidenav'}>
-        {sideNav.content}
+        <div style={{
+          paddingTop: '16px'
+        }}>
+          {sideNav.content}
+        </div>
+        <Footer/>
       </div>
     );
   }
