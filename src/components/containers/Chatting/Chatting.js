@@ -16,46 +16,42 @@ class Chatting extends Component {
   }
 
   componentDidMount() {
-    const { handler, registerHandler } = this.props;
-    handler.onMessageReceived = this.handleMessageReceived;
-    registerHandler(handler);
+    const { socket } = this.props;
+
+    socket.on('MESSAGE', text => {
+      const { msgs } = this.state;
+      this.setState({
+        msgs: [
+          ...msgs,
+          {
+            profile: null,
+            msg: text,
+            encounter: true
+          }
+        ]
+      });
+    });
   }
 
-  handleMessageReceived = (_channel, message) => {
-    const { msgs } = this.state;
-    this.setState({
-      msgs: [
-        ...msgs,
-        {
-          profile: null,
-          msg: message.message,
-          encounter: true
-        }
-      ]
-    });
-  };
-
   sendMessage = text => {
-    const { uiKit, channel } = this.props;
+    const { uiKit, socket, room } = this.props;
     const { msgs } = this.state;
     if (!text) {
       uiKit.toaster.cooking('텍스트를 입력하세요');
     }
 
-    channel.sendUserMessage(text, (message, _error) => {
-      if (message) {
-        this.setState({
-          msgs: [
-            ...msgs,
-            {
-              profile: null,
-              msg: message.message,
-              encounter: false
-            }
-          ]
-        });
-      }
+    this.setState({
+      msgs: [
+        ...msgs,
+        {
+          profile: null,
+          msg: text,
+          encounter: false
+        }
+      ]
     });
+
+    socket.emit('MESSAGE', text, room);
 
     scrollToBottom(this.msgBox);
   };
@@ -76,7 +72,7 @@ class Chatting extends Component {
     );
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.state.needScroll) {
       scrollToBottom(this.msgBox);
       this.setState({
