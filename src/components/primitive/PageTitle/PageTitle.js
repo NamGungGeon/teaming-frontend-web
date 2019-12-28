@@ -9,21 +9,15 @@ class PageTitle extends Component {
     align: 'left'
   };
   render() {
-    const { title, titleColor, explain, align, noMargin } = this.props;
+    const { title, titleColor, explain, align } = this.props;
     return (
       <AlignLayout align={align}>
-        {!noMargin && (
-          <div>
-            <br />
-            <br />
-          </div>
-        )}
-        <p
+        <h3
           className={classNames('title')}
-          style={{ fontFamily: "'Do Hyeon', sans-serif", color: titleColor }}
+          style={{ color: titleColor }}
         >
           {title}
-        </p>
+        </h3>
         {explain && (
           <p
             className={classNames('explain')}
@@ -31,12 +25,6 @@ class PageTitle extends Component {
           >
             {explain}
           </p>
-        )}
-        {!noMargin && (
-          <div>
-            <br />
-            <br />
-          </div>
         )}
       </AlignLayout>
     );

@@ -77,7 +77,6 @@ tbody tr{
 
 .explain {
   font-size: 0.8rem;
-  font-style: italic;
 }
 .shadowing {
   box-shadow: 4px 8px 16px #00000022;
@@ -109,27 +108,34 @@ tbody tr{
   margin: 20px;
   transform: translate(1px, -8px);
 }
-
-.fullDisplay {
+.fullDisplay{
   position: absolute;
-  top: 48px;
+  left: 0;
   width: 100%;
-  min-width: 700px;
   min-height: calc(120% - 48px);
   text-align: center;
 
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+
+  background-color: #202020;
+}
+.sidenav+ .guideLine{
+  left: 240px;
+  width: calc(100% - 240px);
 }
 .guideLine {
-  padding: 32px 8px;
+  position: absolute;
   text-align: left;
-  display: inline-block;
   width: 100%;
-  min-height: 100%;
   max-width: 1200px;
+  min-height: calc(100% - 55px);
+  padding: 32px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .guide-small {
   max-width: 500px;
@@ -147,7 +153,7 @@ tbody tr{
 }
 
 .mobile {
-  display: none !important;
+  display: none;
 }
 
 .flexBox {
@@ -179,13 +185,16 @@ table.noHead tr > td:nth-child(1) {
 }
 @media (max-width: 500px) {
   .mobile {
-    display: initial !important;
+    display: initial;
   }
   .desktop {
-    display: none !important;
+    display: none;
   }
   .fullDisplay {
     min-width: 0;
+    left: 0;
+    width: 100%;
+    align-items: center;
   }
   .guideLine {
     padding: 32px 8px;
@@ -194,6 +203,10 @@ table.noHead tr > td:nth-child(1) {
 
   .flexBox > div {
     width: calc(100% - 16px);
+  }
+  .sidenav+ .guideLine{
+    left: 0;
+    width: 100%;
   }
 }
 
@@ -223,6 +236,11 @@ table.noHead tr > td:nth-child(1) {
 .MuiInput-underline:after{
   border-bottom: none!important;
 }
+.MuiTypography-colorTextSecondary{
+  font-size: 0.8rem!important;
+  color: #ffffff99!important;
+}
+
 
 .ck.ck-editor__main{
 }

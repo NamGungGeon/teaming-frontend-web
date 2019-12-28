@@ -13,6 +13,7 @@ import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
 import FormGroup from "reactstrap/es/FormGroup";
 import Col from "reactstrap/es/Col";
 import Popcorn from "../../primitive/Popcorn/Popcorn";
+import CardWrapper from "../../primitive/CardWrapper/CardWrapper";
 
 class GameList extends Component {
   state = {
@@ -50,41 +51,40 @@ class GameList extends Component {
         <PageTitle
           title={'팀 매칭'}
           explain={'팀 매칭이 필요한 게임을 선택하세요'}
-          align={'center'}
+          align={'left'}
         />
-        <AlignLayout align={'right'}>
-          <FormGroup row>
-            <Col sm={8}/>
-            <Col sm={4}>
-              <Input
-                className={'transparent'}
-                onChange={e=>{
-                  this.setState({
-                    ...this.state,
-                    filter: e.target.value,
-                  })
-                }}
-                placeholder="게임 검색"/>
-            </Col>
-          </FormGroup>
-        </AlignLayout>
-        <Popcorn>
-          <FlexLayout responsive margin={16}>
-            {gameList.map(game => {
-              if(filter!== '' && !game.label.includes(filter))
-                return '';
+        <FormGroup row>
+          <Col sm={4}>
+            <Input
+              className={'transparent'}
+              onChange={e=>{
+                this.setState({
+                  ...this.state,
+                  filter: e.target.value,
+                })
+              }}
+              placeholder="게임 검색"/>
+          </Col>
+          <Col sm={8}/>
+        </FormGroup>
 
-              return (
-                <div key={randStr(5)}>
-                  <SquareButton
-                    {...game}
-                  />
-                  <br />
-                </div>
-              );
-            })}
-          </FlexLayout>
-        </Popcorn>
+        <br/>
+
+        <CardWrapper>
+          {gameList.map(game => {
+            if(filter!== '' && !game.label.includes(filter))
+              return '';
+
+            return (
+              <div key={randStr(5)}>
+                <SquareButton
+                  {...game}
+                />
+                <br />
+              </div>
+            );
+          })}
+        </CardWrapper>
       </div>
     );
   }

@@ -2,7 +2,6 @@ import { handleActions, createAction } from 'redux-actions';
 import { randStr } from '../utils/utils';
 import Cookies from 'universal-cookie';
 
-const emailKey = 'asrgawersasfwaerawg';
 const tokenKey = 'srghqw4ttq34tqagaga';
 const refreshKey= 'agarwrt3qrtrhresadfgawgg';
 const idKey= '34tw5ehyes5tushe';
@@ -38,10 +37,10 @@ export default handleActions(
       return initAuth(token, refresh, id);
     },
     [LOGOUT]: () => {
-      cookie.set(tokenKey, null);
-      cookie.set(refreshKey, null);
-      cookie.set(idKey, null);
-      return null;
+      cookie.set(tokenKey, '');
+      cookie.set(refreshKey, '');
+      cookie.set(idKey, '');
+      return {};
     }
   },
   user

@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import { ReactRouterGlobalHistory } from 'react-router-global-history';
 
 import reduxChunk from './components/redux';
 import { createStore } from 'redux';
@@ -16,6 +17,7 @@ const store = createStore(reduxChunk);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
+      <ReactRouterGlobalHistory/>
       <Route path={getPath('/')} component={App} />
     </BrowserRouter>
   </Provider>,

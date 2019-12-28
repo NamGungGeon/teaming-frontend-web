@@ -10,6 +10,7 @@ import FlexLayout from "../../layouts/FlexLayout/FlexLayout";
 import FormGroup from "reactstrap/es/FormGroup";
 import Col from "reactstrap/es/Col";
 import {Input} from "reactstrap";
+import CardWrapper from "../../primitive/CardWrapper/CardWrapper";
 
 class Category extends Component {
   componentDidMount() {
@@ -50,31 +51,28 @@ class Category extends Component {
     const { gameList, filter } = this.state;
     return (
       <div>
-        <AlignLayout align={'center'}>
-          <PageTitle
-            title={'거래소'}
-            explain={'아이템을 거래할 게임을 선택하세요'}
-            align={'center'}
-          />
-        </AlignLayout>
+        <PageTitle
+          title={'거래소'}
+          explain={'아이템을 거래할 게임을 선택하세요'}
+          align={'left'}
+        />
+        <FormGroup row>
+          <Col sm={4}>
+            <Input
+              className={'transparent'}
+              onChange={e=>{
+                this.setState({
+                  ...this.state,
+                  filter: e.target.value,
+                })
+              }}
+              placeholder="게임 검색"/>
+          </Col>
+          <Col sm={8}/>
+        </FormGroup>
 
-        <AlignLayout align={'right'}>
-          <FormGroup row>
-            <Col sm={8}/>
-            <Col sm={4}>
-              <Input
-                className={'transparent'}
-                onChange={e=>{
-                  this.setState({
-                    ...this.state,
-                    filter: e.target.value,
-                  })
-                }}
-                placeholder="게임 검색"/>
-            </Col>
-          </FormGroup>
-        </AlignLayout>
-        <FlexLayout responsive margin={16}>
+        <br/>
+        <CardWrapper>
           {gameList.map((game, idx) => {
             if(filter!== '' && !game.label.includes(filter))
               return '';
@@ -91,7 +89,7 @@ class Category extends Component {
               </div>
             );
           })}
-        </FlexLayout>
+        </CardWrapper>
       </div>
     );
   }

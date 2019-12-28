@@ -2,60 +2,75 @@ import React, {Component} from 'react';
 import {randNum, randStr} from "../../utils/utils";
 import styles from './Notices.module.css';
 import {getPath} from "../../utils/url";
+import {getNotices} from "../../http/tming";
+import Spinner from "reactstrap/es/Spinner";
+import moment from "moment";
 
-const notices= [
-  {
-    id: randNum(1000),
-    title: `${randStr(20)}`,
-    date: `${new Date().toString()}`,
-  },
-  {
-    id: randNum(1000),
-    title: `${randStr(20)}`,
-    date: `${new Date().toString()}`,
-  },
-  {
-    id: randNum(1000),
-    title: `${randStr(20)}`,
-    date: `${new Date().toString()}`,
-  },
-  {
-    id: randNum(1000),
-    title: `${randStr(20)}`,
-    date: `${new Date().toString()}`,
-  },
-  {
-    id: randNum(1000),
-    title: `${randStr(20)}`,
-    date: `${new Date().toString()}`,
-  },
-];
+class Notices extends Component{
+  state={
+    notices: null,
+  }
 
-const Notices= ({history,})=> {
-  return (
-    <div style={{
-      textAlign: 'left',
-    }}>
-      {
-        notices.map(notice=>{
-          return (
-            <p
-              className={styles.notice}
-              onClick={()=>{
-                history.push(getPath(`/notices/${notice.id}`));
+  componentDidMount() {
+    getNotices().then(response => {
+      console.log('get notices', response.data);
+      this.setState({
+        ...this.state,
+        notices: response.data.data
+      })
+    });
+  }
+
+  dateFormatting= (date)=>{
+    return moment(date, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]').format('YYYY[년]MM[월]DD[일 ]HH[시]mm[분]');
+  };
+
+  render() {
+    const {history}= this.props;
+    const {notices}= this.state;
+
+    if(notices && notices.length=== 0){
+      return (<p>공지사항이 없습니다</p>)
+    }
+
+    return (
+      <div style={{
+        textAlign: 'left',
+      }}>
+        {
+          notices?
+
+            notices.map(notice=>{
+              return (
+                <p
+                  className={styles.notice}
+                  onClick={()=>{
+                    history.push(getPath(`/important/notices/${notice.id}`));
+                  }}>
+                  <span className={styles.title}>
+                  {notice.title}
+                  </span>
+                  <div className={styles.date}>
+                    {this.dateFormatting(notice.until)}까지 표시됩니다
+                  </div>
+                </p>
+              )
+            })
+            :
+            (
+              <div style={{
+                width: '100%',
+                textAlign: 'center',
+                padding: '32px',
               }}>
-                <span className={styles.title}>
-                {notice.title}
-                </span>
-              <div className={styles.date}>
-                {notice.date}
+                <Spinner/>
               </div>
-            </p>
-          )
-        })
-      }
-    </div>
-  );
+            )
+        }
+      </div>
+    );
+  }
+
 }
 
 export default Notices;

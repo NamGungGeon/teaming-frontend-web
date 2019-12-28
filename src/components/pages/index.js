@@ -4,6 +4,7 @@ import Teambuild from './teambuild/TeamBuild';
 import Auth from "./auth/Auth";
 import Trash from "./trash/Trash";
 import Rooms from './rooms/Rooms';
-import Events from './events/Events'
+import Events from './important/events/Events'
+import Notices from './important/notices/Notices';
 
-export { Home, Chat, Teambuild, Auth, Trash, Rooms, Events };
+export { Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices };

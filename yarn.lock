@@ -1048,12 +1048,12 @@
     react-is "^16.8.0"
     react-transition-group "^4.3.0"
 
-"@material-ui/icons@^4.0.0-rc.0":
-  version "4.0.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.0.0-rc.0.tgz#c7895049ffcf452d74327cc096da7b80d1352d6f"
-  integrity sha512-n1kZUXwpFgcighnMGGf6H87uS5HXAT3wg2sga54/4Azv2Qu1Z0bE8UgdZOHvTV0TgDU9wFCJk5IpEeSwSEqnAA==
+"@material-ui/icons@^4.5.1":
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.5.1.tgz#6963bad139e938702ece85ca43067688018f04f8"
+  integrity sha512-YZ/BgJbXX4a0gOuKWb30mBaHaoXRqPanlePam83JQPZ/y4kl+3aW0Wv9tlR70hB5EGAkEJGW5m4ktJwMgxQAeA==
   dependencies:
-    "@babel/runtime" "^7.2.0"
+    "@babel/runtime" "^7.4.4"
 
 "@material-ui/styles@^4.7.1":
   version "4.7.1"
@@ -8513,6 +8513,11 @@ react-router-dom@^5.0.1:
     react-router "5.0.1"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-router-global-history@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-router-global-history/-/react-router-global-history-1.0.2.tgz#46deaedf7081a6362d0fc32409601293fbfb28fd"
+  integrity sha512-bxAFwlZunXs/wIP8jVFOAq0rJT3vTJhg8oLLDxKtIRZ8bd2ppHjL0YE/lUYuhSNDkoDl656SUZKDdkG0Z0LMeA==
 
 react-router@5.0.1:
   version "5.0.1"

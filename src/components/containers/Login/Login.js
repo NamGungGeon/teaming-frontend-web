@@ -4,12 +4,12 @@ import Label from "reactstrap/es/Label";
 import Input from "reactstrap/es/Input";
 import styles from './Login.module.css';
 import icon from '../../resource/logo_white.png';
-import Button from "reactstrap/es/Button";
 import {quickConnect} from "../../redux";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import {getPath} from "../../utils/url";
 import {signin} from "../../http/tming";
 import {errMsg} from "../../http/util";
+import Button from "@material-ui/core/Button";
 
 class Login extends Component {
   state= {
@@ -33,6 +33,7 @@ class Login extends Component {
     uiKit.loading.start();
     await signin(email, pw)
       .then((response)=>{
+        console.log(response.data);
         const {id, access, refresh}= response.data;
 
         AuthDispatcher.login({
@@ -89,21 +90,37 @@ class Login extends Component {
             </FormGroup>
             <br/>
             <FormGroup className={styles.buttons}>
-              <Button color={"primary"} onClick={()=>{this.login()}}>로그인</Button>
-              <Button outline color={'primary'} onClick={()=>{
+              <Button
+                variant={'contained'}
+                color={"primary"}
+                onClick={()=>{this.login()}}>
+                로그인
+              </Button>
+              <Button
+                variant={'outlined'}
+                color={'primary'}
+                onClick={()=>{
                 this.props.history.push(getPath(`/auth/signup`));
-              }}>회원가입</Button>
+              }}>
+                회원가입
+              </Button>
             </FormGroup>
             <Button
-              color={'primary'}
-              block
+              style={{
+                marginBottom: '8px'
+              }}
+              fullWidth
+              variant={'contained'}
+              color={"primary"}
               onClick={e=>{
                 uiKit.toaster.cooking('개발중인 기능입니다');
               }}>
               구글 계정으로 로그인
             </Button>
             <Button
-              block
+              fullWidth
+              variant={'contained'}
+              color={"secondary"}
               onClick={e=>{
                 this.props.history.push(getPath(`/auth/lost`));
               }}>

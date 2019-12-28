@@ -60,9 +60,7 @@ class PwChange extends Component {
     return (
       <div>
         <Collapse isOpen={!checked}>
-          <h5>
-            비밀번호 확인
-          </h5>
+          <PageTitle title={'비밀번호 변경'} explain={'현재 사용중인 비밀번호를 다시 확인합니다'} noMargin/>
           <br/>
           <InputGroup
             style={{

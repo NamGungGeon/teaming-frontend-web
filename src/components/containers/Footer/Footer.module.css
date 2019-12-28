@@ -1,9 +1,9 @@
 
 footer{
-    border-top: 0.6px solid #ffffff66;
     width: 100%;
-    padding: 16px;
 
+    margin-top: 32px;
+    width: 100%;
     color: #b9b9b9;
     font-size: 0.9rem;
 
@@ -13,15 +13,18 @@ footer{
 }
 footer> .guide{
     width: 100%;
-    max-width: 1200px;
+    text-align: left;
+}
+.texts{
+    font-size: 0.7rem;
 }
 
 .list{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
 }
 .list> *{
-    padding: 0 4px;
+    padding-right: 16px;
     color: #b9b9b9;
 }

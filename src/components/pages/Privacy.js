@@ -10,7 +10,8 @@ class Privacy extends Component {
   render() {
     return (
       <div>
-        <PageTitle title={'개인정보처리방침'} explain={'티밍의 개인정보처리방침입니다'} align={'center'}/>
+        <PageTitle title={'개인정보처리방침'} explain={'티밍의 개인정보처리방침입니다'} align={'left'}/>
+        <br/>
         <p>
           {privacy}
         </p>
