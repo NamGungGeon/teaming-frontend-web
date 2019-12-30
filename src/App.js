@@ -9,9 +9,7 @@ import {Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices} from './comp
 import MyPage from "./components/pages/mypage/MyPage";
 import Trade from "./components/pages/trade/Trade";
 import Privacy from "./components/pages/Privacy";
-import Footer from "./components/containers/Footer/Footer";
 import Community from "./components/pages/community/Community";
-import queryString from "query-string";
 import SideNavigation from "./components/containers/Navigation/SideNavigation";
 import MobileSideNavigation from "./components/containers/Navigation/MobileSideNavigation";
 

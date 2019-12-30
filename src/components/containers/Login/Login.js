@@ -10,6 +10,7 @@ import {getPath} from "../../utils/url";
 import {signin} from "../../http/tming";
 import {errMsg} from "../../http/util";
 import Button from "@material-ui/core/Button";
+import getHistory from 'react-router-global-history';
 
 class Login extends Component {
   state= {
@@ -17,13 +18,10 @@ class Login extends Component {
     pw: '',
   };
 
-  move= (url)=>{
-    this.props.history.push(url);
-  };
 
   login= async ()=>{
     const {email, pw}= this.state;
-    const {uiKit, AuthDispatcher, history}= this.props;
+    const {uiKit, AuthDispatcher}= this.props;
 
     if(!email || !pw){
       uiKit.toaster.cooking('이메일과 비밀번호를 모두 입력하세요');
@@ -41,7 +39,8 @@ class Login extends Component {
           refresh,
           id: id,
         });
-        history.goBack();
+        uiKit.popup.destroy();
+        getHistory().push(getPath('/'));
       })
       .catch((e)=> {
         uiKit.toaster.cooking(errMsg(e));
@@ -100,7 +99,7 @@ class Login extends Component {
                 variant={'outlined'}
                 color={'primary'}
                 onClick={()=>{
-                this.props.history.push(getPath(`/auth/signup`));
+                  getHistory().push(getPath(`/auth/signup`));
               }}>
                 회원가입
               </Button>
@@ -122,7 +121,7 @@ class Login extends Component {
               variant={'contained'}
               color={"secondary"}
               onClick={e=>{
-                this.props.history.push(getPath(`/auth/lost`));
+                getHistory().push(getPath(`/auth/lost`));
               }}>
               ID/PW찾기
             </Button>

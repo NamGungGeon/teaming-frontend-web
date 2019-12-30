@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Login from "../../containers/Login/Login";
 import {quickConnect} from "../../redux";
 import {authorized} from "../../utils/utils";
-import {getPath, urlQuery} from "../../utils/url";
+import {getPath} from "../../utils/url";
 
 class SignIn extends Component {
   componentDidMount() {
@@ -15,7 +15,7 @@ class SignIn extends Component {
   render() {
     return (
       <div>
-        <Login history={this.props.history}/>
+        <Login/>
       </div>
     );
   }

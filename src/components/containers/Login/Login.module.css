@@ -5,11 +5,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
 }
 .child{
-    border-radius: 16px;
-    border: 0.6px solid #FFFFFF33;
     width: 500px;
 
     padding: 32px 16px;
@@ -32,6 +29,10 @@
 }
 
 @media (max-width: 500px) {
+    .parent{
+        justify-content: center;
+        align-items: center;
+    }
     .child{
         padding: 0;
         width: 100%;

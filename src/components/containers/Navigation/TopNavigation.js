@@ -18,6 +18,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {Badge} from "@material-ui/core";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from "@material-ui/core/Tooltip";
+import uikit from "../../redux/uikit";
+import Login from "../Login/Login";
 
 
 class TopNavigation extends Component{
@@ -27,7 +29,7 @@ class TopNavigation extends Component{
   };
 
   render() {
-    const {auth, history, AuthDispatcher, config, sideNav, SideNavDispatcher}= this.props;
+    const {auth, uiKit, history, AuthDispatcher, config, sideNav, SideNavDispatcher}= this.props;
     const {hideNav}= config;
     const quickMenus = [
       {
@@ -38,7 +40,9 @@ class TopNavigation extends Component{
             </IconButton>
           </Tooltip>),
         click: ()=>{
-          history.push(getPath('/auth/signin'));
+          uiKit.popup.make((<Login/>));
+
+          //history.push(getPath('/auth/signin'));
         },
         requireAuth: false,
       },
