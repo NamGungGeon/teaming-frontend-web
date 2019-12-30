@@ -15,16 +15,6 @@ import GoogleAdvertise from "../containers/GoogleAdvertise/GoogleAdvertise";
 class Home extends Component{
 
   componentDidMount() {
-    const {AuthDispatcher, location, history}= this.props;
-    //check auth query
-    const query= urlQuery(location);
-
-    const {id, token, refresh }= query;
-    if(id && token && refresh){
-      AuthDispatcher.login(query);
-    }
-    //end check
-
     window.scrollTo(0,0);
   }
 

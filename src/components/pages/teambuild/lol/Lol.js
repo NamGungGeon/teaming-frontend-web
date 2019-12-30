@@ -13,7 +13,7 @@ class Lol extends Component {
     return (
       <div>
         <Route exact path={getPath(`/teambuild/lol/`)} component={Option}/>
-        <Route exact path={getPath(`/teambuild/lol/start`)} component={Start}/>
+        <Route exact path={getPath(`/teambuild/lol/starttt`)} component={Start}/>
       </div>
     );
   }

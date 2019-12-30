@@ -4,7 +4,7 @@ import VerticalNavigation from './components/containers/Navigation/TopNavigation
 import React, { Component } from 'react';
 import { UiBundle } from './components/utils/hoc';
 import { quickConnect } from './components/redux';
-import { getPath } from './components/utils/url';
+import {getPath, urlQuery} from './components/utils/url';
 import {Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices} from './components/pages';
 import MyPage from "./components/pages/mypage/MyPage";
 import Trade from "./components/pages/trade/Trade";
@@ -20,27 +20,49 @@ import MobileSideNavigation from "./components/containers/Navigation/MobileSideN
 // 리팩토링 필수임
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  state={
+    ready: false,
+  };
 
   componentDidMount() {
+    this.init();
+  }
 
-    const query= queryString.parse(this.props.location.search);
+  init= async ()=>{
+    const {AuthDispatcher, location, history}= this.props;
+
+    const query= urlQuery(location);
+
+    //navigation setting
     const {hideNav}= query;
     if(hideNav)
-      this.props.ConfigDispatcher.hideNav();
+      await this.props.ConfigDispatcher.hideNav();
 
-    this.props.UIKitDispatcher.init(UiBundle(this));
+    //uiKit initialize
+    await this.props.UIKitDispatcher.init(UiBundle(this));
+
+    //auth info is passed as query-string?
+    const {id, token, refresh }= query;
+    if(id && token && refresh){
+      //yes!
+      //wait for storing auth info
+      await AuthDispatcher.login(query);
+    }
+
+    //ok finish init
+    this.setState({
+      ...this.state,
+      ready: true,
+    })
   }
 
   render() {
     const {config}= this.props;
+    const {ready}= this.state;
 
     return (
       <div>
-        {this.props.uiKit && (
+        {ready && (
           <div>
             {this.props.uiKit.render()}
             <VerticalNavigation

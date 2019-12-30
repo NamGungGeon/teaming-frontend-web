@@ -35,14 +35,8 @@ class MyPage extends Component{
         }}/>));
 
     //check auth query
-    const {auth, AuthDispatcher, history, match, location}= this.props;
-    const query= urlQuery(location);
-
-    const {id, token, refresh }= query;
-    if(id && token && refresh){
-      //wait for storing auth info
-      await AuthDispatcher.login(query);
-    }else if(!authorized(auth)){
+    const {auth, history}= this.props;
+    if(!authorized(auth)){
       //fuck off!
       window.alert('로그인이 필요한 서비스입니다');
       history.push(getPath(`/`));
@@ -54,7 +48,6 @@ class MyPage extends Component{
   }
 
   render() {
-    const {SideNavDispatcher, auth, history, match, location}= this.props;
     return (
       <div style={{
         padding: '16px'

@@ -41,7 +41,7 @@ export default function TeamBuild({ match }) {
           (<GameList {...props} stepping={setActiveStep}/>)
         }/>
       <Route
-        exact path={getPath(`/teambuild/lol`)}
+        path={getPath(`/teambuild/lol`)}
         component={(props)=>
           (<Lol {...props} stepping={setActiveStep}/>)
         } />
