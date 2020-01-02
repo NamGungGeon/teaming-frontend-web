@@ -4,7 +4,7 @@ import {quickConnect} from "../../../redux";
 import {createNotice, getMyProfile, getNotices} from "../../../http/tming";
 import {errMsg} from "../../../http/util";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpandMoreIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import InputGroup from "reactstrap/es/InputGroup";
 import Input from "reactstrap/es/Input";
@@ -25,6 +25,8 @@ class NoticeList extends Component {
     newNoticeText: '',
 
     isAdmin: false,
+
+    open: 0,
   };
 
   async componentDidMount() {
@@ -32,6 +34,7 @@ class NoticeList extends Component {
 
     uiKit.loading.start();
     await getNotices().then(response=>{
+      console.log(response.data);
       this.setState({
         ...this.state,
         notices: response.data.data,
@@ -124,7 +127,7 @@ class NoticeList extends Component {
   };
 
   render() {
-    const {notices, isAdmin}= this.state;
+    const {notices, isAdmin, open}= this.state;
     const {history}= this.props;
 
     return (
@@ -155,23 +158,40 @@ class NoticeList extends Component {
                 notices.map(notice=>{
                   return (
                     <ExpansionPanel
-                      expanded={false}>
+                      expanded={notice.id=== open}>
                       <ExpansionPanelSummary
                         onClick={()=>{
-                          history.push(getPath(`/important/notices/${notice.id}`));
+                          if(open=== notice.id){
+                            this.setState({
+                              ...this.state,
+                              open: 0,
+                            });
+                          }else{
+                            this.setState({
+                              ...this.state,
+                              open: notice.id,
+                            });
+                          }
+                          //history.push(getPath(`/important/notices/${notice.id}`));
                         }}
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content">
                         <div>
-                          <b>
+                          <span>
                             {notice.title}
-                          </b>
+                          </span>
                           <br/>
-                          <span className={'explain'}>
-                            {this.dateFormatting(notice.until)}까지 표시됩니다
+                          <span
+                            className={'explain'}>
+                            {this.dateFormatting(notice.createdAt)}
                           </span>
                         </div>
                       </ExpansionPanelSummary>
+                      <ExpansionPanelDetails style={{
+                        flexDirection: 'column',
+                      }}>
+                        {notice.text}
+                      </ExpansionPanelDetails>
                     </ExpansionPanel>
                   );
                 })

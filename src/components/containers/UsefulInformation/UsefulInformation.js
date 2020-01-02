@@ -4,10 +4,10 @@ import EventGallery from "../EventGallery/EventGallery";
 import Notices from "../Notices/Notices";
 import Section from "../../primitive/Section/Section";
 import {getPath} from "../../utils/url";
-import moment from "moment";
+import getHistory from 'react-router-global-history';
 
-const UsefulInformation= ({history,})=> {
-
+const UsefulInformation= ()=> {
+  const history= getHistory();
 
   return (
     <div className={styles.wrapper}>
@@ -15,7 +15,7 @@ const UsefulInformation= ({history,})=> {
         <p style={{
           textAlign: 'left',
         }}>
-          <h5
+          <h6
             style={{
               cursor: 'pointer'
             }}
@@ -23,7 +23,7 @@ const UsefulInformation= ({history,})=> {
               history.push(getPath(`/important/events`));
             }}>
            진행중인 이벤트
-          </h5>
+          </h6>
         </p>
         <EventGallery
           style={{
@@ -35,7 +35,7 @@ const UsefulInformation= ({history,})=> {
         <p style={{
           textAlign: 'left',
         }}>
-          <h5
+          <h6
             style={{
               cursor: 'pointer'
             }}
@@ -43,7 +43,7 @@ const UsefulInformation= ({history,})=> {
               history.push(getPath(`/important/notices`));
             }}>
             공지사항
-          </h5>
+          </h6>
         </p>
         <Notices history={history}/>
       </Section>

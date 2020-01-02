@@ -49,9 +49,7 @@ class MyPage extends Component{
 
   render() {
     return (
-      <div style={{
-        padding: '16px'
-      }}>
+      <div>
         <Route exact path={getPath(`/mypage`)} component={()=>{
           return (
             <div>

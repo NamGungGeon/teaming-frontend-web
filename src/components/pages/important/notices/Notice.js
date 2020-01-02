@@ -107,7 +107,6 @@ class Notice extends Component {
                 )
               }
               <div>
-                <br/>
                 <h3>
                   {notice.title}
                 </h3>

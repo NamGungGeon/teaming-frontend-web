@@ -18,8 +18,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {Badge} from "@material-ui/core";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from "@material-ui/core/Tooltip";
-import uikit from "../../redux/uikit";
 import Login from "../Login/Login";
+
+import getHistory from 'react-router-global-history';
 
 
 class TopNavigation extends Component{
@@ -28,52 +29,52 @@ class TopNavigation extends Component{
     anchor: 0,
   };
 
-  render() {
-    const {auth, uiKit, history, AuthDispatcher, config, sideNav, SideNavDispatcher}= this.props;
-    const {hideNav}= config;
-    const quickMenus = [
-      {
-        title: (
-          <Tooltip title={'로그인'}>
-            <IconButton>
-              <VpnKeyIcon/>
-            </IconButton>
-          </Tooltip>),
-        click: ()=>{
-          uiKit.popup.make((<Login/>));
 
-          //history.push(getPath('/auth/signin'));
+  render() {
+    const {auth, uiKit, AuthDispatcher, config, sideNav, SideNavDispatcher}= this.props;
+    const history= getHistory();
+    const {hideNav}= config;
+    const quickMenus= [
+        {
+          title: (
+            <Tooltip title={'로그인'}>
+              <IconButton>
+                <VpnKeyIcon/>
+              </IconButton>
+            </Tooltip>),
+          click: ()=>{
+            uiKit.popup.make((<Login/>));
+          },
+          requireAuth: false,
         },
-        requireAuth: false,
-      },
-      {
-        title: (
-          <Tooltip title={'회원가입'}>
-            <IconButton>
-              <PersonAddIcon/>
-            </IconButton>
-          </Tooltip>),
-        click: ()=>{
-          history.push(getPath('/auth/signup'));
+        {
+          title: (
+            <Tooltip title={'회원가입'}>
+              <IconButton>
+                <PersonAddIcon/>
+              </IconButton>
+            </Tooltip>),
+          click: ()=>{
+            history.push(getPath('/auth/signup'));
+          },
+          requireAuth: false,
         },
-        requireAuth: false,
-      },
-      {
-        title: (
-          <Tooltip title={'마이페이지'}>
-            <IconButton>
-              <PersonIcon/>
-            </IconButton>
-          </Tooltip>
-        ),
-        click: ()=>{
-          history.push(getPath(`/mypage`));
+        {
+          title: (
+            <Tooltip title={'마이페이지'}>
+              <IconButton>
+                <PersonIcon/>
+              </IconButton>
+            </Tooltip>
+          ),
+          click: ()=>{
+            history.push(getPath(`/mypage`));
+          },
+          requireAuth: true,
         },
-        requireAuth: true,
-      },
-      {
-        title: (
-          <Tooltip title={'알림'}>
+        {
+          title: (
+            <Tooltip title={'알림'}>
             <span>
               <IconButton
                 aria-label="more"
@@ -118,27 +119,28 @@ class TopNavigation extends Component{
                 </MenuItem>
               </Menu>
             </span>
-          </Tooltip>
-        ),
-        click: ()=>{
+            </Tooltip>
+          ),
+          click: ()=>{
+          },
+          requireAuth: true,
         },
-        requireAuth: true,
-      },
-      {
-        title: (
-          <Tooltip title={'로그아웃'}>
-            <IconButton>
-              <ExitToAppIcon/>
-            </IconButton>
-          </Tooltip>
-        ),
-        click: ()=>{
-          AuthDispatcher.logout();
-          window.alert('로그아웃 되었습니다');
+        {
+          title: (
+            <Tooltip title={'로그아웃'}>
+              <IconButton>
+                <ExitToAppIcon/>
+              </IconButton>
+            </Tooltip>
+          ),
+          click: ()=>{
+            AuthDispatcher.logout();
+            history.push(getPath());
+            window.alert('로그아웃 되었습니다');
+          },
+          requireAuth: true,
         },
-        requireAuth: true,
-      },
-    ];
+      ];
     console.log('sideNav', sideNav.content);
 
     return (
@@ -171,20 +173,22 @@ class TopNavigation extends Component{
             </NavLink>
           </span>
           <span className={styles.right}>
-          {quickMenus.map((value, index) =>
-            value.requireAuth === !!authorized(auth) || value.alwaysShow ? (
-              <span
-                style={{
-                  marginLeft: typeof value.title=== 'string'? '16px': '0',
-                }}
-                key={index}
-                onClick={value.click}>
-                {value.title}
-              </span>
-            ) : (
-              ''
+          {
+            quickMenus.map((value, index) =>
+              value.requireAuth === !!authorized(auth) || value.alwaysShow ? (
+                <span
+                  style={{
+                    marginLeft: typeof value.title=== 'string'? '16px': '0',
+                  }}
+                  key={index}
+                  onClick={value.click}>
+                  {value.title}
+                </span>
+              ) : (
+                ''
+              )
             )
-          )}
+          }
         </span>
         </div>
       </nav>

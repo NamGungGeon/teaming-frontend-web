@@ -11,6 +11,7 @@ import {signin} from "../../http/tming";
 import {errMsg} from "../../http/util";
 import Button from "@material-ui/core/Button";
 import getHistory from 'react-router-global-history';
+import PageTitle from "../../primitive/PageTitle/PageTitle";
 
 class Login extends Component {
   state= {
@@ -54,10 +55,8 @@ class Login extends Component {
     return (
       <div className={styles.parent}>
         <div className={styles.child}>
-          <AlignLayout align={'center'}>
-            <img src={icon} alt="" className={styles.icon}/>
-          </AlignLayout>
-
+          <h3>로그인</h3>
+          <br/>
           <div className={styles.form}>
             <FormGroup>
               <Label for={"email"}>이메일</Label>

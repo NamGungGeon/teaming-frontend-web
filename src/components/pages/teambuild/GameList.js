@@ -35,7 +35,6 @@ class GameList extends Component {
   };
 
   componentDidMount() {
-    this.props.stepping(0);
     window.scrollTo(0,0);
   }
 

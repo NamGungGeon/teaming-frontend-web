@@ -20,14 +20,16 @@ class Comment extends Component{
       <div className={styles.wrapper}>
         <div className={styles.profile}>
           <img src={profile? profile: logo} alt=""/>
-          <b>{name? name: '익명'}</b>
+          <span style={{
+            fontSize: '0.8rem'
+          }}>
+            {name? name: '익명'}
+          </span>
         </div>
         <div className={styles.contents}>
-          <p>
-            {text}
-          </p>
+          {text}
           <div className={styles.options}>
-            <span>
+            <span className={'explain'}>
               {createdAt}
             </span>
             <div>

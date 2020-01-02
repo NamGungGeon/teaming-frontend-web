@@ -4,40 +4,34 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: row;
+
+    width: 100%;
 }
 
 .event{
-    margin: 4px;
+    margin: 8px 0;
     cursor: pointer;
     box-sizing: border-box;
     border: 1px solid #ffffff99;
-    border-radius: 16px;
     background-color: #444444;
 
     transition-property: transform, box-shadow;
     transition-duration: 0.3s;
 
     width: 100%;
-    max-width: 512px;
 }
 .event:hover{
     transform: translateY(-4px);
 }
 .event> .title{
-    text-align: center;
-    padding: 8px 0;
-    border-radius: 16px;
+    padding: 4px;
+    background-color: #202020;
+    text-align: right;
     font-size: 0.8rem;
 }
 .event> img{
-    border-radius: 16px;
     width: 100%;
     height: auto;
 }
 
-@media (max-width: 500px) {
-    .event{
-        width: 95%;
-    }
-}
 

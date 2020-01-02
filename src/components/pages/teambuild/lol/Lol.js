@@ -6,7 +6,6 @@ import Start from "./Start";
 
 class Lol extends Component {
   componentDidMount() {
-    this.props.stepping(1);
     window.scrollTo(0,0);
   }
   render() {

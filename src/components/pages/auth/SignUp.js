@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import PageTitle from "../../primitive/PageTitle/PageTitle";
-import Section from "../../primitive/Section/Section";
 import Input from "reactstrap/es/Input";
-import {Col, FormGroup, InputGroupAddon, Label} from "reactstrap";
-import Button from "reactstrap/es/Button";
-import InputGroup from "reactstrap/es/InputGroup";
+import {Button, Col, FormGroup, InputGroupAddon, Label} from "reactstrap";
 import Form from "reactstrap/es/Form";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import {Validator} from "class-validator";
@@ -15,6 +12,7 @@ import {errMsg, responseCode} from "../../http/util";
 import {getPath} from "../../utils/url";
 import {privacy} from "../../utils/strings";
 import {authorized} from "../../utils/utils";
+import {Button as MdButton} from "@material-ui/core";
 
 class SignUp extends Component {
   state= {
@@ -40,25 +38,56 @@ class SignUp extends Component {
     this.props.uiKit.destroyAll();
   }
   openPrivacyRule= ()=>{
-    const {uiKit}= this.props;
+    const {uiKit, history}= this.props;
+
     uiKit.popup.make((
       <div>
         <h3>티밍 개인정보 처리방침</h3>
         <div
           style={{
             overflowY: 'scroll',
-            height: '300px'
+            height: '500px'
           }}>
           {privacy}
         </div>
-        <Button
-          color={'primary'}
-          block
-          onClick={()=>{
-            uiKit.popup.destroy();
-          }}>
-          동의
-        </Button>
+        <br/>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}>
+          <MdButton
+            style={{
+              flex: '1',
+            }}
+            variant={'contained'}
+            color={'primary'}
+            fullWidth
+            onClick={()=>{
+              uiKit.popup.destroy();
+            }}>
+            동의함
+          </MdButton>
+          &nbsp;
+          <MdButton
+            style={{
+              flex: '1',
+            }}
+            variant={'contained'}
+            color={'default'}
+            fullWidth
+            onClick={()=>{
+              uiKit.toaster.cooking('약관에 동의하지 않으면 사용할 수 없습니다');
+              uiKit.popup.destroy();
+              history.push(getPath('/'));
+            }}>
+            <span style={{
+              color: '#333333'
+            }}>
+              동의하지 않음
+            </span>
+          </MdButton>
+        </div>
       </div>
     ), true);
   };
@@ -112,8 +141,15 @@ class SignUp extends Component {
 
     return (
       <div>
-        <PageTitle title={'회원 가입'} explain={'얼마 걸리지 않습니다'} align={'center'}/>
-        <Section>
+        <div
+          style={{
+            padding: '8px'
+          }}>
+          <PageTitle
+            title={'회원 가입'}
+            explain={'얼마 걸리지 않습니다'}
+            align={'left'}/>
+            <br/>
           <Form>
             <FormGroup row>
               <Label for="exampleEmail" sm={2}>이메일</Label>
@@ -183,9 +219,15 @@ class SignUp extends Component {
           </Form>
           <br/>
           <AlignLayout align={'right'}>
-            <Button color={'primary'} onClick={this.submit} size={'large'}>회원가입</Button>
+            <MdButton
+              variant={'contained'}
+              color={'primary'}
+              onClick={this.submit}
+              size={'large'}>
+              회원가입&nbsp;>
+            </MdButton>
           </AlignLayout>
-        </Section>
+        </div>
       </div>
     );
   }

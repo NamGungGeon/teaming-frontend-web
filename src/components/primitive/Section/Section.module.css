@@ -19,5 +19,6 @@
 @media (max-width: 500px) {
     .wrapper{
         width: 100%;
+        padding: 8px;
     }
 }

@@ -39,7 +39,6 @@ class Notices extends Component{
       }}>
         {
           notices?
-
             notices.map(notice=>{
               return (
                 <p
@@ -47,9 +46,9 @@ class Notices extends Component{
                   onClick={()=>{
                     history.push(getPath(`/important/notices/${notice.id}`));
                   }}>
-                  <span className={styles.title}>
-                  {notice.title}
-                  </span>
+                  <div className={styles.title}>
+                    {notice.title}
+                  </div>
                   <div className={styles.date}>
                     {this.dateFormatting(notice.until)}까지 표시됩니다
                   </div>

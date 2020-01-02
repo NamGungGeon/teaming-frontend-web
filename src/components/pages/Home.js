@@ -30,10 +30,8 @@ class Home extends Component{
         {
           !urlQuery(location).imapp && (<HelpAppInstall/>)
         }
-        <Logo/>
-        <UsefulInformation
-          history={history}/>
-        <br/><br/>
+        <UsefulInformation/>
+        <br/>
         <GoogleAdvertise/>
         <br/><br/>
         <div className={'mobile'}>

@@ -30,7 +30,7 @@ class EventGallery extends Component {
   };
 
   render() {
-    const {history, limit, style}= this.props;
+    const {history, style}= this.props;
     const {events}= this.state;
 
     if(events && events.length=== 0){
@@ -43,9 +43,6 @@ class EventGallery extends Component {
           {
             events?
               events.map((event, idx)=>{
-                if(idx+1> limit)
-                  return;
-
                 return (
                   <div className={styles.event}>
                     <img
@@ -54,8 +51,11 @@ class EventGallery extends Component {
                       onClick={()=>{
                         history.push(getPath(`/important/events/${event.id}`));
                       }}/>
+                    <div className={styles.title}>
+                      {event.title}
+                    </div>
                   </div>
-                )
+                );
               })
               :
               (

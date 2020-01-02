@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {getPath} from "../../utils/url";
 import Route from "react-router-dom/es/Route";
 import Contents from "./Contents";
-import Content from "./Content";
+import Content from "./Read";
 import HorizontalNavigation from "../../containers/Navigation/HorizontalNavigation";
 import lol from "../../resource/icon/lol.jpg";
 import overwatch from "../../resource/icon/overwatch.png";
@@ -71,11 +71,6 @@ class Community extends Component {
     return (
       <div>
         <div>
-          <PageTitle
-            title={'커뮤니티'}
-            explain={'커뮤니티입니다'}
-            align={'left'}/>
-          <br/>
           <Route exact path={getPath(`/community/write`)} component={Write}/>
           <Route exact path={getPath(`/community`)} component={Contents}/>
           <Route exact path={getPath(`/community/read/:id`)} component={Content}/>

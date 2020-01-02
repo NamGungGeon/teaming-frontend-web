@@ -12,6 +12,7 @@ import Privacy from "./components/pages/Privacy";
 import Community from "./components/pages/community/Community";
 import SideNavigation from "./components/containers/Navigation/SideNavigation";
 import MobileSideNavigation from "./components/containers/Navigation/MobileSideNavigation";
+import Footer from "./components/containers/Footer/Footer";
 
 // App 은 최상단 컴포넌트인데 mstp를 connected 하는건 좋은패턴이 아님
 // UIKit 이랑 Router dispatcher 하는 코드를 어떤 패턴으로 구현했는지 해석이 좀 어려운데
@@ -27,7 +28,7 @@ class App extends Component {
   }
 
   init= async ()=>{
-    const {AuthDispatcher, location, history}= this.props;
+    const {AuthDispatcher, location}= this.props;
 
     const query= urlQuery(location);
 
@@ -87,6 +88,14 @@ class App extends Component {
                 <Route path={getPath('/community')} component={Community} />
                 <Route path={getPath('/important/notices')} component={Notices} />
                 <Route path={getPath('/important/events')} component={Events} />
+
+                <div
+                  style={{
+                    padding: '8px',
+                  }}
+                  className={'mobile'}>
+                  <Footer/>
+                </div>
               </div>
             </div>
           </div>

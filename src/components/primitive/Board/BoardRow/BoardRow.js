@@ -9,22 +9,26 @@ class BoardRow extends Component {
       <div
         className={styles.wrapper}
         onClick={onClick}>
-        <div className={styles.imgWrap}>
-          {
-            thumbnail && (<img src={thumbnail} alt=""/>)
-          }
-        </div>
+        {
+          thumbnail && (
+            <div className={styles.imgWrap}>
+              <img src={thumbnail} alt=""/>
+            </div>
+            )
+        }
         <div className={styles.content}>
           <div className={styles.title}>
-            {title}
+            {title}&nbsp;[3]
           </div>
           <div className={styles.explain}>
-          <span>
-            {exp_l}
-          </span>
             <span>
-            {exp_r}
-          </span>
+              {exp_l}
+            </span>
+            <span style={{
+              textAlign: 'right'
+            }}>
+              {exp_r}
+            </span>
           </div>
         </div>
       </div>

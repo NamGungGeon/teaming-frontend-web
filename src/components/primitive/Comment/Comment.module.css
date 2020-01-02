@@ -13,11 +13,16 @@
     justify-content: center;
 
     font-size: 0.8rem;
+    padding: 4px;
+
+    border: 0.6px solid #ffffff99;
+    background-color: #333333;
+    cursor: pointer;
 }
 .wrapper> .profile> img{
     width: 32px;
     height: 32px;
-    margin: 8px;
+    margin-bottom: 4px;
 }
 .wrapper> .contents{
     flex: 1;

@@ -77,6 +77,7 @@ tbody tr{
 
 .explain {
   font-size: 0.8rem;
+  color: #FFFFFF99;
 }
 .shadowing {
   box-shadow: 4px 8px 16px #00000022;
@@ -130,7 +131,8 @@ tbody tr{
   text-align: left;
   width: 100%;
   max-width: 1200px;
-  min-height: calc(100% - 55px);
+  min-width: 700px;
+  min-height: calc(100% - 48px);
   padding: 32px;
 
   display: flex;
@@ -197,7 +199,8 @@ table.noHead tr > td:nth-child(1) {
     align-items: center;
   }
   .guideLine {
-    padding: 32px 8px;
+    min-width: 0;
+    padding: 8px;
     width: 100%;
   }
 
