@@ -26,7 +26,7 @@ class Home extends Component{
     };
 
     return (
-      <AlignLayout align="center">
+      <AlignLayout align="left">
         {
           !urlQuery(location).imapp && (<HelpAppInstall/>)
         }

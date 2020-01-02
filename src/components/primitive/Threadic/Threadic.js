@@ -195,7 +195,7 @@ class Threadic extends Component {
                 (
                   <Comment
                     text={comment.text}
-                    createdAt={new Date().toString()}/>
+                    createdAt={'3일 전'}/>
                 )
               )
             }

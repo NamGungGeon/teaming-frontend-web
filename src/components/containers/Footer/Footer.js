@@ -16,6 +16,9 @@ class Footer extends Component {
             <div>
               사업문의: tming.dev@gmail.com
             </div>
+            <div>
+              사업자등록번호: 270-09-01066
+            </div>
             <div className={styles.list}>
               <NavLink to={getPath('/privacy')}>
                 개인정보처리방침

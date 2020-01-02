@@ -149,7 +149,7 @@ class TopNavigation extends Component{
           display: hideNav? 'none': 'flex',
         }}
         className={classNames(styles.vertical)}>
-        <div className={styles.guideLine}>
+        <div className={styles.ruler}>
           <span className={styles.left}>
             <span className={'mobile'}>
               <span

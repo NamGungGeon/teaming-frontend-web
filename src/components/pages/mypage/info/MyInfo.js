@@ -201,12 +201,6 @@ class MyInfo extends Component {
                   </FormGroup>
                 </div>
               </Section>
-              <Section>
-                <h5>???</h5>
-              </Section>
-              <Section>
-                <h5>???</h5>
-              </Section>
             </div>
           )
         }

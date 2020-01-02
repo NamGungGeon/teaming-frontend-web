@@ -109,7 +109,7 @@ tbody tr{
   margin: 20px;
   transform: translate(1px, -8px);
 }
-.fullDisplay{
+.fullSizeDisplay{
   position: absolute;
   left: 0;
   width: 100%;
@@ -122,11 +122,11 @@ tbody tr{
 
   background-color: #202020;
 }
-.sidenav+ .guideLine{
+.sidenav+ .ruler{
   left: 240px;
   width: calc(100% - 240px);
 }
-.guideLine {
+.ruler{
   position: absolute;
   text-align: left;
   width: 100%;
@@ -192,13 +192,13 @@ table.noHead tr > td:nth-child(1) {
   .desktop {
     display: none;
   }
-  .fullDisplay {
+  .fullSizeDisplay {
     min-width: 0;
     left: 0;
     width: 100%;
     align-items: center;
   }
-  .guideLine {
+  .ruler {
     min-width: 0;
     padding: 8px;
     width: 100%;
@@ -207,7 +207,7 @@ table.noHead tr > td:nth-child(1) {
   .flexBox > div {
     width: calc(100% - 16px);
   }
-  .sidenav+ .guideLine{
+  .sidenav+ .ruler{
     left: 0;
     width: 100%;
   }

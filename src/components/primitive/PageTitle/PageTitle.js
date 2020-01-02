@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
+import styles from './PageTitle.module.css';
 
 class PageTitle extends Component {
   static defaultProps = {
@@ -11,7 +12,7 @@ class PageTitle extends Component {
   render() {
     const { title, titleColor, explain, align } = this.props;
     return (
-      <AlignLayout align={align}>
+      <div className={styles.wrapper}>
         <h3
           className={classNames('title')}
           style={{ color: titleColor }}
@@ -26,7 +27,7 @@ class PageTitle extends Component {
             {explain}
           </p>
         )}
-      </AlignLayout>
+      </div>
     );
   }
 }

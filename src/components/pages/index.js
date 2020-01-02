@@ -6,5 +6,6 @@ import Trash from "./trash/Trash";
 import Rooms from './rooms/Rooms';
 import Events from './important/events/Events'
 import Notices from './important/notices/Notices';
+import Center from './center/Center';
 
-export { Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices };
+export { Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center };

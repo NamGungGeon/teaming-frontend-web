@@ -44,7 +44,37 @@ class Read extends Component {
         {id: randNum(1000), author: "댓글작성자", text: '테스트용댓글입니다아아', createdAt: '3일 전'},
       ]
     })
-  }
+  };
+
+  showUserInfo= async (nickname)=>{
+    const {uiKit}= this.props;
+
+    uiKit.loading.start();
+    await delay(1000);
+    uiKit.loading.end();
+
+    uiKit.popup.make((
+      <div>
+        <h5>{nickname}의 정보</h5>
+        <p>
+          머시기머시기
+        </p>
+        <AlignLayout align={'right'}>
+          <Button
+            variant={'contained'}
+            color={'primary'}>
+            친구추가
+          </Button>
+          &nbsp;&nbsp;
+          <Button
+            variant={'contained'}
+            color={'secondary'}>
+            차단
+          </Button>
+        </AlignLayout>
+      </div>
+    ));
+  };
 
 
   render() {
@@ -56,7 +86,14 @@ class Read extends Component {
           content && (
             <div>
               <h4>{content.title}</h4>
-              <p className={'explain'}>
+              <p
+                onClick={()=>{
+                  this.showUserInfo(content.nickname);
+                }}
+                style={{
+                  cursor: 'pointer'
+                }}
+                className={'explain'}>
                 {content.nickname}
               </p>
               <br/>
@@ -65,17 +102,17 @@ class Read extends Component {
               </p>
               <br/>
               <AlignLayout align={'center'}>
-                <Fab color={'primary'} variant="extended">
+                <Fab size='small' color={'primary'} variant="extended">
                   <IoIosThumbsUp style={{
-                    fontSize: '25px'
+                    fontSize: '20px'
                   }}/>
                   &nbsp;
                   정말 유용합니다!
                 </Fab>
                 &nbsp;&nbsp;&nbsp;
-                <Fab color={'secondary'} variant="extended">
+                <Fab size='small' color={'secondary'} variant="extended">
                   <IoIosThumbsDown style={{
-                    fontSize: '25px'
+                    fontSize: '20px'
                   }}/>
                   &nbsp;
                   별로군요

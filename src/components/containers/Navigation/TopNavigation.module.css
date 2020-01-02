@@ -10,7 +10,7 @@ nav.vertical{
 
     color: white;
 }
-.guideLine{
+.ruler{
     display: flex;
     width: 100%;
     justify-content: space-between;

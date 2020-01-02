@@ -23,6 +23,7 @@ class MyPage extends Component{
             {label: '회원탈퇴', onClick: ()=>{history.push(getPath(`/mypage/info/escape`))}},
           ],
           '커뮤니티': [
+            {label: '활동기록', onClick: ()=>{history.push(getPath(`/mypage/community/logs`))}},
             {label: '친구목록', onClick: ()=>{history.push(getPath(`/mypage/community/friends`))}},
             {label: '차단관리', onClick: ()=>{history.push(getPath(`/mypage/community/blocks`))}},
             {label: '쪽지함', onClick: ()=>{history.push(getPath(`/mypage/community/message`))}},
@@ -54,11 +55,10 @@ class MyPage extends Component{
           return (
             <div>
               <h3>마이페이지</h3>
-              <br/>
-              <p className={'mobile'}>
+              <p className={'mobile explain'}>
                 좌측 상단 메뉴 아이콘을 클릭하여 마이페이지 메뉴를 이용하실 수 있습니다
               </p>
-              <p className={'desktop'}>
+              <p className={'desktop explain'}>
                 좌측 네비게이션으로 마이페이지 메뉴를 이용하실 수 있습니다
               </p>
             </div>

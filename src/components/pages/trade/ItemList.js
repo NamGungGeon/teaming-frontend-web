@@ -34,6 +34,7 @@ class ItemList extends Component {
     return (
       <div>
         <PageTitle title={'아이템 거래소'} explain={'사기 등에 주의하세요. 티밍은 유저간의 거래에 일체 책임지지 않습니다'} align={'center'}/>
+        <br/>
         <HorizontalSlicedLayout>
           <Window title={'옵션'} foldable>
             <Button
@@ -53,7 +54,7 @@ class ItemList extends Component {
               boards={
                 items.map(item=>{
                   return {
-                    title: `${item.title} [${item.commentCnt}]`,
+                    title: `${item.title}`,
                     exp_l: `${item.user}    (${item.date})`,
                     exp_r: `(${item.type==='cash'? '현금': '게임머니'}) ${formatToMoney(item.price)}원`,
                     thumbnail: icon,

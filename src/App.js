@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { UiBundle } from './components/utils/hoc';
 import { quickConnect } from './components/redux';
 import {getPath, urlQuery} from './components/utils/url';
-import {Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices} from './components/pages';
+import {Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center} from './components/pages';
 import MyPage from "./components/pages/mypage/MyPage";
 import Trade from "./components/pages/trade/Trade";
 import Privacy from "./components/pages/Privacy";
@@ -69,13 +69,13 @@ class App extends Component {
               location={this.props.location}/>
               <MobileSideNavigation/>
             <div
-              className="fullDisplay">
+              className="fullSizeDisplay">
               <SideNavigation/>
               <div
                 style={{
                   top: config.hideNav? '0': '55px',
                 }}
-                className="guideLine">
+                className="ruler">
                 <Route exact path={getPath('/')} component={Home} />
                 <Route path={getPath('/teambuild')} component={Teambuild} />
                 <Route exact path={getPath('/chat')} component={Chat} />
@@ -88,7 +88,7 @@ class App extends Component {
                 <Route path={getPath('/community')} component={Community} />
                 <Route path={getPath('/important/notices')} component={Notices} />
                 <Route path={getPath('/important/events')} component={Events} />
-
+                <Route path={getPath('/center')} component={Center} />
                 <div
                   style={{
                     padding: '8px',
