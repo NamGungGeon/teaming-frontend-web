@@ -52,7 +52,7 @@ class App extends Component {
     this.setState({
       ...this.state,
       ready: true,
-    })
+    });
   }
 
   render() {

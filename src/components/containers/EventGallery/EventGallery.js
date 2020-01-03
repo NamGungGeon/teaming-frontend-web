@@ -5,6 +5,8 @@ import classNames from "classnames";
 import {getEvents} from "../../http/tming";
 import Spinner from "reactstrap/es/Spinner";
 import {quickConnect} from "../../redux";
+import Carousel from "../Carousel/Carousel";
+import getHistory from 'react-router-global-history';
 
 class EventGallery extends Component {
   state={
@@ -30,7 +32,7 @@ class EventGallery extends Component {
   };
 
   render() {
-    const {history, style}= this.props;
+    const {style}= this.props;
     const {events}= this.state;
 
     if(events && events.length=== 0){
@@ -42,21 +44,20 @@ class EventGallery extends Component {
         <div className={classNames(styles.wrapper, style)}>
           {
             events?
-              events.map((event, idx)=>{
-                return (
-                  <div className={styles.event}>
-                    <img
-                      src={event.banner}
-                      alt=""
-                      onClick={()=>{
-                        history.push(getPath(`/important/events/${event.id}`));
-                      }}/>
-                    <div className={styles.title}>
-                      {event.title}
-                    </div>
-                  </div>
-                );
-              })
+              (
+                <Carousel
+                  steps={
+                    events.map((event=>{
+                      return {
+                        label: event.title,
+                        img: event.banner,
+                        onClick: ()=>{
+                          getHistory().push(getPath(`/important/events/${event.id}`));
+                        }
+                      }
+                    }))
+                  }/>
+              )
               :
               (
                 <div style={{

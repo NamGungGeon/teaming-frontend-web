@@ -4,11 +4,13 @@ import Collapse from "reactstrap/es/Collapse";
 import styles from './HorizontalNavigation.module.css';
 import {randStr} from "../../utils/utils";
 import MenuItem from "@material-ui/core/MenuItem";
+import uikit from "../../redux/uikit";
+import {quickConnect} from "../../redux";
 
 class HorizontalNavigation extends Component {
 
   render() {
-    const {nav}= this.props;
+    const {nav, uiKit}= this.props;
     return (
       <div>
         {
@@ -25,7 +27,14 @@ class HorizontalNavigation extends Component {
                       <MenuItem
                         key={portal.label}
                         className={styles.portal}
-                        onClick={portal.onClick}>
+                        onClick={
+                          portal.onClick?
+                            portal.onClick
+                            :
+                            ()=>{
+                              alert('준비중인 기능입니다');
+                            }
+                        }>
                         {portal.label}
                       </MenuItem>);
                   })
@@ -42,6 +51,6 @@ class HorizontalNavigation extends Component {
 
 HorizontalNavigation.propTypes= {
   nav: PropTypes.object,
-}
+};
 
-export default HorizontalNavigation;
+export default (HorizontalNavigation);

@@ -12,6 +12,8 @@ import {errMsg} from "../../http/util";
 import Button from "@material-ui/core/Button";
 import getHistory from 'react-router-global-history';
 import PageTitle from "../../primitive/PageTitle/PageTitle";
+import TextField from "@material-ui/core/TextField";
+import Form from "reactstrap/es/Form";
 
 class Login extends Component {
   state= {
@@ -58,35 +60,40 @@ class Login extends Component {
           <h3>로그인</h3>
           <br/>
           <div className={styles.form}>
-            <FormGroup>
-              <Label for={"email"}>이메일</Label>
-              <Input type={"email"} name={"email"} id={"email"}
-                     className={'transparent'}
-                     placeholder={"이메일을 입력하세요"}
-                     onChange={(e)=>{
-                       this.setState({
-                         ...this.state,
-                         email: e.target.value
-                       });
-                     }}/>
-            </FormGroup>
-            <FormGroup>
-              <Label for={"pw"}>비밀번호</Label>
-              <Input type={"password"} name={"pw"} id={"pw"}
-                     className={'transparent'}
-                     placeholder={"비밀번호를 입력하세요"}
-                     onChange={(e)=>{
-                       this.setState({
-                         ...this.state,
-                         pw: e.target.value
-                       });
-                     }}
-                    onKeyDown={(e)=>{
-                      if(e.key=== 'Enter')
-                        this.login();
-                    }}/>
-            </FormGroup>
-            <br/>
+            <Form>
+              <TextField
+                fullWidth
+                size={'small'}
+                variant={'outlined'}
+                id="standard-basic"
+                label="이메일"
+                type={'email'}
+                onChange={(e)=>{
+                  this.setState({
+                    ...this.state,
+                    email: e.target.value
+                  });
+                }}/>
+              <br/><br/>
+              <TextField
+                fullWidth
+                size={'small'}
+                variant={'outlined'}
+                id="standard-basic"
+                label="패스워드"
+                type={'password'}
+                onChange={(e)=>{
+                  this.setState({
+                    ...this.state,
+                    pw: e.target.value
+                  });
+                }}
+                onKeyDown={(e)=>{
+                  if(e.key=== 'Enter')
+                    this.login();
+                }}/>
+            </Form>
+            <br/><br/>
             <FormGroup className={styles.buttons}>
               <Button
                 variant={'contained'}

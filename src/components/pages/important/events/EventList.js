@@ -75,7 +75,7 @@ class EventList extends Component {
               newEventTitle: e.target.value,
             });
           }}
-          placeholder={'제을 입력하세요'}/>
+          placeholder={'제목을 입력하세요'}/>
         <br/>
         <Input
           className={'transparent'}

@@ -137,7 +137,7 @@ export const getEvent= (id)=>{
 export const removeNotice= (auth, id)=>{
   return axios.request({
     method: 'DELETE',
-    url: `${url}/admin/events/${id}`,
+    url: `${url}/admin/notices/${id}`,
     headers: {
       Authorization: 'Bearer '+ auth.token,
       'Content-Type': 'multipart/form-data',

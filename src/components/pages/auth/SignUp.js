@@ -13,6 +13,12 @@ import {getPath} from "../../utils/url";
 import {privacy} from "../../utils/strings";
 import {authorized} from "../../utils/utils";
 import {Button as MdButton} from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
 
 class SignUp extends Component {
   state= {
@@ -46,7 +52,7 @@ class SignUp extends Component {
         <div
           style={{
             overflowY: 'scroll',
-            height: '500px'
+            height: '450px'
           }}>
           {privacy}
         </div>
@@ -151,80 +157,92 @@ class SignUp extends Component {
             align={'left'}/>
             <br/>
           <Form>
-            <FormGroup row>
-              <Label for="exampleEmail" sm={2}>이메일</Label>
-              <Col sm={10}>
-                <Input type="email" placeholder="E-mail"
-                       className={'transparent'}
-                       onChange={e=>{
-                         this.setState({
-                           ...this.state,
-                           email: e.target.value,
-                         });
-                       }}/>
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="exampleEmail" sm={2}>비밀번호</Label>
-              <Col sm={10}>
-                <Input type="password" placeholder="비밀번호 (5~12자)"
-                       className={'transparent'}
-                       onChange={e=>{
-                        this.setState({
-                          ...this.state,
-                          pw: e.target.value,
-                      });
-                }}/>
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="exampleEmail" sm={2}>비밀번호 확인</Label>
-              <Col sm={10}>
-                <Input
-                  className={'transparent'}
-                  type="password"
-                  placeholder="비밀번호를 동일하게 입력하세요"
-                  onChange={e=>{
-                  this.setState({
-                    ...this.state,
-                    pwCheck: e.target.value,
-                  });
-                }}/>
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="exampleEmail" sm={2}>성별</Label>
-              <Col sm={10}>
-                <ButtonGroup>
-                  <Button color={'primary'} outline={gender!=='M'} onClick={()=>{this.setState({...this.state, gender: 'M'})}}>남자</Button>
-                  <Button color={'danger'} outline={gender!=='F'} onClick={()=>{this.setState({...this.state, gender: 'F'})}}>여자</Button>
-                </ButtonGroup>
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="exampleEmail" sm={2}>닉네임</Label>
-              <Col sm={10}>
-                <Input
-                  className={'transparent'}
-                  type="text"
-                  placeholder="티밍에서 사용할 닉네임을 입력하세요"
-                  onChange={e=>{
-                    this.setState({
-                      ...this.state,
-                      nickname: e.target.value,
-                    });
-                  }}/>
-              </Col>
-            </FormGroup>
+          <TextField
+            fullWidth
+            variant={'outlined'}
+            label="이메일"
+            type={'email'}
+            onChange={(e)=>{
+              this.setState({
+                ...this.state,
+                email: e.target.value
+              });
+            }}/>
+            <br/><br/>
+            <TextField
+              fullWidth
+              variant={'outlined'}
+              label="패스워드"
+              type={'password'}
+              onChange={(e)=>{
+                this.setState({
+                  ...this.state,
+                  pw: e.target.value
+                });
+              }}/>
+            <br/><br/>
+            <TextField
+              fullWidth
+              variant={'outlined'}
+              label="패스워드 확인"
+              type={'password'}
+              onChange={(e)=>{
+                this.setState({
+                  ...this.state,
+                  pwCheck: e.target.value
+                });
+              }}/>
+            <br/><br/>
+            <div style={{
+              padding: '18.5px 14px',
+              borderRadius: '4px',
+              border: '1px solid #ffffffAA',
+              display: 'inline-block',
+              width: '100%',
+              maxWidth: '500px'
+            }}>
+              <FormControl
+                component="fieldset">
+                <FormLabel component="legend">성별</FormLabel>
+                <RadioGroup row aria-label="gender" name="gender1" value={gender}>
+                  <FormControlLabel
+                    value="M"
+                    control={<Radio color={'primary'}/>}
+                    label="남자"
+                    onClick={()=>{
+                      this.setState({...this.state, gender: 'M'});
+                    }}/>
+                  <FormControlLabel
+                    value="F"
+                    control={<Radio color={'secondary'}/>}
+                    label="여자"
+                    onClick={()=>{
+                      this.setState({...this.state, gender: 'F'});
+                    }}/>
+                </RadioGroup>
+              </FormControl>
+            </div>
+            <br/><br/>
+            <TextField
+              fullWidth
+              variant={'outlined'}
+              label='닉네임'
+              type={'text'}
+              onChange={(e)=>{
+                this.setState({
+                  ...this.state,
+                  nickname: e.target.value
+                });
+              }}/>
           </Form>
-          <br/>
-          <AlignLayout align={'right'}>
+          <br/> <br/>
+          <AlignLayout align={'left'}>
             <MdButton
               variant={'contained'}
               color={'primary'}
               onClick={this.submit}
               size={'large'}>
-              회원가입&nbsp;>
+              가입 완료!
             </MdButton>
           </AlignLayout>
         </div>

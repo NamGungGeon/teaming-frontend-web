@@ -5,6 +5,7 @@ import Notices from "../Notices/Notices";
 import Section from "../../primitive/Section/Section";
 import {getPath} from "../../utils/url";
 import getHistory from 'react-router-global-history';
+import Carousel from "../Carousel/Carousel";
 
 const UsefulInformation= ()=> {
   const history= getHistory();
@@ -25,11 +26,7 @@ const UsefulInformation= ()=> {
            진행중인 이벤트
           </h6>
         </p>
-        <EventGallery
-          style={{
-            flexDirection: 'column',
-          }}
-          history={history}/>
+        <EventGallery/>
       </Section>
       <Section divideStyle={'fill'}>
         <p style={{

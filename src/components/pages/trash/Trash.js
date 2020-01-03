@@ -8,6 +8,8 @@ import Input from "reactstrap/es/Input";
 import {createTrash, getTrashes} from "../../http/tming";
 import {errMsg} from "../../http/util";
 import Button from "@material-ui/core/Button";
+import { FaToiletPaper } from "react-icons/fa";
+import RefreshIcon from '@material-ui/icons/Refresh';
 
 class Trash extends Component {
   state={
@@ -60,10 +62,6 @@ class Trash extends Component {
 
   throwThresh= ()=>{
     const {uiKit, auth}= this.props;
-    if(!authorized(auth)){
-      uiKit.toast.cooking('로그인이 필요한 기능입니다');
-      return;
-    }
 
     uiKit.popup.make((
       <div>
@@ -83,12 +81,12 @@ class Trash extends Component {
         <br/>
         <AlignLayout align={'right'}>
           <Button
+            startIcon={<FaToiletPaper/>}
             variant={'contained'}
             color={'primary'}
             onClick={async ()=>{
               //commit and close
               const {input}= this.state;
-
               uiKit.loading.start();
               //request commit
               await createTrash(auth, input).then(response=>{
@@ -120,6 +118,7 @@ class Trash extends Component {
           <AlignLayout
             align={'left'}>
             <Button
+              startIcon={<FaToiletPaper/>}
               variant={'contained'}
               color={'primary'}
               onClick={this.throwThresh}>
@@ -127,6 +126,7 @@ class Trash extends Component {
             </Button>
             &nbsp;&nbsp;
             <Button
+              startIcon={<RefreshIcon/>}
               variant={'contained'}
               color={'secondary'}
               onClick={this.loadTrashes}>

@@ -11,6 +11,11 @@
 .outline{
     border: 0.6px solid #FFFFFF33;
 }
+.none{
+    background: none;
+    box-shadow: none;
+    padding: 0;
+}
 .fill{
     background-color: #333333;
 }

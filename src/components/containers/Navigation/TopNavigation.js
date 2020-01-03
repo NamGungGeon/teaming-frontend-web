@@ -135,7 +135,7 @@ class TopNavigation extends Component{
           ),
           click: ()=>{
             AuthDispatcher.logout();
-            history.push(getPath());
+            history.push(getPath(''));
             window.alert('로그아웃 되었습니다');
           },
           requireAuth: true,

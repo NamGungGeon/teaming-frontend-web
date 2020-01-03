@@ -29,7 +29,7 @@ class Notice extends Component {
               await removeNotice(auth, match.params.id).then(response => {
                 //ok removed!
                 uiKit.popup.destroy();
-                alert('삭제되었습니다')
+                alert('삭제되었습니다');
                 history.push(getPath(`/important/notices`));
               }).catch(e=>{
                 uiKit.toaster.cooking(errMsg(e));

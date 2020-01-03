@@ -241,6 +241,9 @@ table.noHead tr > td:nth-child(1) {
 .MuiOutlinedInput-notchedOutline:focus{
   border: 1px solid white!important;
 }
+.MuiPaper-root{
+  background: #333333!important;
+}
 .MuiPaper-root:not(.MuiButtonBase-root)> *{
   background: #333333;
 }
