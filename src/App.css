@@ -122,6 +122,10 @@ tbody tr{
 
   background-color: #202020;
 }
+.sidenav> *:nth-child(1){
+  flex: 1;
+  overflow-y: auto;
+}
 .sidenav+ .ruler{
   left: 240px;
   width: calc(100% - 240px);

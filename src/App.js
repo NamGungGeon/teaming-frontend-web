@@ -33,9 +33,11 @@ class App extends Component {
     const query= urlQuery(location);
 
     //navigation setting
-    const {hideNav}= query;
+    const {hideNav, imapp}= query;
     if(hideNav)
       await this.props.ConfigDispatcher.hideNav();
+    if(imapp)
+      await this.props.ConfigDispatcher.imapp();
 
     //uiKit initialize
     await this.props.UIKitDispatcher.init(UiBundle(this));
@@ -90,9 +92,6 @@ class App extends Component {
                 <Route path={getPath('/important/events')} component={Events} />
                 <Route path={getPath('/center')} component={Center} />
                 <div
-                  style={{
-                    padding: '8px',
-                  }}
                   className={'mobile'}>
                   <Footer/>
                 </div>

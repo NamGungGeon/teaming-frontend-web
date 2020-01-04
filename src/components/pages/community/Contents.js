@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
 import Section from "../../primitive/Section/Section";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -13,13 +9,9 @@ import Button from "@material-ui/core/Button";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
-import {delay, randNum, randStr} from "../../utils/utils";
+import {delay, randNum} from "../../utils/utils";
 import {getPath, urlQuery} from "../../utils/url";
 import {quickConnect} from "../../redux";
-import InputGroup from "reactstrap/es/InputGroup";
-import Input from "reactstrap/es/Input";
-import {InputGroupAddon} from "reactstrap";
-import Comment from "../../primitive/Comment/Comment";
 import BoardWrapper from "../../primitive/Board/BoardWrapper/BoardWrapper";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 
@@ -52,31 +44,8 @@ class Contents extends Component {
         {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
         {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
       ],
-    })
+    });
     uiKit.loading.end();
-  };
-
-  loadComments= async (id)=>{
-    const {contents}= this.state;
-
-    await delay(200);
-    const refreshed= contents.map((content)=>{
-      if(content.id=== id){
-        content.comments= [
-          {id: randNum(1000), author: "코찔찔이", text: '장지환코짱커', createdAt: '3일 전'},
-          {id: randNum(1000), author: "코찔찔이", text: '장지환코짱커', createdAt: '3일 전'},
-          {id: randNum(1000), author: "코찔찔이", text: '장지환코짱커', createdAt: '3일 전'},
-          {id: randNum(1000), author: "코찔찔이", text: '장지환코짱커', createdAt: '3일 전'},
-          {id: randNum(1000), author: "코찔찔이", text: '장지환코짱커', createdAt: '3일 전'},
-          {id: randNum(1000), author: "코찔찔이", text: '장지환코짱커', createdAt: '3일 전'},
-        ]
-      };
-      return content;
-    });
-    this.setState({
-      ...this.state,
-      contents: refreshed,
-    });
   };
 
   render() {
@@ -98,7 +67,7 @@ class Contents extends Component {
               alignItems: 'center',
               margin: '0'
             }}>
-            <Col sm={6}>
+            <Col sm={4}>
               <FormControl>
                 <Select
                   value={this.state.filter}
@@ -112,12 +81,16 @@ class Contents extends Component {
                   <MenuItem value="">
                     모든 글 보기
                   </MenuItem>
-                  <MenuItem value={'hottest'}>인기글만 보기</MenuItem>
-                  <MenuItem value={'fuckAnonymous'}>익명 사용자 제외하고 보기</MenuItem>
+                  <MenuItem value={'hottest'}>
+                    인기글만 보기
+                  </MenuItem>
+                  <MenuItem value={'fuckAnonymous'}>
+                    익명 사용자 제외하고 보기
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Col>
-            <Col sm={6}>
+            <Col sm={8}>
               <AlignLayout align={'right'}>
                 <Button
                   onClick={()=>{

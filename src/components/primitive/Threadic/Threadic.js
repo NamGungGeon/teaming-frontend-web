@@ -5,20 +5,21 @@ import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import { MdComment, MdBuild } from "react-icons/md";
 import {Col, FormGroup, InputGroupAddon, Label} from "reactstrap";
 import Input from "reactstrap/es/Input";
-import Form from "reactstrap/es/Form";
-import Button from "reactstrap/es/Button";
 import InputGroup from "reactstrap/es/InputGroup";
 import {quickConnect} from "../../redux";
 import {createTrashComment, deleteTrashComment, getTrashComments} from "../../http/tming";
 import {errMsg} from "../../http/util";
 import moment from "moment";
 import Comment from "../Comment/Comment";
+import Section from "../Section/Section";
+import Button from "@material-ui/core/Button";
+import {IoIosPerson} from 'react-icons/io'
 
 class Threadic extends Component {
   state= {
-    openComment: false,
     myComment: '',
-    comments: [],
+    comments: null,
+    openComment: false,
   };
   handleCommentState= (unfold)=>{
     if(unfold)
@@ -29,13 +30,6 @@ class Threadic extends Component {
       openComment: unfold,
     })
   };
-  componentDidMount() {
-    const {comments}= this.props;
-    this.setState({
-      ...this.state,
-      comments,
-    })
-  }
 
   componentWillUnmount() {
     const {uiKit}= this.props;
@@ -44,6 +38,7 @@ class Threadic extends Component {
   loadComments= async()=>{
     const {uiKit, auth, id}= this.props;
 
+    uiKit.loading.start();
     await getTrashComments(auth, id).then(response=>{
       const {data}= response.data;
       console.log(data);
@@ -54,6 +49,7 @@ class Threadic extends Component {
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
     });
+    uiKit.loading.end();
   }
   createComment= async ()=>{
     const {uiKit, auth, id}= this.props;
@@ -121,7 +117,9 @@ class Threadic extends Component {
     const {openComment, comments}= this.state;
 
     return (
-      <div className={styles.wrapper}>
+      <Section
+        divideStyle={'fill'}
+        className={styles.wrapper}>
         <div
           onClick={()=>{this.handleCommentState(!openComment)}}>
           <h6>
@@ -142,7 +140,7 @@ class Threadic extends Component {
               this.handleCommentState(true)}
             }>
             <MdComment/>
-            &nbsp;{comments.length}
+            &nbsp;{comments? comments.length: ''}
           </span>
           &nbsp;&nbsp;
           <span
@@ -158,50 +156,57 @@ class Threadic extends Component {
             &nbsp;신고
           </span>
         </AlignLayout>
-        <div className={styles.comments}>
-          <Collapse isOpen={openComment}>
-            <div className={styles.create}>
-              <InputGroup>
-                <Input
-                  ref={r=> this.input= r}
-                  className={'transparent'}
-                  type="text"
-                  placeholder="댓글을 작성해보세요"
-                  onKeyDown={e=>{
-                    if(e.key=== 'Enter'){
-                      this.createComment();
-                      e.preventDefault();
-                    }
-                  }}
-                  onChange={e=>{
-                    this.setState({
-                      ...this.state,
-                      myComment: e.target.value,
-                    });
-                  }}/>
-                <InputGroupAddon addonType="append">
-                  <Button
-                    onClick={this.createComment}
-                    size={'sm'}
-                    color={'primary'}>
-                    작성
-                  </Button>
-                </InputGroupAddon>
-              </InputGroup>
+        {
+          comments && (
+            <div className={styles.comments}>
+              <Collapse isOpen={openComment}>
+                <br/>
+                <div className={styles.create}>
+                  <InputGroup>
+                    <Input
+                      ref={r=> this.input= r}
+                      className={'transparent'}
+                      type="text"
+                      placeholder="댓글을 작성해보세요"
+                      onKeyDown={e=>{
+                        if(e.key=== 'Enter'){
+                          this.createComment();
+                          e.preventDefault();
+                        }
+                      }}
+                      onChange={e=>{
+                        this.setState({
+                          ...this.state,
+                          myComment: e.target.value,
+                        });
+                      }}/>
+                    <InputGroupAddon addonType="append">
+                      <Button
+                        onClick={this.createComment}
+                        size={'sm'}
+                        variant={'contained'}
+                        color={'primary'}>
+                        작성
+                      </Button>
+                    </InputGroupAddon>
+                  </InputGroup>
+                </div>
+                <br/>
+                {
+                  comments.map(comment=>
+                    (
+                      <Comment
+                        profile={<IoIosPerson style={{fontSize: '32px'}}/>}
+                        text={comment.text}
+                        createdAt={'3일 전'}/>
+                    )
+                  )
+                }
+              </Collapse>
             </div>
-            <br/>
-            {
-              comments.map(comment=>
-                (
-                  <Comment
-                    text={comment.text}
-                    createdAt={'3일 전'}/>
-                )
-              )
-            }
-          </Collapse>
-        </div>
-        </div>
+          )
+        }
+        </Section>
     );
   }
 }

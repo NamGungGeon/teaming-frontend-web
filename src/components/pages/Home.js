@@ -27,9 +27,7 @@ class Home extends Component{
 
     return (
       <AlignLayout align="left">
-        {
-          !urlQuery(location).imapp && (<HelpAppInstall/>)
-        }
+        <HelpAppInstall/>
         <UsefulInformation/>
         <br/>
         <GoogleAdvertise/>

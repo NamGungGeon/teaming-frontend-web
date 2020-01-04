@@ -4,6 +4,10 @@
 
     transition-property: transform;
     transition-duration: 0.3s;
+    flex-direction: column;
+    align-items: flex-start!important;
+    justify-items: flex-start;
+    padding: 8px!important;
 }
 .notice:hover{
 }

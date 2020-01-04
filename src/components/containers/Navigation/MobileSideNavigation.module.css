@@ -14,9 +14,9 @@
     animation: fadeIn 0.3s;
 }
 .sidenav{
+    overflow-y: auto;
 
     box-sizing: border-box;
-    padding: 16px;
     width: 240px;
     height: 100%;
 

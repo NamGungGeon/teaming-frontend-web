@@ -6,19 +6,16 @@ import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import AndroidIcon from '@material-ui/icons/Android';
 import AppleIcon from '@material-ui/icons/Apple';
 import CloseIcon from '@material-ui/icons/Close';
+import {quickConnect} from "../../redux";
 
 class HelpAppInstall extends Component {
   state={
     closed: false,
   };
-
-  componentDidMount() {
-
-  }
-
   render() {
     const {closed}= this.state;
-    if(closed)
+    const {config}= this.props;
+    if(closed || config.imapp)
       return (<div></div>);
 
     return (
@@ -63,4 +60,4 @@ class HelpAppInstall extends Component {
   }
 }
 
-export default HelpAppInstall;
+export default quickConnect(HelpAppInstall);

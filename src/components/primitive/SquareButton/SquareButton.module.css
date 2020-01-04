@@ -11,6 +11,7 @@
 
     transition-property: transform, box-shadow, background-color;
     transition-duration: 0.3s;
+    width: auto;
 
 
     background-size: 100% auto;

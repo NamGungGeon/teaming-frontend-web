@@ -5,11 +5,13 @@ import {getPath} from "../../utils/url";
 import {getNotices} from "../../http/tming";
 import Spinner from "reactstrap/es/Spinner";
 import moment from "moment";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
 
 class Notices extends Component{
   state={
     notices: null,
-  }
+  };
 
   componentDidMount() {
     getNotices().then(response => {
@@ -30,18 +32,20 @@ class Notices extends Component{
     const {notices}= this.state;
 
     if(notices && notices.length=== 0){
-      return (<p>공지사항이 없습니다</p>)
+      return (<p>공지사항이 없습니다</p>);
     }
 
     return (
-      <div style={{
+      <MenuList style={{
         textAlign: 'left',
+        padding: '0',
       }}>
         {
           notices?
             notices.map(notice=>{
               return (
-                <p
+                <MenuItem
+                  key={notice.title}
                   className={styles.notice}
                   onClick={()=>{
                     history.push(getPath(`/important/notices/${notice.id}`));
@@ -50,9 +54,9 @@ class Notices extends Component{
                     {notice.title}
                   </div>
                   <div className={styles.date}>
-                    {this.dateFormatting(notice.until)}까지 표시됩니다
+                    {this.dateFormatting(notice.createdAt)}
                   </div>
-                </p>
+                </MenuItem>
               )
             })
             :
@@ -66,7 +70,7 @@ class Notices extends Component{
               </div>
             )
         }
-      </div>
+      </MenuList>
     );
   }
 

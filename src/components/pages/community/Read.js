@@ -102,15 +102,15 @@ class Read extends Component {
               </p>
               <br/>
               <AlignLayout align={'center'}>
-                <Fab size='small' color={'primary'} variant="extended">
+                <Fab color={'primary'} variant="extended">
                   <IoIosThumbsUp style={{
                     fontSize: '20px'
                   }}/>
                   &nbsp;
-                  정말 유용합니다!
+                  유용합니다
                 </Fab>
                 &nbsp;&nbsp;&nbsp;
-                <Fab size='small' color={'secondary'} variant="extended">
+                <Fab  color={'secondary'} variant="extended">
                   <IoIosThumbsDown style={{
                     fontSize: '20px'
                   }}/>

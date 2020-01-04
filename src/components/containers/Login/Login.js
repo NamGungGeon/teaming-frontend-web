@@ -65,7 +65,6 @@ class Login extends Component {
                 fullWidth
                 size={'small'}
                 variant={'outlined'}
-                id="standard-basic"
                 label="이메일"
                 type={'email'}
                 onChange={(e)=>{
@@ -79,7 +78,6 @@ class Login extends Component {
                 fullWidth
                 size={'small'}
                 variant={'outlined'}
-                id="standard-basic"
                 label="패스워드"
                 type={'password'}
                 onChange={(e)=>{

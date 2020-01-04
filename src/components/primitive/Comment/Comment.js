@@ -57,7 +57,14 @@ class Comment extends Component{
             }
           }}
           className={styles.profile}>
-          <img src={profile? profile: logo} alt=""/>
+          <span className={styles.picture}>
+            {
+              !profile || typeof profile === 'string'?
+                (<img src={profile? profile: logo} alt=""/>)
+                :
+                profile
+            }
+          </span>
           <span style={{
             fontSize: '0.8rem'
           }}>

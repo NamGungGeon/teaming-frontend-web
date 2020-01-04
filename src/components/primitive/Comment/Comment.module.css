@@ -21,9 +21,10 @@
     background-color: #333333;
     cursor: pointer;
 }
-.wrapper> .profile> img{
+.wrapper> .profile> .picture *{
     width: 32px;
     height: 32px;
+    font-size: 32px;
     margin-bottom: 4px;
 }
 .wrapper> .contents{

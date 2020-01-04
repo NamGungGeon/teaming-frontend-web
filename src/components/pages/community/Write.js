@@ -6,6 +6,7 @@ import {InputGroupAddon} from "reactstrap";
 import Button from "@material-ui/core/Button";
 import Input from "reactstrap/es/Input";
 import InputGroup from "reactstrap/es/InputGroup";
+import PageTitle from "../../primitive/PageTitle/PageTitle";
 
 class Write extends Component {
   componentDidMount() {
@@ -19,6 +20,10 @@ class Write extends Component {
   render() {
     return (
       <div>
+        <PageTitle
+          title={'글 작성'}
+          explain={'커뮤니티에 글을 작성합니다'}/>
+        <br/>
         <Input
           type="text"
           placeholder="글 제목을 입력하세요"

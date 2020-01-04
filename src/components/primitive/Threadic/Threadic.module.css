@@ -1,9 +1,6 @@
 .wrapper{
-    padding: 16px 0;
+    padding: 16px;
     cursor: pointer;
-
-    border-bottom: 0.6px solid #ffffff33;
-    border-top: 0.6px solid #ffffff33;
 }
 .content{
     word-break: break-all;

@@ -10,7 +10,6 @@ class ChampionSelect extends Component {
   state = {
     keyword: ''
   };
-
   getChampions = () => {
     let champs = champions;
     if (this.state.keyword)

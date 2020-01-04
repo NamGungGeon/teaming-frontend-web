@@ -53,15 +53,18 @@ class MyPage extends Component{
       <div>
         <Route exact path={getPath(`/mypage`)} component={()=>{
           return (
-            <div>
-              <h3>마이페이지</h3>
-              <p className={'mobile explain'}>
-                좌측 상단 메뉴 아이콘을 클릭하여 마이페이지 메뉴를 이용하실 수 있습니다
-              </p>
-              <p className={'desktop explain'}>
-                좌측 네비게이션으로 마이페이지 메뉴를 이용하실 수 있습니다
-              </p>
-            </div>
+            <PageTitle
+              title={'마이페이지'}
+              explain={(
+                <div>
+                  <p className={'mobile explain'}>
+                    좌측 상단 메뉴 아이콘을 클릭하여 마이페이지 메뉴를 이용하실 수 있습니다
+                  </p>
+                  <p className={'desktop explain'}>
+                    좌측 네비게이션으로 마이페이지 메뉴를 이용하실 수 있습니다
+                  </p>
+                </div>
+              )}/>
           );
         }}/>
         <Route path={getPath(`/mypage/info`)} component={Info}/>

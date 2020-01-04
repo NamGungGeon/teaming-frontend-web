@@ -33,7 +33,7 @@ const tiers= [
   { img: `${resPath}/lol/tier/master.png`, id: 'master', label: '마스터', height: '48px' },
   { img: `${resPath}/lol/tier/grandmaster.png`, id: 'grandmaster', label: '그랜드마스터', height: '48px' },
   { img: `${resPath}/lol/tier/challenger.png`, id: 'challenger', label: '챌린저', height: '48px' },
-]
+];
 
 class Option extends Component {
   state = {
@@ -49,6 +49,9 @@ class Option extends Component {
     mode: 'rank',
     goal: 'win',
   };
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    console.log(nextState);
+  }
 
   openChampions = (inits, updater) => {
     const { uiKit } = this.props;
@@ -252,6 +255,8 @@ class Option extends Component {
                       label: '',
                       onClick: () => {
                         this.openChampions(this.state.champions, selections => {
+                          //TODO: 업데이트가 안된다....
+                          console.log(selections, this.state);
                           this.setState({
                             ...this.state,
                             champions: selections

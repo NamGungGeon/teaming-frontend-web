@@ -37,7 +37,6 @@ nav.vertical{
     display: none;
 }
 .openOption> *{
-    animation: purse 0.5s infinite;
 }
 
 @keyframes purse {
