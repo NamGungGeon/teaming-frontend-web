@@ -4,13 +4,12 @@
     justify-content: flex-start;
     flex-wrap: wrap;
 }
-.wrapper>*{
-    width: 31.33%;
-    margin: 1%;
-}
 
 @media (max-width: 500px) {
+    .wrapper{
+        justify-content: center;
+    }
     .wrapper> *{
-        width: 48%!important;
+        margin: 4px!important;
     }
 }

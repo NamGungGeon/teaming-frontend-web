@@ -11,6 +11,7 @@ import {Input} from "reactstrap";
 import FormGroup from "reactstrap/es/FormGroup";
 import Col from "reactstrap/es/Col";
 import CardWrapper from "../../primitive/CardWrapper/CardWrapper";
+import ButtonsWrapper from "../../primitive/ButtonsWrapper/ButtonsWrapper";
 
 class GameList extends Component {
   state = {
@@ -29,7 +30,31 @@ class GameList extends Component {
       {
         label: '배틀그라운드',
         icon: battleground
-      }
+      },
+      {
+        label: '???',
+      },
+      {
+        label: '???',
+      },
+      {
+        label: '???',
+      },
+      {
+        label: '???',
+      },
+      {
+        label: '???',
+      },
+      {
+        label: '???',
+      },
+      {
+        label: '???',
+      },
+      {
+        label: '???',
+      },
     ],
     filter: '',
   };
@@ -68,21 +93,19 @@ class GameList extends Component {
 
         <br/>
 
-        <CardWrapper>
+        <ButtonsWrapper>
           {gameList.map(game => {
             if(filter!== '' && !game.label.includes(filter))
               return '';
 
             return (
-              <div key={randStr(5)}>
-                <SquareButton
-                  {...game}
-                />
-                <br />
-              </div>
+              <SquareButton
+                key={randStr(10)}
+                {...game}
+              />
             );
           })}
-        </CardWrapper>
+        </ButtonsWrapper>
       </div>
     );
   }

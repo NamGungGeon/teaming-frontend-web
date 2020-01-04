@@ -16,7 +16,7 @@ class HorizontalNavigation extends Component {
         {
           Object.keys(nav).map(topic=>{
             return (
-              <div key={randStr(5)}>
+              <div key={randStr(15)}>
                 <b
                   className={styles.topic}>
                   {topic}
@@ -25,7 +25,7 @@ class HorizontalNavigation extends Component {
                   nav[topic].map(portal=>{
                     return (
                       <MenuItem
-                        key={portal.label}
+                        key={randStr(15)}
                         className={styles.portal}
                         onClick={
                           portal.onClick?

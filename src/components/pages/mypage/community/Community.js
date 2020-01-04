@@ -3,7 +3,7 @@ import Friends from "./Friends";
 import React, {Component} from 'react';
 import {getPath} from "../../../utils/url";
 import PwChange from "../info/PwChange";
-import Route from "react-router-dom/es/Route";
+import {Route} from "react-router-dom";
 import Message from "./Message";
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
 import Summary from "./logs/Summary";

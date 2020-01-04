@@ -13,6 +13,11 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Fab from "@material-ui/core/Fab";
 
 import { IoIosThumbsDown, IoIosThumbsUp } from "react-icons/io";
+import {deleteBoardPost, getBoardPost, getBoardPosts} from "../../http/tming";
+import {errMsg} from "../../http/util";
+import {getPath, urlQuery} from "../../utils/url";
+
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class Read extends Component {
   state={
@@ -21,19 +26,35 @@ class Read extends Component {
     comments: null,
 
     myComment: '',
-    imAuthor: true,
+    imAuthor: false,
   }
 
   async componentDidMount() {
-    const {uiKit}= this.props;
+    const {uiKit, match, auth}= this.props;
+    const {id}= match.params;
 
     uiKit.loading.start();
-    await delay(1000);
+    await getBoardPost(id).then(response=>{
+      const {data}= response;
+      console.log(data);
+      this.setState({
+        ...this.state,
+        content: {
+          id: data.id,
+          title: data.title,
+          content: data.body,
+          nickname: data.username,
+          createDate: data.createdAt,
+        },
+        imAuthor: auth? (auth.id === data.author.id): false,
+      });
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
+    });
     uiKit.loading.end();
 
     this.setState({
       ...this.state,
-      content: {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
       comments: [
         {id: randNum(1000), author: "댓글작성자", text: '테스트용댓글입니다아아', createdAt: '3일 전'},
         {id: randNum(1000), author: "댓글작성자", text: '테스트용댓글입니다아아', createdAt: '3일 전'},
@@ -76,9 +97,51 @@ class Read extends Component {
     ));
   };
 
+  deletePost= ()=>{
+    const {history, location, match, uiKit, auth}= this.props;
+    const {content, comments, imAuthor}= this.state;
+    const query= urlQuery(location);
+
+    uiKit.popup.make((
+      <div>
+        <h5>이 포스트를 삭제하시겠습니까?</h5>
+        <br/>
+        <AlignLayout align={'right'}>
+          <Button
+            onClick={async ()=>{
+              uiKit.loading.start();
+              await deleteBoardPost(auth, match.params.id).then(response=>{
+                //ok, deleted!
+                uiKit.toaster.cooking('삭제되었습니다');
+                uiKit.popup.destroy();
+                history.push(getPath(`/community?category=${query.category? query.category: ''}`))
+              }).catch(e=>{
+                uiKit.toaster.cooking(errMsg(e));
+              });
+            }}
+            variant={'contained'}
+            color={'primary'}>
+            삭제
+          </Button>
+          &nbsp;&nbsp;
+          <Button
+            onClick={()=>{
+              uiKit.popup.destroy();
+            }}
+            variant={'contained'}
+            color={'secondary'}>
+            취소
+          </Button>
+        </AlignLayout>
+      </div>
+    ))
+  }
+
 
   render() {
+    const {history, location, match, uiKit, auth}= this.props;
     const {content, comments, imAuthor}= this.state;
+    const query= urlQuery(location);
 
     return (
       <div>
@@ -97,9 +160,7 @@ class Read extends Component {
                 {content.nickname}
               </p>
               <br/>
-              <p>
-                {content.content}
-              </p>
+              <p dangerouslySetInnerHTML={ {__html: content.content}}/>
               <br/>
               <AlignLayout align={'center'}>
                 <Fab color={'primary'} variant="extended">
@@ -135,8 +196,17 @@ class Read extends Component {
                   imAuthor && (
                     <span>
                       <Tooltip title={'글 수정하기'}>
-                        <IconButton>
+                        <IconButton
+                          onClick={()=>{
+                            history.push(getPath(`/community/update/${content.id}?category=${query.category? query.category: ''}`));
+                          }}>
                           <CreateIcon/>
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title={'글 삭제하기'}>
+                        <IconButton
+                          onClick={this.deletePost}>
+                          <DeleteIcon/>
                         </IconButton>
                       </Tooltip>
                     </span>

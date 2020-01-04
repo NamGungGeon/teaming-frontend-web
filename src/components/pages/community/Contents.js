@@ -9,17 +9,19 @@ import Button from "@material-ui/core/Button";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
-import {delay, randNum} from "../../utils/utils";
+import {beautifyDate, delay, randNum} from "../../utils/utils";
 import {getPath, urlQuery} from "../../utils/url";
 import {quickConnect} from "../../redux";
 import BoardWrapper from "../../primitive/Board/BoardWrapper/BoardWrapper";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
+import {getBoardPosts} from "../../http/tming";
+import {errMsg} from "../../http/util";
 
 class Contents extends Component {
   state={
     contents: [],
     filter: '',
-
+    paging: null,
     myComment: '',
   };
 
@@ -29,22 +31,37 @@ class Contents extends Component {
 
   loadContents= async ()=>{
     const {filter}= this.state;
-    const {uiKit}= this.props;
+    const {uiKit, location, auth}= this.props;
+
+    const query= urlQuery(location);
+    const category= query.category? query.category: 'general';
 
     uiKit.loading.start();
-    await delay(500);
-    this.setState({
-      ...this.state,
-      contents: [
-        {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
-        {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
-        {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
-        {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
-        {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
-        {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
-        {id: randNum(1000), title: `title`, content: `content`, nickname: '제이쿼리권위자', createDate: '3일 전',},
-      ],
-    });
+    await getBoardPosts(category, filter==='fuckAnonymous', 10000, 0)
+      .then(response=>{
+        const {data}= response;
+        console.log(data);
+
+        if(data.data.length=== 0){
+          uiKit.toaster.cooking('이 게시판에 아직 글이 없습니다');
+        }
+
+        this.setState({
+          ...this.state,
+          contents: data.data.map(content=>{
+            return {
+              id: content.id,
+              title: content.title,
+              content: content.body,
+              nickname: content.author.username,
+              createDate: content.createdAt,
+            }
+          }),
+          paging: data.paging,
+        })
+      }).catch(e=>{
+        uiKit.toaster.cooking(errMsg(e));
+      });
     uiKit.loading.end();
   };
 
@@ -94,7 +111,7 @@ class Contents extends Component {
               <AlignLayout align={'right'}>
                 <Button
                   onClick={()=>{
-                    history.push(getPath(`/community/write`));
+                    history.push(getPath(`/community/write?category=${query.category? query.category: ''}`));
                   }}
                   variant="contained"
                   color="primary"
@@ -121,11 +138,11 @@ class Contents extends Component {
         <BoardWrapper boards={
           this.state.contents.map(content=>{
             return {
-              title: content.title,
+              title: `${content.title} [0]`,
               exp_l: `${content.nickname}`,
-              exp_r: `${content.createDate}`,
+              exp_r: `${beautifyDate(content.createDate)}`,
               onClick: ()=>{
-                history.push(getPath(`/community/read/${content.id}`))
+                history.push(getPath(`/community/read/${content.id}?category=${query.category? query.category: ''}`))
               },
             }
           })

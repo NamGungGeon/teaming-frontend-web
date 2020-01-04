@@ -6,32 +6,47 @@
     flex-direction: column;
     cursor: pointer;
 
-    padding: 16px;
+    padding: 8px;
     transform: none;
 
     transition-property: transform, box-shadow, background-color;
     transition-duration: 0.3s;
-    width: auto;
 
 
-    background-size: 100% auto;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
+    max-width: 128px;
+    height: 128px;
+    width: calc(100% / 3 - 16px);
+    margin: 16px 16px 16px 0;
 
-    background-color: #2ab3fe;
+    border-radius: 4px;
+    border: 1px solid #ffffff99;
+    background: none;
+}
+.button:not(.disable):hover{
+    box-shadow: 0 4px 16px #000000AA;
+    transform: translateY(-4px);
 }
 .button.disable{
+    border: 1px solid #ffffff33;
+}
+.button.disable> *{
+    opacity: 0.4;
     filter: grayscale(100%);
 }
 
-.button .icon{
+.button .icon> *{
     filter: brightness(0%) invert();
-    height: 48px;
-    width: 48px;
+    height: auto;
+    width: 65px;
+    font-size: 65px;
+    color: white;
 
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 .button .label{
-    font-size: 1rem;
+    font-size: 13px;
     font-weight: 600;
+}
+
+@media (max-width: 500px) {
 }

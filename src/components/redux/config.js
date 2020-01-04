@@ -17,13 +17,13 @@ export default handleActions(
   {
     [HIDE_NAV]: (beforeState, action) => {
       return {
-        ...defaultConfig,
+        ...beforeState,
         hideNav: true,
       };
     },
     [IM_APP]: (beforeState, action) => {
       return {
-        ...defaultConfig,
+        ...beforeState,
         imapp: true,
       }
     },

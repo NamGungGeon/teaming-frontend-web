@@ -18,7 +18,7 @@ class BoardRow extends Component {
         }
         <div className={styles.content}>
           <div className={styles.title}>
-            {title}&nbsp;[3]
+            {title}
           </div>
           <div className={styles.explain}>
             <span>

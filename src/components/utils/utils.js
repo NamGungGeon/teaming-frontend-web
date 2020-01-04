@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const checkEmail = email => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
@@ -80,3 +82,7 @@ export const authorized= auth=>{
 export const randNum= limit=>{
   return parseInt(Math.random()*10000%limit);
 };
+
+export const beautifyDate= (stringDateTime)=>{
+  return moment(stringDateTime, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]').format('YYYY[-]MM[-]DD[- ]HH[:]mm');
+}

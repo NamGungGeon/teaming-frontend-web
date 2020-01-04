@@ -16,7 +16,7 @@ const UsefulInformation= ()=> {
         <p style={{
           textAlign: 'left',
         }}>
-          <h6
+          <b
             style={{
               cursor: 'pointer'
             }}
@@ -24,7 +24,7 @@ const UsefulInformation= ()=> {
               history.push(getPath(`/important/events`));
             }}>
            진행중인 이벤트
-          </h6>
+          </b>
         </p>
         <EventGallery/>
       </Section>
@@ -32,7 +32,7 @@ const UsefulInformation= ()=> {
         <p style={{
           textAlign: 'left',
         }}>
-          <h6
+          <b
             style={{
               cursor: 'pointer'
             }}
@@ -40,7 +40,7 @@ const UsefulInformation= ()=> {
               history.push(getPath(`/important/notices`));
             }}>
             공지사항
-          </h6>
+          </b>
         </p>
         <Notices history={history}/>
       </Section>

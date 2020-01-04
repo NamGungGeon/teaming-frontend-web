@@ -19,6 +19,7 @@ import Collapse from "reactstrap/es/Collapse";
 class CenterHome extends Component {
   state={
     open: '',
+    subOpen: '',
   };
 
   render() {
@@ -53,9 +54,19 @@ class CenterHome extends Component {
             </ListItem>
             <Collapse isOpen={open==='service'}>
               <div style={{
-                padding: '32px'
+                paddingLeft: '48px'
               }}>
-                이 서비스는 정말 갓갓 입니다!
+                <List>
+                  <ListItem
+                    button
+                    onClick={()=>{
+                    }}>
+                    <ArrowRightIcon/>
+                    &nbsp;&nbsp;
+                    <ListItemText
+                      primary="여긴 뭐하는 곳인가요?"/>
+                  </ListItem>
+                </List>
               </div>
             </Collapse>
 
@@ -67,7 +78,7 @@ class CenterHome extends Component {
               <ArrowRightIcon/>
               &nbsp;&nbsp;
               <ListItemText
-                primary="여기에서 문제를 찾을 수 없습니다"/>
+                primary="여기에서 해답을 찾을 수 없습니다"/>
             </ListItem>
           </List>
         </Section>

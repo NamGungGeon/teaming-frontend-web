@@ -190,5 +190,71 @@ export const uploadProfileImage= (auth, file)=>{
       Authorization: 'Bearer '+ auth.token,
       'Content-Type': 'multipart/form-data',
     }
-  })
+  });
 };
+
+const isValidCategory= (category)=>{
+  const validCategory= [ "GENERAL", "ANONYMOUS", "LOL", "OVERWATCH", "PUBG"];
+  return validCategory.includes(category.toUpperCase());
+}
+
+export const getBoardPosts= (category, anonymous, limit, offset)=>{
+  //filter
+  isValidCategory(category);
+
+  return axios.request({
+    method: 'GET',
+    url: `${url}/boards`,
+    params: {
+      category: category.toUpperCase()
+      ,anonymous, limit, offset,
+    }
+  });
+};
+export const createBoardPosts= (auth, category, title, body)=>{
+  isValidCategory(category);
+
+  return axios.request({
+    method: 'POST',
+    url: `${url}/boards`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      category: category.toUpperCase(),
+      title, body,
+    }
+  });
+};
+export const getBoardPost= (id)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/boards/${id}`,
+  });
+};
+
+export const updateBoardPost= (auth, id, category, title, body)=>{
+  isValidCategory(category);
+
+  return axios.request({
+    method: 'PUT',
+    url: `${url}/boards/${id}`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      category: category.toUpperCase(),
+      title, body,
+    }
+  });
+};
+
+export const deleteBoardPost= (auth, id)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/boards/${id}`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+  });
+}

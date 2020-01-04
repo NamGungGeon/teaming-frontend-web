@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import styles from './ButtonsWrapper.module.css';
 import {randStr} from "../../utils/utils";
 
-const ButtonsWrapper= ({buttons})=> {
+const ButtonsWrapper= ({buttons, children})=> {
   return (
     <div className={styles.wrapper}>
       {
-        buttons.map(button=>{
+        buttons && buttons.map(button=>{
           return button;
         })
+      }
+      {
+        children
       }
     </div>
   );

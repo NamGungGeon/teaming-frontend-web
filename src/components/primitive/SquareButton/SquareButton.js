@@ -20,7 +20,15 @@ export default function SquareButton({
           ])
       }
       onClick={onClick}>
-      <img src={icon} alt="" className={styles.icon}/>
+      <div
+        className={styles.icon}>
+        {
+          typeof icon === 'string'?
+            (<img src={icon} alt="button icon"/>)
+            :
+            icon
+        }
+      </div>
       <div className={styles.label}>{label}</div>
     </div>
   );
@@ -35,6 +43,6 @@ SquareButton.defaultProps = {
 SquareButton.propTypes = {
   onClick: PropTypes.func,
   style: PropTypes.object,
-  icon: PropTypes.string,
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   label: PropTypes.string,
 };

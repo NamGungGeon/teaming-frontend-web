@@ -9,54 +9,84 @@ import InputGroup from "reactstrap/es/InputGroup";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import {quickConnect} from "../../redux";
 import {urlQuery} from "../../utils/url";
-import {createBoardPosts} from "../../http/tming";
+import {createBoardPosts, getBoardPost, updateBoardPost} from "../../http/tming";
 import {errMsg} from "../../http/util";
 
-class Write extends Component {
+class Update extends Component {
   state={
     title: '',
     body: '',
-
+    ready: false,
   }
 
   componentDidMount() {
     const {uiKit}= this.props;
     uiKit.destroyAll();
 
-    this.unblock= this.props.history.block('작성한 글이 모두 사라집니다');
+    this.unblock= this.props.history.block('글 수정 내역이 취소됩니다');
+    this.loadPost();
   }
+
+  loadPost= async ()=>{
+    const {uiKit, match}= this.props;
+    if(!match.params.id){
+      uiKit.toaster.cooking('비정상적인 접근입니다');
+      return;
+    }
+
+    uiKit.loading.start();
+    await getBoardPost(match.params.id).then(response=>{
+      const {data}= response;
+      this.setState({
+        ...this.state,
+        title: data.title,
+        body: data.body,
+        ready: true,
+      });
+
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
+    });
+    uiKit.loading.end();
+  };
 
   componentWillUnmount() {
     this.unblock();
   }
 
-  createBoardPost= async ()=>{
-    const {uiKit, location, auth, history}= this.props;
+  updateBoardPost= async ()=>{
+    const {uiKit, location, match, auth, history}= this.props;
     const {title, body}= this.state;
     const query= urlQuery(location);
 
     const category= query.category? query.category: 'general';
 
     uiKit.loading.start();
-    await createBoardPosts(auth, category, title, body).then(response=>{
+    await updateBoardPost(auth, match.params.id, category, title, body).then(response=>{
       //ok!
-      uiKit.toaster.cooking('작성 완료!');
+      uiKit.toaster.cooking('수정 완료!');
       this.unblock();
       history.push(`/community?category=${category}`);
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
-    })
+    });
+
     uiKit.loading.end();
-  }
+  };
 
   render() {
+    const {title, body, ready}= this.state;
+
+    if(!ready) return (<div/>);
+
     return (
       <div>
         <PageTitle
-          title={'글 작성'}
-          explain={'커뮤니티에 글을 작성합니다'}/>
+          title={'글 수정'}
+          explain={'작성한 글을 수정하여 업로드합니다'}/>
         <br/>
         <Input
+          value={title}
           type="text"
           placeholder="글 제목을 입력하세요"
           onChange={e=>{
@@ -70,6 +100,7 @@ class Write extends Component {
           editor={ ClassicEditor }
           onInit={ editor => {
             // You can store the "editor" and use when it is needed.
+            editor.setData(body);
             console.log( 'Editor is ready to use!', editor );
           } }
           onChange={ ( event, editor ) => {
@@ -78,17 +109,17 @@ class Write extends Component {
               ...this.state,
               body: data,
             });
-            //console.log(data);
+            console.log(data);
           } }
         />
 
         <br/>
         <AlignLayout align={'right'}>
           <Button
-            onClick={this.createBoardPost}
+            onClick={this.updateBoardPost}
             variant="contained"
             color="primary">
-            작성
+            수정
           </Button>
         </AlignLayout>
       </div>
@@ -96,4 +127,4 @@ class Write extends Component {
   }
 }
 
-export default quickConnect(Write);
+export default quickConnect(Update);

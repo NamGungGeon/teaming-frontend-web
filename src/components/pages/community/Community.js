@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getPath} from "../../utils/url";
-import Route from "react-router-dom/es/Route";
+import {Route} from "react-router-dom";
 import Contents from "./Contents";
 import Content from "./Read";
 import HorizontalNavigation from "../../containers/Navigation/HorizontalNavigation";
@@ -11,6 +11,7 @@ import Write from "./Write";
 import {quickConnect} from "../../redux";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import getHistory from 'react-router-global-history';
+import Update from "./Update";
 
 class Community extends Component {
 
@@ -74,6 +75,7 @@ class Community extends Component {
           <Route exact path={getPath(`/community/write`)} component={Write}/>
           <Route exact path={getPath(`/community`)} component={Contents}/>
           <Route exact path={getPath(`/community/read/:id`)} component={Content}/>
+          <Route exact path={getPath(`/community/update/:id`)} component={Update}/>
         </div>
       </div>
     );

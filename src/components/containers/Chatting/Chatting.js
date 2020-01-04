@@ -4,6 +4,7 @@ import ChatMsg from '../../primitive/ChatMsg/ChatMsg';
 import { quickConnect } from '../../redux';
 import { isEndScroll, scrollToBottom } from '../../utils/utils';
 import ChatInputBox from '../../primitive/ChatInputBox/ChatInputBox';
+import Section from "../../primitive/Section/Section";
 
 class Chatting extends Component {
   constructor(props) {
@@ -59,7 +60,12 @@ class Chatting extends Component {
   render() {
     const { msgs } = this.state;
     return (
-      <div className={styles.wrapper}>
+      <Section
+        style={{
+          margin: '0',
+        }}
+        divideStyle={'fill'}
+        className={styles.wrapper}>
         <div className={styles.chatMsgs} ref={ref => (this.msgBox = ref)}>
           {msgs.map((msg, idx) => {
             return <ChatMsg key={idx} {...msg} />;
@@ -68,7 +74,7 @@ class Chatting extends Component {
         <div className={styles.chatInput}>
           <ChatInputBox sendMessage={this.sendMessage} />
         </div>
-      </div>
+      </Section>
     );
   }
 

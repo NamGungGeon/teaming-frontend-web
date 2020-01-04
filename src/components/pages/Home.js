@@ -11,6 +11,11 @@ import ButtonsWrapper from "../primitive/ButtonsWrapper/ButtonsWrapper";
 import {quickConnect} from "../redux";
 import HelpAppInstall from "../containers/HelpAppInstall/HelpAppInstall";
 import GoogleAdvertise from "../containers/GoogleAdvertise/GoogleAdvertise";
+import { AiOutlineWechat } from "react-icons/ai";
+import PeopleIcon from '@material-ui/icons/People';
+import {FaToiletPaper} from "react-icons/fa";
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+import { IoIosHeart, } from "react-icons/io";
 
 class Home extends Component{
 
@@ -33,59 +38,50 @@ class Home extends Component{
         <GoogleAdvertise/>
         <br/><br/>
         <div className={'mobile'}>
-          <ButtonsWrapper
-            buttons={[
-              (<SquareButton
-                style={{backgroundColor: '#fc0474'}}
-                onClick={() => {
-                  go(getPath(`/teambuild`));
-                }}
-                icon={people}
-                label={'팀 매칭'}
-              />),
-              (<SquareButton
-                style={{backgroundColor: '#2ab3fe'}}
-                onClick={() => {
-                  go(getPath(`/chat`));
-                }}
-                icon={logo}
-                label={'랜덤채팅'}
-              />),
-              (<SquareButton
-                style={{backgroundColor: '#fc0474'}}
-                icon={logo}
-                label={'커뮤니티'}
-                onClick={()=>{
-                  go(getPath(`/community`));
-                }}
-              />),
-              (<SquareButton
-                style={{backgroundColor: '#2ab3fe'}}
-                icon={logo}
-                onClick={()=>{
-                  go(getPath(`/trash`))
-                }}
-                label={'화장실'}
-              />),
-              (<SquareButton
-                style={{backgroundColor: '#fc0474'}}
-                icon={logo}
-                label={'거래소'}
-                onClick={()=>{
-                  go(getPath(`/trade`))
-                }}
-              />),
-              (<SquareButton
-                icon={logo}
-                style={{backgroundColor: '#2ab3fe'}}
-                label={'커플 매칭'}
-                onClick={()=>{
+          <ButtonsWrapper>
+            <SquareButton
+              onClick={() => {
+                go(getPath(`/teambuild`));
+              }}
+              icon={people}
+              label={'팀 매칭'}
+            />
+            <SquareButton
+              onClick={() => {
+                go(getPath(`/chat`));
+              }}
+              icon={<AiOutlineWechat/>}
+              label={'랜덤채팅'}
+            />
+            <SquareButton
+              icon={<PeopleIcon/>}
+              label={'커뮤니티'}
+              onClick={()=>{
+                go(getPath(`/community`));
+              }}
+            />
+            <SquareButton
+              icon={<FaToiletPaper/>}
+              onClick={()=>{
+                go(getPath(`/trash`))
+              }}
+              label={'화장실'}
+            />
+            <SquareButton
+              icon={<SwapHorizIcon/>}
+              label={'거래소'}
+              onClick={()=>{
+                go(getPath(`/trade`))
+              }}
+            />
+            <SquareButton
+              icon={<IoIosHeart/>}
+              label={'커플 매칭'}
+              onClick={()=>{
 
-                }}
-              />)
-            ]}
-          />
-
+              }}
+            />
+          </ButtonsWrapper>
         </div>
       </AlignLayout>
     );
