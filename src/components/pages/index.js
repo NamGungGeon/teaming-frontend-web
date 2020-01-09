@@ -7,5 +7,6 @@ import Rooms from './rooms/Rooms';
 import Events from './important/events/Events'
 import Notices from './important/notices/Notices';
 import Center from './center/Center';
+import Cyphers from './cyphers/Cyphers';
 
-export { Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center };
+export { Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center, Cyphers };

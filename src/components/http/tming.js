@@ -257,4 +257,47 @@ export const deleteBoardPost= (auth, id)=>{
       Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
     },
   });
+};
+
+export const createPostComment= (auth, id, text)=>{
+  return axios.request({
+    method: 'POST',
+    url: `${url}/boards/${id}/comments`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      text,
+    }
+  });
+};
+export const getPostComments= (id)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/boards/${id}/comments`,
+    params: {
+      limit: 99999,
+    }
+  });
+};
+export const deletePostComment= (auth, postId, commentId)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/boards/${postId}/comments/${commentId}`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+  });
+};
+export const updatePostComment= (auth, postId, commentId, text)=>{
+  return axios.request({
+    method: 'PUT',
+    url: `${url}/boards/${postId}/comments/${commentId}`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      text
+    }
+  });
 }

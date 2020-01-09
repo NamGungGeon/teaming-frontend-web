@@ -9,51 +9,37 @@ import {authorized, delay} from "../../utils/utils";
 import {quickConnect} from "../../redux";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import {Button} from "@material-ui/core";
+import Optional from "../Optional/Optional";
+import UserInfoViewer from "../../containers/UserInfoViewer/UserInfoViewer";
+import {deletePostComment} from "../../http/tming";
+import {errMsg} from "../../http/util";
+import {Input, InputGroup, InputGroupAddon} from "reactstrap";
 
 class Comment extends Component{
   state={
     openOptions: false,
     anchor: 0,
+    updateMode: false,
+    newText: this.props.text,
   };
 
-  showUserInfo= async (nickname)=>{
+  showUserInfo= (id)=>{
     const {uiKit}= this.props;
-
-    uiKit.loading.start();
-    await delay(1000);
-    uiKit.loading.end();
-
     uiKit.popup.make((
-      <div>
-        <h5>{nickname}의 정보</h5>
-        <p>
-          머시기머시기
-        </p>
-        <AlignLayout align={'right'}>
-          <Button
-            variant={'contained'}
-            color={'primary'}>
-            친구추가
-          </Button>
-          &nbsp;&nbsp;
-          <Button
-            variant={'contained'}
-            color={'secondary'}>
-            차단
-          </Button>
-        </AlignLayout>
-      </div>
+      <UserInfoViewer id={id}/>
     ));
   };
 
+
   render() {
-    const {profile, name, text, createdAt}= this.props;
+    const {profile, author, text, createdAt, auth, postId, commentId, deleteComment, updateComment}= this.props;
+    const {openOptions, anchor, updateMode, newText}= this.state;
     return (
       <div className={styles.wrapper}>
         <div
           onClick={()=>{
-            if(name){
-              this.showUserInfo(name);
+            if(author){
+              this.showUserInfo(author.id);
             }
           }}
           className={styles.profile}>
@@ -65,14 +51,51 @@ class Comment extends Component{
                 profile
             }
           </span>
-          <span style={{
-            fontSize: '0.8rem'
-          }}>
-            {name? name: '익명'}
+          <span>
+            {author? author.username: '익명'}
           </span>
         </div>
         <div className={styles.contents}>
-          {text}
+          {
+            updateMode?
+              (
+                <InputGroup>
+                  <Input
+                    value={this.state.newText}
+                    className={'transparent'}
+                    type="text"
+                    placeholder="댓글을 수정해보세요"
+                    onKeyDown={e=>{
+                      if(e.key=== 'Enter'){
+                        updateComment(postId, commentId, newText);
+                        e.preventDefault();
+                      }
+                    }}
+                    onChange={e=>{
+                      this.setState({
+                        ...this.state,
+                        newText: e.target.value,
+                      });
+                    }}/>
+                  <InputGroupAddon addonType="append">
+                    <Button
+                      onClick={async ()=>{
+                        await updateComment(postId, commentId, newText);
+                        this.setState({
+                          ...this.state,
+                          updateMode: false,
+                          newText: '',
+                        })
+                      }}
+                      variant="contained"
+                      color="primary">
+                      수정
+                    </Button>
+                  </InputGroupAddon>
+                </InputGroup>
+              ):
+              (<div>{text}</div>)
+          }
           <div className={styles.options}>
             <span className={'explain'}>
               {createdAt}
@@ -109,18 +132,24 @@ class Comment extends Component{
                   },
                 }}
               >
-                <MenuItem
-                  onClick={()=>{
-
-                  }}>
-                  수정
-                </MenuItem>
-                <MenuItem
-                  onClick={()=>{
-
-                  }}>
-                  삭제
-                </MenuItem>
+                <Optional
+                  visible={authorized(auth) && auth.id=== author.id}>
+                  <MenuItem
+                    onClick={()=>{
+                      this.setState({
+                        ...this.state,
+                        updateMode: true,
+                      });
+                    }}>
+                    수정
+                  </MenuItem>
+                  <MenuItem
+                    onClick={()=>{
+                      deleteComment(postId, commentId);
+                    }}>
+                    삭제
+                  </MenuItem>
+                </Optional>
                 <MenuItem
                   onClick={()=>{
 

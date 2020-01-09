@@ -5,7 +5,6 @@
 
     margin-bottom: 8px;
 }
-
 .wrapper> .profile{
     display: flex;
     min-width: 64px;
@@ -13,8 +12,9 @@
     align-items: center;
     justify-content: center;
 
-    font-size: 0.7rem;
+    font-size: 0.5rem;
     padding: 4px;
+
 
     border: 0.6px solid #ffffff99;
     border-radius: 8px;
@@ -22,8 +22,8 @@
     cursor: pointer;
 }
 .wrapper> .profile> .picture *{
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     font-size: 32px;
     margin-bottom: 4px;
 }

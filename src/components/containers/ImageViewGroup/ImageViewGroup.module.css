@@ -11,6 +11,7 @@
 .group> div{
     max-width: 30%;
     margin-right: 8px;
+    margin-bottom: 8px;
 
     text-align: center;
 }
