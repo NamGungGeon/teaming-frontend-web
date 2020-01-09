@@ -113,7 +113,7 @@ class Threadic extends Component {
   }
 
   render() {
-    const {user, content, createdAt, uiKit}= this.props;
+    const {user, content, createdAt, uiKit, replies}= this.props;
     const {openComment, comments}= this.state;
 
     return (
@@ -140,7 +140,7 @@ class Threadic extends Component {
               this.handleCommentState(true)}
             }>
             <MdComment/>
-            &nbsp;{comments? comments.length: ''}
+            &nbsp;{comments? comments.length: replies}
           </span>
           &nbsp;&nbsp;
           <span

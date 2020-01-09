@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
 import {quickConnect} from "../../../redux";
-import {delay} from "../../../utils/utils";
+import {beautifyDate, delay} from "../../../utils/utils";
 import {Card} from "@material-ui/core";
 import CardHeader from "@material-ui/core/CardHeader";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,6 +14,10 @@ import moment from "moment";
 import { TiUserDelete } from "react-icons/ti";
 import {MdBlock} from 'react-icons/md';
 import Tooltip from "@material-ui/core/Tooltip";
+import {getFriends} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
+import CardBody from "reactstrap/es/CardBody";
+import Avatar from "@material-ui/core/Avatar";
 
 class Friends extends Component {
   state={
@@ -25,26 +29,18 @@ class Friends extends Component {
   }
 
   loadFriends= async ()=>{
-    const {uiKit}= this.props;
+    const {uiKit, auth}= this.props;
 
     uiKit.loading.start();
-    await delay(1000);
+    await getFriends(auth).then(response=>{
+      this.setState({
+        ...this.state,
+        friends: response.data.data
+        });
+      }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
+    });
     uiKit.loading.end();
-
-    this.setState({
-      ...this.state,
-      friends: [
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-      ],
-    })
   };
 
   render() {
@@ -54,23 +50,40 @@ class Friends extends Component {
       <div>
         <PageTitle
           align={'left'}
-          title={'친구목록'}
-          explain={'?명의 친구가 등록되어 있습니다'}/>
+          title={'친구목록'}/>
         <br/>
         <CardWrapper>
           {
+            (friends && friends.length===0) && (
+              <p>
+                등록된 친구가 없습니다
+              </p>
+            )
+          }
+          {
             friends &&
-            friends.map(friend=>{
+            friends.map(_friend=>{
+              const friend= _friend.friends;
               return (
                 <Card>
                   <CardHeader
                     style={{
                       cursor: 'pointer',
                     }}
-                    avatar={<ImageView src={friend.profileImage} width={'32px'} height={'32px'}/>}
+                    avatar={
+                      (<Avatar style={{
+                        backgroundColor: `${friend.gender==='M'? 'blue': 'pink'}`
+                      }}>
+                        <ImageView src={friend.profilePicture} width={'32px'} height={'32px'}/>
+                      </Avatar>)
+                    }
                     title={friend.username}
-                    subheader={friend.startDate+ "에 친구가 되었습니다"}
+                    subheader={beautifyDate(friend.createdAt)+ "에 친구가 되었습니다"}
                   />
+                  <CardBody>
+                    친구의 생일: {beautifyDate(friend.birthday)}
+                    <br/>
+                  </CardBody>
                   <CardActions
                     style={{
                       flexDirection: 'row-reverse'

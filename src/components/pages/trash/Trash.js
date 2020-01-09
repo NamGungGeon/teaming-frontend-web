@@ -45,6 +45,7 @@ class Trash extends Component {
               createdAt: trash.createdAt,
               comments: trash.replies,
               id: trash.id,
+              replies: trash.replies
             }
           }
         )

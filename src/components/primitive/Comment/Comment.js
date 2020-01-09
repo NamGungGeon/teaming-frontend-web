@@ -133,7 +133,7 @@ class Comment extends Component{
                 }}
               >
                 <Optional
-                  visible={authorized(auth) && auth.id=== author.id}>
+                  visible={authorized(auth) && author && auth.id=== author.id}>
                   <MenuItem
                     onClick={()=>{
                       this.setState({

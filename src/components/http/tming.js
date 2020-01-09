@@ -300,4 +300,14 @@ export const updatePostComment= (auth, postId, commentId, text)=>{
       text
     }
   });
+};
+
+export const getFriends= (auth)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/me/friends`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    }
+  });
 }

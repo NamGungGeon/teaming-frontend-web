@@ -51,7 +51,7 @@ class Contents extends Component {
           contents: data.data.map(content=>{
             return {
               id: content.id,
-              title: content.title,
+              title: content.title+ ` [${content.comments}]`,
               content: content.body,
               nickname: content.author.username,
               createDate: content.createdAt,
@@ -138,7 +138,7 @@ class Contents extends Component {
         <BoardWrapper boards={
           this.state.contents.map(content=>{
             return {
-              title: `${content.title} [0]`,
+              title: `${content.title}`,
               exp_l: `${content.nickname}`,
               exp_r: `${beautifyDate(content.createDate)}`,
               onClick: ()=>{
