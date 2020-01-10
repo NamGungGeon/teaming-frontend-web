@@ -5,22 +5,19 @@ import { NavLink } from 'react-router-dom';
 import { getPath } from '../../utils/url';
 import classNames from 'classnames';
 import {quickConnect} from "../../redux";
-import {authorized} from "../../utils/utils";
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import {authorized, randStr} from "../../utils/utils";
 import PersonIcon from '@material-ui/icons/Person';
 import IconButton from "@material-ui/core/IconButton";
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ListIcon from '@material-ui/icons/List';
 
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import {Badge} from "@material-ui/core";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from "@material-ui/core/Tooltip";
 import Login from "../Login/Login";
 
 import getHistory from 'react-router-global-history';
+import Notifications from "../Notifications/Notifications";
 
 
 class TopNavigation extends Component{
@@ -75,50 +72,7 @@ class TopNavigation extends Component{
         {
           title: (
             <Tooltip title={'알림'}>
-            <span>
-              <IconButton
-                aria-label="more"
-                aria-controls="long-menu"
-                aria-haspopup="true"
-                onClick={(e)=>{
-                  console.log(e.currentTarget);
-                  this.setState({
-                    ...this.state,
-                    openOptions: true,
-                    anchor: e.currentTarget
-                  })
-                }}
-              >
-                <Badge badgeContent={1} color={'primary'}>
-                  <NotificationsIcon/>
-                </Badge>
-              </IconButton>
-              <Menu
-                style={{
-                  zIndex: 99999,
-                }}
-                anchorEl={this.state.anchor}
-                keepMounted
-                open={this.state.openOptions}
-                onClose={()=>{
-                  this.setState({
-                    ...this.state,
-                    openOptions: false,
-                  })
-                }}
-                PaperProps={{
-                  style: {
-                    width: 300,
-                  },
-                }}
-              >
-                <MenuItem
-                  onClick={()=>{
-                  }}>
-                  알림!
-                </MenuItem>
-              </Menu>
-            </span>
+              <Notifications/>
             </Tooltip>
           ),
           click: ()=>{
@@ -180,7 +134,7 @@ class TopNavigation extends Component{
                   style={{
                     marginLeft: typeof value.title=== 'string'? '16px': '0',
                   }}
-                  key={index}
+                  key={randStr(10)}
                   onClick={value.click}>
                   {value.title}
                 </span>

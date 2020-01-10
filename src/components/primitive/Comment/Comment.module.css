@@ -26,6 +26,7 @@
     height: 48px;
     font-size: 32px;
     margin-bottom: 4px;
+    border-radius: 4px;
 }
 .wrapper> .contents{
     flex: 1;

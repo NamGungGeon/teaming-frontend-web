@@ -27,6 +27,7 @@ class Contents extends Component {
 
   componentDidMount() {
     this.loadContents();
+    console.log(this.props.history);
   }
 
   loadContents= async ()=>{
@@ -53,13 +54,14 @@ class Contents extends Component {
               id: content.id,
               title: content.title+ ` [${content.comments}]`,
               content: content.body,
-              nickname: content.author.username,
+              nickname: content.author? content.author.username: '익명',
               createDate: content.createdAt,
             }
           }),
           paging: data.paging,
         })
       }).catch(e=>{
+        console.log(e);
         uiKit.toaster.cooking(errMsg(e));
       });
     uiKit.loading.end();

@@ -11,12 +11,14 @@ import {quickConnect} from "../../redux";
 import {urlQuery} from "../../utils/url";
 import {createBoardPosts, getBoardPost, updateBoardPost} from "../../http/tming";
 import {errMsg} from "../../http/util";
+import Optional from "../../primitive/Optional/Optional";
 
 class Update extends Component {
   state={
     title: '',
     body: '',
     ready: false,
+    code: '',
   }
 
   componentDidMount() {
@@ -56,13 +58,13 @@ class Update extends Component {
 
   updateBoardPost= async ()=>{
     const {uiKit, location, match, auth, history}= this.props;
-    const {title, body}= this.state;
+    const {title, body, code}= this.state;
     const query= urlQuery(location);
 
     const category= query.category? query.category: 'general';
 
     uiKit.loading.start();
-    await updateBoardPost(auth, match.params.id, category, title, body).then(response=>{
+    await updateBoardPost(auth, match.params.id, category, title, body, code).then(response=>{
       //ok!
       uiKit.toaster.cooking('수정 완료!');
       this.unblock();
@@ -75,7 +77,9 @@ class Update extends Component {
   };
 
   render() {
+    const {location}= this.props;
     const {title, body, ready}= this.state;
+    const {category}= urlQuery(location);
 
     if(!ready) return (<div/>);
 
@@ -85,6 +89,19 @@ class Update extends Component {
           title={'글 수정'}
           explain={'작성한 글을 수정하여 업로드합니다'}/>
         <br/>
+        <Optional
+          visible={category=== 'anonymous'}>
+          <Input
+            type="password"
+            placeholder="작성 시 입력했던 코드를 입력하세요"
+            onChange={e=>{
+              this.setState({
+                ...this.state,
+                code: e.target.value,
+              });
+            }}/>
+          <br/>
+        </Optional>
         <Input
           value={title}
           type="text"

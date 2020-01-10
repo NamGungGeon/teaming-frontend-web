@@ -43,7 +43,7 @@ class Login extends Component {
           id: id,
         });
         uiKit.popup.destroy();
-        getHistory().push(getPath('/'));
+        uiKit.toaster.cooking('로그인 되었습니다');
       })
       .catch((e)=> {
         uiKit.toaster.cooking(errMsg(e));

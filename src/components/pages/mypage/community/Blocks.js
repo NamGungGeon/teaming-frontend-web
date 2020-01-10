@@ -11,6 +11,8 @@ import {quickConnect} from "../../../redux";
 import Avatar from "@material-ui/core/Avatar";
 import Tooltip from "@material-ui/core/Tooltip";
 import {MdPersonAdd} from 'react-icons/md';
+import {getBlocks} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
 
 class Blocks extends Component {  state={
   blocks: null,
@@ -21,26 +23,19 @@ class Blocks extends Component {  state={
   }
 
   loadBlocks= async ()=>{
-    const {uiKit}= this.props;
+    const {uiKit, auth}= this.props;
 
     uiKit.loading.start();
-    await delay(1000);
-    uiKit.loading.end();
-
-    this.setState({
-      ...this.state,
-      blocks: [
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-        {username: `제이쿼리권위자`, startDate: moment().format('YYYY-MM-DD')},
-      ],
+    await getBlocks(auth).then(response=>{
+      const {data}= response.data;
+      this.setState({
+        ...this.state,
+        blocks: data,
+      });
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
     })
+    uiKit.loading.end();
   };
 
   render() {
@@ -50,19 +45,25 @@ class Blocks extends Component {  state={
       <div>
         <PageTitle
           align={'left'}
-          title={'차단목록'}
-          explain={'?명의 유저가 차단되어 있습니다'}/>
+          title={'차단목록'}/>
         <br/>
         <CardWrapper>
           {
+            (blocks && blocks.length===0) && (
+              <p>
+                차단한 유저가 없습니다
+              </p>
+            )
+          }
+          {
             blocks &&
-            blocks.map(friend=>{
+            blocks.map(block=>{
               return (
                 <Card>
                   <CardHeader
                     avatar={<Avatar>X</Avatar>}
-                    title={friend.username}
-                    subheader={friend.startDate+ "에 차단한 유저입니다"}
+                    title={block.friends.username}
+                    subheader={block.friends.createdAt+ "에 차단한 유저입니다"}
                   />
                   <CardActions
                     style={{
@@ -70,7 +71,10 @@ class Blocks extends Component {  state={
                     }}
                     disableSpacing>
                     <Tooltip title={'차단해제'}>
-                      <IconButton>
+                      <IconButton
+                        onClick={()=>{
+                          //TODO: 차단해제 팝업
+                        }}>
                         <MdPersonAdd/>
                       </IconButton>
                     </Tooltip>

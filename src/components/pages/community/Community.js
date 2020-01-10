@@ -9,9 +9,9 @@ import overwatch from "../../resource/icon/overwatch.png";
 import battleground from "../../resource/icon/battleground.png";
 import Write from "./Write";
 import {quickConnect} from "../../redux";
-import PageTitle from "../../primitive/PageTitle/PageTitle";
 import getHistory from 'react-router-global-history';
 import Update from "./Update";
+import Portal from "./Portal";
 
 class Community extends Component {
 
@@ -21,21 +21,15 @@ class Community extends Component {
         nav={{
           "일반": [
             {
-              label: '통합게시판',
-              onClick: () => {
-                this.go(getPath(`/community`));
-              }
-            },
-            {
               label: '자유게시판',
               onClick: () => {
-                this.go(getPath(`/community?category=free`));
+                this.go(getPath(`/community/portal?category=general`));
               }
             },
             {
               label: '익명게시판',
               onClick: () => {
-                this.go(getPath(`/community?category=anonymous`));
+                this.go(getPath(`/community/portal?category=anonymous`));
               }
             },
           ],
@@ -44,7 +38,7 @@ class Community extends Component {
               label: '리그 오브 레전드',
               icon: lol,
               onClick: () => {
-                this.go(getPath(`/community?category=lol`));
+                this.go(getPath(`/community/portal?category=lol`));
               }
             },
             {
@@ -74,6 +68,7 @@ class Community extends Component {
         <div>
           <Route exact path={getPath(`/community/write`)} component={Write}/>
           <Route exact path={getPath(`/community`)} component={Contents}/>
+          <Route exact path={getPath(`/community/portal`)} component={Portal}/>
           <Route exact path={getPath(`/community/read/:id`)} component={Content}/>
           <Route exact path={getPath(`/community/update/:id`)} component={Update}/>
         </div>

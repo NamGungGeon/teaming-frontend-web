@@ -211,7 +211,7 @@ export const getBoardPosts= (category, anonymous, limit, offset)=>{
     }
   });
 };
-export const createBoardPosts= (auth, category, title, body)=>{
+export const createBoardPosts= (auth, category, title, body, code)=>{
   isValidCategory(category);
 
   return axios.request({
@@ -219,6 +219,7 @@ export const createBoardPosts= (auth, category, title, body)=>{
     url: `${url}/boards`,
     headers: {
       Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      'x-modify-code': code? code: '',
     },
     data: {
       category: category.toUpperCase(),
@@ -233,7 +234,7 @@ export const getBoardPost= (id)=>{
   });
 };
 
-export const updateBoardPost= (auth, id, category, title, body)=>{
+export const updateBoardPost= (auth, id, category, title, body, code)=>{
   isValidCategory(category);
 
   return axios.request({
@@ -241,6 +242,7 @@ export const updateBoardPost= (auth, id, category, title, body)=>{
     url: `${url}/boards/${id}`,
     headers: {
       Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      'x-modify-code': code? code: '',
     },
     data: {
       category: category.toUpperCase(),
@@ -310,4 +312,75 @@ export const getFriends= (auth)=>{
       Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
     }
   });
-}
+};
+export const requestFriend= (auth, target)=>{
+  return axios.request({
+    method: 'POST',
+    url: `${url}/me/friendRequests`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      target,
+    }
+  });
+};
+export const deleteFriend= (auth, relationship_id)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/me/friends`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      relationship_id
+    }
+  });
+};
+
+export const getBlocks= (auth)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/me/blocks`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+    params:{
+      limit: 99999,
+    }
+  });
+};
+export const createBlock= (auth, id)=>{
+  return axios.request({
+    method: 'POST',
+    url: `${url}/me/blocks`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      id,
+    }
+  });
+};
+
+export const getNotifications= (auth, limit)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/me/notifications`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      limit,
+    }
+  });
+};
+export const removeNotification= (auth, id)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/me/notifications/${id}`,
+    headers: {
+      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+    }
+  });
+};

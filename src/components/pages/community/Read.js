@@ -52,7 +52,8 @@ class Read extends Component {
   };
 
   loadPost= async (id)=>{
-    const {uiKit, match, auth} = this.props;
+    const {uiKit, match, auth, location} = this.props;
+    const query= urlQuery(location);
 
     uiKit.loading.start();
     //load post data
@@ -68,9 +69,10 @@ class Read extends Component {
           author: data.author,
           createDate: data.createdAt,
         },
-        imAuthor: auth ? (auth.id === data.author.id) : false,
+        imAuthor: auth ? (query.category=== 'anonymous' || auth.id === data.author.id) : false,
       });
     }).catch(e => {
+      console.log(e);
       uiKit.toaster.cooking(errMsg(e));
     });
   };
@@ -216,7 +218,7 @@ class Read extends Component {
                   cursor: 'pointer'
                 }}
                 className={'explain'}>
-                {content.author.username}
+                {content.author? content.author.username: '익명'}
               </p>
               <br/>
               <p dangerouslySetInnerHTML={ {__html: content.content}}/>

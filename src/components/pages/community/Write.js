@@ -11,12 +11,13 @@ import {quickConnect} from "../../redux";
 import {urlQuery} from "../../utils/url";
 import {createBoardPosts} from "../../http/tming";
 import {errMsg} from "../../http/util";
+import Optional from "../../primitive/Optional/Optional";
 
 class Write extends Component {
   state={
     title: '',
     body: '',
-
+    code: '',
   }
 
   componentDidMount() {
@@ -32,13 +33,13 @@ class Write extends Component {
 
   createBoardPost= async ()=>{
     const {uiKit, location, auth, history}= this.props;
-    const {title, body}= this.state;
+    const {title, body, code}= this.state;
     const query= urlQuery(location);
 
     const category= query.category? query.category: 'general';
 
     uiKit.loading.start();
-    await createBoardPosts(auth, category, title, body).then(response=>{
+    await createBoardPosts(auth, category, title, body, code).then(response=>{
       //ok!
       uiKit.toaster.cooking('작성 완료!');
       this.unblock();
@@ -50,12 +51,28 @@ class Write extends Component {
   }
 
   render() {
+    const {location}= this.props;
+    const {category}= urlQuery(location);
+
     return (
       <div>
         <PageTitle
           title={'글 작성'}
           explain={'커뮤니티에 글을 작성합니다'}/>
         <br/>
+        <Optional
+          visible={category=== 'anonymous'}>
+          <Input
+            type="password"
+            placeholder="삭제/수정에 사용할 비밀번호를 입력하세요"
+            onChange={e=>{
+              this.setState({
+                ...this.state,
+                code: e.target.value,
+              });
+            }}/>
+          <br/>
+        </Optional>
         <Input
           type="text"
           placeholder="글 제목을 입력하세요"

@@ -21,10 +21,12 @@ class BoardRow extends Component {
             {title}
           </div>
           <div className={styles.explain}>
-            <span>
+            <span className={'explain'}>
               {exp_l}
             </span>
-            <span style={{
+            <span
+              className={'explain'}
+              style={{
               textAlign: 'right'
             }}>
               {exp_r}

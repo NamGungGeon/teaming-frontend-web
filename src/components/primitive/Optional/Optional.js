@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Section from "../Section/Section";
 
 const Optional= ({visible, children})=>{
   if(!visible)
