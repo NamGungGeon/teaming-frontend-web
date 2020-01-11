@@ -67,6 +67,22 @@ class Contents extends Component {
     uiKit.loading.end();
   };
 
+  getBoardName= ()=>{
+    const {location}= this.props;
+    const {category}= urlQuery(location);
+
+    switch (category) {
+      case "general":
+        return "자유게시판";
+      case "anonymous":
+        return "익명게시판";
+      case "lol":
+        return "리그 오브 레전드 게시판";
+      default:
+        return "자유게시판";
+    }
+  }
+
   render() {
     const {match, location, history}= this.props;
     const query= urlQuery(location);
@@ -74,8 +90,8 @@ class Contents extends Component {
     return (
       <div>
         <PageTitle
-          title={'커뮤니티'}
-          explain={'커뮤니티입니다'}
+          title={this.getBoardName()}
+          explain={`${this.getBoardName()} 입니다`}
           align={'left'}/>
         <br/>
 

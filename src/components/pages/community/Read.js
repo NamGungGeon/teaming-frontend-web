@@ -221,7 +221,9 @@ class Read extends Component {
                 {content.author? content.author.username: '익명'}
               </p>
               <br/>
-              <p dangerouslySetInnerHTML={ {__html: content.content}}/>
+              <p
+                className={'reader'}
+                dangerouslySetInnerHTML={ {__html: content.content}}/>
               <br/>
               <AlignLayout align={'center'}>
                 <Fab color={'primary'} variant="extended">

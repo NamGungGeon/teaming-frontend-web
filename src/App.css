@@ -183,6 +183,12 @@ tbody tr{
   padding: 16px;
   margin: 8px 0;
 }
+.reader{
+  width: 100%;
+}
+.reader *{
+  max-width: 100%;
+}
 .childMargin > * {
   margin: 0 4px;
 }
@@ -269,7 +275,7 @@ table.noHead tr > td:nth-child(1) {
 .ck.ck-editor__main{
 }
 .ck.ck-content{
-  height: 500px;
+  height: 600px;
 }
 .ck.ck-content> *{
   color: black;

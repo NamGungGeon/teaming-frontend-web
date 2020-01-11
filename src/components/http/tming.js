@@ -1,10 +1,13 @@
-import { randStr } from "../utils/utils";
+import {randStr} from "../utils/utils";
 import axios from "axios";
 import moment from "moment";
 
 //base
 const url = 'https://api.tming.kr/v0.1';
 
+export const image = (filename) => {
+  return `https://teaming-kr-bucket.s3.ap-northeast-2.amazonaws.com/production/boards/${filename}`;
+};
 /**
  * @param {string} gender gender is one of [M,f].
  * @param {string} username username is nickname.
@@ -96,56 +99,56 @@ export const deleteTrashComment = (auth, feelId, replyId) => {
   });
 };
 
-export const getNotices= ()=>{
+export const getNotices = () => {
   return axios.request({
     method: 'GET',
     url: `${url}/admin/notices`,
   });
 };
-export const getNotice= (id)=>{
+export const getNotice = (id) => {
   return axios.request({
     method: 'GET',
     url: `${url}/admin/notices/${id}`,
   });
 };
-export const createNotice= (auth, title, text)=>{
-  const after30= moment().add(30, 'days').format("YYYY-MM-DD");
+export const createNotice = (auth, title, text) => {
+  const after30 = moment().add(30, 'days').format("YYYY-MM-DD");
 
   return axios.request({
     method: 'POST',
     url: `${url}/admin/notices`,
     headers: {
-      Authorization: 'Bearer '+ auth.token,
+      Authorization: 'Bearer ' + auth.token,
     },
     data: {
       title, text, until: after30,
     }
   });
 };
-export const getEvents= ()=>{
+export const getEvents = () => {
   return axios.request({
     method: 'GET',
     url: `${url}/admin/events`,
   });
 };
-export const getEvent= (id)=>{
+export const getEvent = (id) => {
   return axios.request({
     method: 'GET',
     url: `${url}/admin/events/${id}`,
   });
 };
-export const removeNotice= (auth, id)=>{
+export const removeNotice = (auth, id) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/admin/notices/${id}`,
     headers: {
-      Authorization: 'Bearer '+ auth.token,
+      Authorization: 'Bearer ' + auth.token,
       'Content-Type': 'multipart/form-data',
     },
   });
 };
-export const createEvent= (auth, title, text, banner, startDate, endDate)=>{
-  const data= new FormData();
+export const createEvent = (auth, title, text, banner, startDate, endDate) => {
+  const data = new FormData();
   data.append('title', title);
   data.append('text', text);
   data.append('banner', banner);
@@ -156,49 +159,49 @@ export const createEvent= (auth, title, text, banner, startDate, endDate)=>{
     method: 'POST',
     url: `${url}/admin/events`,
     headers: {
-      Authorization: 'Bearer '+ auth.token,
+      Authorization: 'Bearer ' + auth.token,
       'Content-Type': 'multipart/form-data',
     },
     data,
   });
 };
-export const removeEvent= (auth, id)=>{
+export const removeEvent = (auth, id) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/admin/events/${id}`,
     headers: {
-      Authorization: 'Bearer '+ auth.token,
+      Authorization: 'Bearer ' + auth.token,
     },
   });
 }
 
-export const getMyProfile= (auth)=>{
+export const getMyProfile = (auth) => {
   return axios.request({
     method: 'GET',
     url: `${url}/me`,
     headers: {
-      Authorization: 'Bearer '+ auth.token,
+      Authorization: 'Bearer ' + auth.token,
     },
   });
 };
-export const uploadProfileImage= (auth, file)=>{
+export const uploadProfileImage = (auth, file) => {
   const formdata = new FormData();
   formdata.append('image', file);
 
   return axios.patch(`${url}/me/picture`, formdata, {
     headers: {
-      Authorization: 'Bearer '+ auth.token,
+      Authorization: 'Bearer ' + auth.token,
       'Content-Type': 'multipart/form-data',
     }
   });
 };
 
-const isValidCategory= (category)=>{
-  const validCategory= [ "GENERAL", "ANONYMOUS", "LOL", "OVERWATCH", "PUBG"];
+const isValidCategory = (category) => {
+  const validCategory = ["GENERAL", "ANONYMOUS", "LOL", "OVERWATCH", "PUBG"];
   return validCategory.includes(category.toUpperCase());
 }
 
-export const getBoardPosts= (category, anonymous, limit, offset)=>{
+export const getBoardPosts = (category, anonymous, limit, offset) => {
   //filter
   isValidCategory(category);
 
@@ -207,73 +210,115 @@ export const getBoardPosts= (category, anonymous, limit, offset)=>{
     url: `${url}/boards`,
     params: {
       category: category.toUpperCase()
-      ,anonymous, limit, offset,
+      , anonymous, limit, offset,
     }
   });
 };
-export const createBoardPosts= (auth, category, title, body, code)=>{
+export const createBoardPosts = (auth, category, title, body, code, media) => {
   isValidCategory(category);
 
-  return axios.request({
-    method: 'POST',
-    url: `${url}/boards`,
-    headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
-      'x-modify-code': code? code: '',
-    },
-    data: {
-      category: category.toUpperCase(),
-      title, body,
-    }
-  });
+  if (media) {
+    //formed data
+    const data = new FormData();
+    data.append("category", category.toUpperCase());
+    data.append("title", title);
+    data.append("body", body);
+    if(code)
+      data.append("modifyCode", code);
+    media.map(file=>{
+      data.append("media", file);
+    });
+    return axios.request({
+      method: 'POST',
+      url: `${url}/boards`,
+      'Content-Type': 'multipart/form-data',
+      headers: {
+        Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      },
+      data
+    });
+  } else {
+    return axios.request({
+      method: 'POST',
+      url: `${url}/boards`,
+      headers: {
+        Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      },
+      data: {
+        category: category.toUpperCase(),
+        title, body, modifyCode: code
+      }
+    });
+  }
 };
-export const getBoardPost= (id)=>{
+export const getBoardPost = (id) => {
   return axios.request({
     method: 'GET',
     url: `${url}/boards/${id}`,
   });
 };
 
-export const updateBoardPost= (auth, id, category, title, body, code)=>{
+export const updateBoardPost = (auth, id, category, title, body, code, media) => {
   isValidCategory(category);
-
-  return axios.request({
-    method: 'PUT',
-    url: `${url}/boards/${id}`,
-    headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
-      'x-modify-code': code? code: '',
-    },
-    data: {
-      category: category.toUpperCase(),
-      title, body,
-    }
-  });
+  if (media) {
+    //formed data
+    const data = new FormData();
+    data.append("category", category.toUpperCase());
+    data.append("title", title);
+    data.append("body", body);
+    console.log(media);
+    media.map(file=>{
+      data.append("media", file);
+    });
+    return axios.request({
+      method: 'PUT',
+      url: `${url}/boards/${id}`,
+      'Content-Type': 'multipart/form-data',
+      headers: {
+        Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+        'x-modify-code': code ? code : '',
+      },
+      data
+    });
+  }else{
+    return axios.request({
+      method: 'PUT',
+      url: `${url}/boards/${id}`,
+      headers: {
+        Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+        'x-modify-code': code ? code : '',
+      },
+      data: {
+        category: category.toUpperCase(),
+        title, body,
+      }
+    });
+  }
 };
 
-export const deleteBoardPost= (auth, id)=>{
+export const deleteBoardPost = (auth, id) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/boards/${id}`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     },
   });
 };
 
-export const createPostComment= (auth, id, text)=>{
+export const createPostComment = (auth, id, text) => {
   return axios.request({
     method: 'POST',
     url: `${url}/boards/${id}/comments`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     },
     data: {
       text,
     }
   });
 };
-export const getPostComments= (id)=>{
+export const getPostComments = (id) => {
   return axios.request({
     method: 'GET',
     url: `${url}/boards/${id}/comments`,
@@ -282,21 +327,21 @@ export const getPostComments= (id)=>{
     }
   });
 };
-export const deletePostComment= (auth, postId, commentId)=>{
+export const deletePostComment = (auth, postId, commentId) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/boards/${postId}/comments/${commentId}`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     },
   });
 };
-export const updatePostComment= (auth, postId, commentId, text)=>{
+export const updatePostComment = (auth, postId, commentId, text) => {
   return axios.request({
     method: 'PUT',
     url: `${url}/boards/${postId}/comments/${commentId}`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     },
     data: {
       text
@@ -304,33 +349,33 @@ export const updatePostComment= (auth, postId, commentId, text)=>{
   });
 };
 
-export const getFriends= (auth)=>{
+export const getFriends = (auth) => {
   return axios.request({
     method: 'GET',
     url: `${url}/me/friends`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     }
   });
 };
-export const requestFriend= (auth, target)=>{
+export const requestFriend = (auth, target) => {
   return axios.request({
     method: 'POST',
     url: `${url}/me/friendRequests`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     },
     data: {
       target,
     }
   });
 };
-export const deleteFriend= (auth, relationship_id)=>{
+export const deleteFriend = (auth, relationship_id) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/me/friends`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     },
     data: {
       relationship_id
@@ -338,24 +383,24 @@ export const deleteFriend= (auth, relationship_id)=>{
   });
 };
 
-export const getBlocks= (auth)=>{
+export const getBlocks = (auth) => {
   return axios.request({
     method: 'GET',
     url: `${url}/me/blocks`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     },
-    params:{
+    params: {
       limit: 99999,
     }
   });
 };
-export const createBlock= (auth, id)=>{
+export const createBlock = (auth, id) => {
   return axios.request({
     method: 'POST',
     url: `${url}/me/blocks`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     },
     data: {
       id,
@@ -363,24 +408,24 @@ export const createBlock= (auth, id)=>{
   });
 };
 
-export const getNotifications= (auth, limit)=>{
+export const getNotifications = (auth, limit) => {
   return axios.request({
     method: 'GET',
     url: `${url}/me/notifications`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     },
     data: {
       limit,
     }
   });
 };
-export const removeNotification= (auth, id)=>{
+export const removeNotification = (auth, id) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/me/notifications/${id}`,
     headers: {
-      Authorization: `${auth? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
     }
   });
 };

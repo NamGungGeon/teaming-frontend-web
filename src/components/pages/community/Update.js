@@ -12,6 +12,7 @@ import {urlQuery} from "../../utils/url";
 import {createBoardPosts, getBoardPost, updateBoardPost} from "../../http/tming";
 import {errMsg} from "../../http/util";
 import Optional from "../../primitive/Optional/Optional";
+import Wysiwyg from "../../primitive/WYSIWYG/WYSIWYG";
 
 class Update extends Component {
   state={
@@ -58,13 +59,14 @@ class Update extends Component {
 
   updateBoardPost= async ()=>{
     const {uiKit, location, match, auth, history}= this.props;
-    const {title, body, code}= this.state;
+    const {title, code}= this.state;
     const query= urlQuery(location);
 
     const category= query.category? query.category: 'general';
+    const data= this.editor.getBody();
 
     uiKit.loading.start();
-    await updateBoardPost(auth, match.params.id, category, title, body, code).then(response=>{
+    await updateBoardPost(auth, match.params.id, category, title, data.body, code, data.media).then(response=>{
       //ok!
       uiKit.toaster.cooking('수정 완료!');
       this.unblock();
@@ -113,23 +115,9 @@ class Update extends Component {
             });
           }}/>
         <br/>
-        <CKEditor
-          editor={ ClassicEditor }
-          onInit={ editor => {
-            // You can store the "editor" and use when it is needed.
-            editor.setData(body);
-            console.log( 'Editor is ready to use!', editor );
-          } }
-          onChange={ ( event, editor ) => {
-            const data = editor.getData();
-            this.setState({
-              ...this.state,
-              body: data,
-            });
-            console.log(data);
-          } }
-        />
-
+        <Wysiwyg
+          body={body}
+          ref={ref=>this.editor= ref}/>
         <br/>
         <AlignLayout align={'right'}>
           <Button
