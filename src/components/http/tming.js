@@ -1,4 +1,4 @@
-import {randStr} from "../utils/utils";
+import {authorized, randStr} from "../utils/utils";
 import axios from "axios";
 import moment from "moment";
 
@@ -47,7 +47,7 @@ export const getTrashes = auth => {
   return axios.request({
     method: 'GET',
     headers: {
-      Authorization: 'Bearer ' + auth.token
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
     },
     url: `${url}/feelings`
   });
@@ -58,7 +58,7 @@ export const createTrash = (auth, text) => {
     method: 'POST',
     url: `${url}/feelings`,
     headers: {
-      Authorization: 'Bearer ' + auth.token
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
     },
     data: {
       text
@@ -70,22 +70,22 @@ export const getTrashComments = (auth, id) => {
     method: 'GET',
     url: `${url}/feelings/${id}/replies`,
     headers: {
-      Authorization: 'Bearer ' + auth.token
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
     },
     params: {
       limit: 10000
     }
   });
 };
-export const createTrashComment = (auth, id, text) => {
+export const createTrashComment = (auth, id, text, password) => {
   return axios.request({
     method: 'POST',
     url: `${url}/feelings/${id}/replies`,
     headers: {
-      Authorization: 'Bearer ' + auth.token
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
     },
     data: {
-      text
+      text, password
     }
   });
 };
@@ -94,7 +94,7 @@ export const deleteTrashComment = (auth, feelId, replyId) => {
     method: 'DELETE',
     url: `${url}/feelings/${feelId}/replies/${replyId}`,
     headers: {
-      Authorization: 'Bearer ' + auth.token
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
     }
   });
 };
@@ -118,7 +118,7 @@ export const createNotice = (auth, title, text) => {
     method: 'POST',
     url: `${url}/admin/notices`,
     headers: {
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
     data: {
       title, text, until: after30,
@@ -142,7 +142,7 @@ export const removeNotice = (auth, id) => {
     method: 'DELETE',
     url: `${url}/admin/notices/${id}`,
     headers: {
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
       'Content-Type': 'multipart/form-data',
     },
   });
@@ -159,7 +159,7 @@ export const createEvent = (auth, title, text, banner, startDate, endDate) => {
     method: 'POST',
     url: `${url}/admin/events`,
     headers: {
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
       'Content-Type': 'multipart/form-data',
     },
     data,
@@ -170,7 +170,7 @@ export const removeEvent = (auth, id) => {
     method: 'DELETE',
     url: `${url}/admin/events/${id}`,
     headers: {
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
   });
 }
@@ -180,7 +180,7 @@ export const getMyProfile = (auth) => {
     method: 'GET',
     url: `${url}/me`,
     headers: {
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
   });
 };
@@ -190,7 +190,7 @@ export const uploadProfileImage = (auth, file) => {
 
   return axios.patch(`${url}/me/picture`, formdata, {
     headers: {
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
       'Content-Type': 'multipart/form-data',
     }
   });
@@ -233,7 +233,7 @@ export const createBoardPosts = (auth, category, title, body, code, media) => {
       url: `${url}/boards`,
       'Content-Type': 'multipart/form-data',
       headers: {
-        Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
       },
       data
     });
@@ -242,7 +242,7 @@ export const createBoardPosts = (auth, category, title, body, code, media) => {
       method: 'POST',
       url: `${url}/boards`,
       headers: {
-        Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
       },
       data: {
         category: category.toUpperCase(),
@@ -266,6 +266,7 @@ export const updateBoardPost = (auth, id, category, title, body, code, media) =>
     data.append("category", category.toUpperCase());
     data.append("title", title);
     data.append("body", body);
+    data.append("modifyCode", code);
     console.log(media);
     media.map(file=>{
       data.append("media", file);
@@ -275,7 +276,7 @@ export const updateBoardPost = (auth, id, category, title, body, code, media) =>
       url: `${url}/boards/${id}`,
       'Content-Type': 'multipart/form-data',
       headers: {
-        Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
         'x-modify-code': code ? code : '',
       },
       data
@@ -285,7 +286,7 @@ export const updateBoardPost = (auth, id, category, title, body, code, media) =>
       method: 'PUT',
       url: `${url}/boards/${id}`,
       headers: {
-        Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
         'x-modify-code': code ? code : '',
       },
       data: {
@@ -301,7 +302,7 @@ export const deleteBoardPost = (auth, id) => {
     method: 'DELETE',
     url: `${url}/boards/${id}`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
   });
 };
@@ -311,7 +312,7 @@ export const createPostComment = (auth, id, text) => {
     method: 'POST',
     url: `${url}/boards/${id}/comments`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
     data: {
       text,
@@ -332,7 +333,7 @@ export const deletePostComment = (auth, postId, commentId) => {
     method: 'DELETE',
     url: `${url}/boards/${postId}/comments/${commentId}`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
   });
 };
@@ -341,7 +342,7 @@ export const updatePostComment = (auth, postId, commentId, text) => {
     method: 'PUT',
     url: `${url}/boards/${postId}/comments/${commentId}`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
     data: {
       text
@@ -354,7 +355,7 @@ export const getFriends = (auth) => {
     method: 'GET',
     url: `${url}/me/friends`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     }
   });
 };
@@ -363,7 +364,7 @@ export const requestFriend = (auth, target) => {
     method: 'POST',
     url: `${url}/me/friendRequests`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
     data: {
       target,
@@ -375,7 +376,7 @@ export const deleteFriend = (auth, relationship_id) => {
     method: 'DELETE',
     url: `${url}/me/friends`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
     data: {
       relationship_id
@@ -388,7 +389,7 @@ export const getBlocks = (auth) => {
     method: 'GET',
     url: `${url}/me/blocks`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
     params: {
       limit: 99999,
@@ -400,7 +401,7 @@ export const createBlock = (auth, id) => {
     method: 'POST',
     url: `${url}/me/blocks`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
     data: {
       id,
@@ -413,7 +414,7 @@ export const getNotifications = (auth, limit) => {
     method: 'GET',
     url: `${url}/me/notifications`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
     data: {
       limit,
@@ -425,7 +426,83 @@ export const removeNotification = (auth, id) => {
     method: 'DELETE',
     url: `${url}/me/notifications/${id}`,
     headers: {
-      Authorization: `${auth ? `Bearer ${auth.token}` : ''}`,
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    }
+  });
+};
+
+//auth is nullable
+export const createCase= (auth, text, media, replyEmail)=>{
+  console.log(auth, authorized(auth)? 'true': 'false');
+
+  if(media){
+    const data= new FormData();
+    data.append('text', text);
+    if(replyEmail)
+      data.append('replyEmail', replyEmail);
+    media.map(m=>{
+      data.append('media', m);
+    });
+    return axios.request({
+      method: 'POST',
+      url: `${url}/complains`,
+      headers: {
+        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+        'Content-Type': 'multipart/form-data'
+      },
+      data
+    });
+  }else{
+    return axios.request({
+      method: 'POST',
+      url: `${url}/complains`,
+      headers: {
+        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      },
+      data: {
+        text, replyEmail,
+      }
+    });
+  }
+};
+//for admin
+export const getComplains= (auth)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/complains`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+    params:{
+      offset: 0,
+      limit: 99999,
+    }
+  });
+};
+//for user
+export const getMyComaplins= (auth)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/me/complains`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+    params:{
+      offset: 0,
+      limit: 99999,
+    }
+  });
+}
+
+export const replyComplain= (auth, id, text)=>{
+  return axios.request({
+    method: 'POST',
+    url: `${url}/complains/${id}/reply`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      text
     }
   });
 };

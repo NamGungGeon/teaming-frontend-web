@@ -56,7 +56,8 @@ class Community extends Component {
 
   go= (path)=>{
     getHistory().push(path);
-  }
+  };
+
 
   componentWillUnmount() {
     this.props.SideNavDispatcher.remove();

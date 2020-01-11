@@ -3,7 +3,7 @@ import {getPath} from "../../../utils/url";
 import Asked from "./Asked";
 import {Route} from "react-router-dom";
 import Illegal from "./Illegal";
-import Asking from "./Asking";
+import CreateCase from "../../center/CreateCase";
 
 class Service extends Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ class Service extends Component {
     return (
       <div>
         <Route exact path={getPath(`/mypage/service/asked`)} component={Asked}/>
-        <Route exact path={getPath(`/mypage/service/asking`)} component={Asking}/>
+        <Route exact path={getPath(`/mypage/service/asking`)} component={CreateCase}/>
         <Route exact path={getPath(`/mypage/service/illegal`)} component={Illegal}/>
       </div>
     );

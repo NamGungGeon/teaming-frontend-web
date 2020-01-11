@@ -50,7 +50,8 @@ class Threadic extends Component {
       uiKit.toaster.cooking(errMsg(e));
     });
     uiKit.loading.end();
-  }
+  };
+
   createComment= async ()=>{
     const {uiKit, auth, id}= this.props;
     const {myComment}= this.state;

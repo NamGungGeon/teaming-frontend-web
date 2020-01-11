@@ -5,96 +5,105 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import {quickConnect} from "../../../redux";
-import {delay, randNum, randStr} from "../../../utils/utils";
+import {beautifyDate, delay, fuckHTML, randNum, randStr} from "../../../utils/utils";
 import {Button} from "@material-ui/core";
 import {getPath} from "../../../utils/url";
+import {getComplains, getMyComaplins} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
+import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 
 class Asked extends Component {
   state={
-    askList: null,
-    open: 0,
-  }
+    complains: null,
+    count: 0,
+  };
 
   async componentDidMount() {
-    const {uiKit}= this.props;
+    const {uiKit, auth}= this.props;
 
     uiKit.loading.start();
-    await delay(1000);
-    uiKit.loading.end();
-
-    this.setState({
-      ...this.state,
-      askList: [
-        {id: randNum(1000), title: randStr(10), createdAt: '2020-01-01 12:00', resolved: true, text: '반가워요~~'},
-        {id: randNum(1000), title: randStr(10), createdAt: '2020-01-01 12:00', resolved: true, text: '반가워요~~'},
-        {id: randNum(1000), title: randStr(10), createdAt: '2020-01-01 12:00', resolved: false, text: '반가워요~~'},
-      ]
+    await getMyComaplins(auth).then(response=>{
+      const {data}= response;
+      console.log(data.data);
+      this.setState({
+        ...this.state,
+        count: data.count,
+        complains: data.data,
+      });
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
     });
-  }
+    uiKit.loading.end();
+  };
+
 
   render() {
-    const {askList, open}= this.state;
+    const {complains, count}= this.state;
     const {history}= this.props;
 
     return (
       <div>
-        <PageTitle title={'내 문의내역'} explain={'내가 문의한 내용'}/>
-        <br/>
-        <div>
-          <Button
-            variant={'contained'}
-            color={'primary'}
-            onClick={()=>{
-              history.push(getPath(`/mypage/service/asking`))
-            }}>
-            새로운 문의 작성
-          </Button>
-        </div>
+        <PageTitle title={'내 문의내역'} explain={`${count}개의 내가 문의한 내용이 있습니다`}/>
         <br/>
         {
-          askList && (
+          complains && (
             <div>
               {
-                askList.map(ask=>{
+                complains.map(complain=>{
                   return (
-                    <ExpansionPanel
-                      expanded={ask.id=== open}>
+                    <ExpansionPanel>
                       <ExpansionPanelSummary
-                        onClick={()=>{
-                          if(open=== ask.id){
-                            this.setState({
-                              ...this.state,
-                              open: 0,
-                            });
-                          }else{
-                            this.setState({
-                              ...this.state,
-                              open: ask.id,
-                            });
-                          }
-                        }}
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content">
+                        expandIcon={<ExpandMoreIcon />}>
                         <div>
-                          <span>
-                            {ask.resolved? '(답변완료)': '(처리중)'}
-                            &nbsp;
-                            {ask.title}
-                          </span>
-                          <br/>
-                          <span
-                            className={'explain'}>
-                            {ask.createdAt}
-                          </span>
+                          (
+                          {
+                            complain.reply? '답변완료': '미답변'
+                          }
+                          )
+                          &nbsp;
+                          {fuckHTML(complain.text).slice(0, 15)}...
+                          <div className={'explain'}>
+                            {beautifyDate(complain.createdAt)}
+                          </div>
                         </div>
                       </ExpansionPanelSummary>
-                      <ExpansionPanelDetails style={{
-                        flexDirection: 'column',
-                      }}>
-                        {ask.text}
+                      <ExpansionPanelDetails>
+                        <div style={{
+                          width: '100%'
+                        }}>
+                          <div>
+                            <h5>
+                              문의내용
+                              <p className={'explain'}>
+                                {
+                                  complain.author? complain.author.username: complain.replyEmail
+                                }
+                              </p>
+                            </h5>
+                            <p
+                              className={'reader'}
+                              dangerouslySetInnerHTML={ {__html: complain.text}}/>
+                          </div>
+                          <div>
+                            {
+                              complain.reply &&
+                                (<div>
+                                  <h5>
+                                    답변
+                                    <p className={'explain'}>
+                                      {beautifyDate(complain.reply.createdAt)}에 답장함
+                                    </p>
+                                  </h5>
+                                  <p
+                                    className={'reader'}
+                                    dangerouslySetInnerHTML={ {__html: complain.reply.text}}/>
+                                </div>)
+                            }
+                          </div>
+                        </div>
                       </ExpansionPanelDetails>
                     </ExpansionPanel>
-                  )
+                  );
                 })
               }
             </div>

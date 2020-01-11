@@ -9,6 +9,7 @@ import {createBoardPosts, image} from "../../http/tming";
 import {errMsg} from "../../http/util";
 import Optional from "../../primitive/Optional/Optional";
 import Wysiwyg from "../../primitive/WYSIWYG/WYSIWYG";
+import {authorized} from "../../utils/utils";
 
 
 class Write extends Component {
@@ -18,13 +19,22 @@ class Write extends Component {
   };
 
   componentDidMount() {
-    const {uiKit}= this.props;
+    const {uiKit, auth, location, history}= this.props;
+    const {category}= urlQuery(location);
+    if(!authorized(auth) && category!== 'anonymous'){
+      console.log(auth, category);
+      uiKit.toaster.cooking('익명 게시판이 아니면 로그인이 필요합니다');
+      history.goBack();
+      return;
+    }
+
     uiKit.destroyAll();
     this.unblock= this.props.history.block('작성한 글이 모두 사라집니다');
   }
 
   componentWillUnmount() {
-    this.unblock();
+    if(this.unblock)
+      this.unblock();
   }
 
   createBoardPost= async ()=>{

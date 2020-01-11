@@ -85,4 +85,8 @@ export const randNum= limit=>{
 
 export const beautifyDate= (stringDateTime)=>{
   return moment(stringDateTime, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]').format('YYYY[년]MM[월]DD[일 ]HH[시]mm[분]');
+};
+
+export const fuckHTML= (html)=>{
+  return html.replace(/(<([^>]+)>)/ig, "");
 }
