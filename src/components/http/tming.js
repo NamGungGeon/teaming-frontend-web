@@ -43,61 +43,61 @@ export const signin = (email, password) => {
   });
 };
 
-export const getTrashes = auth => {
+export const getTrashes = () => {
   return axios.request({
     method: 'GET',
-    headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
-    },
     url: `${url}/feelings`
   });
 };
 
-export const createTrash = (auth, text) => {
+export const createTrash = (password, text) => {
   return axios.request({
     method: 'POST',
     url: `${url}/feelings`,
-    headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
-    },
-    data: {
-      text
-    }
-  });
-};
-export const getTrashComments = (auth, id) => {
-  return axios.request({
-    method: 'GET',
-    url: `${url}/feelings/${id}/replies`,
-    headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
-    },
-    params: {
-      limit: 10000
-    }
-  });
-};
-export const createTrashComment = (auth, id, text, password) => {
-  return axios.request({
-    method: 'POST',
-    url: `${url}/feelings/${id}/replies`,
-    headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
-    },
     data: {
       text, password
     }
   });
 };
-export const deleteTrashComment = (auth, feelId, replyId) => {
+export const getTrashComments = (id) => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/feelings/${id}/replies`,
+    params: {
+      limit: 10000
+    }
+  });
+};
+export const createTrashComment = (password, id, text) => {
+  return axios.request({
+    method: 'POST',
+    url: `${url}/feelings/${id}/replies`,
+    data: {
+      text, password
+    }
+  });
+};
+export const deleteTrashComment = (password, feelId, replyId) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/feelings/${feelId}/replies/${replyId}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`
+      'x-modify-code': password,
     }
   });
 };
+export const updateTrashComment= (password, feelId, replyId, text)=>{
+  return axios.request({
+    method: 'PUT',
+    url: `${url}/feelings/${feelId}/replies/${replyId}`,
+    headers: {
+      'x-modify-code': password,
+    },
+    data: {
+      text
+    }
+  });
+}
 
 export const getNotices = () => {
   return axios.request({

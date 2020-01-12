@@ -2,25 +2,34 @@ import React, {Component} from 'react';
 import styles from './Comment.module.css';
 import logo from '../../resource/icon.png';
 import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {authorized, delay} from "../../utils/utils";
-import {quickConnect} from "../../redux";
-import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
+import {authorized, beautifyDate, delay} from "../../utils/utils";
 import {Button} from "@material-ui/core";
 import Optional from "../Optional/Optional";
 import UserInfoViewer from "../../containers/UserInfoViewer/UserInfoViewer";
-import {deletePostComment} from "../../http/tming";
-import {errMsg} from "../../http/util";
 import {Input, InputGroup, InputGroupAddon} from "reactstrap";
+import {IoIosPerson} from "react-icons/io";
+
+import ReportIcon from '@material-ui/icons/Report';
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Tooltip from "@material-ui/core/Tooltip";
 
 class Comment extends Component{
   state={
-    openOptions: false,
-    anchor: 0,
-    updateMode: false,
     newText: this.props.text,
+  };
+
+  static defaultProps= {
+    profile: (<IoIosPerson style={{fontSize: '32px'}}/>),
+    author: null,
+    text: '',
+    createdAt: beautifyDate(''),
+    deleteComment: ()=>{
+
+    },
+    updateComment: (text)=>{
+
+    },
   };
 
   showUserInfo= (id)=>{
@@ -32,15 +41,16 @@ class Comment extends Component{
 
 
   render() {
-    const {profile, author, text, createdAt, auth, postId, commentId, deleteComment, updateComment}= this.props;
-    const {openOptions, anchor, updateMode, newText}= this.state;
+    const {profile, author, text, createdAt, auth, deleteComment, updateComment}= this.props;
+    const {updateMode, newText}= this.state;
+
+
     return (
       <div className={styles.wrapper}>
         <div
           onClick={()=>{
-            if(author){
+            if(author)
               this.showUserInfo(author.id);
-            }
           }}
           className={styles.profile}>
           <span className={styles.picture}>
@@ -67,7 +77,7 @@ class Comment extends Component{
                     placeholder="댓글을 수정해보세요"
                     onKeyDown={e=>{
                       if(e.key=== 'Enter'){
-                        updateComment(postId, commentId, newText);
+                        updateComment(newText);
                         e.preventDefault();
                       }
                     }}
@@ -80,12 +90,11 @@ class Comment extends Component{
                   <InputGroupAddon addonType="append">
                     <Button
                       onClick={async ()=>{
-                        await updateComment(postId, commentId, newText);
+                        await updateComment(newText);
                         this.setState({
                           ...this.state,
                           updateMode: false,
-                          newText: '',
-                        })
+                        });
                       }}
                       variant="contained"
                       color="primary">
@@ -96,67 +105,42 @@ class Comment extends Component{
               ):
               (<div>{text}</div>)
           }
-          <div className={styles.options}>
+          <div
+            className={styles.options}>
             <span className={'explain'}>
               {createdAt}
             </span>
             <div>
-              <IconButton
-                aria-label="more"
-                aria-controls="long-menu"
-                aria-haspopup="true"
-                onClick={(e)=>{
-                  console.log(e.currentTarget);
-                  this.setState({
-                    ...this.state,
-                    openOptions: true,
-                    anchor: e.currentTarget
-                  })
-                }}
-              >
-                <MoreVertIcon style={{width: '16px', height: '16px'}}/>
-              </IconButton>
-              <Menu
-                anchorEl={this.state.anchor}
-                keepMounted
-                open={this.state.openOptions}
-                onClose={()=>{
-                  this.setState({
-                    ...this.state,
-                    openOptions: false,
-                  })
-                }}
-                PaperProps={{
-                  style: {
-                    width: 200,
-                  },
-                }}
-              >
-                <Optional
-                  visible={authorized(auth) && author && auth.id=== author.id}>
-                  <MenuItem
+              <Optional
+                visible={!auth || auth.id=== author.id}>
+                <Tooltip title={'수정'}>
+                  <IconButton
+                    size={'small'}
                     onClick={()=>{
                       this.setState({
                         ...this.state,
-                        updateMode: true,
+                        updateMode: !updateMode,
                       });
                     }}>
-                    수정
-                  </MenuItem>
-                  <MenuItem
+                    <CreateIcon fontSize={'small'}/>
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={'삭제'}>
+                  <IconButton
+                    size={'small'}
                     onClick={()=>{
-                      deleteComment(postId, commentId);
+                      deleteComment();
                     }}>
-                    삭제
-                  </MenuItem>
-                </Optional>
-                <MenuItem
-                  onClick={()=>{
-
-                  }}>
-                  신고
-                </MenuItem>
-              </Menu>
+                    <DeleteIcon fontSize={'small'}/>
+                  </IconButton>
+                </Tooltip>
+              </Optional>
+              <Tooltip title={'신고'}>
+                <IconButton
+                  size={'small'}>
+                  <ReportIcon fontSize={'small'}/>
+                </IconButton>
+              </Tooltip>
             </div>
           </div>
         </div>
@@ -165,4 +149,4 @@ class Comment extends Component{
   }
 }
 
-export default quickConnect(Comment);
+export default Comment;

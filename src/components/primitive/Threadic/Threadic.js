@@ -7,20 +7,24 @@ import {Col, FormGroup, InputGroupAddon, Label} from "reactstrap";
 import Input from "reactstrap/es/Input";
 import InputGroup from "reactstrap/es/InputGroup";
 import {quickConnect} from "../../redux";
-import {createTrashComment, deleteTrashComment, getTrashComments} from "../../http/tming";
+import {createTrashComment, deleteTrashComment, getTrashComments, updateTrashComment} from "../../http/tming";
 import {errMsg} from "../../http/util";
 import moment from "moment";
 import Comment from "../Comment/Comment";
 import Section from "../Section/Section";
 import Button from "@material-ui/core/Button";
 import {IoIosPerson} from 'react-icons/io'
+import Popup from "../Popup/Popup";
+import {randStr} from "../../utils/utils";
 
 class Threadic extends Component {
   state= {
+    password: '',
     myComment: '',
     comments: null,
     openComment: false,
   };
+
   handleCommentState= (unfold)=>{
     if(unfold)
       this.loadComments();
@@ -28,18 +32,19 @@ class Threadic extends Component {
     this.setState({
       ...this.state,
       openComment: unfold,
-    })
+    });
   };
 
   componentWillUnmount() {
     const {uiKit}= this.props;
     uiKit.destroyAll();
   }
+
   loadComments= async()=>{
-    const {uiKit, auth, id}= this.props;
+    const {uiKit, id}= this.props;
 
     uiKit.loading.start();
-    await getTrashComments(auth, id).then(response=>{
+    await getTrashComments(id).then(response=>{
       const {data}= response.data;
       console.log(data);
       this.setState({
@@ -52,66 +57,168 @@ class Threadic extends Component {
     uiKit.loading.end();
   };
 
-  createComment= async ()=>{
-    const {uiKit, auth, id}= this.props;
-    const {myComment}= this.state;
+  createComment= ()=>{
+    const {uiKit, id}= this.props;
 
-    //console.log(id);
-
-    uiKit.loading.start();
-    await createTrashComment(auth, id, myComment).then(response=>{
-      //ok. reload!
-      //console.log('before: ',this.input);
-      this.input.value= '';
-      //console.log('after: ',this.input);
-      this.loadComments();
-    }).catch(e=>{
-      uiKit.toaster.cooking(errMsg(e));
-    });
-    uiKit.loading.end();
-  };
-
-  removeComment= (replyId)=>{
-    //check auth
-    const {id:feelId, auth, uiKit}= this.props;
-    let notAuth= false;
-    this.state.comments.map(comment=>{
-      if(comment.id === replyId){
-        //Are you author?
-        if(auth.id !== comment.id){
-          //you are not author
-          //fuck off
-          notAuth= true;
-          uiKit.toaster.cooking('댓글 작성자만 삭제할 수 있습니다');
-        }
-      }
-    });
-
-    if(!notAuth){
-      //open deletingc comment popup
-      uiKit.popup.make((
-        <div>
-          <h3>정말 이 댓글을 삭제하시겠습니까?</h3>
-          <br/>
+    uiKit.popup.make((
+      <div>
+        <h5>댓글 수정/삭제에 사용할 비밀번호를 입력하세요</h5>
+        <br/>
+        <Input
+          className={'transparent'}
+          type={'password'}
+          onChange={e=>{
+            this.setState({
+              ...this.state,
+              password: e.target.value,
+            })
+          }}
+          placeholder={'수정/삭제에 사용할 비밀번호를 입력하세요'}/>
+        <br/>
+        <br/>
+        <AlignLayout align={'right'}>
           <Button
             onClick={async ()=>{
+              const {myComment, password}= this.state;
+
+              if(!password){
+                uiKit.toaster.cooking('비밀번호를 입력하세요');
+                return;
+              }
+
               uiKit.loading.start();
-              await deleteTrashComment(auth, feelId, replyId).then(r=>{
-                //ok, reload!
+              await createTrashComment(password, id, myComment).then(response=>{
+                //ok. reload!
                 this.loadComments();
+                uiKit.popup.destroy();
               }).catch(e=>{
                 uiKit.toaster.cooking(errMsg(e));
               });
               uiKit.loading.end();
             }}
-            block
-            color={'danger'}>
-            예, 삭제합니다
+            variant={'contained'}
+            color={'primary'}>
+            작성
           </Button>
-        </div>
-      ));
-    }
-  }
+          &nbsp;&nbsp;
+          <Button
+            onClick={()=>{
+              uiKit.popup.destroy();
+            }}
+            variant={'contained'}
+            color={'secondary'}>
+            취소
+          </Button>
+        </AlignLayout>
+      </div>
+    ));
+  };
+
+  removeComment= (replyId)=>{
+    //check auth
+    const {id, uiKit}= this.props;
+
+    //open deleting comment popup
+    uiKit.popup.make((
+      <div>
+        <h5>정말 이 댓글을 삭제하시겠습니까?</h5>
+        <br/>
+        <Input
+          className={'transparent'}
+          type={'password'}
+          onChange={e=>{
+            console.log('changed', e.target.value);
+            console.log('changed', this.state);
+            this.setState({
+              ...this.state,
+              password: e.target.value,
+            });
+          }}
+          placeholder={'작성 시 입력한 비밀번호를 입력하세요'}/>
+        <br/>
+        <Button
+          onClick={async ()=>{
+            const {password}= this.state;
+
+            uiKit.loading.start();
+            await deleteTrashComment(password, id, replyId).then(r=>{
+              //ok, reload!
+              uiKit.popup.destroy();
+              this.loadComments();
+            }).catch(e=>{
+              uiKit.toaster.cooking(errMsg(e));
+            });
+            uiKit.loading.end();
+          }}
+          variant={'contained'}
+          color={'primary'}>
+          예, 삭제합니다
+        </Button>
+        &nbsp;&nbsp;
+        <Button
+          onClick={()=>{
+            uiKit.popup.destroy();
+          }}
+          variant={'contained'}
+          color={'secondary'}>
+          닫기
+        </Button>
+      </div>
+    ));
+  };
+
+  updateComment= (replyId, text)=>{
+    //check auth
+    const {id, uiKit}= this.props;
+
+    //open deleting comment popup
+    uiKit.popup.make((
+      <div>
+        <h5>댓글 수정</h5>
+        <br/>
+        <Input
+          className={'transparent'}
+          type={'password'}
+          onChange={e=>{
+            console.log('changed', e.target.value);
+            console.log('changed', this.state);
+            this.setState({
+              ...this.state,
+              password: e.target.value,
+            });
+          }}
+          placeholder={'작성 시 입력한 비밀번호를 입력하세요'}/>
+        <br/>
+        <Button
+          onClick={async ()=>{
+            const {password}= this.state;
+
+            uiKit.loading.start();
+            await updateTrashComment(password, id, replyId, text).then(r=>{
+              //ok, reload!
+              uiKit.popup.destroy();
+              this.loadComments();
+            }).catch(e=>{
+              uiKit.toaster.cooking(errMsg(e));
+            });
+            uiKit.loading.end();
+          }}
+          variant={'contained'}
+          color={'primary'}>
+          수정
+        </Button>
+        &nbsp;&nbsp;
+        <Button
+          onClick={()=>{
+            uiKit.popup.destroy();
+          }}
+          variant={'contained'}
+          color={'secondary'}>
+          닫기
+        </Button>
+      </div>
+    ));
+  };
 
   render() {
     const {user, content, createdAt, uiKit, replies}= this.props;
@@ -184,7 +291,7 @@ class Threadic extends Component {
                     <InputGroupAddon addonType="append">
                       <Button
                         onClick={this.createComment}
-                        size={'sm'}
+                        size={'small'}
                         variant={'contained'}
                         color={'primary'}>
                         작성
@@ -197,6 +304,12 @@ class Threadic extends Component {
                   comments.map(comment=>
                     (
                       <Comment
+                        deleteComment={()=>{
+                          this.removeComment(comment.id);
+                        }}
+                        updateComment={(text)=>{
+                          this.updateComment(comment.id, text);
+                        }}
                         profile={<IoIosPerson style={{fontSize: '32px'}}/>}
                         text={comment.text}
                         createdAt={'3일 전'}/>

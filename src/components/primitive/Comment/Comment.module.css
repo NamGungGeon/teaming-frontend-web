@@ -7,10 +7,11 @@
 }
 .wrapper> .profile{
     display: flex;
-    min-width: 64px;
+    width: 75px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: auto;
 
     font-size: 0.5rem;
     padding: 4px;
@@ -31,11 +32,17 @@
 .wrapper> .contents{
     flex: 1;
     padding-left: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 75px;
 }
 .wrapper> .contents> .options{
     font-size: 0.8rem;
     color: #b9b9b9;
 
+    margin-top: 8px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -10,6 +10,7 @@ import HorizontalNavigation from "../../containers/Navigation/HorizontalNavigati
 import lol from "../../resource/icon/lol.jpg";
 import overwatch from "../../resource/icon/overwatch.png";
 import battleground from "../../resource/icon/battleground.png";
+import Lab from "./Lab";
 
 class Admin extends Component {
   state={
@@ -43,7 +44,16 @@ class Admin extends Component {
                       history.push(getPath(`/admin/complains`));
                     }
                   },
-                ]}}/>)
+                ],
+                "기능 관련": [
+                  {
+                    label: '실험실',
+                    onClick: () => {
+                      history.push(getPath(`/admin/lab`));
+                    }
+                  },
+                ]
+              }}/>)
           );
         }
       }).catch(e=>{
@@ -71,6 +81,7 @@ class Admin extends Component {
           admin && (
             <div>
               <Route exact path={getPath('/admin/complains')} component={Complains}/>
+              <Route exact path={getPath('/admin/lab')} component={Lab}/>
             </div>
           )
         }

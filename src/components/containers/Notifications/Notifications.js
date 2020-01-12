@@ -9,6 +9,8 @@ import {quickConnect} from "../../redux";
 import {errMsg} from "../../http/util";
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import DeleteIcon from '@material-ui/icons/Delete';
+import styles from './Notifications.module.css';
+import {randStr} from "../../utils/utils";
 
 class Notifications extends Component{
   state={
@@ -65,7 +67,14 @@ class Notifications extends Component{
         {
           count?
             (
-              <Badge badgeContent={count} color={'primary'}>
+              <Badge
+                className={styles.badge}
+                style={{
+                  fontSize: '8px',
+                }}
+                max={9}
+                badgeContent={count}
+                color={'primary'}>
                 <NotificationsIcon/>
               </Badge>
             )
@@ -99,6 +108,7 @@ class Notifications extends Component{
             notifications.map(notification=>{
               return (
                 <MenuItem
+                  key={randStr(10)}
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'flex-start',

@@ -5,9 +5,9 @@ const Optional= ({visible, children})=>{
     return (<div/>);
 
   return (
-    <div>
+    <span>
       {children}
-    </div>
+    </span>
   );
 }
 

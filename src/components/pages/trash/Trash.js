@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {authorized} from "../../utils/utils";
 import Threadic from "../../primitive/Threadic/Threadic";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
@@ -10,9 +9,11 @@ import {errMsg} from "../../http/util";
 import Button from "@material-ui/core/Button";
 import { FaToiletPaper } from "react-icons/fa";
 import RefreshIcon from '@material-ui/icons/Refresh';
+import {randStr} from "../../utils/utils";
 
 class Trash extends Component {
   state={
+    password: '',
     input: '',
     trashes: [],
   };
@@ -20,10 +21,10 @@ class Trash extends Component {
     this.loadTrashes();
   }
   loadTrashes= async ()=>{
-    const {auth, history, uiKit}= this.props;
+    const {uiKit}= this.props;
 
     uiKit.loading.start();
-    await getTrashes(auth).then(response=>{
+    await getTrashes().then(response=>{
       const {data}= response.data;
 
       if(!data || !data.length) {
@@ -62,11 +63,22 @@ class Trash extends Component {
   }
 
   throwThresh= ()=>{
-    const {uiKit, auth}= this.props;
+    const {uiKit}= this.props;
 
     uiKit.popup.make((
       <div>
         <h4>배설</h4>
+        <br/>
+        <Input
+          className={'transparent'}
+          type={'password'}
+          onChange={e=>{
+            this.setState({
+              ...this.state,
+              password: e.target.value,
+            })
+          }}
+          placeholder={'수정/삭제에 사용할 비밀번호를 입력하세요'}/>
         <br/>
         <Input
           className={'transparent'}
@@ -87,10 +99,10 @@ class Trash extends Component {
             color={'primary'}
             onClick={async ()=>{
               //commit and close
-              const {input}= this.state;
+              const {input, password}= this.state;
               uiKit.loading.start();
               //request commit
-              await createTrash(auth, input).then(response=>{
+              await createTrash(password, input).then(response=>{
                 //reload
                 this.loadTrashes();
                 //ok, close!
@@ -106,7 +118,8 @@ class Trash extends Component {
         </AlignLayout>
       </div>
     ));
-  }
+  };
+
   render() {
     return (
       <div>
@@ -136,8 +149,12 @@ class Trash extends Component {
           </AlignLayout>
           <br/>
           {
-            this.state.trashes.map(trash=>{
-              return (<Threadic {...trash}/>)
+            this.state.trashes.map((trash, idx)=>{
+              return (
+                <Threadic
+                  {...trash}
+                  key={trash.createdAt}/>
+              )
             })
           }
         </div>

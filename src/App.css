@@ -134,7 +134,6 @@ tbody tr{
   position: absolute;
   text-align: left;
   width: 100%;
-  max-width: 1200px;
   min-width: 700px;
   min-height: calc(100% - 48px);
   padding: 32px;

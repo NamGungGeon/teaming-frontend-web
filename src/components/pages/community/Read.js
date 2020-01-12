@@ -147,11 +147,12 @@ class Read extends Component {
   };
 
   deleteComment= async (postId, commentId)=>{
-    const {uiKit, auth, refresher}= this.props;
+    const {uiKit, auth}= this.props;
     uiKit.loading.start();
     await deletePostComment(auth, postId, commentId).then(response=>{
       //ok, deleted!
       uiKit.toaster.cooking('댓글이 삭제되었습니다');
+      uiKit.popup.destroy();
       this.loadComments(postId);
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
@@ -191,7 +192,8 @@ class Read extends Component {
     uiKit.loading.start();
     await updatePostComment(auth, postId, commentId, text).then(response=>{
       //ok updated!
-      this.loadPost(postId);
+      this.loadComments(postId);
+      uiKit.toaster.cooking('수정 완료');
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
     });
@@ -322,10 +324,37 @@ class Read extends Component {
                 comments.map(comment=>
                   (
                     <Comment
-                      updateComment={this.updateComment}
-                      deleteComment={this.deleteComment}
-                      commentId={comment.id}
-                      postId={match.params.id}
+                      updateComment={(text)=>{
+                        this.updateComment(match.params.id, comment.id, text);
+                      }}
+                      deleteComment={()=>{
+                        uiKit.popup.make((
+                          <div>
+                            <h5>댓글을 삭제하시겠습니까?</h5>
+                            <br/>
+                            <AlignLayout align={'right'}>
+                              <Button
+                                onClick={async ()=>{
+                                  await this.deleteComment(match.params.id, comment.id);
+                                }}
+                                variant={'contained'}
+                                color={'primary'}>
+                                삭제
+                              </Button>
+                              &nbsp;&nbsp;
+                              <Button
+                                onClick={()=>{
+                                  uiKit.popup.destroy();
+                                }}
+                                variant={'contained'}
+                                color={'secondary'}>
+                                닫기
+                              </Button>
+                            </AlignLayout>
+                          </div>
+                        ));
+                      }}
+                      auth={auth}
                       profile={comment.picture}
                       author={comment.author}
                       text={comment.text}

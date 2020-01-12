@@ -10,11 +10,12 @@
 }
 
 .wrapper> .info{
-    width: 33%;
+    width: 350px;
+    margin-right: 16px;
     height: auto;
 }
 .wrapper> .chat{
-    width: 66%;
+    flex: 1;
     height: 100%;
 }
 
@@ -22,11 +23,13 @@
 @media (max-width: 500px) {
     .wrapper{
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
         height: 95%;
     }
     .wrapper> .info{
+        margin-right: 0;
+        width: 100%;
         margin-bottom: 16px;
     }
     .wrapper> .chat{
