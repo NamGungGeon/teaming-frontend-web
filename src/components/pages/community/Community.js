@@ -17,40 +17,39 @@ class Community extends Component {
 
   componentDidMount() {
     this.props.SideNavDispatcher.set(
-      (<HorizontalNavigation
-        nav={{
-          "일반": [
-            {
-              label: '자유게시판',
-              onClick: () => {
-                this.go(getPath(`/community/portal?category=general`));
-              }
-            },
-            {
-              label: '익명게시판',
-              onClick: () => {
-                this.go(getPath(`/community/portal?category=anonymous`));
-              }
-            },
-          ],
-          "게임": [
-            {
-              label: '리그 오브 레전드',
-              icon: lol,
-              onClick: () => {
-                this.go(getPath(`/community/portal?category=lol`));
-              }
-            },
-            {
-              label: '오버워치',
-              icon: overwatch
-            },
-            {
-              label: '배틀그라운드',
-              icon: battleground
+      {
+        "일반": [
+          {
+            label: '자유게시판',
+            onClick: () => {
+              this.go(getPath(`/community/portal?category=general`));
             }
-          ],
-        }}/>)
+          },
+          {
+            label: '익명게시판',
+            onClick: () => {
+              this.go(getPath(`/community/portal?category=anonymous`));
+            }
+          },
+        ],
+        "게임": [
+          {
+            label: '리그 오브 레전드',
+            icon: lol,
+            onClick: () => {
+              this.go(getPath(`/community/portal?category=lol`));
+            }
+          },
+          {
+            label: '오버워치',
+            icon: overwatch
+          },
+          {
+            label: '배틀그라운드',
+            icon: battleground
+          }
+        ],
+      }
     );
   }
 

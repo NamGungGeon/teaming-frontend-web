@@ -14,26 +14,26 @@ import Service from "./service/Service";
 class MyPage extends Component{
   async componentDidMount() {
     //init sideNav
-    this.props.SideNavDispatcher.set((
-      <HorizontalNavigation
-        nav={{
-          '회원정보': [
-            {label: '내 정보', onClick: ()=>{history.push(getPath(`/mypage/info`))}},
-            {label: '비밀번호 변경', onClick: ()=>{history.push(getPath(`/mypage/info/change/pw`))}},
-            {label: '회원탈퇴', onClick: ()=>{history.push(getPath(`/mypage/info/escape`))}},
-          ],
-          '커뮤니티': [
-            {label: '활동기록', onClick: ()=>{history.push(getPath(`/mypage/community/logs`))}},
-            {label: '친구목록', onClick: ()=>{history.push(getPath(`/mypage/community/friends`))}},
-            {label: '차단관리', onClick: ()=>{history.push(getPath(`/mypage/community/blocks`))}},
-            {label: '쪽지함', onClick: ()=>{history.push(getPath(`/mypage/community/message`))}},
-          ],
-          '고객센터': [
-            {label: '내 문의내역', onClick: ()=>{history.push(getPath(`/mypage/service/asked`))}}
-            , {label: '1:1 문의', onClick: ()=>{history.push(getPath(`/mypage/service/asking`))}}
-            , {label: '제재내역', onClick: ()=>{history.push(getPath(`/mypage/service/illegal`))}}
-          ],
-        }}/>));
+    this.props.SideNavDispatcher.set(
+      {
+        '회원정보': [
+          {label: '내 정보', onClick: ()=>{history.push(getPath(`/mypage/info`))}},
+          {label: '비밀번호 변경', onClick: ()=>{history.push(getPath(`/mypage/info/change/pw`))}},
+          {label: '회원탈퇴', onClick: ()=>{history.push(getPath(`/mypage/info/escape`))}},
+        ],
+        '커뮤니티': [
+          {label: '활동기록', onClick: ()=>{history.push(getPath(`/mypage/community/logs`))}},
+          {label: '친구목록', onClick: ()=>{history.push(getPath(`/mypage/community/friends`))}},
+          {label: '차단관리', onClick: ()=>{history.push(getPath(`/mypage/community/blocks`))}},
+          {label: '쪽지함', onClick: ()=>{history.push(getPath(`/mypage/community/message`))}},
+        ],
+        '고객센터': [
+          {label: '내 문의내역', onClick: ()=>{history.push(getPath(`/mypage/service/asked`))}}
+          , {label: '1:1 문의', onClick: ()=>{history.push(getPath(`/mypage/service/asking`))}}
+          , {label: '제재내역', onClick: ()=>{history.push(getPath(`/mypage/service/illegal`))}}
+        ],
+      }
+    );
 
     //check auth query
     const {auth, history}= this.props;

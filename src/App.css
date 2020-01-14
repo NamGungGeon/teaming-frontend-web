@@ -62,13 +62,8 @@ tbody tr{
 
   transition-property: background-color, border-color, box-shadow!important;
   transition-duration: 0.2s!important;
-  color: white;
+  color: white!important;
 }
-.form-control.transparent:focus{
-  background-color: white!important;
-  color: black!important;
-}
-
 .title {
   font-size: 1.6rem;
   font-weight: 600;
@@ -113,7 +108,7 @@ tbody tr{
   position: absolute;
   left: 0;
   width: 100%;
-  min-height: calc(120% - 48px);
+  min-height: calc(100% - 48px);
   text-align: center;
 
   display: flex;
@@ -134,8 +129,9 @@ tbody tr{
   position: absolute;
   text-align: left;
   width: 100%;
-  min-width: 700px;
-  min-height: calc(100% - 48px);
+  height: 100%;
+  min-width: 1024px;
+  box-sizing: border-box;
   padding: 32px;
 
   display: flex;

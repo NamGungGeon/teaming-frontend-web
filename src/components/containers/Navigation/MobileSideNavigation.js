@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {quickConnect} from "../../redux";
 import styles from './MobileSideNavigation.module.css';
+import HorizontalNavigation from "./HorizontalNavigation";
 
 class MobileSideNavigation extends Component {
   render() {
@@ -18,7 +19,7 @@ class MobileSideNavigation extends Component {
         className={styles.wrapper}>
         <div
           className={styles.sidenav}>
-          {sideNav.content}
+          <HorizontalNavigation nav={sideNav.nav}/>
         </div>
       </div>
     );

@@ -10,7 +10,7 @@ import {quickConnect} from "../../redux";
 class HorizontalNavigation extends Component {
 
   render() {
-    const {nav, uiKit}= this.props;
+    const {nav}= this.props;
     return (
       <div>
         {
@@ -52,5 +52,8 @@ class HorizontalNavigation extends Component {
 HorizontalNavigation.propTypes= {
   nav: PropTypes.object,
 };
+HorizontalNavigation.defaultProps={
+  nav: {},
+};
 
-export default (HorizontalNavigation);
+export default HorizontalNavigation;

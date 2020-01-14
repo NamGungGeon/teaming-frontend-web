@@ -6,7 +6,11 @@ import classNames from 'classnames';
 
 const Section= ({children, divideStyle, className, style})=> {
   return (
-    <AlignLayout align="left">
+    <AlignLayout
+      style={{
+        ...style,
+      }}
+      align="left">
       <div
         style={{
           ...style,

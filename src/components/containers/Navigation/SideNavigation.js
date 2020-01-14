@@ -2,22 +2,20 @@ import React, {Component} from 'react';
 import {quickConnect} from "../../redux";
 import './SideNavigation.css';
 import Footer from "../Footer/Footer";
+import HorizontalNavigation from "./HorizontalNavigation";
 
 class SideNavigation extends Component {
   render() {
     console.log(this.props);
     const {sideNav, SideNavDispatcher}= this.props;
 
-    if(!sideNav.content){
-      return '';
-    }
     return (
       <div
         className={'sidenav'}>
         <div style={{
           paddingTop: '16px'
         }}>
-          {sideNav.content}
+          <HorizontalNavigation nav={sideNav.nav}/>
         </div>
         <Footer/>
       </div>

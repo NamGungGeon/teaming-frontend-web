@@ -2,11 +2,22 @@
     display: flex;
     flex-direction: row-reverse;
     padding: 4px 8px;
-    align-items: center;
+    align-items: flex-start;
 }
 .wrapper.encounter{
     flex-direction: row;
 }
+.wrapper.alert{
+    border-radius: 8px;
+    justify-content: center;
+    color: #FFFFFF99;
+    font-size: 0.8rem;
+    text-align: center;
+
+    background-color: #20202099;
+    margin-bottom: 8px;
+}
+
 .profile{
     width: 40px;
     height: 40px;

@@ -14,48 +14,46 @@ import getHistory from 'react-router-global-history';
 
 
 const sideNav= {
-  content: (
-    (<HorizontalNavigation
-      nav={{
-        "메뉴": [
-          {
-            label: (<span><GamepadIcon/>&nbsp;&nbsp;팀매칭</span>),
-            onClick: ()=>{
-              getHistory().push(getPath(`/teambuild`))
-            }
-          },
-          {
-            label: (<span><PeopleIcon/>&nbsp;&nbsp;커뮤니티</span>),
-            onClick: ()=>{
-              getHistory().push(getPath(`/community`))
-            }
-          },
-          {
-            label: (<span><SwapHorizIcon/>&nbsp;&nbsp;거래소</span>),
-          },
-          {
-            label: (<span><FaToiletPaper style={{fontSize: '24px'}}/>&nbsp;&nbsp;화장실</span>),
-            onClick: ()=>{
-              getHistory().push(getPath(`/trash`))
-            }
-          },
-          {
-            label: (<span><ChatIcon/>&nbsp;&nbsp;랜덤채팅</span>),
-            onClick: ()=>{
-              getHistory().push(getPath(`/chat`))
-            }
-          },
-          {
-            label: (<span><IoIosHeart style={{fontSize: '24px'}}/>&nbsp;&nbsp;커플매칭</span>)
-          },
-          {
-            label: (<span><MdBusinessCenter style={{fontSize: '24px'}}/>&nbsp;&nbsp;고객센터</span>),
-            onClick: ()=>{
-              getHistory().push(getPath(`/center`))
-            }
-          },
-        ],
-      }}/>)),
+  nav: {
+    "메뉴": [
+      {
+        label: (<span><GamepadIcon/>&nbsp;&nbsp;팀매칭</span>),
+        onClick: ()=>{
+          getHistory().push(getPath(`/teambuild`))
+        }
+      },
+      {
+        label: (<span><PeopleIcon/>&nbsp;&nbsp;커뮤니티</span>),
+        onClick: ()=>{
+          getHistory().push(getPath(`/community`))
+        }
+      },
+      {
+        label: (<span><SwapHorizIcon/>&nbsp;&nbsp;거래소</span>),
+      },
+      {
+        label: (<span><FaToiletPaper style={{fontSize: '24px'}}/>&nbsp;&nbsp;화장실</span>),
+        onClick: ()=>{
+          getHistory().push(getPath(`/trash`))
+        }
+      },
+      {
+        label: (<span><ChatIcon/>&nbsp;&nbsp;랜덤채팅</span>),
+        onClick: ()=>{
+          getHistory().push(getPath(`/chat`))
+        }
+      },
+      {
+        label: (<span><IoIosHeart style={{fontSize: '24px'}}/>&nbsp;&nbsp;커플매칭</span>)
+      },
+      {
+        label: (<span><MdBusinessCenter style={{fontSize: '24px'}}/>&nbsp;&nbsp;고객센터</span>),
+        onClick: ()=>{
+          getHistory().push(getPath(`/center`))
+        }
+      },
+    ],
+  },
   visible: false,
 };
 
@@ -72,7 +70,7 @@ export default handleActions(
     [SET]: (beforeState, action) => {
       return {
         ...beforeState,
-        content: action.payload,
+        nav: action.payload,
         visible: false,
       }
     },

@@ -7,11 +7,23 @@ import ImageView from '../ImageView/ImageView';
 class ChatMsg extends Component {
   static defaultProps = {
     encounter: false,
-    profile: null
+    profile: null,
+    msg: '',
+    alert: null,
   };
 
   render() {
-    const { encounter, profile, msg } = this.props;
+    const { encounter, profile, msg, alert } = this.props;
+
+    //alert message
+    if(alert)
+      return (
+        <div className={classNames(styles.wrapper, styles.alert)}>
+          {alert}
+        </div>
+      );
+
+    //conversations
     return (
       <div
         className={classNames({

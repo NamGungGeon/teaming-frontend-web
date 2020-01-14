@@ -35,25 +35,24 @@ class Admin extends Component {
             admin: true
           })
           SideNavDispatcher.set(
-            (<HorizontalNavigation
-              nav={{
-                "유저 관련": [
-                  {
-                    label: '문의내역',
-                    onClick: () => {
-                      history.push(getPath(`/admin/complains`));
-                    }
-                  },
-                ],
-                "기능 관련": [
-                  {
-                    label: '실험실',
-                    onClick: () => {
-                      history.push(getPath(`/admin/lab`));
-                    }
-                  },
-                ]
-              }}/>)
+            {
+              "유저 관련": [
+                {
+                  label: '문의내역',
+                  onClick: () => {
+                    history.push(getPath(`/admin/complains`));
+                  }
+                },
+              ],
+              "기능 관련": [
+                {
+                  label: '실험실',
+                  onClick: () => {
+                    history.push(getPath(`/admin/lab`));
+                  }
+                },
+              ]
+            }
           );
         }
       }).catch(e=>{

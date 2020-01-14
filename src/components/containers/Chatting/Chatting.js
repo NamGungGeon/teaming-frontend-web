@@ -10,13 +10,26 @@ class Chatting extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      msgs: [],
+      msgs: [{
+        alert: (
+          <div style={{
+            color: '#FFFFFF99'
+          }}>
+            매칭되었습니다
+            <br/><br/>
+            성희롱이나 폭언과 같은 행위가 발각되면 이용 제재 및 정보통신망법에 의거 처벌받을 수 있습니다
+            <br/>
+            상대방과 실제 전화번호와 같은 개인정보를 주고받을 떄에는 반드시 신중하게 생각하세요
+          </div>
+        ),
+      }],
       ring: false,
       needScroll: false
     };
   }
 
   componentDidMount() {
+    //welcome!
     const { socket } = this.props;
 
     socket.on('MESSAGE', text => {
@@ -28,6 +41,17 @@ class Chatting extends Component {
             profile: null,
             msg: text,
             encounter: true
+          }
+        ]
+      });
+    });
+    socket.on('OPPONENT_LEFT', text => {
+      const { msgs } = this.state;
+      this.setState({
+        msgs: [
+          ...msgs,
+          {
+            alert: '상대가 나갔습니다'
           }
         ]
       });
@@ -63,6 +87,8 @@ class Chatting extends Component {
       <Section
         style={{
           margin: '0',
+          width: '100%',
+          height: '100%',
         }}
         divideStyle={'fill'}
         className={styles.wrapper}>

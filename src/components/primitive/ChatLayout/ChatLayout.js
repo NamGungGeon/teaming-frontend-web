@@ -2,15 +2,15 @@ import React from 'react';
 import styles from './ChatLayout.module.css'
 import PropTypes from 'prop-types';
 
-const ChatLayout= ({chat, children})=> {
-  const chatStyle= children? {}: {width: '100%'};
+const ChatLayout= ({chat, tools})=> {
+  const chatStyle= tools? {}: {width: '100%'};
 
   return (
     <div className={styles.wrapper}>
       {
-        children?
+        tools?
           (<div className={styles.info}>
-            {children}
+            {tools}
           </div>)
           :
           ''
