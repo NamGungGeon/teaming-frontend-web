@@ -23,17 +23,7 @@ class Wait extends Component {
             </h5>
         }
       </AlignLayout>
-    )
-
-    // return (
-    //   <div>
-    //     <div className={styles.loading}>
-    //       <div className={styles.blob1}></div>
-    //       <div className={styles.blob2}></div>
-    //     </div>
-    //     {msg && <h5 className={styles.msg}>{msg}</h5>}
-    //   </div>
-    // );
+    );
   }
 }
 

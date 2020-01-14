@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
-import Input from "reactstrap/es/Input";
-import InputGroupAddon from "reactstrap/es/InputGroupAddon";
-import InputGroup from "reactstrap/es/InputGroup";
 import Button from "reactstrap/es/Button";
-import Collapse from "reactstrap/es/Collapse";
 import {quickConnect} from "../../../redux";
 import {delay} from "../../../utils/utils";
-import Alert from "reactstrap/es/Alert";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import {getPath} from "../../../utils/url";
+import TextField from "@material-ui/core/TextField";
+import {updateMyPassword} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
+import getHistory from 'react-router-global-history';
 
 class PwChange extends Component {
   state={
@@ -28,7 +27,7 @@ class PwChange extends Component {
   };
 
   submit= async ()=>{
-    const {uiKit, history, AuthDispatcher}= this.props;
+    const {uiKit, AuthDispatcher}= this.props;
     uiKit.loading.start();
     await delay(100);
     uiKit.loading.end();
@@ -42,59 +41,115 @@ class PwChange extends Component {
           color={'success'}
           onClick={()=>{
             AuthDispatcher.logout();
-            history.push(getPath(`/auth/signin`));
+            getHistory().push(getPath(`/auth/signin`));
           }}>
           로그인 페이지로 이동
         </Button>
       </AlignLayout>
-    ), true)
+    ), true);
   };
 
   componentWillUnmount() {
     this.props.uiKit.popup.destroy();
   }
 
+  handleChange= (e)=>{
+    this.setState({
+      ...this.state,
+      [e.target.name]: e.target.value
+    })
+  };
+
+  submit= async ()=>{
+    const {uiKit, auth}= this.props;
+    const {oldPassword, newPassword, newPasswordCheck}= this.state;
+
+    if(newPassword!== newPasswordCheck){
+      uiKit.toaster.cooking('새 비밀번호와 비밀번호 확인이 일치하지 않습니다');
+      return;
+    }
+
+    uiKit.loading.start();
+    await updateMyPassword(auth, oldPassword, newPassword).then(response=>{
+      //success
+      uiKit.popup.make((
+        <div>
+          <h5>비밀번호 변경이 완료되었습니다</h5>
+          <p className={'explain'}>
+            보안을 위해 재 로그인이 필요합니다
+          </p>
+          <br/>
+          <AlignLayout align={'right'}>
+            <Button
+              onClick={()=>{
+                getHistory().push(getPath('/'));
+              }}
+              variant={'contained'}
+              color={'primary'}>
+              확인
+            </Button>
+          </AlignLayout>
+        </div>
+      ));
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
+    });
+    uiKit.loading.end();
+  };
+
   render() {
-    const {checked}= this.state;
+    const inputWrapperStyle= {
+      display: 'inline-block',
+      width: '100%',
+      maxWidth: '700px',
+    };
 
     return (
       <div>
-        <Collapse isOpen={!checked}>
-          <PageTitle title={'비밀번호 변경'} explain={'현재 사용중인 비밀번호를 다시 확인합니다'} noMargin/>
-          <br/>
-          <InputGroup
-            style={{
-              width: '100%',
-              maxWidth: '500px'
-            }}>
-            <Input type={'password'} className={'transparent'} placeholder={'현재 사용중인 비밀번호'}/>
-            <InputGroupAddon addonType={'append'}>
-              <Button
-                color={'primary'}
-                onClick={this.checking}>
-                확인
-              </Button>
-            </InputGroupAddon>
-          </InputGroup>
-        </Collapse>
-        <Collapse isOpen={checked}>
-          <Alert color={'success'}>
-            <PageTitle title={'새로운 비밀번호 설정'} explain={'새로 사용할 비밀번호를 입력하세요'} noMargin titleColor={'#28a745'}/>
-            <br/>
-
-            <Input type={'password'} placeholder={'새로운 비밀번호'}/>
-            <br/>
-            <Input type={'password'} placeholder={'새로운 비밀번호 확인'}/>
-            <br/><br/>
-
-            <Button
-              onClick={this.submit}
-              color={'success'}
-              block>
-              변경
-            </Button>
-          </Alert>
-        </Collapse>
+        <PageTitle title={'비밀번호 변경'} explain={'현재 사용중인 비밀번호를 다시 확인합니다'}/>
+        <br/>
+        <div
+          style={inputWrapperStyle}>
+          <TextField
+            size={'small'}
+            fullWidth
+            variant={'outlined'}
+            label='현재 사용중인 비밀번호'
+            type={'password'}
+            name={'oldPassword'}
+            onChange={this.handleChange}/>
+        </div>
+        <br/><br/>
+        <div
+          style={inputWrapperStyle}>
+          <TextField
+            size={'small'}
+            fullWidth
+            variant={'outlined'}
+            label='새 비밀번호'
+            type={'password'}
+            name={'newPassword'}
+            onChange={this.handleChange}/>
+        </div>
+        <br/><br/>
+        <div
+          style={inputWrapperStyle}>
+          <TextField
+            size={'small'}
+            fullWidth
+            variant={'outlined'}
+            label='새 비밀번호 확인'
+            type={'password'}
+            name={'newPasswordCheck'}
+            onChange={this.handleChange}/>
+        </div>
+        <br/><br/>
+        <Button
+          variant={'contained'}
+          color={'primary'}
+          onClick={this.submit}>
+          변경
+        </Button>
       </div>
     );
   }

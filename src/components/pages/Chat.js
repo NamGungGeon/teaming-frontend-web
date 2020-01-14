@@ -41,6 +41,19 @@ class Chat extends Component {
     this.init();
   }
 
+  chatStatus= ()=>{
+    const {connected, numPeople}= this.state;
+    const title= connected? '매칭 대기 중': '채팅 서버에 접속 중';
+    const explain= connected? `${numPeople}명의 유저가 채팅 중 입니다`: `잠시만 기다려주세요`;
+
+    return (
+      <Wait
+        msg={(
+          <PageTitle title={title} explain={explain}/>
+        )}/>
+    );
+  }
+
   startChat= ()=>{
     this.socket = io('https://api.tming.kr/chat', {
       transports: ['websocket']
@@ -82,7 +95,7 @@ class Chat extends Component {
   };
 
   render() {
-    const { matchComplete, room, opponent, numPeople } = this.state;
+    const { matchComplete, room, opponent } = this.state;
     const { history } = this.props;
 
     const chatting = (
@@ -143,14 +156,8 @@ class Chat extends Component {
             chat={chatting}>
             {tools}
           </ChatLayout>
-        ) : (
-          <Wait
-            msg={(
-              <PageTitle
-                title={'매칭 대기 중'}
-                explain={`현재 ${numPeople}명이 채팅 중 입니다`}/>
-            )}/>
-        )}
+        ) : this.chatStatus()
+        }
       </div>
     );
   }

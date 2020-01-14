@@ -7,10 +7,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {getNotifications, removeNotice} from "../../http/tming";
 import {quickConnect} from "../../redux";
 import {errMsg} from "../../http/util";
-import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import DeleteIcon from '@material-ui/icons/Delete';
 import styles from './Notifications.module.css';
 import {randStr} from "../../utils/utils";
+import Typography from "@material-ui/core/Typography";
+import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
+import getHistory from 'react-router-global-history';
+import {getPath} from "../../utils/url";
+
 
 class Notifications extends Component{
   state={
@@ -43,6 +47,7 @@ class Notifications extends Component{
   render() {
     const {count, notifications}= this.state;
     const {uiKit, auth}= this.props;
+    const history= getHistory();
 
     return (
       <span>
@@ -51,7 +56,12 @@ class Notifications extends Component{
           aria-controls="long-menu"
           aria-haspopup="true"
           onClick={(e)=>{
-            if(!notifications || notifications.length=== 0){
+            if(!notifications){
+              uiKit.toaster.cooking('알림 로딩 중 입니다');
+              return;
+            }
+
+            if(notifications.length=== 0){
               uiKit.toaster.cooking('새로운 알림이 없습니다');
               return;
             }
@@ -108,47 +118,55 @@ class Notifications extends Component{
             notifications.map(notification=>{
               return (
                 <MenuItem
+                  variant={'inherit'}
                   key={randStr(10)}
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                  }}
                   onClick={()=>{
                   }}>
-                  <div>
-                    {
-                      notification.isRead && (<NewReleasesIcon/>)
-                    }
-                    &nbsp;&nbsp;
-                  </div>
-                  <div
-                    style={{
-                      flex: '1',
+                  <div style={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
                     }}>
+                    <div
+                      style={{
+                        flex: '1',
+                        overflow: 'hidden'
+                      }}>
+                      <div>
+                        {notification.title}
+                      </div>
+                      <Typography
+                        noWrap
+                        className={'explain'}>
+                        {notification.body}
+                      </Typography>
+                    </div>
                     <div>
-                      {notification.title}
+                      <DeleteIcon onClick={async ()=>{
+                        //remove
+                        uiKit.loading.start();
+                        uiKit.loading.end();
+                      }}/>
                     </div>
-                    <div className={'explain'}>
-                      {notification.body}
-                    </div>
-                  </div>
-                  <div>
-                    <DeleteIcon onClick={async ()=>{
-                      //remove
-                      uiKit.loading.start();
-                      await removeNotice(auth, notification.id).then(response=>{
-                        //ok, reload!
-                        this.refresh();
-                      }).catch(e=>{
-                        uiKit.toaster.cooking(errMsg(e));
-                      })
-                      uiKit.loading.end();
-                    }}/>
                   </div>
                 </MenuItem>
               )
             })
+        }
+        {
+          (notifications && notifications.length< count) && (
+            <MenuItem
+              onClick={()=>{
+                history.push(getPath('/mypage/info/notifications'));
+              }}
+              variant={'inherit'}>
+              <AlignLayout align={'center'}>
+                <NotificationsIcon/>&nbsp;&nbsp;알림 모두 보기
+              </AlignLayout>
+            </MenuItem>
+          )
         }
       </Menu>
     </span>

@@ -506,3 +506,16 @@ export const replyComplain= (auth, id, text)=>{
     }
   });
 };
+
+export const updateMyPassword= (auth, oldPassword, newPassword)=>{
+  return axios.request({
+    method: 'PATCH',
+    url: `${url}/me/password`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+      oldPassword, newPassword
+    }
+  });
+};
