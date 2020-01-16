@@ -16,29 +16,53 @@ import BoardWrapper from "../../primitive/Board/BoardWrapper/BoardWrapper";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import {getBoardPosts} from "../../http/tming";
 import {errMsg} from "../../http/util";
+import Pagenation from "../../primitive/Pagenation/Pagenation";
 
 class Contents extends Component {
   state={
     contents: [],
     filter: '',
-    paging: null,
     myComment: '',
+
+    count: 0,
+    offset: 0,
   };
 
   componentDidMount() {
-    this.loadContents();
-    console.log(this.props.history);
+    const {location}= this.props;
+    const {offset}= urlQuery(location);
+
+    this.loadContents(offset? offset: 0);
+  }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const getOffset= (location)=>{
+      const {offset}= urlQuery(location);
+      return offset? offset: 0;
+    };
+    const getCategory= (location)=>{
+      const {category}= urlQuery(location);
+      return category? category: 'general';
+    };
+
+    if(
+      (getOffset(prevProps.location)!== getOffset(this.props.location))
+      ||
+      (getCategory(prevProps.location)!== getCategory(this.props.location))
+    )
+      this.componentDidMount();
   }
 
-  loadContents= async ()=>{
+  loadContents= async (offset)=>{
     const {filter}= this.state;
-    const {uiKit, location, auth}= this.props;
+    const {uiKit, location, history}= this.props;
 
     const query= urlQuery(location);
     const category= query.category? query.category: 'general';
 
+    history.replace(getPath(`/community?offset=${offset}&category=${category}`));
+
     uiKit.loading.start();
-    await getBoardPosts(category, filter==='fuckAnonymous', 10000, 0)
+    await getBoardPosts(category, filter==='fuckAnonymous', 10, offset)
       .then(response=>{
         const {data}= response;
         console.log(data);
@@ -58,7 +82,8 @@ class Contents extends Component {
               createDate: content.createdAt,
             }
           }),
-          paging: data.paging,
+          count: data.count,
+          offset,
         })
       }).catch(e=>{
         console.log(e);
@@ -85,6 +110,8 @@ class Contents extends Component {
 
   render() {
     const {match, location, history}= this.props;
+    const {paging, count, offset}= this.state;
+
     const query= urlQuery(location);
 
     return (
@@ -166,6 +193,15 @@ class Contents extends Component {
           })
         }/>
 
+        <br/>
+        <Pagenation
+          paging={(page)=>{
+            console.log('page', page);
+            this.loadContents(10*(page-1));
+          }}
+          min={1}
+          current={parseInt(offset/10+1)}
+          max={parseInt(count/10+1)}/>
         <br/>
       </div>
     );

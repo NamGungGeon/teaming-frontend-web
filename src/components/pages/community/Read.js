@@ -26,6 +26,7 @@ import {getPath, urlQuery} from "../../utils/url";
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import UserInfoViewer from "../../containers/UserInfoViewer/UserInfoViewer";
+import PageTitle from "../../primitive/PageTitle/PageTitle";
 
 class Read extends Component {
   state={
@@ -67,7 +68,7 @@ class Read extends Component {
           title: data.title,
           content: data.body,
           author: data.author,
-          createDate: data.createdAt,
+          createdAt: data.createdAt,
         },
         imAuthor: auth ? (query.category=== 'anonymous' || auth.id === data.author.id) : false,
       });
@@ -211,17 +212,24 @@ class Read extends Component {
         {
           content && (
             <div>
-              <h4>{content.title}</h4>
-              <p
-                onClick={()=>{
-                  this.showUserInfo(content.author.id);
-                }}
-                style={{
-                  cursor: 'pointer'
-                }}
-                className={'explain'}>
-                {content.author? content.author.username: '익명'}
-              </p>
+              <PageTitle
+                title={content.title}
+                explain={(
+                  <div>
+                    <p>
+                      {beautifyDate(content.createdAt)}
+                    </p>
+                    <p
+                      style={{
+                        cursor: 'pointer',
+                      }}
+                      onClick={()=>{
+                        this.showUserInfo(content.author.id);
+                      }}>
+                      작성자: {content.author? content.author.username: '익명'}
+                    </p>
+                  </div>
+                )}/>
               <br/>
               <p
                 className={'reader'}
@@ -286,7 +294,7 @@ class Read extends Component {
           comments && (
             <div>
               {
-                authorized(auth) && (
+                authorized(auth) ? (
                   <InputGroup>
                     <Input
                       value={this.state.myComment}
@@ -314,6 +322,10 @@ class Read extends Component {
                       </Button>
                     </InputGroupAddon>
                   </InputGroup>
+                ):(
+                  <h5>
+                    댓글 작성을 위해서는 로그인이 필요합니다
+                  </h5>
                 )
               }
               <br/>
@@ -327,6 +339,7 @@ class Read extends Component {
                       updateComment={(text)=>{
                         this.updateComment(match.params.id, comment.id, text);
                       }}
+                      showUserInfo={this.showUserInfo}
                       deleteComment={()=>{
                         uiKit.popup.make((
                           <div>

@@ -30,18 +30,14 @@ class Comment extends Component{
     updateComment: (text)=>{
 
     },
-  };
+    showUserInfo: (id)=>{
 
-  showUserInfo= (id)=>{
-    const {uiKit}= this.props;
-    uiKit.popup.make((
-      <UserInfoViewer id={id}/>
-    ));
+    }
   };
 
 
   render() {
-    const {profile, author, text, createdAt, auth, deleteComment, updateComment}= this.props;
+    const {profile, author, text, createdAt, auth, deleteComment, updateComment, showUserInfo}= this.props;
     const {updateMode, newText}= this.state;
 
 

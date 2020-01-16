@@ -8,8 +8,7 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="티밍"
-      content="앙냥~찡구들~~"
-    />
+      content="앙냥~찡구들~~"/>
     <link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="%PUBLIC_URL%/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="%PUBLIC_URL%/apple-icon-72x72.png">
@@ -60,4 +59,29 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+
+  <!-- Firebase -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyC-bJ2yt6CCjgo665O2ROZWhFVRw_Vfisc",
+      authDomain: "teaming-b5b2b.firebaseapp.com",
+      databaseURL: "https://teaming-b5b2b.firebaseio.com",
+      projectId: "teaming-b5b2b",
+      storageBucket: "teaming-b5b2b.appspot.com",
+      messagingSenderId: "460572824656",
+      appId: "1:460572824656:web:58ac3c81ce3461c0b02d55",
+      measurementId: "G-L20Q8LFE9L"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
 </html>

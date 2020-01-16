@@ -114,6 +114,19 @@ class Notifications extends Component{
         }}
       >
         {
+          (notifications && notifications.length< count) && (
+            <MenuItem
+              onClick={()=>{
+                history.push(getPath('/mypage/info/notifications'));
+              }}
+              variant={'inherit'}>
+              <AlignLayout align={'center'}>
+                <NotificationsIcon/>&nbsp;&nbsp;알림 모두 보기
+              </AlignLayout>
+            </MenuItem>
+          )
+        }
+        {
           notifications &&
             notifications.map(notification=>{
               return (
@@ -154,19 +167,6 @@ class Notifications extends Component{
                 </MenuItem>
               )
             })
-        }
-        {
-          (notifications && notifications.length< count) && (
-            <MenuItem
-              onClick={()=>{
-                history.push(getPath('/mypage/info/notifications'));
-              }}
-              variant={'inherit'}>
-              <AlignLayout align={'center'}>
-                <NotificationsIcon/>&nbsp;&nbsp;알림 모두 보기
-              </AlignLayout>
-            </MenuItem>
-          )
         }
       </Menu>
     </span>

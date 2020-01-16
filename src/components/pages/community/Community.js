@@ -3,7 +3,6 @@ import {getPath} from "../../utils/url";
 import {Route} from "react-router-dom";
 import Contents from "./Contents";
 import Content from "./Read";
-import HorizontalNavigation from "../../containers/Navigation/HorizontalNavigation";
 import lol from "../../resource/icon/lol.jpg";
 import overwatch from "../../resource/icon/overwatch.png";
 import battleground from "../../resource/icon/battleground.png";
@@ -11,7 +10,6 @@ import Write from "./Write";
 import {quickConnect} from "../../redux";
 import getHistory from 'react-router-global-history';
 import Update from "./Update";
-import Portal from "./Portal";
 
 class Community extends Component {
 
@@ -22,13 +20,13 @@ class Community extends Component {
           {
             label: '자유게시판',
             onClick: () => {
-              this.go(getPath(`/community/portal?category=general`));
+              this.go(getPath(`/community?category=general`));
             }
           },
           {
             label: '익명게시판',
             onClick: () => {
-              this.go(getPath(`/community/portal?category=anonymous`));
+              this.go(getPath(`/community?category=anonymous`));
             }
           },
         ],
@@ -37,7 +35,7 @@ class Community extends Component {
             label: '리그 오브 레전드',
             icon: lol,
             onClick: () => {
-              this.go(getPath(`/community/portal?category=lol`));
+              this.go(getPath(`/community?category=lol`));
             }
           },
           {
@@ -68,7 +66,6 @@ class Community extends Component {
         <div>
           <Route exact path={getPath(`/community/write`)} component={Write}/>
           <Route exact path={getPath(`/community`)} component={Contents}/>
-          <Route exact path={getPath(`/community/portal`)} component={Portal}/>
           <Route exact path={getPath(`/community/read/:id`)} component={Content}/>
           <Route exact path={getPath(`/community/update/:id`)} component={Update}/>
         </div>
