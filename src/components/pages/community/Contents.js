@@ -53,6 +53,8 @@ class Contents extends Component {
   }
 
   loadContents= async (offset)=>{
+    window.scrollTo(0,0);
+
     const {filter}= this.state;
     const {uiKit, location, history}= this.props;
 
@@ -103,6 +105,8 @@ class Contents extends Component {
         return "익명게시판";
       case "lol":
         return "리그 오브 레전드 게시판";
+      case "cyphers":
+        return "사이퍼즈 게시판";
       default:
         return "자유게시판";
     }
@@ -129,8 +133,10 @@ class Contents extends Component {
               alignItems: 'center',
               margin: '0'
             }}>
-            <Col sm={4}>
-              <FormControl>
+            <Col sm={6}>
+              <FormControl style={{
+                width: '100%'
+              }}>
                 <Select
                   value={this.state.filter}
                   displayEmpty
@@ -152,7 +158,7 @@ class Contents extends Component {
                 </Select>
               </FormControl>
             </Col>
-            <Col sm={8}>
+            <Col sm={6}>
               <AlignLayout align={'right'}>
                 <Button
                   onClick={()=>{

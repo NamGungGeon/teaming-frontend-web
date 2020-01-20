@@ -20,7 +20,7 @@ const pages= (min, max, current, paging)=>{
       >
         <Avatar
           style={{
-            backgroundColor: cursor=== current? '#303f9f': '#333333',
+            backgroundColor: cursor=== current? '#303f9f': '#999999',
           }}>
           {
             cursor

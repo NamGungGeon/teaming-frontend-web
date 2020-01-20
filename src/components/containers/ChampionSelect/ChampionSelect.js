@@ -2,29 +2,48 @@ import React, { Component } from 'react';
 import ImageSelect from '../../primitive/ImageSelect/ImageSelect';
 import { quickConnect } from '../../redux';
 import SearchBox from '../../primitive/SearchBox/SearchBox';
-
-import champions from '../../resource/lol/champions/champs';
-import {resPath} from "../../utils/url";
+import {championSquareImage, getChampions} from "../../http/lol";
+import {errMsg} from "../../http/util";
 
 class ChampionSelect extends Component {
   state = {
-    keyword: ''
+    keyword: '',
+    champions: null,
   };
-  getChampions = () => {
-    let champs = champions;
-    if (this.state.keyword)
-      champs = champions.filter(champ => {
-        return champ.nameKR
-          .toLowerCase()
-          .includes(this.state.keyword.toLowerCase());
+
+  componentDidMount() {
+    this.loadChampions();
+  };
+
+  loadChampions= async ()=>{
+    const {uiKit}= this.props;
+    uiKit.loading.start();
+    await getChampions().then(response=>{
+      this.setState({
+        ...this.state,
+        champions: Object.keys(response.data.data).map(key=>{
+          return response.data.data[key];
+        }),
       });
-    else champs = champions;
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
+    });
+    uiKit.loading.end();
+  };
+
+  getChampions = () => {
+    const {keyword, champions}= this.state;
+
+    let champs = champions;
+    if (keyword)
+      champs = champions.filter(champ => {
+        return champ.name.includes(keyword);
+      });
 
     champs = champs.map(champ => {
       return {
-        img: `${resPath}/lol/champions/${champ.nameEN}.png`,
-        label: '',
-        id: champ.nameEN,
+        img: championSquareImage(champ.id),
+        id: champ.id,
       };
     });
     return champs;
@@ -32,6 +51,11 @@ class ChampionSelect extends Component {
 
   render() {
     const { selections, inits, popup } = this.props;
+    const {champions}= this.state;
+
+    if(!champions)
+      return (<div/>);
+
     return (
       <div>
         <h4>챔피언 선택</h4>

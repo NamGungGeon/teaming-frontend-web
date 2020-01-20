@@ -39,6 +39,8 @@ class Read extends Component {
   }
 
   async componentDidMount() {
+    window.scrollTo(0,0);
+
     const {uiKit, match} = this.props;
     const {id} = match.params;
 
@@ -101,10 +103,10 @@ class Read extends Component {
   }
 
 
-  showUserInfo= (id)=>{
+  showUserInfo= (id, username)=>{
     const {uiKit}= this.props;
     uiKit.popup.make((
-      <UserInfoViewer id={id}/>
+      <UserInfoViewer username={username} id={id}/>
     ));
   };
 
@@ -216,18 +218,18 @@ class Read extends Component {
                 title={content.title}
                 explain={(
                   <div>
-                    <p>
-                      {beautifyDate(content.createdAt)}
-                    </p>
-                    <p
+                    <div>
+                      작성일: {beautifyDate(content.createdAt)}
+                    </div>
+                    <div
                       style={{
                         cursor: 'pointer',
                       }}
                       onClick={()=>{
-                        this.showUserInfo(content.author.id);
+                        this.showUserInfo(content.author.id, content.author.username);
                       }}>
                       작성자: {content.author? content.author.username: '익명'}
-                    </p>
+                    </div>
                   </div>
                 )}/>
               <br/>
@@ -236,7 +238,10 @@ class Read extends Component {
                 dangerouslySetInnerHTML={ {__html: content.content}}/>
               <br/>
               <AlignLayout align={'center'}>
-                <Fab color={'primary'} variant="extended">
+                <Fab
+                  size={'small'}
+                  color={'primary'}
+                  variant="extended">
                   <IoIosThumbsUp style={{
                     fontSize: '20px'
                   }}/>
@@ -244,7 +249,10 @@ class Read extends Component {
                   유용합니다
                 </Fab>
                 &nbsp;&nbsp;&nbsp;
-                <Fab color={'secondary'} variant="extended">
+                <Fab
+                  size={'small'}
+                  color={'secondary'}
+                  variant="extended">
                   <IoIosThumbsDown style={{
                     fontSize: '20px'
                   }}/>
@@ -323,9 +331,9 @@ class Read extends Component {
                     </InputGroupAddon>
                   </InputGroup>
                 ):(
-                  <h5>
+                  <p>
                     댓글 작성을 위해서는 로그인이 필요합니다
-                  </h5>
+                  </p>
                 )
               }
               <br/>

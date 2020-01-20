@@ -18,9 +18,7 @@ class Cyphers extends Component {
         }
       ]
     };
-    this.props.SideNavDispatcher.set((
-      <HorizontalNavigation nav={nav}/>
-    ));
+    this.props.SideNavDispatcher.set(nav);
   }
 
   componentWillUnmount() {

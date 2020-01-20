@@ -13,7 +13,7 @@ class Chatting extends Component {
       msgs: [{
         alert: (
           <div style={{
-            color: '#FFFFFF99'
+            color: '#00000099'
           }}>
             매칭되었습니다
             <br/><br/>

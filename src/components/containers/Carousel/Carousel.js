@@ -13,7 +13,7 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const useStyles = makeStyles(theme => ({
   root: {
-    border: '1px solid #ffffff99'
+    border: '1px solid #00000099'
   },
   header: {
     display: 'flex',

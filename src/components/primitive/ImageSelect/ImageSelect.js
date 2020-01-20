@@ -28,16 +28,18 @@ class ImageSelect extends Component {
       selected: this.props.inits
     });
   }
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const { multiple } = this.props;
-    const { selected } = this.state;
-    const { selected: prevSelected } = prevState;
 
-    if (selected !== prevSelected) {
-      this.props.selections(
-        multiple === 1 ? (selected.length === 0 ? '' : selected[0]) : selected
+  componentWillUpdate(nextProps, nextState, nextContext) {
+
+    const { multiple, selections} = this.props;
+    const { selected } = this.state;
+    const { selected: nextSelected}= nextState;
+
+    if(selected!== nextSelected)
+      selections(
+        multiple===1?
+          nextSelected[0]: nextSelected
       );
-    }
   }
 
   select = id => {

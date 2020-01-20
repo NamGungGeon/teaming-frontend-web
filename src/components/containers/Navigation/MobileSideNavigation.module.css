@@ -1,7 +1,5 @@
 
 .wrapper{
-    display: none;
-
     z-index: 998;
     position: fixed;
     top: 48px;
@@ -25,7 +23,13 @@
 
     text-align: left;
     animation: slideIn 0.3s;
+    color: white;
+    padding: 8px 0;
 }
+.sidenav *{
+    color: white;
+}
+
 
 @keyframes slideIn {
     0%{

@@ -9,5 +9,6 @@ import Notices from './important/notices/Notices';
 import Center from './center/Center';
 import Cyphers from './cyphers/Cyphers';
 import Admin from './admin/Admin';
+import Magazine from './magazine/Magazine';
 
-export { Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center, Cyphers, Admin};
+export { Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center, Cyphers, Admin, Magazine};

@@ -2,15 +2,16 @@ import React, {Component} from 'react';
 import styles from './Footer.module.css';
 import {NavLink} from "react-router-dom";
 import {getPath} from "../../utils/url";
-import logo from '../../resource/logo_txt_white.png';
+import whiteLogo from '../../resource/logo_txt_white.png';
 
 class Footer extends Component {
   render() {
+    const {logo}= this.props;
     return (
       <footer>
         <div className={styles.guide}>
           <div>
-            <img src={logo} alt="" height={36}/>
+            <img src={logo? logo: whiteLogo} alt="" height={36}/>
           </div>
           <div className={styles.texts}>
             <div>

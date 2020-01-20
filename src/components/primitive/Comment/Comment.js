@@ -5,7 +5,6 @@ import IconButton from "@material-ui/core/IconButton";
 import {authorized, beautifyDate, delay} from "../../utils/utils";
 import {Button} from "@material-ui/core";
 import Optional from "../Optional/Optional";
-import UserInfoViewer from "../../containers/UserInfoViewer/UserInfoViewer";
 import {Input, InputGroup, InputGroupAddon} from "reactstrap";
 import {IoIosPerson} from "react-icons/io";
 
@@ -46,7 +45,7 @@ class Comment extends Component{
         <div
           onClick={()=>{
             if(author)
-              this.showUserInfo(author.id);
+              this.showUserInfo(author.id, author.username);
           }}
           className={styles.profile}>
           <span className={styles.picture}>

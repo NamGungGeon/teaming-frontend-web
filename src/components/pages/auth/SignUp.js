@@ -196,10 +196,9 @@ class SignUp extends Component {
             <div style={{
               padding: '18.5px 14px',
               borderRadius: '4px',
-              border: '1px solid #ffffffAA',
+              border: '1px solid #33333355',
               display: 'inline-block',
               width: '100%',
-              maxWidth: '500px'
             }}>
               <FormControl
                 component="fieldset">

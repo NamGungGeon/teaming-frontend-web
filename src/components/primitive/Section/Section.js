@@ -25,12 +25,12 @@ const Section= ({children, divideStyle, className, style})=> {
 };
 
 Section.defaultProps= {
-  divideStyle: 'outline',
+  divideStyle: '',
   className: '',
   style: {}
 };
 Section.propTypes= {
-  divideStyle: PropTypes.oneOf(['outline', 'fill']),
+  divideStyle: PropTypes.oneOf(['', 'none']),
   className: PropTypes.string,
   style: PropTypes.object,
 };

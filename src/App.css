@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   font-family: 'Nanum Gothic', sans-serif;
-  color: white;
 
   word-break: break-all;
 }
@@ -18,7 +17,7 @@ a:visited {
   color: inherit !important;
 }
 body {
-  background-color: #202020 !important;
+  background-color: #eff0f5 !important;
 }
 label {
   font-weight: 600;
@@ -62,17 +61,17 @@ tbody tr{
 
   transition-property: background-color, border-color, box-shadow!important;
   transition-duration: 0.2s!important;
-  color: white!important;
 }
 .title {
   font-size: 1.6rem;
   font-weight: 600;
   margin: 0;
+  color: #202020;
 }
 
 .explain {
   font-size: 0.8rem;
-  color: #FFFFFF99;
+  color: #00000099;
 }
 .shadowing {
   box-shadow: 4px 8px 16px #00000022;
@@ -115,7 +114,7 @@ tbody tr{
   flex-direction: row;
   justify-content: center;
 
-  background-color: #202020;
+  background-color: #eff0f5;
 }
 .sidenav> *:nth-child(1){
   flex: 1;
@@ -217,54 +216,6 @@ table.noHead tr > td:nth-child(1) {
     left: 0;
     width: 100%;
   }
-}
-
-
-.MuiFormControl-root{
-  width: 100%;
-  max-width: 500px;
-}
-.MuiFormControl-root>*{
-  color: white!important;
-}
-.MuiOutlinedInput-notchedOutline{
-  border: 1px solid #ffffff99!important;
-}
-.MuiStep-root.MuiStep-horizontal.MuiStep-alternativeLabel, .MuiStep-root.MuiStep-horizontal{
-  background: #202020!important;
-}
-.MuiStepLabel-label{
-  color: #ffffff99!important;
-}
-.MuiStepIcon-text{
-  fill: #202020!important;
-}
-.MuiStepLabel-label.MuiStepLabel-active{
-  font-size: 1.1rem;
-  color: white!important;
-  font-weight: bold;
-}
-.MuiOutlinedInput-notchedOutline:focus{
-  border: 1px solid white!important;
-}
-.MuiPaper-root{
-  background: #333333!important;
-}
-.MuiPaper-root:not(.MuiButtonBase-root)> *{
-  background: #333333;
-}
-.MuiInput-underline *{
-  font-style: initial!important;
-}
-.MuiInput-underline:before{
-  border-bottom: none!important;
-}
-.MuiInput-underline:after{
-  border-bottom: none!important;
-}
-.MuiTypography-colorTextSecondary{
-  font-size: 0.8rem!important;
-  color: #ffffff99!important;
 }
 
 

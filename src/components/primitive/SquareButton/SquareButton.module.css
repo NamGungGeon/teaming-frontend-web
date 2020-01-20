@@ -19,15 +19,15 @@
     margin: 16px 16px 16px 0;
 
     border-radius: 4px;
-    border: 1px solid #ffffff99;
+    border: 1px solid #00000099;
     background: none;
 }
 .button:not(.disable):hover{
-    box-shadow: 0 4px 16px #000000AA;
+    box-shadow: 0 4px 16px #33333399;
     transform: translateY(-4px);
 }
 .button.disable{
-    border: 1px solid #ffffff33;
+    border: 1px solid #99999933;
 }
 .button.disable> *{
     opacity: 0.4;
@@ -35,7 +35,7 @@
 }
 
 .button .icon> *{
-    filter: brightness(0%) invert();
+    filter: brightness(0%);
     height: auto;
     width: 65px;
     font-size: 65px;

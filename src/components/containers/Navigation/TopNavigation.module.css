@@ -7,9 +7,11 @@ nav.vertical{
 
     display: flex;
     justify-content: center;
-
-    color: white;
 }
+nav.vertical *{
+    color: white!important;
+}
+
 .ruler{
     display: flex;
     width: 100%;
@@ -23,6 +25,8 @@ nav.vertical{
     margin: 4px 0;
     cursor: pointer;
     height: 32px;
+
+    color: white;
 }
 
 .right{
@@ -33,11 +37,6 @@ nav.vertical{
     color: #e9e9e9;
 }
 
-.openOption{
-    display: none;
-}
-.openOption> *{
-}
 
 @keyframes purse {
     0%{

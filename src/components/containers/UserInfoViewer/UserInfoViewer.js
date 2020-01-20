@@ -18,6 +18,7 @@ class UserInfoViewer extends Component {
     await requestFriend(auth, id).then(response=>{
       //ok
       uiKit.toaster.cooking('친구 요청이 발송되었습니다');
+      uiKit.popup.destroy();
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
     })
@@ -29,6 +30,7 @@ class UserInfoViewer extends Component {
     await createBlock(auth, id).then(response=>{
       //ok
       uiKit.toaster.cooking('해당 유저가 차단되었습니다');
+      uiKit.popup.destroy();
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
     });
@@ -36,10 +38,10 @@ class UserInfoViewer extends Component {
   };
 
   render() {
-    const {id, uiKit, auth}= this.props;
+    const {id, username, uiKit, auth}= this.props;
     return (
       <div>
-        <h5>{id}의 정보</h5>
+        <h5>{username}의 정보</h5>
         <Optional visible={authorized(auth)}>
           <br/>
           <AlignLayout align={'right'}>

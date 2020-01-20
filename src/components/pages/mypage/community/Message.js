@@ -16,9 +16,11 @@ import logo from '../../../resource/logo_white.png';
 import ImageView from "../../../primitive/ImageView/ImageView";
 import moment from "moment";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
-import RefreshIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import CheckIcon from '@material-ui/icons/Check';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
+import SendIcon from '@material-ui/icons/Send';
+import Section from "../../../primitive/Section/Section";
 
 class Message extends Component {
   state={
@@ -160,12 +162,15 @@ class Message extends Component {
         <br/>
         <AlignLayout align={'left'}>
           <Button
+            startIcon={<SendIcon/>}
             variant="contained"
             color="primary">
             쪽지 보내기
           </Button>
           &nbsp;&nbsp;
           <Button
+            onClick={this.loadMessages}
+            startIcon={<RefreshIcon/>}
             variant="contained"
             color="secondary">
             새로고침
@@ -175,52 +180,52 @@ class Message extends Component {
         {
           messages &&
           (
-            <List style={{
-              backgroundColor: '#333333'
-            }}>
-              {
-                messages.map(msg=>{
-                  return (
-                    <ListItem >
-                      <ListItemAvatar>
-                        <Avatar>
-                          <ImageView
-                            width={'32px'}
-                            height={'32px'}
-                            src={msg.profileImage}/>
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        style={{
-                          cursor: 'pointer',
-                          color: msg.read? '#ffffff99!important': 'white',
-                        }}
-                        onClick={()=>{
-                          this.readMessage(msg.id);
-                        }}
-                        primary={
-                          <div style={{
-                            color: msg.read? 'gray': 'white',
-                          }}>
-                            {msg.title}
-                          </div>
-                        }
-                        secondary={`${msg.username} (${msg.sendDate})`} />
-                      <ListItemSecondaryAction>
-                        <IconButton
-                          onClick={()=>{
-                            this.deleteMessage(msg.id);
+            <Section>
+              <List>
+                {
+                  messages.map(msg=>{
+                    return (
+                      <MenuItem >
+                        <ListItemAvatar>
+                          <Avatar>
+                            <ImageView
+                              width={'32px'}
+                              height={'32px'}
+                              src={msg.profileImage}/>
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          style={{
+                            cursor: 'pointer',
+                            color: msg.read? '#00000099!important': 'white',
                           }}
-                          edge="end"
-                          aria-label="delete">
-                          <DeleteIcon />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  );
-                })
-              }
-            </List>
+                          onClick={()=>{
+                            this.readMessage(msg.id);
+                          }}
+                          primary={
+                            <div style={{
+                              color: msg.read? 'gray': '#333333',
+                            }}>
+                              {msg.title}
+                            </div>
+                          }
+                          secondary={`${msg.username} (${msg.sendDate})`} />
+                        <ListItemSecondaryAction>
+                          <IconButton
+                            onClick={()=>{
+                              this.deleteMessage(msg.id);
+                            }}
+                            edge="end"
+                            aria-label="delete">
+                            <DeleteIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </MenuItem>
+                    );
+                  })
+                }
+              </List>
+            </Section>
           )
         }
       </div>

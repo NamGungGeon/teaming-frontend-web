@@ -10,7 +10,7 @@ import ImageView from "../../../primitive/ImageView/ImageView";
 import moment from "moment";
 import Section from "../../../primitive/Section/Section";
 import Button from "@material-ui/core/Button";
-import {authorized} from "../../../utils/utils";
+import {authorized, beautifyDate, lastDays} from "../../../utils/utils";
 
 class Event extends Component {
   state= {
@@ -48,16 +48,6 @@ class Event extends Component {
   componentWillUnmount() {
     this.props.uiKit.destroyAll();
   }
-
-  dateFormatting= (date)=>{
-    return moment(date, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]').format('YYYY[년]MM[월]DD[일 ]HH[시]mm[분]');
-  };
-  lastDays= (start, end)=>{
-    const startDate= moment(start, 'YYYY-MM-DD[T]HH:mm:ss.ZZZ[Z]');
-    const endDate= moment(end, 'YYYY-MM-DD[T]HH:mm:ss.ZZZ[Z]');
-
-    return endDate.diff(startDate, 'days');
-  };
 
   removeEvent= ()=> {
     const {uiKit, auth, match, history} = this.props;
@@ -125,9 +115,9 @@ class Event extends Component {
             <br/>
             <h3>{event.title}</h3>
             <p className={'explain'}>
-              {this.dateFormatting(event.startDate)}부터 {this.dateFormatting(event.endDate)}까지
+              {beautifyDate(event.startDate)}부터 {beautifyDate(event.endDate)}까지
               <br/>
-              (이벤트 종료까지 {this.lastDays(event.startDate, event.endDate)}일 남았습니다)
+              (이벤트 종료까지 {lastDays(event.endDate)}일 남았습니다)
             </p>
             <br/><br/>
             <ImageView

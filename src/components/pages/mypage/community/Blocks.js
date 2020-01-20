@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {delay} from "../../../utils/utils";
-import moment from "moment";
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
 import CardWrapper from "../../../primitive/CardWrapper/CardWrapper";
 import {Card} from "@material-ui/core";
@@ -10,13 +8,17 @@ import IconButton from "@material-ui/core/IconButton";
 import {quickConnect} from "../../../redux";
 import Avatar from "@material-ui/core/Avatar";
 import Tooltip from "@material-ui/core/Tooltip";
-import {MdPersonAdd} from 'react-icons/md';
-import {getBlocks} from "../../../http/tming";
+import {getBlocks, removeBlock} from "../../../http/tming";
 import {errMsg} from "../../../http/util";
+import CloseIcon from '@material-ui/icons/Close';
+import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
+import Button from "@material-ui/core/Button";
 
-class Blocks extends Component {  state={
-  blocks: null,
-}
+
+class Blocks extends Component {
+  state={
+    blocks: null,
+  };
 
   componentDidMount() {
     this.loadBlocks();
@@ -27,16 +29,58 @@ class Blocks extends Component {  state={
 
     uiKit.loading.start();
     await getBlocks(auth).then(response=>{
+
       const {data}= response.data;
+      console.log(data);
       this.setState({
         ...this.state,
         blocks: data,
       });
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
-    })
+    });
     uiKit.loading.end();
   };
+
+  removeBlock= async (id)=>{
+    const {auth, uiKit}= this.props;
+
+    uiKit.popup.make((
+      <div>
+        <h5>선택한 유저를 차단 해제하시겠습니까?</h5>
+        <br/>
+        <AlignLayout align={'right'}>
+          <Button
+            onClick={async ()=>{
+              uiKit.loading.start();
+              await removeBlock(auth, id).then(response=>{
+                console.log(response);
+                //ok
+                uiKit.toaster.cooking('차단이 해제되었습니다');
+                uiKit.toaster.popup.destroy();
+                this.loadBlocks();
+              }).catch(e=>{
+                uiKit.toaster.cooking(errMsg(e));
+              });
+              uiKit.loading.end();
+            }}
+            variant={'contained'}
+            color={'primary'}>
+            차단해제
+          </Button>
+          &nbsp;&nbsp;
+          <Button
+            onClick={()=>{
+              uiKit.popup.destroy();
+            }}
+            variant={'contained'}
+            color={'secondary'}>
+            닫기
+          </Button>
+        </AlignLayout>
+      </div>
+    ));
+  }
 
   render() {
     const {blocks}= this.state;
@@ -45,7 +89,8 @@ class Blocks extends Component {  state={
       <div>
         <PageTitle
           align={'left'}
-          title={'차단목록'}/>
+          title={'차단목록'}
+          explain={'악질쳐내!!!!!!!'}/>
         <br/>
         <CardWrapper>
           {
@@ -57,13 +102,14 @@ class Blocks extends Component {  state={
           }
           {
             blocks &&
-            blocks.map(block=>{
+            blocks.map(data=>{
+              const {block}= data;
               return (
                 <Card>
                   <CardHeader
-                    avatar={<Avatar>X</Avatar>}
-                    title={block.friends.username}
-                    subheader={block.friends.createdAt+ "에 차단한 유저입니다"}
+                    avatar={<Avatar><CloseIcon/></Avatar>}
+                    title={block.username}
+                    subheader={block.createdAt+ "에 차단한 유저입니다"}
                   />
                   <CardActions
                     style={{
@@ -73,9 +119,9 @@ class Blocks extends Component {  state={
                     <Tooltip title={'차단해제'}>
                       <IconButton
                         onClick={()=>{
-                          //TODO: 차단해제 팝업
+                          this.removeBlock(data.id);
                         }}>
-                        <MdPersonAdd/>
+                        <CloseIcon/>
                       </IconButton>
                     </Tooltip>
                   </CardActions>

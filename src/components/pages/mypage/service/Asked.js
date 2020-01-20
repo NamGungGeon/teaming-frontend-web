@@ -72,18 +72,11 @@ class Asked extends Component {
                           width: '100%'
                         }}>
                           <div>
-                            <h5>
-                              문의내용
-                              <p className={'explain'}>
-                                {
-                                  complain.author? complain.author.username: complain.replyEmail
-                                }
-                              </p>
-                            </h5>
                             <p
                               className={'reader'}
                               dangerouslySetInnerHTML={ {__html: complain.text}}/>
                           </div>
+                          <br/>
                           <div>
                             {
                               complain.reply &&

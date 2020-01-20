@@ -197,7 +197,7 @@ export const uploadProfileImage = (auth, file) => {
 };
 
 const isValidCategory = (category) => {
-  const validCategory = ["GENERAL", "ANONYMOUS", "LOL", "OVERWATCH", "PUBG"];
+  const validCategory = ["GENERAL", "ANONYMOUS", "LOL", "OVERWATCH", "PUBG", "CYPHERS", "MAGAZINE"];
   return validCategory.includes(category.toUpperCase());
 }
 
@@ -396,7 +396,7 @@ export const getBlocks = (auth) => {
     }
   });
 };
-export const createBlock = (auth, id) => {
+export const createBlock = (auth, target) => {
   return axios.request({
     method: 'POST',
     url: `${url}/me/blocks`,
@@ -404,8 +404,17 @@ export const createBlock = (auth, id) => {
       Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
     data: {
-      id,
+      target,
     }
+  });
+};
+export const removeBlock= (auth, relationship_id)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/me/blocks/${relationship_id}`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
   });
 };
 
@@ -416,7 +425,7 @@ export const getNotifications = (auth, limit) => {
     headers: {
       Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
     },
-    data: {
+    params: {
       limit,
     }
   });

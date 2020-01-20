@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import styles from './EventGallery.module.css';
 import {getPath} from "../../utils/url";
-import classNames from "classnames";
+
 import {getEvents} from "../../http/tming";
 import Spinner from "reactstrap/es/Spinner";
 import {quickConnect} from "../../redux";
-import Carousel from "../Carousel/Carousel";
+import MenuList from "@material-ui/core/MenuList";
+import MenuItem from "@material-ui/core/MenuItem";
 import getHistory from 'react-router-global-history';
+import {beautifyDate} from "../../utils/utils";
 
 class EventGallery extends Component {
   state={
@@ -32,7 +34,6 @@ class EventGallery extends Component {
   };
 
   render() {
-    const {style}= this.props;
     const {events}= this.state;
 
     if(events && events.length=== 0){
@@ -40,24 +41,30 @@ class EventGallery extends Component {
     }
 
     return (
-      <div>
-        <div className={classNames(styles.wrapper, style)}>
+      <MenuList style={{
+        textAlign: 'left',
+        padding: '0',
+      }}>
           {
             events?
-              (
-                <Carousel
-                  steps={
-                    events.map((event=>{
-                      return {
-                        label: event.title,
-                        img: event.banner,
-                        onClick: ()=>{
-                          getHistory().push(getPath(`/important/events/${event.id}`));
-                        }
-                      }
-                    }))
-                  }/>
-              )
+              events.map(event=>{
+                console.log('event', event);
+                return (
+                  <MenuItem
+                    className={styles.event}
+                    key={event.title}
+                    onClick={()=>{
+                      getHistory().push(getPath(`/important/events/${event.id}`));
+                    }}>
+                    <div className={styles.title}>
+                      {event.title}
+                    </div>
+                    <div className={styles.date}>
+                      {beautifyDate(event.endDate)}까지
+                    </div>
+                  </MenuItem>
+                );
+              })
               :
               (
                 <div style={{
@@ -69,8 +76,7 @@ class EventGallery extends Component {
                 </div>
               )
           }
-        </div>
-      </div>
+      </MenuList>
     );
   }
 }

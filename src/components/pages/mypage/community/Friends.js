@@ -50,7 +50,8 @@ class Friends extends Component {
       <div>
         <PageTitle
           align={'left'}
-          title={'친구목록'}/>
+          title={'친구목록'}
+          explain={'찡구들~안냥~'}/>
         <br/>
         <CardWrapper>
           {

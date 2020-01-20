@@ -39,6 +39,13 @@ class Community extends Component {
             }
           },
           {
+            label: '사이퍼즈',
+            icon: lol,
+            onClick: () => {
+              this.go(getPath(`/community?category=cyphers`));
+            }
+          },
+          {
             label: '오버워치',
             icon: overwatch
           },

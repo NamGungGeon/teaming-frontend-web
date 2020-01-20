@@ -15,6 +15,7 @@ import {Button} from "reactstrap";
 import Input from "reactstrap/es/Input";
 import Collapse from "reactstrap/es/Collapse";
 import ButtonGroup from "reactstrap/es/ButtonGroup";
+import {championSquareImage} from "../../../http/lol";
 
 const lines= [
   { img: `${resPath}/lol/line/top.png`, id: 'top', label: '탑', height: '48px' },
@@ -50,14 +51,17 @@ class Option extends Component {
     goal: 'win',
   };
   componentWillUpdate(nextProps, nextState, nextContext) {
-    console.log(nextState);
+    console.log('willupdate', nextState);
   }
 
   openChampions = (inits, updater) => {
     const { uiKit } = this.props;
 
     uiKit.popup.make(
-      <ChampionSelect selections={updater} inits={inits} popup />
+      <ChampionSelect
+        selections={updater}
+        inits={inits}
+        popup />
     );
   };
 
@@ -85,7 +89,7 @@ class Option extends Component {
   };
 
   render() {
-    const {mode, goal}= this.state;
+    const {mode, goal, champions, likes, ban}= this.state;
 
     return (
       <div>
@@ -245,22 +249,22 @@ class Option extends Component {
                 />
                 <ImageViewGroup
                   icons={[
-                    ...this.state.champions.map(select => {
+                    ...champions.map(select => {
                       return {
-                        img: `${resPath}/lol/champions/${select}.png`
+                        img: championSquareImage(select),
                       };
                     }),
                     {
                       img: plus,
-                      label: '',
                       onClick: () => {
-                        this.openChampions(this.state.champions, selections => {
+                        this.openChampions(champions, selections => {
                           //TODO: 업데이트가 안된다....
-                          console.log(selections, this.state);
                           this.setState({
                             ...this.state,
                             champions: selections
                           });
+                          console.log(this);
+                          console.log(selections, champions);
                         });
                       },
                       width: '32px'
@@ -279,16 +283,15 @@ class Option extends Component {
                 />
                 <ImageViewGroup
                   icons={[
-                    ...this.state.likes.map(select => {
+                    ...likes.map(select => {
                       return {
-                        img: `${resPath}/lol/champions/${select}.png`
+                        img: championSquareImage(select),
                       };
                     }),
                     {
                       img: plus,
-                      label: '',
                       onClick: () => {
-                        this.openChampions(this.state.likes, selections => {
+                        this.openChampions(likes, selections => {
                           this.setState({
                             ...this.state,
                             likes: selections
@@ -311,19 +314,21 @@ class Option extends Component {
                 />
                 <ImageViewGroup
                   icons={[
-                    ...this.state.ban.map(select => {
+                    ...ban.map(select => {
                       return {
-                        img: `${resPath}/lol/champions/${select}.png`
+                        img: championSquareImage(select),
                       };
                     }),
                     {
                       img: plus,
-                      label: '',
                       onClick: () => {
-                        this.openChampions(this.state.ban, selections => {
+                        this.openChampions(ban,   selections => {
+                          console.log(this, selections);
                           this.setState({
                             ...this.state,
                             ban: selections
+                          }, ()=>{
+                            console.log('updated');
                           });
                         });
                       },

@@ -8,15 +8,16 @@ class MobileSideNavigation extends Component {
     console.log(this.props);
     const {sideNav, SideNavDispatcher}= this.props;
 
-    if(!sideNav.visible || !sideNav.content){
+    if(!sideNav.visible){
       return '';
     }
+
     return (
       <div
         onClick={()=>{
           SideNavDispatcher.toggle();
         }}
-        className={styles.wrapper}>
+        className={`${styles.wrapper} mobile`}>
         <div
           className={styles.sidenav}>
           <HorizontalNavigation nav={sideNav.nav}/>

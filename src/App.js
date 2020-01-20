@@ -1,11 +1,11 @@
 import './App.css';
 import { Route } from 'react-router-dom';
-import VerticalNavigation from './components/containers/Navigation/TopNavigation';
+import TopNavigation from './components/containers/Navigation/TopNavigation';
 import React, { Component } from 'react';
 import { UiBundle } from './components/utils/hoc';
 import { quickConnect } from './components/redux';
 import {getPath, urlQuery} from './components/utils/url';
-import {Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center, Admin} from './components/pages';
+import {Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center, Admin, Magazine} from './components/pages';
 import MyPage from "./components/pages/mypage/MyPage";
 import Trade from "./components/pages/trade/Trade";
 import Privacy from "./components/pages/Privacy";
@@ -14,10 +14,7 @@ import SideNavigation from "./components/containers/Navigation/SideNavigation";
 import MobileSideNavigation from "./components/containers/Navigation/MobileSideNavigation";
 import Footer from "./components/containers/Footer/Footer";
 import Cyphers from "./components/pages/cyphers/Cyphers";
-
-// App 은 최상단 컴포넌트인데 mstp를 connected 하는건 좋은패턴이 아님
-// UIKit 이랑 Router dispatcher 하는 코드를 어떤 패턴으로 구현했는지 해석이 좀 어려운데
-// 리팩토링 필수임
+import logo from './components/resource/tming_txt.png';
 
 class App extends Component {
   state={
@@ -26,6 +23,10 @@ class App extends Component {
 
   componentDidMount() {
     this.init();
+
+    window.setInterval(()=>{
+      document.getElementById("ruler").style.height= "100%";
+    }, 200);
   }
 
   init= async ()=>{
@@ -56,7 +57,7 @@ class App extends Component {
       ...this.state,
       ready: true,
     });
-  }
+  };
 
   render() {
     const {config}= this.props;
@@ -67,10 +68,10 @@ class App extends Component {
         {ready && (
           <div>
             {this.props.uiKit.render()}
-            <VerticalNavigation
+            <TopNavigation
               history={this.props.history}
               location={this.props.location}/>
-              <MobileSideNavigation/>
+            <MobileSideNavigation/>
             <div
               className="fullSizeDisplay">
               <SideNavigation/>
@@ -78,6 +79,7 @@ class App extends Component {
                 style={{
                   top: config.hideNav? '0': '55px',
                 }}
+                id={'ruler'}
                 className="ruler">
                 <Route exact path={getPath('/')} component={Home} />
                 <Route path={getPath('/teambuild')} component={Teambuild} />
@@ -94,9 +96,10 @@ class App extends Component {
                 <Route path={getPath('/center')} component={Center} />
                 <Route path={getPath('/cyphers')} component={Cyphers}/>
                 <Route path={getPath('/admin')} component={Admin}/>
+                <Route path={getPath('/magazine')} component={Magazine}/>
                 <div
                   className={'mobile'}>
-                  <Footer/>
+                  <Footer logo={logo}/>
                 </div>
               </div>
             </div>

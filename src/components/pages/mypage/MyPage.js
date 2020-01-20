@@ -22,6 +22,7 @@ class MyPage extends Component{
           {label: '회원탈퇴', onClick: ()=>{history.push(getPath(`/mypage/info/escape`))}},
         ],
         '커뮤니티': [
+          {label: '알림', onClick: ()=>{history.push(getPath(`/mypage/community/notifications`))}},
           {label: '활동기록', onClick: ()=>{history.push(getPath(`/mypage/community/logs`))}},
           {label: '친구목록', onClick: ()=>{history.push(getPath(`/mypage/community/friends`))}},
           {label: '차단관리', onClick: ()=>{history.push(getPath(`/mypage/community/blocks`))}},

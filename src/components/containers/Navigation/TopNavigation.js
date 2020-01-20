@@ -110,11 +110,6 @@ class TopNavigation extends Component{
                 onClick={()=>{
                   SideNavDispatcher.toggle();
                 }}
-                style={
-                  sideNav.content? {
-                    display: `initial`,
-                  }:{}
-                }
                 className={styles.openOption}>
                 <IconButton>
                   <ListIcon/>

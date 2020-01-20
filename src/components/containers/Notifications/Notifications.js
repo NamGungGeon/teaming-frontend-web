@@ -4,7 +4,7 @@ import {Badge} from "@material-ui/core";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import {getNotifications, removeNotice} from "../../http/tming";
+import {getNotifications, removeNotification} from "../../http/tming";
 import {quickConnect} from "../../redux";
 import {errMsg} from "../../http/util";
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -35,7 +35,7 @@ class Notifications extends Component{
     }).catch(e=>{
       console.log(errMsg(e));
     });
-  }
+  };
   componentDidMount() {
     this.refresh();
     this.timer= setInterval(this.refresh, 60*1000);
@@ -117,7 +117,7 @@ class Notifications extends Component{
           (notifications && notifications.length< count) && (
             <MenuItem
               onClick={()=>{
-                history.push(getPath('/mypage/info/notifications'));
+                history.push(getPath('/mypage/community/notifications'));
               }}
               variant={'inherit'}>
               <AlignLayout align={'center'}>
@@ -134,6 +134,7 @@ class Notifications extends Component{
                   variant={'inherit'}
                   key={randStr(10)}
                   onClick={()=>{
+                    //TODO: 알림 클릭 시 동작
                   }}>
                   <div style={{
                       width: '100%',
@@ -160,6 +161,17 @@ class Notifications extends Component{
                       <DeleteIcon onClick={async ()=>{
                         //remove
                         uiKit.loading.start();
+                        await removeNotification(auth, notification.id).then(response=>{
+                          this.setState({
+                            ...this.state,
+                            count: this.state.count-1,
+                            notifications: notifications.filter(n=>{
+                              return n.id!== notification.id;
+                            })
+                          })
+                        }).catch(e=>{
+                          uiKit.toaster.cooking(errMsg(e));
+                        });
                         uiKit.loading.end();
                       }}/>
                     </div>

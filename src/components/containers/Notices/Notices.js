@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {randNum, randStr} from "../../utils/utils";
+import {beautifyDate, randNum, randStr} from "../../utils/utils";
 import styles from './Notices.module.css';
 import {getPath} from "../../utils/url";
 import {getNotices} from "../../http/tming";
@@ -22,10 +22,6 @@ class Notices extends Component{
       })
     });
   }
-
-  dateFormatting= (date)=>{
-    return moment(date, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]').format('YYYY[년]MM[월]DD[일 ]HH[시]mm[분]');
-  };
 
   render() {
     const {history}= this.props;
@@ -54,7 +50,7 @@ class Notices extends Component{
                     {notice.title}
                   </div>
                   <div className={styles.date}>
-                    {this.dateFormatting(notice.createdAt)}
+                    {beautifyDate(notice.createdAt)}
                   </div>
                 </MenuItem>
               )

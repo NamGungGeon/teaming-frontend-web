@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
-import Button from "reactstrap/es/Button";
 import {quickConnect} from "../../../redux";
 import {delay} from "../../../utils/utils";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
@@ -9,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import {updateMyPassword} from "../../../http/tming";
 import {errMsg} from "../../../http/util";
 import getHistory from 'react-router-global-history';
+import Button from "@material-ui/core/Button";
 
 class PwChange extends Component {
   state={

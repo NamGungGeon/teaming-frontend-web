@@ -13,13 +13,12 @@
     height: calc(100% - 48px);
 
     border-right: 0.6px solid #ffffff66;
-    background-color: #333333;
+    background-color: #202020;
 
     text-align: left;
 }
-
-.sidenav> div{
-
+.sidenav *{
+    color: white;
 }
 
 @media (max-width: 500px) {

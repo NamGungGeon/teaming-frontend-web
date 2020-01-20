@@ -16,6 +16,7 @@ import Button from "@material-ui/core/Button";
 import {IoIosPerson} from 'react-icons/io'
 import Popup from "../Popup/Popup";
 import {randStr} from "../../utils/utils";
+import PageTitle from "../PageTitle/PageTitle";
 
 class Threadic extends Component {
   state= {
@@ -230,13 +231,13 @@ class Threadic extends Component {
         className={styles.wrapper}>
         <div
           onClick={()=>{this.handleCommentState(!openComment)}}>
-          <h6>
+          <h5>
             {user}
             <br/>
             <sub>
               {moment(createdAt, "YYYY-MM-DDThh:mm:ss.SSS").fromNow()}
             </sub>
-          </h6>
+          </h5>
           <br/>
           <div>
             {content}

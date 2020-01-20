@@ -12,12 +12,15 @@
     background-color: #333333;
     padding: 16px;
     box-shadow: 0 -4px 4px #00000066;
+    color: white;
 }
 .wrapper> .title{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+
+    color: white;
 }
 
 @media (max-width: 500px) {

@@ -17,9 +17,9 @@
     padding: 4px;
 
 
-    border: 0.6px solid #ffffff99;
+    border: 0.6px solid #33333399;
     border-radius: 8px;
-    background-color: #333333;
+    background: none;
     cursor: pointer;
 }
 .wrapper> .profile> .picture *{

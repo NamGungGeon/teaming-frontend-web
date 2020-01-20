@@ -5,7 +5,7 @@ import styles from './PageTitle.module.css';
 
 class PageTitle extends Component {
   static defaultProps = {
-    titleColor: 'white',
+    titleColor: '#202020',
     explain: '',
     align: 'left'
   };
