@@ -45,7 +45,7 @@ class Comment extends Component{
         <div
           onClick={()=>{
             if(author)
-              this.showUserInfo(author.id, author.username);
+              showUserInfo(author.id, author.username);
           }}
           className={styles.profile}>
           <span className={styles.picture}>

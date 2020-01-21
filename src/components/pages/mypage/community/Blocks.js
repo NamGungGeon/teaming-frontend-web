@@ -13,6 +13,7 @@ import {errMsg} from "../../../http/util";
 import CloseIcon from '@material-ui/icons/Close';
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import Button from "@material-ui/core/Button";
+import {beautifyDate} from "../../../utils/utils";
 
 
 class Blocks extends Component {
@@ -90,7 +91,7 @@ class Blocks extends Component {
         <PageTitle
           align={'left'}
           title={'차단목록'}
-          explain={'악질쳐내!!!!!!!'}/>
+          explain={'악질쳐내!!!'}/>
         <br/>
         <CardWrapper>
           {
@@ -109,7 +110,7 @@ class Blocks extends Component {
                   <CardHeader
                     avatar={<Avatar><CloseIcon/></Avatar>}
                     title={block.username}
-                    subheader={block.createdAt+ "에 차단한 유저입니다"}
+                    subheader={beautifyDate(data.createdAt)+ "에 차단"}
                   />
                   <CardActions
                     style={{

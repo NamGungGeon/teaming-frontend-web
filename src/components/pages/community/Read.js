@@ -27,6 +27,7 @@ import {getPath, urlQuery} from "../../utils/url";
 import DeleteIcon from '@material-ui/icons/Delete';
 import UserInfoViewer from "../../containers/UserInfoViewer/UserInfoViewer";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
+import Section from "../../primitive/Section/Section";
 
 class Read extends Component {
   state={
@@ -213,7 +214,7 @@ class Read extends Component {
       <div>
         {
           content && (
-            <div>
+            <Section>
               <PageTitle
                 title={content.title}
                 explain={(
@@ -260,22 +261,19 @@ class Read extends Component {
                   별로군요
                 </Fab>
               </AlignLayout>
-            </div>
-          )
-        }
-        {
-          content && (
-            <div>
-              <br/>
-              <AlignLayout align={'right'}>
-                <Tooltip title={'이 글 신고하기'}>
-                  <IconButton>
-                    <ReportIcon/>
-                  </IconButton>
-                </Tooltip>
-                {
-                  imAuthor && (
-                    <span>
+              {
+                content && (
+                  <div>
+                    <br/>
+                    <AlignLayout align={'right'}>
+                      <Tooltip title={'이 글 신고하기'}>
+                        <IconButton>
+                          <ReportIcon/>
+                        </IconButton>
+                      </Tooltip>
+                      {
+                        imAuthor && (
+                          <span>
                       <Tooltip title={'글 수정하기'}>
                         <IconButton
                           onClick={()=>{
@@ -291,16 +289,22 @@ class Read extends Component {
                         </IconButton>
                       </Tooltip>
                     </span>
-                  )
-                }
-              </AlignLayout>
-            </div>
+                        )
+                      }
+                    </AlignLayout>
+                  </div>
+                )
+              }
+            </Section>
           )
         }
-        <br/><br/>
+        <br/>
         {
           comments && (
-            <div>
+            <Section>
+              <p className={'explain'}>
+                {comments.length}개의 댓글이 있습니다
+              </p>
               {
                 authorized(auth) ? (
                   <InputGroup>
@@ -337,9 +341,6 @@ class Read extends Component {
                 )
               }
               <br/>
-              <p className={'explain'}>
-                {comments.length}개의 댓글이 있습니다
-              </p>
               {
                 comments.map(comment=>
                   (
@@ -383,7 +384,7 @@ class Read extends Component {
                   )
                 )
               }
-            </div>)
+            </Section>)
         }
       </div>
     );

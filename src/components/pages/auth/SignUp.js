@@ -52,7 +52,7 @@ class SignUp extends Component {
         <div
           style={{
             overflowY: 'scroll',
-            height: '450px'
+            height: '400px'
           }}>
           {privacy}
         </div>

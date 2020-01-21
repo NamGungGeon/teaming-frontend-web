@@ -94,25 +94,24 @@ class Event extends Component {
     return (
       <div>
         {
+          isAdmin &&
+          (
+            <Section divideStyle={'fill'}>
+              <h5>관리자 메뉴</h5>
+              <AlignLayout align={'right'}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.removeEvent}>
+                  이 이벤트 삭제
+                </Button>
+              </AlignLayout>
+            </Section>
+          )
+        }
+        {
           event &&
-          (<div>
-            {
-              isAdmin &&
-              (
-                <Section divideStyle={'fill'}>
-                  <h5>관리자 메뉴</h5>
-                  <AlignLayout align={'right'}>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={this.removeEvent}>
-                      이 이벤트 삭제
-                    </Button>
-                  </AlignLayout>
-                </Section>
-              )
-            }
-            <br/>
+          (<Section>
             <h3>{event.title}</h3>
             <p className={'explain'}>
               {beautifyDate(event.startDate)}부터 {beautifyDate(event.endDate)}까지
@@ -127,7 +126,7 @@ class Event extends Component {
             <p>
               {event.text}
             </p>
-          </div>)
+          </Section>)
         }
       </div>
     );

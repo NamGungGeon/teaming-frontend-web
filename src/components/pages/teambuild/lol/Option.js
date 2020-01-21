@@ -290,6 +290,9 @@ class Option extends Component {
                     }),
                     {
                       img: plus,
+                      style: {
+                        filter: 'grayscale(0%) invert()',
+                      },
                       onClick: () => {
                         this.openChampions(likes, selections => {
                           this.setState({
@@ -323,13 +326,12 @@ class Option extends Component {
                       img: plus,
                       onClick: () => {
                         this.openChampions(ban,   selections => {
-                          console.log(this, selections);
+                          console.log(selections, this.state.ban);
                           this.setState({
                             ...this.state,
-                            ban: selections
-                          }, ()=>{
-                            console.log('updated');
+                            ban:selections
                           });
+                          console.log('ok');
                         });
                       },
                       width: '32px'

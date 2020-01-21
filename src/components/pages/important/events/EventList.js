@@ -201,10 +201,11 @@ class EventList extends Component {
             </Section>
           )
         }
-
-        <EventGallery
-          ref={ref=> this.eventList= ref}
-          history={this.props.history}/>
+        <Section>
+          <EventGallery
+            ref={ref=> this.eventList= ref}
+            history={this.props.history}/>
+        </Section>
       </div>
     );
   }

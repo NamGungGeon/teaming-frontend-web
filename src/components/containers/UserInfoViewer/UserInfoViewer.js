@@ -41,7 +41,7 @@ class UserInfoViewer extends Component {
     const {id, username, uiKit, auth}= this.props;
     return (
       <div>
-        <h5>{username}의 정보</h5>
+        <h5>{username}</h5>
         <Optional visible={authorized(auth)}>
           <br/>
           <AlignLayout align={'right'}>

@@ -116,6 +116,10 @@ class MyInfo extends Component {
 
     return (
       <div>
+        <PageTitle
+          title={'내 정보'}
+          explain={'내 기본 정보'}/>
+        <br/>
         {
           profile &&
           (

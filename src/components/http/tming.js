@@ -184,6 +184,39 @@ export const getMyProfile = (auth) => {
     },
   });
 };
+export const disableProfile= (auth)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/me`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+  });
+};
+export const getPostLogs= (auth, limit)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/me/boards`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+    params: {
+      limit,
+    }
+  });
+};
+export const getCommentLogs= (auth, limit)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/me/comments`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+    params: {
+      limit,
+    }
+  });
+};
 export const uploadProfileImage = (auth, file) => {
   const formdata = new FormData();
   formdata.append('image', file);

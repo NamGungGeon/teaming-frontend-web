@@ -25,7 +25,10 @@ class App extends Component {
     this.init();
 
     window.setInterval(()=>{
-      document.getElementById("ruler").style.height= "100%";
+      try{
+        document.getElementById("ruler").style.height= "100%";
+      }catch (e) {
+      }
     }, 200);
   }
 

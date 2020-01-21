@@ -88,24 +88,24 @@ class Notice extends Component {
     return (
       <div>
         {
+          isAdmin &&
+          (
+            <Section divideStyle={'fill'}>
+              <h5>관리자 메뉴</h5>
+              <AlignLayout align={'right'}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.removeNotice}>
+                  이 공지사항 삭제
+                </Button>
+              </AlignLayout>
+            </Section>
+          )
+        }
+        {
           notice?
-            (<div>
-              {
-                isAdmin &&
-                (
-                  <Section divideStyle={'fill'}>
-                    <h5>관리자 메뉴</h5>
-                    <AlignLayout align={'right'}>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={this.removeNotice}>
-                        이 공지사항 삭제
-                      </Button>
-                    </AlignLayout>
-                  </Section>
-                )
-              }
+            (<Section>
               <div>
                 <h3>
                   {notice.title}
@@ -115,7 +115,7 @@ class Notice extends Component {
                   {notice.text}
                 </p>
               </div>
-            </div>):
+            </Section>):
             (<div/>)
         }
       </div>
