@@ -4,12 +4,12 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import {quickConnect} from "../../../redux";
-import {beautifyDate, delay, fuckHTML, randNum, randStr} from "../../../utils/utils";
+import {quickConnect} from "../../../../redux/quick";
+import {beautifyDate, delay, fuckHTML, randNum, randStr} from "../../../../utils/utils";
 import {Button} from "@material-ui/core";
-import {getPath} from "../../../utils/url";
-import {getComplains, getMyComaplins} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
+import {getPath} from "../../../../utils/url";
+import {getComplains, getMyComaplins} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 
 class Asked extends Component {

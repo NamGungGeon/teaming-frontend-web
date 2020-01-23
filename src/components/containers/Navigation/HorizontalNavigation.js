@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Collapse from "reactstrap/es/Collapse";
 import styles from './HorizontalNavigation.module.css';
-import {randStr} from "../../utils/utils";
+import {randStr} from "../../../utils/utils";
 import MenuItem from "@material-ui/core/MenuItem";
-import uikit from "../../redux/uikit";
-import {quickConnect} from "../../redux";
+import uikit from "../../../redux/quick/uikit";
+import {quickConnect} from "../../../redux/quick";
 
 class HorizontalNavigation extends Component {
 

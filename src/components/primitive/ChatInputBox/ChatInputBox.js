@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, InputGroup, InputGroupAddon } from 'reactstrap';
-import { quickConnect } from '../../redux';
+import { quickConnect } from '../../../redux/quick';
 import Button from 'reactstrap/es/Button';
 import { MdSend } from 'react-icons/md';
 

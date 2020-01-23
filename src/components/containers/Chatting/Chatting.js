@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styles from './Chatting.module.css';
 import ChatMsg from '../../primitive/ChatMsg/ChatMsg';
-import { quickConnect } from '../../redux';
-import { isEndScroll, scrollToBottom } from '../../utils/utils';
+import { quickConnect } from '../../../redux/quick';
+import { isEndScroll, scrollToBottom } from '../../../utils/utils';
 import ChatInputBox from '../../primitive/ChatInputBox/ChatInputBox';
 import Section from "../../primitive/Section/Section";
 

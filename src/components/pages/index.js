@@ -1,6 +1,6 @@
 import Home from './Home';
 import Chat from './Chat';
-import Teambuild from './teambuild/TeamBuild';
+import Match from './match/Match';
 import Auth from "./auth/Auth";
 import Trash from "./trash/Trash";
 import Rooms from './rooms/Rooms';
@@ -11,4 +11,4 @@ import Cyphers from './cyphers/Cyphers';
 import Admin from './admin/Admin';
 import Magazine from './magazine/Magazine';
 
-export { Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center, Cyphers, Admin, Magazine};
+export { Home, Chat, Match, Auth, Trash, Rooms, Events, Notices, Center, Cyphers, Admin, Magazine};

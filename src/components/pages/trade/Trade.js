@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 import Category from "./Category";
 import {Route} from "react-router-dom";
 import ItemList from "./ItemList";
@@ -7,6 +7,10 @@ import ItemList from "./ItemList";
 class Trade extends Component {
   componentDidMount() {
     window.scrollTo(0,0);
+
+    //dev...
+    alert('준비중인 기능입니다');
+    this.props.history.replace(getPath('/'));
   }
 
   render() {

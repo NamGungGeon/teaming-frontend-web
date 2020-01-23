@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
-import {quickConnect} from "../../../redux";
-import {beautifyDate, delay} from "../../../utils/utils";
+import {quickConnect} from "../../../../redux/quick";
+import {beautifyDate, delay} from "../../../../utils/utils";
 import {Card} from "@material-ui/core";
 import CardHeader from "@material-ui/core/CardHeader";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,8 +14,8 @@ import moment from "moment";
 import { TiUserDelete } from "react-icons/ti";
 import {MdBlock} from 'react-icons/md';
 import Tooltip from "@material-ui/core/Tooltip";
-import {getFriends} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
+import {getFriends} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
 import CardBody from "reactstrap/es/CardBody";
 import Avatar from "@material-ui/core/Avatar";
 

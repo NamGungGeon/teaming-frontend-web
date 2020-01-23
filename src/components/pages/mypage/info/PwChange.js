@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
-import {quickConnect} from "../../../redux";
-import {delay} from "../../../utils/utils";
+import {quickConnect} from "../../../../redux/quick";
+import {delay} from "../../../../utils/utils";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
-import {getPath} from "../../../utils/url";
+import {getPath} from "../../../../utils/url";
 import TextField from "@material-ui/core/TextField";
-import {updateMyPassword} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
+import {updateMyPassword} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
 import getHistory from 'react-router-global-history';
 import Button from "@material-ui/core/Button";
 

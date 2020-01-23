@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import List from "@material-ui/core/List";
-import {quickConnect} from "../../redux";
-import {getComplains, replyComplain} from "../../http/tming";
-import {errMsg} from "../../http/util";
+import {quickConnect} from "../../../redux/quick";
+import {getComplains, replyComplain} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
 import {ExpansionPanel} from "@material-ui/core";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import {beautifyDate, fuckHTML} from "../../utils/utils";
+import {beautifyDate, fuckHTML} from "../../../utils/utils";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import Button from "@material-ui/core/Button";

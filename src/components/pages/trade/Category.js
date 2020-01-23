@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import SquareButton from '../../primitive/SquareButton/SquareButton';
-import { getPath } from '../../utils/url';
+import { getPath } from '../../../utils/url';
 import Popcorn from '../../primitive/Popcorn/Popcorn';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 
-import {randStr} from "../../utils/utils";
+import {randStr} from "../../../utils/utils";
 import FlexLayout from "../../layouts/FlexLayout/FlexLayout";
 import FormGroup from "reactstrap/es/FormGroup";
 import Col from "reactstrap/es/Col";

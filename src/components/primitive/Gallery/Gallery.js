@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styles from './Gallery.module.css';
 import getHistory from 'react-router-global-history';
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 
 const Gallery= ({list, max})=>{
   return (

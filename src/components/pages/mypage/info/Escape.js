@@ -5,10 +5,10 @@ import PageTitle from "../../../primitive/PageTitle/PageTitle";
 import InputGroup from "reactstrap/es/InputGroup";
 import Input from "reactstrap/es/Input";
 import {InputGroupAddon} from "reactstrap";
-import {quickConnect} from "../../../redux";
+import {quickConnect} from "../../../../redux/quick";
 import Button from "@material-ui/core/Button";
-import {disableProfile} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
+import {disableProfile} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
 
 class Escape extends Component {
   state={

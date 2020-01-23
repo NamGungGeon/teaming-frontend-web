@@ -1,16 +1,11 @@
-import { bindActionCreators, combineReducers } from 'redux';
+import {bindActionCreators, combineReducers} from 'redux';
 
-import uiKit from './uikit';
-import auth from './auth';
-import config from './config';
-import sideNav from "./sidenav";
+import uiKit, * as UIKit from './uikit';
+import auth, * as Auth from './auth';
+import config, * as Config from './config';
+import sideNav, * as SideNav from "./sidenav";
 
-import * as Auth from './auth';
-import * as UIKit from './uikit';
-import * as Config from './config';
-import * as SideNav from './sidenav';
-
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 export default combineReducers({
   uiKit,
@@ -26,7 +21,7 @@ export const quickConnect = component => {
   // console.log(uikit);
   // console.log(UIKit);
 
-  const connected = connect(
+  return connect(
     state => {
       return {
         uiKit: state.uiKit,
@@ -44,8 +39,6 @@ export const quickConnect = component => {
       };
     },
     null,
-    { forwardRef: true }
+    {forwardRef: true}
   )(component);
-
-  return connected;
 };

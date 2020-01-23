@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import AlignLayout from '../layouts/AlignLayout/AlignLayout';
 
 import SquareButton from '../primitive/SquareButton/SquareButton';
-import {getPath, urlQuery} from '../utils/url';
+import {getPath, urlQuery} from '../../utils/url';
 import people from '../resource/icon/people.png';
 import UsefulInformation from "../containers/UsefulInformation/UsefulInformation";
 import ButtonsWrapper from "../primitive/ButtonsWrapper/ButtonsWrapper";
-import {quickConnect} from "../redux";
+import {quickConnect} from "../../redux/quick";
 import HelpAppInstall from "../containers/HelpAppInstall/HelpAppInstall";
 import GoogleAdvertise from "../containers/GoogleAdvertise/GoogleAdvertise";
 import { AiOutlineWechat } from "react-icons/ai";
@@ -16,6 +16,7 @@ import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import { IoIosHeart, } from "react-icons/io";
 import Magazine from "../containers/Magazine/Magazine";
 import Section from "../primitive/Section/Section";
+import HottestPosts from "../containers/HottestPosts/HottestPosts";
 
 class Home extends Component{
 
@@ -50,6 +51,8 @@ class Home extends Component{
           <br/>
           <Magazine max={4}/>
         </Section>
+        <br/>
+        <HottestPosts/>
         <br/>
       </AlignLayout>
     );

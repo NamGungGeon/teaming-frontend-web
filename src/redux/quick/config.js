@@ -1,5 +1,5 @@
 import { handleActions, createAction } from 'redux-actions';
-import { randStr } from '../utils/utils';
+import { randStr } from '../../utils/utils';
 
 
 const defaultConfig= {

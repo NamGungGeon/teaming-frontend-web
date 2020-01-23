@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from './ButtonsWrapper.module.css';
-import {randStr} from "../../utils/utils";
+import {randStr} from "../../../utils/utils";
 
 const ButtonsWrapper= ({buttons, children})=> {
   return (

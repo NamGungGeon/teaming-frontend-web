@@ -1,5 +1,5 @@
 import { handleActions, createAction } from 'redux-actions';
-import { randStr } from '../utils/utils';
+import { randStr } from '../../utils/utils';
 import Cookies from 'universal-cookie';
 
 const tokenKey = 'srghqw4ttq34tqagaga';

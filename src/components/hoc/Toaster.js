@@ -1,4 +1,4 @@
-import ToastMessage from '../../primitive/Msg/ToastMessage';
+import ToastMessage from '../primitive/Msg/ToastMessage';
 import React from 'react';
 
 export const Toaster = component => {
@@ -24,7 +24,7 @@ export const Toaster = component => {
         lastTime ? lastTime : 1500
       );
     },
-    toasts: () => {
+    render: () => {
       return (
         <ToastMessage msg={component.state.msg} />
       );

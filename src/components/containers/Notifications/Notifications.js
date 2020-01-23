@@ -4,16 +4,16 @@ import {Badge} from "@material-ui/core";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import {getNotifications, removeNotification} from "../../http/tming";
-import {quickConnect} from "../../redux";
-import {errMsg} from "../../http/util";
+import {getNotifications, removeNotification} from "../../../http/tming";
+import {quickConnect} from "../../../redux/quick";
+import {errMsg} from "../../../http/util";
 import DeleteIcon from '@material-ui/icons/Delete';
 import styles from './Notifications.module.css';
-import {randStr} from "../../utils/utils";
+import {randStr} from "../../../utils/utils";
 import Typography from "@material-ui/core/Typography";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import getHistory from 'react-router-global-history';
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 
 
 class Notifications extends Component{

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styles from './Comment.module.css';
 import logo from '../../resource/icon.png';
 import IconButton from "@material-ui/core/IconButton";
-import {authorized, beautifyDate, delay} from "../../utils/utils";
+import {authorized, beautifyDate, delay} from "../../../utils/utils";
 import {Button} from "@material-ui/core";
 import Optional from "../Optional/Optional";
 import {Input, InputGroup, InputGroupAddon} from "reactstrap";

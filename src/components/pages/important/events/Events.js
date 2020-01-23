@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Route} from "react-router-dom";
-import {getPath} from "../../../utils/url";
+import {getPath} from "../../../../utils/url";
 import EventList from "./EventList";
 import Event from "./Event";
 

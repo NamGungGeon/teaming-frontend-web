@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import BoardRow from "../BoardRow/BoardRow";
-import {randStr} from "../../../utils/utils";
+import {randStr} from "../../../../utils/utils";
 import styles from './BoardWrapper.module.css';
 
 class BoardWrapper extends Component {

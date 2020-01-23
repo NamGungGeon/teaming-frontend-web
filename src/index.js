@@ -7,10 +7,10 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ReactRouterGlobalHistory } from 'react-router-global-history';
 
-import reduxChunk from './components/redux';
+import reduxChunk from './redux/quick';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { getPath } from './components/utils/url';
+import { getPath } from './utils/url';
 
 const store = createStore(reduxChunk);
 

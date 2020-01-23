@@ -6,16 +6,16 @@ import { MdComment, MdBuild } from "react-icons/md";
 import {Col, FormGroup, InputGroupAddon, Label} from "reactstrap";
 import Input from "reactstrap/es/Input";
 import InputGroup from "reactstrap/es/InputGroup";
-import {quickConnect} from "../../redux";
-import {createTrashComment, deleteTrashComment, getTrashComments, updateTrashComment} from "../../http/tming";
-import {errMsg} from "../../http/util";
+import {quickConnect} from "../../../redux/quick";
+import {createTrashComment, deleteTrashComment, getTrashComments, updateTrashComment} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
 import moment from "moment";
 import Comment from "../Comment/Comment";
 import Section from "../Section/Section";
 import Button from "@material-ui/core/Button";
 import {IoIosPerson} from 'react-icons/io'
 import Popup from "../Popup/Popup";
-import {randStr} from "../../utils/utils";
+import {randStr} from "../../../utils/utils";
 import PageTitle from "../PageTitle/PageTitle";
 
 class Threadic extends Component {

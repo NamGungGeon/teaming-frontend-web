@@ -6,7 +6,7 @@ import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import AndroidIcon from '@material-ui/icons/Android';
 import AppleIcon from '@material-ui/icons/Apple';
 import CloseIcon from '@material-ui/icons/Close';
-import {quickConnect} from "../../redux";
+import {quickConnect} from "../../../redux/quick";
 
 class HelpAppInstall extends Component {
   state={

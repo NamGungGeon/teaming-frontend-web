@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {quickConnect} from "../../redux";
+import {quickConnect} from "../../../redux/quick";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import Button from "@material-ui/core/Button";
-import {createBlock, requestFriend} from "../../http/tming";
-import {errMsg} from "../../http/util";
+import {createBlock, requestFriend} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
 import Optional from "../../primitive/Optional/Optional";
-import {authorized} from "../../utils/utils";
+import {authorized} from "../../../utils/utils";
 
 class UserInfoViewer extends Component {
   state={

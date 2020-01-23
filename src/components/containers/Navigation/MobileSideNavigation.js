@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {quickConnect} from "../../redux";
+import {quickConnect} from "../../../redux/quick";
 import styles from './MobileSideNavigation.module.css';
 import HorizontalNavigation from "./HorizontalNavigation";
 

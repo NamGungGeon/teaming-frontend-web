@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
-import {quickConnect} from "../../../redux";
-import {createNotice, getMyProfile, getNotices} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
+import {quickConnect} from "../../../../redux/quick";
+import {createNotice, getMyProfile, getNotices} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -12,11 +12,11 @@ import {InputGroupAddon} from "reactstrap";
 import Button from "@material-ui/core/Button";
 import Comment from "../../../primitive/Comment/Comment";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import {getPath} from "../../../utils/url";
+import {getPath} from "../../../../utils/url";
 import Section from "../../../primitive/Section/Section";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import moment from "moment";
-import {authorized} from "../../../utils/utils";
+import {authorized} from "../../../../utils/utils";
 
 class NoticeList extends Component {
   state={

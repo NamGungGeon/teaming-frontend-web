@@ -5,13 +5,13 @@ import Section from "../../../primitive/Section/Section";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import Button from "@material-ui/core/Button";
 import Input from "reactstrap/es/Input";
-import {createEvent, createNotice, getMyProfile} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
-import {quickConnect} from "../../../redux";
+import {createEvent, createNotice, getMyProfile} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
+import {quickConnect} from "../../../../redux/quick";
 import FormGroup from "reactstrap/es/FormGroup";
 import Col from "reactstrap/es/Col";
 import Form from "reactstrap/es/Form";
-import {authorized} from "../../../utils/utils";
+import {authorized} from "../../../../utils/utils";
 
 class EventList extends Component {
   state={

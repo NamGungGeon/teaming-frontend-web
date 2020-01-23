@@ -3,7 +3,7 @@ import styles from './UsefulInformation.module.css';
 import EventGallery from "../EventGallery/EventGallery";
 import Notices from "../Notices/Notices";
 import Section from "../../primitive/Section/Section";
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 import getHistory from 'react-router-global-history';
 import Carousel from "../Carousel/Carousel";
 

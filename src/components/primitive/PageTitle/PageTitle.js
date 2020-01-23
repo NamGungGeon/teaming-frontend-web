@@ -13,12 +13,12 @@ class PageTitle extends Component {
     const { title, titleColor, explain, align } = this.props;
     return (
       <div className={styles.wrapper}>
-        <h3
+        <h4
           className={classNames('title')}
           style={{ color: titleColor }}
         >
           {title}
-        </h3>
+        </h4>
         {explain && (
           <p
             className={classNames('explain')}

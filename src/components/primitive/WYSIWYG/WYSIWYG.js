@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import MyUploadAdapter from "../../utils/MyUploadAdapter";
-import {urlQuery} from "../../utils/url";
-import {createBoardPosts, image} from "../../http/tming";
-import {errMsg} from "../../http/util";
+import MyUploadAdapter from "../../../utils/MyUploadAdapter";
+import {urlQuery} from "../../../utils/url";
+import {createBoardPosts, image} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
 
 class Wysiwyg extends Component {
   state={

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {quickConnect} from "../../redux";
-import {authorized} from "../../utils/utils";
-import {getPath, urlQuery} from "../../utils/url";
+import {quickConnect} from "../../../redux/quick";
+import {authorized} from "../../../utils/utils";
+import {getPath, urlQuery} from "../../../utils/url";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import HorizontalSlicedLayout from "../../layouts/HorizontalSlicedLayout/HorizontalSlicedLayout";
 import Window from "../../primitive/Window/Window";

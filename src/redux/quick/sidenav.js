@@ -1,6 +1,6 @@
 import { handleActions, createAction } from 'redux-actions';
-import { randStr } from '../utils/utils';
-import HorizontalNavigation from "../containers/Navigation/HorizontalNavigation";
+import { randStr } from '../../utils/utils';
+import HorizontalNavigation from "../../components/containers/Navigation/HorizontalNavigation";
 import GamepadIcon from '@material-ui/icons/Gamepad';
 import PeopleIcon from '@material-ui/icons/People';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
@@ -8,7 +8,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import { IoIosHeart, } from "react-icons/io";
 import { FaToiletPaper } from "react-icons/fa";
 import { MdBusinessCenter } from 'react-icons/md';
-import {getPath} from "../utils/url";
+import {getPath} from "../../utils/url";
 import React from "react";
 import getHistory from 'react-router-global-history';
 
@@ -19,7 +19,7 @@ const sideNav= {
       {
         label: (<span><GamepadIcon/>&nbsp;&nbsp;팀매칭</span>),
         onClick: ()=>{
-          getHistory().push(getPath(`/teambuild`))
+          getHistory().push(getPath(`/match`))
         }
       },
       {

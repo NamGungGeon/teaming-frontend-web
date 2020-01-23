@@ -5,15 +5,15 @@ import {Card} from "@material-ui/core";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
-import {quickConnect} from "../../../redux";
+import {quickConnect} from "../../../../redux/quick";
 import Avatar from "@material-ui/core/Avatar";
 import Tooltip from "@material-ui/core/Tooltip";
-import {getBlocks, removeBlock} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
+import {getBlocks, removeBlock} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
 import CloseIcon from '@material-ui/icons/Close';
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import Button from "@material-ui/core/Button";
-import {beautifyDate} from "../../../utils/utils";
+import {beautifyDate} from "../../../../utils/utils";
 
 
 class Blocks extends Component {

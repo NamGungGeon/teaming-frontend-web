@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getPath} from "../../../utils/url";
+import {getPath} from "../../../../utils/url";
 import {Route} from "react-router-dom";
 import Notice from "./Notice";
 import NoticeList from "./NoticeList";

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
-import {quickConnect} from "../../../redux";
-import {delay, randNum, randStr} from "../../../utils/utils";
+import {quickConnect} from "../../../../redux/quick";
+import {delay, randNum, randStr} from "../../../../utils/utils";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';

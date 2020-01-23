@@ -2,72 +2,70 @@ import React, { Component } from 'react';
 import Section from '../../../primitive/Section/Section';
 import PageTitle from '../../../primitive/PageTitle/PageTitle';
 
-
-import plus from '../../../resource/plus.png';
-
 import ImageSelect from '../../../primitive/ImageSelect/ImageSelect';
 import ImageViewGroup from '../../../containers/ImageViewGroup/ImageViewGroup';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
-import { quickConnect } from '../../../redux';
 import ChampionSelect from '../../../containers/ChampionSelect/ChampionSelect';
-import {getPath, resPath} from '../../../utils/url';
+import {getPath, resPath} from '../../../../utils/url';
 import {Button} from "reactstrap";
 import Input from "reactstrap/es/Input";
 import Collapse from "reactstrap/es/Collapse";
 import ButtonGroup from "reactstrap/es/ButtonGroup";
-import {championSquareImage} from "../../../http/lol";
+import {championSquareImage} from "../../../../http/lol";
+import AddIcon from '@material-ui/icons/Add';
+import {quickConnect} from "../../../../redux/quick";
 
 const lines= [
-  { img: `${resPath}/lol/line/top.png`, id: 'top', label: '탑', height: '48px' },
-  { img: `${resPath}/lol/line/md.png`, id: 'mid', label: '미드', height: '48px' },
-  { img: `${resPath}/lol/line/ad.png`, id: 'bottom', label: '바텀', height: '48px' },
-  { img: `${resPath}/lol/line/jg.png`, id: 'jungle', label: '정글', height: '48px' },
-  { img: `${resPath}/lol/line/sp.png`, id: 'supporter', label: '서포터', height: '48px' },
-  { img: `${resPath}/lol/line/all.png`, id: 'all', label: '상관없음', height: '48px' },
+  { img: `${resPath}/lol/line/top.png`, id: 'top', label: '탑', style: {width: '48px'}},
+  { img: `${resPath}/lol/line/md.png`, id: 'mid', label: '미드', style: {width: '48px'}},
+  { img: `${resPath}/lol/line/ad.png`, id: 'bottom', label: '바텀', style: {width: '48px'}},
+  { img: `${resPath}/lol/line/jg.png`, id: 'jungle', label: '정글', style: {width: '48px'}},
+  { img: `${resPath}/lol/line/sp.png`, id: 'supporter', label: '서포터', style: {width: '48px'}},
+  { img: `${resPath}/lol/line/all.png`, id: 'all', label: '상관없음', style: {width: '48px'}},
 ];
 const tiers= [
-  { img: `${resPath}/lol/tier/bronze.png`, id: 'bronze', label: '브론즈' , height: '48px'},
-  { img: `${resPath}/lol/tier/silver.png`, id: 'silver', label: '실버', height: '48px' },
-  { img: `${resPath}/lol/tier/gold.png`, id: 'gold', label: '골드', height: '48px' },
-  { img: `${resPath}/lol/tier/platinum.png`, id: 'platinum', label: '플래티넘', height: '48px' },
-  { img: `${resPath}/lol/tier/diamond.png`, id: 'diamond', label: '다이아몬드', height: '48px'},
-  { img: `${resPath}/lol/tier/master.png`, id: 'master', label: '마스터', height: '48px' },
-  { img: `${resPath}/lol/tier/grandmaster.png`, id: 'grandmaster', label: '그랜드마스터', height: '48px' },
-  { img: `${resPath}/lol/tier/challenger.png`, id: 'challenger', label: '챌린저', height: '48px' },
+  { img: `${resPath}/lol/tier/bronze.png`, id: 'bronze', label: '브론즈' , style: {width: '48px'}},
+  { img: `${resPath}/lol/tier/silver.png`, id: 'silver', label: '실버', style: {width: '48px'}},
+  { img: `${resPath}/lol/tier/gold.png`, id: 'gold', label: '골드', style: {width: '48px'}},
+  { img: `${resPath}/lol/tier/platinum.png`, id: 'platinum', label: '플래티넘', style: {width: '48px'}},
+  { img: `${resPath}/lol/tier/diamond.png`, id: 'diamond', label: '다이아몬드', style: {width: '48px'}},
+  { img: `${resPath}/lol/tier/master.png`, id: 'master', label: '마스터', style: {width: '48px'}},
+  { img: `${resPath}/lol/tier/grandmaster.png`, id: 'grandmaster', label: '그랜드마스터', style: {width: '48px'}},
+  { img: `${resPath}/lol/tier/challenger.png`, id: 'challenger', label: '챌린저', style: {width: '48px'}},
 ];
 
-class Option extends Component {
-  state = {
-    gameType: 'rank',
-    tier: '',
-    champions: [],
-    ban: [],
-    likes: [],
-    mainPos: '',
-    subPos: '',
-    nickname: '',
-    isRank: true,
-    mode: 'rank',
-    goal: 'win',
+class Ready extends Component {
+  constructor(props) {
+    super(props);
+    //마지막으로 사용한 설정 불러오기
+    const {match}= this.props;
+    console.log(this.props);
+    this.state = {
+      ...match,
+    };
   };
-  componentWillUpdate(nextProps, nextState, nextContext) {
-    console.log('willupdate', nextState);
-  }
 
-  openChampions = (inits, updater) => {
+  openChampions = (inits, selections) => {
     const { uiKit } = this.props;
 
     uiKit.popup.make(
       <ChampionSelect
-        selections={updater}
+        id={'open'}
+        selections={selections}
         inits={inits}
         popup />
     );
   };
 
-  requestStart = () => {
-    const { uiKit, history } = this.props;
-    const { tier, champions, mainPos, subPos } = this.state;
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {match, setMatch}= this.props;
+    setMatch(this.state);
+    console.log(this.state);
+  }
+
+  requestStart = async () => {
+    const { uiKit, history, match, fulfilled } = this.props;
+    const { tier, champions, mainPos, partnerPos } = this.state;
     // if (!tier) {
     //   uiKit.toaster.cooking('티어를 선택하세요');
     //   return;
@@ -84,8 +82,9 @@ class Option extends Component {
     //   uiKit.toaster.cooking('서브 라인을 선택하세요');
     //   return;
     // }
-
-    history.push(getPath(`/teambuild/lol/start`));
+    console.log(match);
+    if(fulfilled())
+      history.push(getPath(`/match/lol/start`));
   };
 
   render() {
@@ -101,9 +100,7 @@ class Option extends Component {
         <br/>
 
         <Section>
-          <div style={{
-            textAlign: 'left',
-          }}>
+          <div style={{ textAlign: 'left' }}>
             <div>
               <div style={{display: 'inline-block', maxWidth: '350px', width: '100%'}}>
                 <PageTitle title={'닉네임'} explain={''} noMargin />
@@ -220,23 +217,12 @@ class Option extends Component {
               </div>
               <br/>
               <div>
-                <PageTitle title={'서브 라인'} explain={''} noMargin />
-                <ImageSelect
-                  icons={lines}
-                  style={{ justifyContent: 'left' }}
-                  selections={selection => {
-                    this.setState({ ...this.state, subPos: selection });
-                  }}
-                />
-              </div>
-              <br/>
-              <div>
                 <PageTitle title={'파트너 라인'} explain={''} noMargin />
                 <ImageSelect
                   icons={lines}
                   style={{ justifyContent: 'left' }}
                   selections={selection => {
-                    this.setState({ ...this.state, subPos: selection });
+                    this.setState({ ...this.state, partnerPos: selection });
                   }}
                 />
               </div>
@@ -252,26 +238,24 @@ class Option extends Component {
                     ...champions.map(select => {
                       return {
                         img: championSquareImage(select),
+                        style: {
+                          width: '48px',
+                        }
                       };
                     }),
                     {
-                      img: plus,
+                      img: <AddIcon style={{fontSize: '48px'}}/>,
                       onClick: () => {
                         this.openChampions(champions, selections => {
-                          //TODO: 업데이트가 안된다....
                           this.setState({
                             ...this.state,
                             champions: selections
                           });
-                          console.log(this);
-                          console.log(selections, champions);
                         });
                       },
-                      width: '32px'
                     }
                   ]}
                   style={{ justifyContent: 'left' }}
-                  width={'64px'}
                 />
               </div>
               <br/>
@@ -286,26 +270,24 @@ class Option extends Component {
                     ...likes.map(select => {
                       return {
                         img: championSquareImage(select),
+                        style: {
+                          width: '48px',
+                        }
                       };
                     }),
                     {
-                      img: plus,
-                      style: {
-                        filter: 'grayscale(0%) invert()',
-                      },
-                      onClick: () => {
+                      img: <AddIcon style={{fontSize: '48px'}}/>,
+                      onClick: (event) => {
                         this.openChampions(likes, selections => {
                           this.setState({
                             ...this.state,
                             likes: selections
                           });
                         });
-                      },
-                      width: '32px'
+                      }
                     }
                   ]}
                   style={{ justifyContent: 'left' }}
-                  width={'64px'}
                 />
               </div>
               <br/>
@@ -320,34 +302,32 @@ class Option extends Component {
                     ...ban.map(select => {
                       return {
                         img: championSquareImage(select),
+                        style: {
+                          width: '48px',
+                        }
                       };
                     }),
                     {
-                      img: plus,
+                      img: <AddIcon style={{fontSize: '48px'}}/>,
                       onClick: () => {
                         this.openChampions(ban,   selections => {
-                          console.log(selections, this.state.ban);
                           this.setState({
                             ...this.state,
-                            ban:selections
+                            ban: selections
                           });
-                          console.log('ok');
                         });
-                      },
-                      width: '32px'
+                      }
                     }
                   ]}
                   style={{ justifyContent: 'left' }}
-                  width={'64px'}
                 />
               </div>
             </Collapse>
-
+            <br/>
             <AlignLayout align={'right'}>
-              <Button
-                color={'primary'}
-                onClick={this.requestStart}
-                size={'large'}>시작 &gt;</Button>
+              <Button block color={'primary'} onClick={this.requestStart} size={'large'}>
+                시작 &gt;
+              </Button>
             </AlignLayout>
           </div>
         </Section>
@@ -357,4 +337,4 @@ class Option extends Component {
   }
 }
 
-export default quickConnect(Option);
+export default quickConnect(Ready);

@@ -9,13 +9,13 @@ import Button from "@material-ui/core/Button";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
-import {beautifyDate, delay, randNum} from "../../utils/utils";
-import {getPath, urlQuery} from "../../utils/url";
-import {quickConnect} from "../../redux";
+import {beautifyDate, delay, randNum} from "../../../utils/utils";
+import {getPath, urlQuery} from "../../../utils/url";
+import {quickConnect} from "../../../redux/quick";
 import BoardWrapper from "../../primitive/Board/BoardWrapper/BoardWrapper";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
-import {getBoardPosts} from "../../http/tming";
-import {errMsg} from "../../http/util";
+import {getBoardPosts} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
 import Pagenation from "../../primitive/Pagenation/Pagenation";
 
 class Contents extends Component {

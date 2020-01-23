@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 import lol from "../../resource/icon/lol.jpg";
 import overwatch from "../../resource/icon/overwatch.png";
 import battleground from "../../resource/icon/battleground.png";

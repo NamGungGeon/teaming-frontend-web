@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Chatting from '../containers/Chatting/Chatting';
 import Wait from '../primitive/Wait/Wait';
-import ChatLayout from '../primitive/ChatLayout/ChatLayout';
+import ChatLayout from '../layouts/ChatLayout/ChatLayout';
 import Window from '../primitive/Window/Window';
 import io from 'socket.io-client';
-import { scrollToTop } from '../utils/utils';
+import { scrollToTop } from '../../utils/utils';
 import Button from "@material-ui/core/Button";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CloseIcon from '@material-ui/icons/Close';
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import ReportIcon from '@material-ui/icons/Report';
-import {getPath} from "../utils/url";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import {getPath} from "../../utils/url";
 import PageTitle from "../primitive/PageTitle/PageTitle";
 
 class Chat extends Component {
@@ -149,7 +149,7 @@ class Chat extends Component {
     );
 
     return (
-      <div>
+      <>
         {matchComplete ? (
           <ChatLayout
             tools={tools}
@@ -158,7 +158,7 @@ class Chat extends Component {
           </ChatLayout>
         ) : this.chatStatus()
         }
-      </div>
+      </>
     );
   }
 

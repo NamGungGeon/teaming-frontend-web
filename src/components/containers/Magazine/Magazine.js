@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Gallery from "../../primitive/Gallery/Gallery";
-import {randStr} from "../../utils/utils";
+import {randStr} from "../../../utils/utils";
 
 class Magazine extends Component {
   render() {

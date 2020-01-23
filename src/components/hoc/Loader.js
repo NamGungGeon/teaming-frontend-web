@@ -1,6 +1,6 @@
 import React from "react";
-import Loading from "../../primitive/Loading/Loading";
-import LoadingTopFixed from "../../primitive/LoadingTopFixed/LoadingTopFixed";
+import Loading from "../primitive/Loading/Loading";
+import LoadingTopFixed from "../primitive/LoadingTopFixed/LoadingTopFixed";
 
 export const Loader = component => {
   return {

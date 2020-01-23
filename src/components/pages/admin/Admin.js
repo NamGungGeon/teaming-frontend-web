@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {authorized} from "../../utils/utils";
-import {getMyProfile} from "../../http/tming";
-import {quickConnect} from "../../redux";
-import {getPath} from "../../utils/url";
-import uikit from "../../redux/uikit";
+import {authorized} from "../../../utils/utils";
+import {getMyProfile} from "../../../http/tming";
+import {quickConnect} from "../../../redux/quick";
+import {getPath} from "../../../utils/url";
+import uikit from "../../../redux/quick/uikit";
 import Complains from "./Complains";
 import {Route} from "react-router-dom";
 import HorizontalNavigation from "../../containers/Navigation/HorizontalNavigation";

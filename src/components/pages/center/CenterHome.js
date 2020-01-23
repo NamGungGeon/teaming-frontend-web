@@ -4,7 +4,7 @@ import FAQ from "../../containers/FAQ/FAQ";
 import ButtonsWrapper from "../../primitive/ButtonsWrapper/ButtonsWrapper";
 import SquareButton from "../../primitive/SquareButton/SquareButton";
 import {Button, ListItemIcon} from "@material-ui/core";
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import Section from "../../primitive/Section/Section";

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {beautifyDate, randNum, randStr} from "../../utils/utils";
+import {beautifyDate, randNum, randStr} from "../../../utils/utils";
 import styles from './Notices.module.css';
-import {getPath} from "../../utils/url";
-import {getNotices} from "../../http/tming";
+import {getPath} from "../../../utils/url";
+import {getNotices} from "../../../http/tming";
 import Spinner from "reactstrap/es/Spinner";
 import moment from "moment";
 import MenuItem from "@material-ui/core/MenuItem";

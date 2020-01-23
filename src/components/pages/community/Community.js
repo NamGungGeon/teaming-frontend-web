@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 import {Route} from "react-router-dom";
 import Contents from "./Contents";
 import Content from "./Read";
@@ -7,7 +7,7 @@ import lol from "../../resource/icon/lol.jpg";
 import overwatch from "../../resource/icon/overwatch.png";
 import battleground from "../../resource/icon/battleground.png";
 import Write from "./Write";
-import {quickConnect} from "../../redux";
+import {quickConnect} from "../../../redux/quick";
 import getHistory from 'react-router-global-history';
 import Update from "./Update";
 

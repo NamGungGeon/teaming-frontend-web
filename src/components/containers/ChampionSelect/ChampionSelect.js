@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ImageSelect from '../../primitive/ImageSelect/ImageSelect';
-import { quickConnect } from '../../redux';
 import SearchBox from '../../primitive/SearchBox/SearchBox';
-import {championSquareImage, getChampions} from "../../http/lol";
-import {errMsg} from "../../http/util";
+import {championSquareImage, getChampions} from "../../../http/lol";
+import {errMsg} from "../../../http/util";
+
 
 class ChampionSelect extends Component {
   state = {
@@ -12,12 +12,14 @@ class ChampionSelect extends Component {
   };
 
   componentDidMount() {
+    console.log('mount champion selects', this.props.id);
     this.loadChampions();
   };
+  componentWillUnmount() {
+    console.log('unmount champion selects', this.props.id);
+  }
 
   loadChampions= async ()=>{
-    const {uiKit}= this.props;
-    uiKit.loading.start();
     await getChampions().then(response=>{
       this.setState({
         ...this.state,
@@ -26,9 +28,8 @@ class ChampionSelect extends Component {
         }),
       });
     }).catch(e=>{
-      uiKit.toaster.cooking(errMsg(e));
+      console.log(errMsg(e));
     });
-    uiKit.loading.end();
   };
 
   getChampions = () => {
@@ -73,7 +74,10 @@ class ChampionSelect extends Component {
           <ImageSelect
             multiple={5}
             icons={this.getChampions()}
-            selections={selections}
+            selections={(selects)=>{
+              console.log('championSelect', selects);
+              selections(selects);
+            }}
             inits={inits}
           />
         </div>
@@ -82,4 +86,4 @@ class ChampionSelect extends Component {
   }
 }
 
-export default quickConnect(ChampionSelect);
+export default ChampionSelect;

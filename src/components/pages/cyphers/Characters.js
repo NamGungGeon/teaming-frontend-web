@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {quickConnect} from "../../redux";
-import {getCharacter, getCharacterPosition, myRes, openApiRes} from "../../http/cyphers";
-import {errMsg} from "../../http/util";
+import {quickConnect} from "../../../redux/quick";
+import {getCharacter, getCharacterPosition, myRes, openApiRes} from "../../../http/cyphers";
+import {errMsg} from "../../../http/util";
 import ImageViewGroup from "../../containers/ImageViewGroup/ImageViewGroup";
 import Section from "../../primitive/Section/Section";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";

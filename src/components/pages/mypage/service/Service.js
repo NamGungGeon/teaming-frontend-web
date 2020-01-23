@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getPath} from "../../../utils/url";
+import {getPath} from "../../../../utils/url";
 import Asked from "./Asked";
 import {Route} from "react-router-dom";
 import Illegal from "./Illegal";

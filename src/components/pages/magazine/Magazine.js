@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 import MagazineList from "./MagazineList";
 import {Route} from "react-router-dom";
 import Read from "../community/Read";

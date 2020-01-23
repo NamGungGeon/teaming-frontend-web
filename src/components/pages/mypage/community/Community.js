@@ -1,7 +1,7 @@
 import Block from "./Blocks";
 import Friends from "./Friends";
 import React, {Component} from 'react';
-import {getPath} from "../../../utils/url";
+import {getPath} from "../../../../utils/url";
 import {Route} from "react-router-dom";
 import Message from "./Message";
 import Logs from "./logs/Logs";

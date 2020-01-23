@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
-import {getNotifications, removeNotification} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
-import {quickConnect} from "../../../redux";
+import {getNotifications, removeNotification} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
+import {quickConnect} from "../../../../redux/quick";
 import MenuItem from "@material-ui/core/MenuItem";
-import {randStr} from "../../../utils/utils";
+import {randStr} from "../../../../utils/utils";
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from '@material-ui/icons/Delete';
 import Menu from "@material-ui/core/Menu";
 import Section from "../../../primitive/Section/Section";
-import auth from "../../../redux/auth";
+import auth from "../../../../redux/quick/auth";
 
 class Notifications extends Component {
   state={

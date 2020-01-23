@@ -3,14 +3,14 @@ import PageTitle from "../../primitive/PageTitle/PageTitle";
 import Wysiwyg from "../../primitive/WYSIWYG/WYSIWYG";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import {Button} from "@material-ui/core";
-import {createCase} from "../../http/tming";
+import {createCase} from "../../../http/tming";
 import Optional from "../../primitive/Optional/Optional";
 import Input from "reactstrap/es/Input";
-import {authorized} from "../../utils/utils";
+import {authorized} from "../../../utils/utils";
 import {Validator} from "class-validator";
-import {getPath} from "../../utils/url";
-import {errMsg} from "../../http/util";
-import {quickConnect} from "../../redux";
+import {getPath} from "../../../utils/url";
+import {errMsg} from "../../../http/util";
+import {quickConnect} from "../../../redux/quick";
 
 class CreateCase extends Component {
   state={

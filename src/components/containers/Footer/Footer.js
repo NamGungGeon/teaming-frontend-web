@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styles from './Footer.module.css';
 import {NavLink} from "react-router-dom";
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 import whiteLogo from '../../resource/logo_txt_white.png';
 
 class Footer extends Component {

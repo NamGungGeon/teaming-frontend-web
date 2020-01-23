@@ -7,19 +7,17 @@ import classNames from 'classnames';
 class ImageViewGroup extends Component {
   static defaultProps = {
     icons: [],
-    width: 'auto'
   };
   static propTypes = {
     icons: PropTypes.array,
-    width: PropTypes.string
   };
 
   render() {
-    const { icons, style, width: fixedWidth } = this.props;
+    const { icons, style } = this.props;
     return (
       <div className={styles.group} style={style}>
         {icons.map((icon, idx) => {
-          const { img, label, onClick, shape, width } = icon;
+          const { img, label, onClick, shape } = icon;
           return (
             <div
               key={`${icon.toString()}_${idx}`}
@@ -27,9 +25,10 @@ class ImageViewGroup extends Component {
               onClick={onClick ? onClick : () => {}}
             >
               <ImageView
+                key={`${icon.toString()}_${idx}`}
                 img={img}
                 shape={shape}
-                width={width ? width : fixedWidth}
+                style={icon.style}
               />
               {icon.label && <span className={styles.label}>{label}</span>}
             </div>

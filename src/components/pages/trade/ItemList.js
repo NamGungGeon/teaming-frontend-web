@@ -4,7 +4,7 @@ import Window from "../../primitive/Window/Window";
 import ItemSearchFilter from "../../containers/ItemSearchFilter/ItemSearchFilter";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import {Button, Table} from "reactstrap";
-import {formatToMoney, randStr} from "../../utils/utils";
+import {formatToMoney, randStr} from "../../../utils/utils";
 import BoardWrapper from "../../primitive/Board/BoardWrapper/BoardWrapper";
 import icon from '../../resource/icon.png';
 

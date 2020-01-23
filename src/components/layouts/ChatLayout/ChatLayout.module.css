@@ -1,19 +1,18 @@
 
 .wrapper{
-    width: 95%;
     height: calc(100% - 48px);
+    width: 100%;
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
 
-    position: absolute;
     box-sizing: border-box;
 }
 
 .wrapper> .info{
-    width: 350px;
+    width: 200px;
     margin-right: 16px;
     height: auto;
 }

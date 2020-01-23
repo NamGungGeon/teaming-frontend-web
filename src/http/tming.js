@@ -340,6 +340,25 @@ export const deleteBoardPost = (auth, id) => {
   });
 };
 
+export const goodToPost= (auth, id)=>{
+  return axios.request({
+    method: 'POST',
+    url: `${url}/boards/${id}/likes`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+  });
+};
+export const badToPost= (auth, id)=>{
+  return axios.request({
+    method: 'POST',
+    url: `${url}/boards/${id}/dislikes`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+  });
+};
+
 export const createPostComment = (auth, id, text) => {
   return axios.request({
     method: 'POST',

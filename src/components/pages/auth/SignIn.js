@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Login from "../../containers/Login/Login";
-import {quickConnect} from "../../redux";
-import {authorized} from "../../utils/utils";
-import {getPath} from "../../utils/url";
+import {quickConnect} from "../../../redux/quick";
+import {authorized} from "../../../utils/utils";
+import {getPath} from "../../../utils/url";
 
 class SignIn extends Component {
   componentDidMount() {

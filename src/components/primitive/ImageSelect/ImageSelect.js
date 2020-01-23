@@ -2,35 +2,17 @@ import React, { Component } from 'react';
 import ImageView from '../ImageView/ImageView';
 import styles from './ImageSelect.module.css';
 import PropTypes from 'prop-types';
-import {randStr} from "../../utils/utils";
+import {randStr} from "../../../utils/utils";
 
 class ImageSelect extends Component {
-  state = {
-    selected: []
+  constructor(props){
+    super(props);
+    this.state= {
+      selected: props.inits,
+    };
   };
-
-  static defaultProps = {
-    icons: [],
-    multiple: 1,
-    selections: selects => {},
-    inits: []
-  };
-
-  static propTypes = {
-    icons: PropTypes.array,
-    multiple: PropTypes.number,
-    selections: PropTypes.func,
-    inits: PropTypes.array
-  };
-  componentDidMount() {
-    this.setState({
-      ...this.state,
-      selected: this.props.inits
-    });
-  }
 
   componentWillUpdate(nextProps, nextState, nextContext) {
-
     const { multiple, selections} = this.props;
     const { selected } = this.state;
     const { selected: nextSelected}= nextState;
@@ -50,7 +32,8 @@ class ImageSelect extends Component {
 
     if (newSelected.findIndex(s => s === id) === -1) {
       //not selected
-      if (selected.length === multiple) newSelected.pop();
+      if (selected.length === multiple)
+        newSelected.pop();
       newSelected.push(id);
     } else {
       //already selected
@@ -58,6 +41,7 @@ class ImageSelect extends Component {
         return s !== id;
       });
     }
+
     this.setState({
       ...this.state,
       selected: newSelected
@@ -97,5 +81,20 @@ class ImageSelect extends Component {
     );
   }
 }
+
+
+ImageSelect.defaultProps = {
+  icons: [],
+  multiple: 1,
+  selections: selects => {},
+  inits: []
+};
+
+ImageSelect.propTypes = {
+  icons: PropTypes.array,
+  multiple: PropTypes.number,
+  selections: PropTypes.func,
+  inits: PropTypes.array
+};
 
 export default ImageSelect;

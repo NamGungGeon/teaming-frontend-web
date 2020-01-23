@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import Threadic from "../../primitive/Threadic/Threadic";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
-import {quickConnect} from "../../redux";
+import {quickConnect} from "../../../redux/quick";
 import Input from "reactstrap/es/Input";
-import {createTrash, getTrashes} from "../../http/tming";
-import {errMsg} from "../../http/util";
+import {createTrash, getTrashes} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
 import Button from "@material-ui/core/Button";
 import { FaToiletPaper } from "react-icons/fa";
 import RefreshIcon from '@material-ui/icons/Refresh';
-import {randStr} from "../../utils/utils";
+import {randStr} from "../../../utils/utils";
 
 class Trash extends Component {
   state={

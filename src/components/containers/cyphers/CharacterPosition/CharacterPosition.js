@@ -3,7 +3,7 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import ImageView from "../../../primitive/ImageView/ImageView";
-import {myRes, openApiRes} from "../../../http/cyphers";
+import {myRes, openApiRes} from "../../../../http/cyphers";
 import CardContent from "@material-ui/core/CardContent";
 import styles from './CharacterPosition.module.css';
 

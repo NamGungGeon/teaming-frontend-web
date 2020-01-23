@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import SquareButton from '../../primitive/SquareButton/SquareButton';
-import { getPath } from '../../utils/url';
+import { getPath } from '../../../utils/url';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 
 import lol from '../../resource/icon/lol.jpg';
 import overwatch from '../../resource/icon/overwatch.png';
 import battleground from '../../resource/icon/battleground.png';
-import {randStr} from "../../utils/utils";
+import {randStr} from "../../../utils/utils";
 import {Input} from "reactstrap";
 import FormGroup from "reactstrap/es/FormGroup";
 import Col from "reactstrap/es/Col";
-import CardWrapper from "../../primitive/CardWrapper/CardWrapper";
 import ButtonsWrapper from "../../primitive/ButtonsWrapper/ButtonsWrapper";
 
 class GameList extends Component {
@@ -20,7 +19,7 @@ class GameList extends Component {
         label: '리그 오브 레전드',
         icon: lol,
         onClick: () => {
-          this.go(getPath(`/teambuild/lol`));
+          this.go(getPath(`/match/lol`));
         }
       },
       {

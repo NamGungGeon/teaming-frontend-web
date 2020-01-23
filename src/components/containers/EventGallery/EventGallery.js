@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import styles from './EventGallery.module.css';
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 
-import {getEvents} from "../../http/tming";
+import {getEvents} from "../../../http/tming";
 import Spinner from "reactstrap/es/Spinner";
-import {quickConnect} from "../../redux";
+import {quickConnect} from "../../../redux/quick";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import getHistory from 'react-router-global-history';
-import {beautifyDate} from "../../utils/utils";
+import {beautifyDate} from "../../../utils/utils";
 
 class EventGallery extends Component {
   state={

@@ -12,7 +12,9 @@ class Wait extends Component {
         className={styles.wrapper}
         align={'center'}>
         <ImageView
-          width={'128px'}
+          style={{
+            width: '128px',
+          }}
           className={styles.logo}/>
         <br/><br/>
         {

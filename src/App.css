@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Nanum Gothic', sans-serif;
+  font-family: 'Gothic A1', 'Do Hyeon', sans-serif;
 
   word-break: break-all;
 }
@@ -120,19 +120,32 @@ tbody tr{
   flex: 1;
   overflow-y: auto;
 }
-.sidenav+ .ruler{
+
+.sidenav+ .content{
   left: 240px;
   width: calc(100% - 240px);
+  top: 48px;
+}
+.content{
+  display: flex;
+  position: absolute;
+  height: 100%;
+}
+.content> *{
+  padding: 32px;
+}
+.content> .sideContent{
+  display: none;
+  padding-left: 0;
+  padding-right: 0;
 }
 .ruler{
-  position: absolute;
   text-align: left;
   width: 100%;
-  max-width: 1024px;
+  min-width: 900px;
+  max-width: 900px;
   height: 100%;
-  min-width: 1024px;
   box-sizing: border-box;
-  padding: 32px;
 
   display: flex;
   flex-direction: column;
@@ -207,14 +220,24 @@ table.noHead tr > td:nth-child(1) {
     min-width: 0;
     padding: 8px;
     width: 100%;
+    min-height: 900px;
   }
 
   .flexBox > div {
     width: calc(100% - 16px);
   }
-  .sidenav+ .ruler{
+  .sidenav+ .content{
     left: 0;
     width: 100%;
+  }
+}
+@media (min-width: 1300px) {
+
+  .content> .sideContent{
+    display: block;
+    flex: 1;
+    min-width: 256px;
+    max-width: 300px;
   }
 }
 

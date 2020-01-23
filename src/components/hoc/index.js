@@ -21,11 +21,11 @@ export const UiBundle = component => {
 
   bundle.render = () => {
     return (
-      <div>
-        {bundle.toaster.toasts()}
+      <>
+        {bundle.toaster.render()}
         {bundle.loading.render()}
         {bundle.popup.render()}
-      </div>
+      </>
     );
   };
 

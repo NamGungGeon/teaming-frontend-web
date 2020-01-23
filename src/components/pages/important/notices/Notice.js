@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {quickConnect} from "../../../redux";
-import {getMyProfile, getNotice, removeNotice} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
+import {quickConnect} from "../../../../redux/quick";
+import {getMyProfile, getNotice, removeNotice} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
 import Section from "../../../primitive/Section/Section";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import Button from "@material-ui/core/Button";
-import {getPath} from "../../../utils/url";
-import {authorized} from "../../../utils/utils";
+import {getPath} from "../../../../utils/url";
+import {authorized} from "../../../../utils/utils";
 
 class Notice extends Component {
   state={

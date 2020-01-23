@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PageTitle from "../../primitive/PageTitle/PageTitle";
 import Magazine from "../../containers/Magazine/Magazine";
+import Section from "../../primitive/Section/Section";
 
 class MagazineList extends Component {
   render() {
@@ -8,7 +9,9 @@ class MagazineList extends Component {
       <div>
         <PageTitle title={'매거진'} explain={'주요 정보를 빠르고 쉽게 받아보세요'}/>
         <br/>
-        <Magazine/>
+        <Section>
+          <Magazine/>
+        </Section>
       </div>
     );
   }

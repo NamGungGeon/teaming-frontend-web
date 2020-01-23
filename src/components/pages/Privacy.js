@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PageTitle from "../primitive/PageTitle/PageTitle";
-import {privacy} from "../utils/strings";
+import {privacy} from "../../utils/strings";
 
 class Privacy extends Component {
   componentDidMount() {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {quickConnect} from "../../redux";
+import {quickConnect} from "../../../redux/quick";
 import Comment from "../../primitive/Comment/Comment";
-import {authorized, beautifyDate, delay, randNum} from "../../utils/utils";
+import {authorized, beautifyDate, delay, randNum} from "../../../utils/utils";
 import {Input, InputGroup, InputGroupAddon} from "reactstrap";
 import Button from "@material-ui/core/Button";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
@@ -14,15 +14,16 @@ import Fab from "@material-ui/core/Fab";
 
 import { IoIosThumbsDown, IoIosThumbsUp } from "react-icons/io";
 import {
+  badToPost,
   createPostComment,
   deleteBoardPost,
   deletePostComment,
   getBoardPost,
   getBoardPosts,
-  getPostComments, updatePostComment
-} from "../../http/tming";
-import {errMsg} from "../../http/util";
-import {getPath, urlQuery} from "../../utils/url";
+  getPostComments, goodToPost, updatePostComment
+} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
+import {getPath, urlQuery} from "../../../utils/url";
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import UserInfoViewer from "../../containers/UserInfoViewer/UserInfoViewer";
@@ -72,6 +73,8 @@ class Read extends Component {
           content: data.body,
           author: data.author,
           createdAt: data.createdAt,
+          likes: data.likes,
+          dislikes: data.dislikes,
         },
         imAuthor: auth ? (query.category=== 'anonymous' || auth.id === data.author.id) : false,
       });
@@ -178,6 +181,7 @@ class Read extends Component {
     uiKit.loading.start();
     await createPostComment(auth, id, myComment).then(response=>{
       //reload!
+      uiKit.toaster.cooking('댓글이 작성되었습니다');
       this.setState({
         ...this.state,
         myComment: '',
@@ -198,6 +202,45 @@ class Read extends Component {
       //ok updated!
       this.loadComments(postId);
       uiKit.toaster.cooking('수정 완료');
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
+    });
+    uiKit.loading.end();
+  };
+
+  good= async ()=>{
+    const {uiKit, auth, match}= this.props;
+    const {id}= match.params;
+
+    if(!authorized(auth)){
+      uiKit.toaster.cooking('로그인이 필요합니다');
+      return;
+    }
+
+    uiKit.loading.start();
+    await goodToPost(auth, id).then(response=>{
+      //ok
+      uiKit.toaster.cooking('추천 되었습니다');
+      this.loadPost(id);
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
+    });
+    uiKit.loading.end();
+  };
+  bad= async ()=>{
+    const {uiKit, auth, match}= this.props;
+    const {id}= match.params;
+
+    if(!authorized(auth)){
+      uiKit.toaster.cooking('로그인이 필요합니다');
+      return;
+    }
+
+    uiKit.loading.start();
+    await badToPost(auth, id).then(response=>{
+      //ok
+      uiKit.toaster.cooking('비추천 되었습니다');
+      this.loadPost(id);
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
     });
@@ -240,6 +283,7 @@ class Read extends Component {
               <br/>
               <AlignLayout align={'center'}>
                 <Fab
+                  onClick={this.good}
                   size={'small'}
                   color={'primary'}
                   variant="extended">
@@ -248,9 +292,12 @@ class Read extends Component {
                   }}/>
                   &nbsp;
                   유용합니다
+                  &nbsp;
+                  ({content.likes})
                 </Fab>
                 &nbsp;&nbsp;&nbsp;
                 <Fab
+                  onClick={this.bad}
                   size={'small'}
                   color={'secondary'}
                   variant="extended">
@@ -259,6 +306,8 @@ class Read extends Component {
                   }}/>
                   &nbsp;
                   별로군요
+                  &nbsp;
+                  ({content.dislikes})
                 </Fab>
               </AlignLayout>
               {

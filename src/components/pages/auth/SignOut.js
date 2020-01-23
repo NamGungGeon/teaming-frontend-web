@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {quickConnect} from "../../redux";
-import {getPath} from "../../utils/url";
+import {quickConnect} from "../../../redux/quick";
+import {getPath} from "../../../utils/url";
 
 class SignOut extends Component {
   componentDidMount() {

@@ -4,7 +4,7 @@ import Input from 'reactstrap/es/Input';
 import PropTypes from 'prop-types';
 import { InputGroupAddon } from 'reactstrap';
 import InputGroup from 'reactstrap/es/InputGroup';
-import { quickConnect } from '../../redux';
+import { quickConnect } from '../../../redux/quick';
 import Button from 'reactstrap/es/Button';
 import { MdSearch } from 'react-icons/md';
 

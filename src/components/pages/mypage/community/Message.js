@@ -9,8 +9,8 @@ import PageTitle from "../../../primitive/PageTitle/PageTitle";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from '@material-ui/icons/Delete';
-import {quickConnect} from "../../../redux";
-import {delay, randStr} from "../../../utils/utils";
+import {quickConnect} from "../../../../redux/quick";
+import {delay, randStr} from "../../../../utils/utils";
 
 import logo from '../../../resource/logo_white.png';
 import ImageView from "../../../primitive/ImageView/ImageView";

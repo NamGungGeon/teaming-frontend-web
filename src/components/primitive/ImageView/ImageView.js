@@ -21,8 +21,6 @@ class ImageView extends Component {
     shape: PropTypes.oneOf(['square', 'rounding', 'circle']),
     border: PropTypes.string,
     shadow: PropTypes.bool,
-    width: PropTypes.string,
-    height: PropTypes.string,
     style: PropTypes.object,
     onClick: PropTypes.func,
     className: PropTypes.string
@@ -33,8 +31,6 @@ class ImageView extends Component {
       img,
       shape,
       border,
-      width,
-      height,
       shadow,
       style,
       onClick,
@@ -49,22 +45,21 @@ class ImageView extends Component {
           className={classNames(
             {
               [styles[shape]]: true,
-              shadowing: !!shadow,
-              clickable: !!onClick
+              shadowing: shadow,
+              clickable: onClick
             },
             className,
             styles.img
           )}
           style={{
             ...style,
-            border: border,
-            width,
-            height,
+            border,
           }}
           onClick={onClick ? onClick : () => {}}
         />
       );
-    else return img;
+    else
+      return img;
   }
 }
 

@@ -2,10 +2,10 @@ import './App.css';
 import { Route } from 'react-router-dom';
 import TopNavigation from './components/containers/Navigation/TopNavigation';
 import React, { Component } from 'react';
-import { UiBundle } from './components/utils/hoc';
-import { quickConnect } from './components/redux';
-import {getPath, urlQuery} from './components/utils/url';
-import {Home, Chat, Teambuild, Auth, Trash, Rooms, Events, Notices, Center, Admin, Magazine} from './components/pages';
+import { UiBundle } from './components/hoc';
+import { quickConnect } from './redux/quick';
+import {getPath, urlQuery} from './utils/url';
+import {Home, Chat, Match, Auth, Trash, Rooms, Events, Notices, Center, Admin, Magazine} from './components/pages';
 import MyPage from "./components/pages/mypage/MyPage";
 import Trade from "./components/pages/trade/Trade";
 import Privacy from "./components/pages/Privacy";
@@ -15,6 +15,8 @@ import MobileSideNavigation from "./components/containers/Navigation/MobileSideN
 import Footer from "./components/containers/Footer/Footer";
 import Cyphers from "./components/pages/cyphers/Cyphers";
 import logo from './components/resource/tming_txt.png';
+import MusicPlayer from "./components/containers/MusicPlayer/MusicPlayer";
+import RecommendYoutube from "./components/containers/RecommendYoutube/RecommendYoutube";
 
 class App extends Component {
   state={
@@ -23,37 +25,42 @@ class App extends Component {
 
   componentDidMount() {
     this.init();
+    console.log('mount: App');
 
     window.setInterval(()=>{
       try{
-        document.getElementById("ruler").style.height= "100%";
+        document.getElementById("content").style.height= "100%";
       }catch (e) {
       }
     }, 200);
+  };
+
+  componentWillUnmount() {
+    console.log('unmount: App');
   }
 
   init= async ()=>{
-    const {AuthDispatcher, location}= this.props;
-
+    const {AuthDispatcher, UIKitDispatcher, ConfigDispatcher, location, history}= this.props;
     const query= urlQuery(location);
 
     //navigation setting
     const {hideNav, imapp}= query;
     if(hideNav)
-      await this.props.ConfigDispatcher.hideNav();
+      await ConfigDispatcher.hideNav();
     if(imapp)
-      await this.props.ConfigDispatcher.imapp();
+      await ConfigDispatcher.imapp();
 
     //uiKit initialize
-    await this.props.UIKitDispatcher.init(UiBundle(this));
+    await UIKitDispatcher.init(UiBundle(this));
 
     //auth info is passed as query-string?
     const {id, token, refresh }= query;
-    if(id && token && refresh){
+    if(id && token && refresh)
       //yes!
       //wait for storing auth info
       await AuthDispatcher.login(query);
-    }
+    window.linker= history;
+    window.AuthDispatcher= AuthDispatcher;
 
     //ok finish init
     this.setState({
@@ -69,8 +76,10 @@ class App extends Component {
     return (
       <div>
         {ready && (
-          <div>
-            {this.props.uiKit.render()}
+          <>
+            <div>
+              {this.props.uiKit.render()}
+            </div>
             <TopNavigation
               history={this.props.history}
               location={this.props.location}/>
@@ -79,34 +88,41 @@ class App extends Component {
               className="fullSizeDisplay">
               <SideNavigation/>
               <div
-                style={{
-                  top: config.hideNav? '0': '55px',
-                }}
-                id={'ruler'}
-                className="ruler">
-                <Route exact path={getPath('/')} component={Home} />
-                <Route path={getPath('/teambuild')} component={Teambuild} />
-                <Route exact path={getPath('/chat')} component={Chat} />
-                <Route path={getPath('/auth')} component={Auth} />
-                <Route path={getPath('/trash')} component={Trash} />
-                <Route path={getPath('/rooms')} component={Rooms} />
-                <Route path={getPath('/mypage')} component={MyPage} />
-                <Route path={getPath('/trade')} component={Trade} />
-                <Route path={getPath('/privacy')} component={Privacy} />
-                <Route path={getPath('/community')} component={Community} />
-                <Route path={getPath('/important/notices')} component={Notices} />
-                <Route path={getPath('/important/events')} component={Events} />
-                <Route path={getPath('/center')} component={Center} />
-                <Route path={getPath('/cyphers')} component={Cyphers}/>
-                <Route path={getPath('/admin')} component={Admin}/>
-                <Route path={getPath('/magazine')} component={Magazine}/>
+                id={'content'}
+                className={'content'}>
                 <div
-                  className={'mobile'}>
-                  <Footer logo={logo}/>
+                  style={{
+                    top: config.hideNav? '0': '55px',
+                  }}
+                  className="ruler">
+                  <Route exact path={getPath('/')} component={Home} />
+                  <Route path={getPath('/match')} component={Match} />
+                  <Route exact path={getPath('/chat')} component={Chat} />
+                  <Route path={getPath('/auth')} component={Auth} />
+                  <Route path={getPath('/trash')} component={Trash} />
+                  <Route path={getPath('/rooms')} component={Rooms} />
+                  <Route path={getPath('/mypage')} component={MyPage} />
+                  <Route path={getPath('/trade')} component={Trade} />
+                  <Route path={getPath('/privacy')} component={Privacy} />
+                  <Route path={getPath('/community')} component={Community} />
+                  <Route path={getPath('/important/notices')} component={Notices} />
+                  <Route path={getPath('/important/events')} component={Events} />
+                  <Route path={getPath('/center')} component={Center} />
+                  <Route path={getPath('/cyphers')} component={Cyphers}/>
+                  <Route path={getPath('/admin')} component={Admin}/>
+                  <Route path={getPath('/magazine')} component={Magazine}/>
+                  <div
+                    className={'mobile'}>
+                    <Footer logo={logo}/>
+                  </div>
+                </div>
+                <div className={'sideContent'}>
+                  <MusicPlayer/>
+                  <RecommendYoutube/>
                 </div>
               </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     );

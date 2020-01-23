@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import Divider from "../../../primitive/Divider/Divider";
 import EventGallery from "../../../containers/EventGallery/EventGallery";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
-import {quickConnect} from "../../../redux";
-import {getEvent, getEvents, getMyProfile, removeEvent} from "../../../http/tming";
-import {getPath, urlQuery} from "../../../utils/url";
-import {errMsg} from "../../../http/util";
+import {quickConnect} from "../../../../redux/quick";
+import {getEvent, getEvents, getMyProfile, removeEvent} from "../../../../http/tming";
+import {getPath, urlQuery} from "../../../../utils/url";
+import {errMsg} from "../../../../http/util";
 import ImageView from "../../../primitive/ImageView/ImageView";
 import moment from "moment";
 import Section from "../../../primitive/Section/Section";
 import Button from "@material-ui/core/Button";
-import {authorized, beautifyDate, lastDays} from "../../../utils/utils";
+import {authorized, beautifyDate, lastDays} from "../../../../utils/utils";
 
 class Event extends Component {
   state= {

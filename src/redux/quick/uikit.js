@@ -1,5 +1,5 @@
 import { handleActions, createAction } from 'redux-actions';
-import { randStr } from '../utils/utils';
+import { randStr } from '../../utils/utils';
 
 //initial state is null
 //must initiate in [ROOT].js

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {quickConnect} from "../../redux";
+import {quickConnect} from "../../../redux/quick";
 import HorizontalNavigation from "../../containers/Navigation/HorizontalNavigation";
-import {getPath} from "../../utils/url";
+import {getPath} from "../../../utils/url";
 import {Route} from "react-router-dom";
 import Characters from "./Characters";
 

@@ -3,12 +3,12 @@ import PageTitle from "../../../primitive/PageTitle/PageTitle";
 import ImageView from "../../../primitive/ImageView/ImageView";
 import Section from "../../../primitive/Section/Section";
 import {Button} from "@material-ui/core";
-import {margin} from "../../../utils/utils";
-import {getMyProfile, uploadProfileImage} from "../../../http/tming";
-import {quickConnect} from "../../../redux";
+import {margin} from "../../../../utils/utils";
+import {getMyProfile, uploadProfileImage} from "../../../../http/tming";
+import {quickConnect} from "../../../../redux/quick";
 import Form from "reactstrap/es/Form";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
-import {errMsg} from "../../../http/util";
+import {errMsg} from "../../../../http/util";
 import ImageIcon from '@material-ui/icons/Image';
 import {Col, FormGroup, Label} from "reactstrap";
 import Input from "reactstrap/es/Input";
@@ -137,8 +137,9 @@ class MyInfo extends Component {
                   <div>
                     <ImageView
                       img={this.state.profile.profilePicture}
-                      width={'128px'}
-                      height={'128px'}/>
+                      style={{
+                        width: '128px'
+                      }}/>
                   </div>
                   <AlignLayout
                     style={{

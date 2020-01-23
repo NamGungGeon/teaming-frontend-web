@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Route} from "react-router-dom";
-import {getPath} from "../../../utils/url";
+import {getPath} from "../../../../utils/url";
 import MyInfo from "./MyInfo";
 import PwChange from "./PwChange";
 import Escape from "./Escape";

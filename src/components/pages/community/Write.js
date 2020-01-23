@@ -3,13 +3,13 @@ import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import Button from "@material-ui/core/Button";
 import Input from "reactstrap/es/Input";
 import PageTitle from "../../primitive/PageTitle/PageTitle";
-import {quickConnect} from "../../redux";
-import {urlQuery} from "../../utils/url";
-import {createBoardPosts, image} from "../../http/tming";
-import {errMsg} from "../../http/util";
+import {quickConnect} from "../../../redux/quick";
+import {urlQuery} from "../../../utils/url";
+import {createBoardPosts, image} from "../../../http/tming";
+import {errMsg} from "../../../http/util";
 import Optional from "../../primitive/Optional/Optional";
 import Wysiwyg from "../../primitive/WYSIWYG/WYSIWYG";
-import {authorized} from "../../utils/utils";
+import {authorized} from "../../../utils/utils";
 
 
 class Write extends Component {
