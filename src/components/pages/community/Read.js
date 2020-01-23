@@ -284,30 +284,24 @@ class Read extends Component {
               <AlignLayout align={'center'}>
                 <Fab
                   onClick={this.good}
-                  size={'small'}
                   color={'primary'}
                   variant="extended">
                   <IoIosThumbsUp style={{
                     fontSize: '20px'
                   }}/>
                   &nbsp;
-                  유용합니다
-                  &nbsp;
-                  ({content.likes})
+                  {content.likes}
                 </Fab>
                 &nbsp;&nbsp;&nbsp;
                 <Fab
                   onClick={this.bad}
-                  size={'small'}
                   color={'secondary'}
                   variant="extended">
                   <IoIosThumbsDown style={{
                     fontSize: '20px'
                   }}/>
                   &nbsp;
-                  별로군요
-                  &nbsp;
-                  ({content.dislikes})
+                  {content.dislikes}
                 </Fab>
               </AlignLayout>
               {

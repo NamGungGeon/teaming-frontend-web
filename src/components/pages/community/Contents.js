@@ -17,6 +17,9 @@ import PageTitle from "../../primitive/PageTitle/PageTitle";
 import {getBoardPosts} from "../../../http/tming";
 import {errMsg} from "../../../http/util";
 import Pagenation from "../../primitive/Pagenation/Pagenation";
+import Fab from "@material-ui/core/Fab";
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from "@material-ui/core/IconButton";
 
 class Contents extends Component {
   state={
@@ -110,6 +113,16 @@ class Contents extends Component {
       default:
         return "자유게시판";
     }
+  };
+
+  search= ()=>{
+    const {uiKit}= this.props;
+    uiKit.popup.make((
+      <div>
+        <h5>게시글 검색</h5>
+
+      </div>
+    ))
   }
 
   render() {
@@ -127,61 +140,60 @@ class Contents extends Component {
         <br/>
 
         <Section divideStyle={'fill'}>
-          <FormGroup
-            row
-            style={{
-              alignItems: 'center',
-              margin: '0'
-            }}>
-            <Col sm={6}>
-              <FormControl style={{
-                width: '100%'
-              }}>
-                <Select
-                  value={this.state.filter}
-                  displayEmpty
-                  onChange={(e)=>{
-                    this.setState({
-                      ...this.state,
-                      filter: e.target.value,
-                    });
-                  }}>
-                  <MenuItem value="">
-                    모든 글 보기
-                  </MenuItem>
-                  <MenuItem value={'hottest'}>
-                    인기글만 보기
-                  </MenuItem>
-                  <MenuItem value={'fuckAnonymous'}>
-                    익명 사용자 제외하고 보기
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </Col>
-            <Col sm={6}>
-              <AlignLayout align={'right'}>
-                <Button
-                  onClick={()=>{
-                    history.push(getPath(`/community/write?category=${query.category? query.category: ''}`));
-                  }}
-                  variant="contained"
-                  color="primary"
-                  startIcon={<CreateIcon />}
-                >
-                  글쓰기
-                </Button>
-                &nbsp;
-                <Button
-                  onClick={this.loadContents}
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<RefreshIcon />}
-                >
-                  새로운 글 불러오기
-                </Button>
-              </AlignLayout>
-            </Col>
-          </FormGroup>
+          <div>
+            <FormControl
+              fullWidth
+              size={'small'}
+              variant={'outlined'}>
+              <Select
+                style={{
+                  width: '100%',
+                  border: 'none',
+                }}
+                value={this.state.filter}
+                displayEmpty
+                onChange={(e)=>{
+                  this.setState({
+                    ...this.state,
+                    filter: e.target.value,
+                  });
+                }}>
+                <MenuItem value="">
+                  모든 글 보기
+                </MenuItem>
+                <MenuItem value={'hottest'}>
+                  인기글만 보기
+                </MenuItem>
+                <MenuItem value={'fuckAnonymous'}>
+                  익명 사용자 제외하고 보기
+                </MenuItem>
+              </Select>
+            </FormControl>
+            <br/><br/>
+            <AlignLayout align={'right'}>
+              <IconButton
+                variant="contained"
+                onClick={this.search}>
+                <SearchIcon />
+              </IconButton>
+              &nbsp;
+              <IconButton
+                onClick={()=>{
+                  history.push(getPath(`/community/write?category=${query.category? query.category: ''}`));
+                }}
+                variant="contained"
+              >
+                <CreateIcon />
+              </IconButton>
+              &nbsp;
+              <IconButton
+                onClick={this.loadContents}
+                variant="contained"
+              >
+                <RefreshIcon />
+              </IconButton>
+            </AlignLayout>
+          </div>
         </Section>
 
         <br/>

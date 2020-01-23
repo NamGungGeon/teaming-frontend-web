@@ -10,6 +10,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Menu from "@material-ui/core/Menu";
 import Section from "../../../primitive/Section/Section";
 import auth from "../../../../redux/quick/auth";
+import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
+import {Button} from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
 class Notifications extends Component {
   state={
@@ -45,6 +48,63 @@ class Notifications extends Component {
     uiKit.loading.end();
   };
 
+  removeReadNotifications= ()=>{
+    const {uiKit}= this.props;
+    uiKit.popup.make((
+      <div>
+        <h5>
+          읽은 알림을 모두 삭제하시겠습니까?
+        </h5>
+        <br/>
+        <AlignLayout align={'right'}>
+          <Button
+            onClick={()=>{
+              const {notifications}= this.state;
+              notifications.map(async notification=>{
+                if(notification.isRead)
+                  await this.removeNotification(notification.id);
+              });
+              uiKit.toaster.cooking('읽은 알림이 모두 제거되었습니다');
+              uiKit.popup.destroy();
+            }}
+            color={'secondary'}
+            variant={'contained'}>
+            삭제
+          </Button>
+          &nbsp;
+          <Button
+            onClick={()=>{
+              uiKit.popup.destroy();
+            }}
+            color={'primary'}
+            variant={'contained'}>
+            닫기
+          </Button>
+        </AlignLayout>
+      </div>
+    ))
+  };
+
+  removeNotification= async (id)=>{
+    const {uiKit, auth}= this.props;
+    const {notifications}= this.state;
+
+    //remove
+    uiKit.loading.start();
+    await removeNotification(auth, id).then(response=>{
+      this.setState({
+        ...this.state,
+        count: this.state.count-1,
+        notifications: notifications.filter(n=>{
+          return n.id!== id;
+        })
+      })
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
+    });
+    uiKit.loading.end();
+  };
+
   render() {
     const {notifications, count}= this.state;
     const {uiKit, auth}= this.props;
@@ -55,6 +115,16 @@ class Notifications extends Component {
           title={'알림'}
           explain={`${count}개의 알림이 있습니다`}/>
           <br/>
+          <AlignLayout align={'right'}>
+            <Button
+              onClick={this.removeReadNotifications}
+              startIcon={<CloseIcon/>}
+              variant={'contained'}
+              color={'secondary'}>
+              읽은 알림 모두 삭제
+            </Button>
+          </AlignLayout>
+        <br/>
           {
             notifications && (
               <Section divideStyle={'fill'}>
@@ -89,21 +159,8 @@ class Notifications extends Component {
                             </Typography>
                           </div>
                           <div>
-                            <DeleteIcon onClick={async ()=>{
-                              //remove
-                              uiKit.loading.start();
-                              await removeNotification(auth, notification.id).then(response=>{
-                                this.setState({
-                                  ...this.state,
-                                  count: this.state.count-1,
-                                  notifications: notifications.filter(n=>{
-                                    return n.id!== notification.id;
-                                  })
-                                })
-                              }).catch(e=>{
-                                uiKit.toaster.cooking(errMsg(e));
-                              });
-                              uiKit.loading.end();
+                            <DeleteIcon onClick={()=>{
+                              this.removeNotification(notification.id)
                             }}/>
                           </div>
                         </div>
