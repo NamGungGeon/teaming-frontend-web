@@ -47,11 +47,17 @@ class Community extends Component {
           },
           {
             label: '오버워치',
-            icon: overwatch
+            icon: overwatch,
+            onClick: () => {
+              this.go(getPath(`/community?category=overwatch`));
+            }
           },
           {
             label: '배틀그라운드',
-            icon: battleground
+            icon: battleground,
+            onClick: () => {
+              this.go(getPath(`/community?category=pubg`));
+            }
           }
         ],
       }

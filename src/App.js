@@ -88,12 +88,12 @@ class App extends Component {
               className="fullSizeDisplay">
               <SideNavigation/>
               <div
+                style={{
+                  top: config.hideNav? '0': '55px',
+                }}
                 id={'content'}
                 className={'content'}>
                 <div
-                  style={{
-                    top: config.hideNav? '0': '55px',
-                  }}
                   className="ruler">
                   <Route exact path={getPath('/')} component={Home} />
                   <Route path={getPath('/match')} component={Match} />

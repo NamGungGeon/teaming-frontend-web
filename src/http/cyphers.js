@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url= 'http://dev.cpsp.kr';
+const url= 'https://dev.cpsp.kr';
 export const getCharacter= (nameEN)=>{
   return axios.request({
     method: 'GET',

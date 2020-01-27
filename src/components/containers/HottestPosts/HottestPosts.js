@@ -33,6 +33,16 @@ class HottestPosts extends Component {
           exp_l: 'JQUERY IS SHIT',
           exp_r: '3일 전',
         },
+        {
+          title: 'REACT IS GOD',
+          exp_l: 'JQUERY IS SHIT',
+          exp_r: '3일 전',
+        },
+        {
+          title: 'REACT IS GOD',
+          exp_l: 'JQUERY IS SHIT',
+          exp_r: '3일 전',
+        },
       ]
     });
   }

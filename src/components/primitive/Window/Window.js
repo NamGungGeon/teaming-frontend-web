@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import styles from './Window.module.css';
 import classNames from 'classnames';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
-import Collapse from "reactstrap/es/Collapse";
+import {ExpansionPanel, ExpansionPanelDetails} from "@material-ui/core";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 
 class Window extends Component {
   state = {
@@ -21,31 +22,27 @@ class Window extends Component {
   render() {
     const { title, children, foldable, style } = this.props;
     return (
-      <div className={classNames([styles.frame, classNames()])} style={style}>
-        <div
-          className={classNames([
-            styles.title,
-            `${foldable ? 'clickable' : ''}`
-          ])}
-          onClick={() => {
-            if (foldable)
-              this.setState({
-                ...this.state,
-                folded: !this.state.folded
-              });
-          }}
+      <ExpansionPanel
+        style={{
+          padding: 0
+        }}
+        onClick={() => {
+          this.setState({
+            ...this.state,
+            folded: !this.state.folded
+          });
+        }}
+        className={styles.body}
+        expanded={this.state.folded || !foldable}>
+        <ExpansionPanelSummary
+          expandIcon={<MdExpandMore/>}
         >
           <b>{title}</b>
-          {foldable && (
-            <div className={styles.mileStone}>
-              {this.state.folded ? <MdExpandMore /> : <MdExpandLess/>}
-            </div>
-          )}
-        </div>
-        <Collapse isOpen={this.state.folded} className={styles.body}>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
           {children}
-        </Collapse>
-      </div>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
     );
   }
 }

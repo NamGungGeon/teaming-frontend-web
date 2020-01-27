@@ -6,7 +6,7 @@ import Lol from './lol/Lol';
 
 export default function Match ({}){
   return (
-    <div>
+    <>
       <Route
         exact
         path={getPath(`/match`)}
@@ -14,6 +14,6 @@ export default function Match ({}){
       <Route
         path={getPath(`/match/lol`)}
         component={Lol}/>
-    </div>
+    </>
   );
 }

@@ -229,15 +229,7 @@ export const uploadProfileImage = (auth, file) => {
   });
 };
 
-const isValidCategory = (category) => {
-  const validCategory = ["GENERAL", "ANONYMOUS", "LOL", "OVERWATCH", "PUBG", "CYPHERS", "MAGAZINE"];
-  return validCategory.includes(category.toUpperCase());
-}
-
 export const getBoardPosts = (category, anonymous, limit, offset) => {
-  //filter
-  isValidCategory(category);
-
   return axios.request({
     method: 'GET',
     url: `${url}/boards`,
@@ -248,7 +240,6 @@ export const getBoardPosts = (category, anonymous, limit, offset) => {
   });
 };
 export const createBoardPosts = (auth, category, title, body, code, media) => {
-  isValidCategory(category);
 
   if (media) {
     //formed data
@@ -292,7 +283,6 @@ export const getBoardPost = (id) => {
 };
 
 export const updateBoardPost = (auth, id, category, title, body, code, media) => {
-  isValidCategory(category);
   if (media) {
     //formed data
     const data = new FormData();

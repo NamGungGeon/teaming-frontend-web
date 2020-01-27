@@ -15,8 +15,28 @@ class Cyphers extends Component {
           onClick: ()=>{
             history.push('/cyphers/characters');
           }
+        },
+        {
+          label: '전적검색',
+          onClick: ()=>{
+            history.push('/cyphers/search');
+          }
+        },
+        {
+          label: '랭킹',
+          onClick: ()=>{
+            history.push('/cyphers/ranking');
+          }
+        },
+      ],
+      '커뮤니티': [
+        {
+          label: '사이퍼즈 게시판',
+          onClick: ()=>{
+            history.push('/community?category=cyphers');
+          },
         }
-      ]
+      ],
     };
     this.props.SideNavDispatcher.set(nav);
   }

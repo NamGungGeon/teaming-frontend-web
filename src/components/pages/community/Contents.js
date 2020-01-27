@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
-import {beautifyDate, delay, randNum} from "../../../utils/utils";
+import {beautifyDate, delay, momenting, randNum} from "../../../utils/utils";
 import {getPath, urlQuery} from "../../../utils/url";
 import {quickConnect} from "../../../redux/quick";
 import BoardWrapper from "../../primitive/Board/BoardWrapper/BoardWrapper";
@@ -85,6 +85,7 @@ class Contents extends Component {
               content: content.body,
               nickname: content.author? content.author.username: '익명',
               createDate: content.createdAt,
+              views: content.views,
             }
           }),
           count: data.count,
@@ -120,7 +121,6 @@ class Contents extends Component {
     uiKit.popup.make((
       <div>
         <h5>게시글 검색</h5>
-
       </div>
     ))
   }
@@ -203,7 +203,7 @@ class Contents extends Component {
             return {
               title: `${content.title}`,
               exp_l: `${content.nickname}`,
-              exp_r: `${beautifyDate(content.createDate)}`,
+              exp_r: `조회수: ${content.views} (${momenting(content.createDate).fromNow()})`,
               onClick: ()=>{
                 history.push(getPath(`/community/read/${content.id}?category=${query.category? query.category: ''}`))
               },

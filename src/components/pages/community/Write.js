@@ -51,7 +51,7 @@ class Write extends Component {
       //ok!
       uiKit.toaster.cooking('작성 완료!');
       this.unblock();
-      history.push(`/community?category=${category}`);
+      history.goBack();
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
     });

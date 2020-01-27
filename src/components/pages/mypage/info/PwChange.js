@@ -9,6 +9,7 @@ import {updateMyPassword} from "../../../../http/tming";
 import {errMsg} from "../../../../http/util";
 import getHistory from 'react-router-global-history';
 import Button from "@material-ui/core/Button";
+import Section from "../../../primitive/Section/Section";
 
 class PwChange extends Component {
   state={
@@ -108,48 +109,51 @@ class PwChange extends Component {
       <div>
         <PageTitle title={'비밀번호 변경'} explain={'현재 사용중인 비밀번호를 다시 확인합니다'}/>
         <br/>
-        <div
-          style={inputWrapperStyle}>
-          <TextField
-            size={'small'}
-            fullWidth
-            variant={'outlined'}
-            label='현재 사용중인 비밀번호'
-            type={'password'}
-            name={'oldPassword'}
-            onChange={this.handleChange}/>
-        </div>
-        <br/><br/>
-        <div
-          style={inputWrapperStyle}>
-          <TextField
-            size={'small'}
-            fullWidth
-            variant={'outlined'}
-            label='새 비밀번호'
-            type={'password'}
-            name={'newPassword'}
-            onChange={this.handleChange}/>
-        </div>
-        <br/><br/>
-        <div
-          style={inputWrapperStyle}>
-          <TextField
-            size={'small'}
-            fullWidth
-            variant={'outlined'}
-            label='새 비밀번호 확인'
-            type={'password'}
-            name={'newPasswordCheck'}
-            onChange={this.handleChange}/>
-        </div>
-        <br/><br/>
-        <Button
-          variant={'contained'}
-          color={'primary'}
-          onClick={this.submit}>
-          변경
-        </Button>
+        <>
+          <div
+            style={inputWrapperStyle}>
+            <TextField
+              size={'small'}
+              fullWidth
+              variant={'outlined'}
+              label='현재 사용중인 비밀번호'
+              type={'password'}
+              name={'oldPassword'}
+              onChange={this.handleChange}/>
+          </div>
+          <br/><br/>
+          <div
+            style={inputWrapperStyle}>
+            <TextField
+              size={'small'}
+              fullWidth
+              variant={'outlined'}
+              label='새 비밀번호'
+              type={'password'}
+              name={'newPassword'}
+              onChange={this.handleChange}/>
+          </div>
+          <br/><br/>
+          <div
+            style={inputWrapperStyle}>
+            <TextField
+              size={'small'}
+              fullWidth
+              variant={'outlined'}
+              label='새 비밀번호 확인'
+              type={'password'}
+              name={'newPasswordCheck'}
+              onChange={this.handleChange}/>
+          </div>
+          <br/><br/>
+          <Button
+            variant={'contained'}
+            color={'primary'}
+            onClick={this.submit}>
+            변경
+          </Button>
+        </>
+
       </div>
     );
   }

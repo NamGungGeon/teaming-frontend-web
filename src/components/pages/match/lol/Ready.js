@@ -175,17 +175,6 @@ class Ready extends Component {
                   }}>
                   일반
                 </Button>
-                <Button
-                  color={'primary'}
-                  outline={mode!=='chess'}
-                  onClick={()=>{
-                    this.setState({
-                      ...this.state,
-                      mode: 'chess',
-                    })
-                  }}>
-                  전략적 팀 전투
-                </Button>
               </ButtonGroup>
             </div>
             <br/>

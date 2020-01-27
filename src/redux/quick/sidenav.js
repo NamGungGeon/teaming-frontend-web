@@ -53,6 +53,14 @@ const sideNav= {
         }
       },
     ],
+    "콜라보": [
+      {
+        label: '사이퍼즈 서포터',
+        onClick: ()=>{
+          getHistory().push(getPath('/cyphers'));
+        }
+      }
+    ],
   },
   visible: false,
 };

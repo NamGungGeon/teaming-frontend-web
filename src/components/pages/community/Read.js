@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {quickConnect} from "../../../redux/quick";
 import Comment from "../../primitive/Comment/Comment";
-import {authorized, beautifyDate, delay, randNum} from "../../../utils/utils";
+import {authorized, beautifyDate, delay, momenting, randNum} from "../../../utils/utils";
 import {Input, InputGroup, InputGroupAddon} from "reactstrap";
 import Button from "@material-ui/core/Button";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
@@ -75,6 +75,7 @@ class Read extends Component {
           createdAt: data.createdAt,
           likes: data.likes,
           dislikes: data.dislikes,
+          views: data.views,
         },
         imAuthor: auth ? (query.category=== 'anonymous' || auth.id === data.author.id) : false,
       });
@@ -264,6 +265,9 @@ class Read extends Component {
                   <div>
                     <div>
                       작성일: {beautifyDate(content.createdAt)}
+                    </div>
+                    <div>
+                      조회수: {content.views}회
                     </div>
                     <div
                       style={{

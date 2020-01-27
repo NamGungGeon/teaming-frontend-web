@@ -1,4 +1,7 @@
 import moment from "moment";
+import "moment/locale/ko";
+
+moment.locale('ko');
 
 export const checkEmail = email => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -83,13 +86,17 @@ export const randNum= limit=>{
   return parseInt(Math.random()*10000%limit);
 };
 
+const dateFormat= 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]';
 export const beautifyDate= (stringDateTime)=>{
-  return moment(stringDateTime, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]').format('YYYY[년]MM[월]DD[일 ]HH[시]mm[분]');
+  return moment(stringDateTime, dateFormat).format('YYYY[년]MM[월]DD[일 ]HH[시]mm[분]');
 };
 export const lastDays= (end)=>{
-  const endDate= moment(end, 'YYYY-MM-DD[T]HH:mm:ss.ZZZ[Z]');
+  const endDate= moment(end, dateFormat);
   return endDate.diff(moment(), 'days');
 };
+export const momenting= (date)=>{
+  return moment(date, dateFormat);
+}
 
 
 export const fuckHTML= (html)=>{

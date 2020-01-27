@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import getHistory from 'react-router-global-history';
 import {getPath} from "../../../utils/url";
+import Tooltip from "@material-ui/core/Tooltip";
 
 
 class Notifications extends Component{
@@ -51,49 +52,51 @@ class Notifications extends Component{
 
     return (
       <span>
-        <IconButton
-          aria-label="more"
-          aria-controls="long-menu"
-          aria-haspopup="true"
-          onClick={(e)=>{
-            if(!notifications){
-              uiKit.toaster.cooking('알림 로딩 중 입니다');
-              return;
-            }
+        <Tooltip title={'알림'}>
+          <IconButton
+            aria-label="more"
+            aria-controls="long-menu"
+            aria-haspopup="true"
+            onClick={(e)=>{
+              if(!notifications){
+                uiKit.toaster.cooking('알림 로딩 중 입니다');
+                return;
+              }
 
-            if(notifications.length=== 0){
-              uiKit.toaster.cooking('새로운 알림이 없습니다');
-              return;
-            }
+              if(notifications.length=== 0){
+                uiKit.toaster.cooking('새로운 알림이 없습니다');
+                return;
+              }
 
-            console.log(e.currentTarget);
-            this.setState({
-              ...this.state,
-              openOptions: true,
-              anchor: e.currentTarget
-            })
-          }}
-        >
-        {
-          count?
-            (
-              <Badge
-                className={styles.badge}
-                style={{
-                  fontSize: '8px',
-                }}
-                max={9}
-                badgeContent={count}
-                color={'primary'}>
+              console.log(e.currentTarget);
+              this.setState({
+                ...this.state,
+                openOptions: true,
+                anchor: e.currentTarget
+              })
+            }}
+          >
+          {
+            count?
+              (
+                <Badge
+                  className={styles.badge}
+                  style={{
+                    fontSize: '8px',
+                  }}
+                  max={9}
+                  badgeContent={count}
+                  color={'primary'}>
+                  <NotificationsIcon/>
+                </Badge>
+              )
+              :
+              (
                 <NotificationsIcon/>
-              </Badge>
-            )
-            :
-            (
-              <NotificationsIcon/>
-            )
-        }
-      </IconButton>
+              )
+          }
+        </IconButton>
+        </Tooltip>
       <Menu
         style={{
           zIndex: 99999,

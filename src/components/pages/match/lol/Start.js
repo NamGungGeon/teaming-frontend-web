@@ -6,15 +6,15 @@ import SendBird from "sendbird";
 import ChatLayout from "../../../layouts/ChatLayout/ChatLayout";
 import ImageViewGroup from "../../../containers/ImageViewGroup/ImageViewGroup";
 import Window from "../../../primitive/Window/Window";
-import Button from "reactstrap/es/Button";
 import {getPath, resPath} from "../../../../utils/url";
 import {scrollToTop} from "../../../../utils/utils";
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
 import io from "socket.io-client";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-import RefreshIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import RefreshIcon from '@material-ui/icons/Refresh';
 import CloseIcon from '@material-ui/icons/Close';
 import ReportIcon from '@material-ui/icons/Report';
+import Button from "@material-ui/core/Button";
 
 class Start extends Component {
   constructor(props) {
@@ -160,7 +160,7 @@ class Start extends Component {
     );
 
     return (
-      <div>
+      <>
         {matchComplete ? (
           <ChatLayout
             tools={tools}
@@ -169,7 +169,7 @@ class Start extends Component {
           </ChatLayout>
         ) : this.chatStatus()
         }
-      </div>
+      </>
     );
   }
 

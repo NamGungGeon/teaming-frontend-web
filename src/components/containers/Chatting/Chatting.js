@@ -86,9 +86,7 @@ class Chatting extends Component {
     return (
       <Section
         style={{
-          margin: '0',
-          width: '100%',
-          height: '100%',
+          height: '100%'
         }}
         divideStyle={'fill'}
         className={styles.wrapper}>

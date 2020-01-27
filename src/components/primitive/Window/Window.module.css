@@ -14,9 +14,5 @@
 }
 .body{
     border-top: 0.6px solid #ffffff33;
-    padding: 16px;
     transition-property: height;
-}
-.body.folded{
-    display: none!important;
 }
