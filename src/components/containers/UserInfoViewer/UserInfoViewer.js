@@ -2,15 +2,26 @@ import React, {Component} from 'react';
 import {quickConnect} from "../../../redux/quick";
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import Button from "@material-ui/core/Button";
-import {createBlock, requestFriend} from "../../../http/tming";
+import {createBlock, createMessage, requestFriend} from "../../../http/tming";
 import {errMsg} from "../../../http/util";
 import Optional from "../../primitive/Optional/Optional";
 import {authorized} from "../../../utils/utils";
 
+import AddIcon from '@material-ui/icons/Add';
+import BlockIcon from '@material-ui/icons/Block';
+import CloseIcon from '@material-ui/icons/Close';
+import SendIcon from '@material-ui/icons/Send';
+import {PopupMaker} from "../../hoc/PopupMaker";
+import Input from "reactstrap/es/Input";
+
+
 class UserInfoViewer extends Component {
   state={
-    user: null
+    user: null,
+
+    newMsg: '',
   };
+
 
   requestFriends= async ()=>{
     const {uiKit, auth, id}= this.props;
@@ -21,7 +32,8 @@ class UserInfoViewer extends Component {
       uiKit.popup.destroy();
     }).catch(e=>{
       uiKit.toaster.cooking(errMsg(e));
-    })
+    });
+
     uiKit.loading.end();
   };
   blockUser= async ()=>{
@@ -37,6 +49,65 @@ class UserInfoViewer extends Component {
     uiKit.loading.end();
   };
 
+  sendMessage= ()=>{
+    const {uiKit, auth, id, username}= this.props;
+
+    uiKit.spopup.make((
+      <div>
+        <h5>
+          쪽지
+          <p className={'explain'}>
+            {username}
+          </p>
+          <Input
+            maxlength={300}
+            className={'transparent'}
+            type={'textarea'}
+            style={{height: '300px'}}
+            onChange={e=>{
+              const msg= e.target.value;
+              console.log(msg);
+              this.setState({
+                ...this.state,
+                newMsg: msg,
+              });
+            }}
+            placeholder={'내용을 입력하세요'}/>
+        </h5>
+        <br/>
+        <AlignLayout align={'right'}>
+          <Button
+            startIcon={<SendIcon/>}
+            onClick={async ()=>{
+              uiKit.loading.start();
+              await createMessage(auth, id, this.state.newMsg).then(response=>{
+                //ok
+                uiKit.toaster.cooking('성공적으로 발송되었습니다');
+                uiKit.spopup.destroy();
+              }).catch(e=>{
+                uiKit.toaster.cooking(errMsg(e));
+              });
+              uiKit.loading.end();
+            }}
+            variant={'contained'}
+            color={'primary'}>
+            보내기
+          </Button>
+          &nbsp;&nbsp;
+          <Button
+            startIcon={<CloseIcon/>}
+            onClick={()=>{
+              uiKit.spopup.destroy();
+            }}
+            variant={'contained'}
+            color={'secondary'}>
+            닫기
+          </Button>
+        </AlignLayout>
+      </div>
+    ));
+  };
+
   render() {
     const {id, username, uiKit, auth}= this.props;
     return (
@@ -46,6 +117,15 @@ class UserInfoViewer extends Component {
           <br/>
           <AlignLayout align={'right'}>
             <Button
+              startIcon={<SendIcon/>}
+              variant={'contained'}
+              color={'primary'}
+              onClick={this.sendMessage}>
+              쪽지 보내기
+            </Button>
+            &nbsp;&nbsp;
+            <Button
+              startIcon={<AddIcon/>}
               variant={'contained'}
               color={'primary'}
               onClick={this.requestFriends}>
@@ -53,6 +133,7 @@ class UserInfoViewer extends Component {
             </Button>
             &nbsp;&nbsp;
             <Button
+              startIcon={<BlockIcon/>}
               onClick={this.blockUser}
               variant={'contained'}
               color={'secondary'}>

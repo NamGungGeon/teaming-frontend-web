@@ -1,30 +1,33 @@
 import React, {Component} from 'react';
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
-import ImageIcon from '@material-ui/icons/Image';
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import PageTitle from "../../../primitive/PageTitle/PageTitle";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from '@material-ui/icons/Delete';
 import {quickConnect} from "../../../../redux/quick";
-import {delay, randStr} from "../../../../utils/utils";
+import {beautifyDate} from "../../../../utils/utils";
 
-import logo from '../../../resource/logo_white.png';
 import ImageView from "../../../primitive/ImageView/ImageView";
-import moment from "moment";
 import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import SendIcon from '@material-ui/icons/Send';
 import Section from "../../../primitive/Section/Section";
+import {createMessage, deleteMessage, getMessage, getMessages} from "../../../../http/tming";
+import {errMsg} from "../../../../http/util";
+import Input from "reactstrap/es/Input";
+import CloseIcon from "@material-ui/icons/Close";
 
 class Message extends Component {
   state={
     messages: null,
+    count: 0,
+
+    newMsg: '',
   };
 
   componentDidMount() {
@@ -35,72 +38,52 @@ class Message extends Component {
   }
 
   loadMessages= async ()=>{
-    const {uiKit}= this.props;
+    const {uiKit, auth}= this.props;
 
     uiKit.loading.start();
-    await delay(1000).then(response=>{
+    await getMessages(auth).then(response=>{
+      const {data}= response;
       this.setState({
         ...this.state,
-        messages: [
-          {
-            title: `테스트 쪽지 ${randStr(5)}`,
-            username: '제이쿼리권위자',
-            profileImage: logo,
-            id: randStr(10),
-            sendDate: moment().format("YYYY-MM-DD hh:mm"),
-          },
-          {
-            title: `테스트 쪽지 ${randStr(5)}`,
-            username: '제이쿼리권위자',
-            profileImage: logo,
-            id: randStr(10),
-            sendDate: moment().format("YYYY-MM-DD hh:mm"),
-            read: true,
-          },
-          {
-            title: `테스트 쪽지 ${randStr(5)}`,
-            username: '제이쿼리권위자',
-            profileImage: logo,
-            id: randStr(10),
-            sendDate: moment().format("YYYY-MM-DD hh:mm"),
-            read: true,
-          },
-        ],
-      })
+        count: data.count,
+        messages: data.data,
+      });
+    }).catch(e=>{
+      uiKit.toaster.cooking(errMsg(e));
     });
     uiKit.loading.end();
   };
 
-  readMessage= async (idx)=>{
-    const {uiKit}= this.props;
+  readMessage= (id)=>{
+    const {auth, uiKit}= this.props;
+    const {messages}= this.state;
 
-    uiKit.loading.start();
-    await delay(500);
-    const openMsg= {
-        title: `테스트 쪽지 ${randStr(5)}`,
-        username: '제이쿼리권위자',
-        profileImage: logo,
-        id: randStr(10),
-        text: randStr(200),
-        sendDate: moment().format("YYYY-MM-DD hh:mm"),
-    };
+    const msg= messages.find(msg=>{
+      if(msg.id=== id)
+        return msg;
+    });
+    if(!msg){
+      uiKit.toaster.cooking('메시지를 찾을 수 없습니다');
+      return;
+    }
+
     uiKit.popup.make((
       <div>
-        <h5>{openMsg.title}</h5>
+        <h5>{msg.author.username}</h5>
         <p className={'explain'}>
-          {openMsg.username}&nbsp;({openMsg.sendDate})
+          {beautifyDate(msg.createdAt)}
         </p>
-        <br/>
         <p>
-          {openMsg.text}
+          {msg.text}
         </p>
         <br/>
         <AlignLayout align={'right'}>
           <Button
             variant="contained"
             color="primary"
-            startIcon={<DeleteIcon />}
+            startIcon={<SendIcon />}
             onClick={()=>{
+              this.sendMessage(msg.author.id, msg.author.username);
             }}>
             답장
           </Button>
@@ -110,19 +93,19 @@ class Message extends Component {
             color="secondary"
             startIcon={<DeleteIcon />}
             onClick={()=>{
-              this.deleteMessage(openMsg.id);
+              this.deleteMessage(msg.id);
             }}>
             삭제
           </Button>
         </AlignLayout>
       </div>
     ));
-    uiKit.loading.end();
   };
 
   deleteMessage= (id)=>{
     //really wanna remove?
-    const {uiKit}= this.props;
+    const {uiKit, auth}= this.props;
+
     uiKit.popup.make((
       <div>
         <h5>이 쪽지를 정말 삭제하시겠습니까?</h5>
@@ -135,23 +118,85 @@ class Message extends Component {
             onClick={async ()=>{
               //do remove
               uiKit.loading.start();
-              await delay(1000);
-              uiKit.loading.end();
-              uiKit.popup.destroy();
-              uiKit.toaster.cooking('삭제되었습니다');
+              await deleteMessage(auth, id).then(response=>{
+                uiKit.popup.destroy();
+                uiKit.toaster.cooking('삭제되었습니다');
 
-              //reload
-              this.loadMessages();
+                //reload
+                this.loadMessages();
+              }).catch(e=>{
+                uiKit.toaster.cooking(errMsg(e));
+              });
+              uiKit.loading.end();
             }}>
             삭제
           </Button>
         </AlignLayout>
       </div>
     ));
-  }
+  };
+
+  sendMessage= (target, username)=>{
+    const {uiKit, auth}= this.props;
+
+    uiKit.spopup.make((
+      <div>
+        <h5>
+          쪽지
+          <p className={'explain'}>
+            {username}
+          </p>
+          <Input
+            maxlength={300}
+            className={'transparent'}
+            type={'textarea'}
+            style={{height: '300px'}}
+            onChange={e=>{
+              const msg= e.target.value;
+              console.log(msg);
+              this.setState({
+                ...this.state,
+                newMsg: msg,
+              });
+            }}
+            placeholder={'내용을 입력하세요'}/>
+        </h5>
+        <br/>
+        <AlignLayout align={'right'}>
+          <Button
+            startIcon={<SendIcon/>}
+            onClick={async ()=>{
+              uiKit.loading.start();
+              await createMessage(auth, target, this.state.newMsg).then(response=>{
+                //ok
+                uiKit.destroyAll();
+                uiKit.toaster.cooking('성공적으로 발송되었습니다');
+              }).catch(e=>{
+                uiKit.toaster.cooking(errMsg(e));
+              });
+              uiKit.loading.end();
+            }}
+            variant={'contained'}
+            color={'primary'}>
+            보내기
+          </Button>
+          &nbsp;&nbsp;
+          <Button
+            startIcon={<CloseIcon/>}
+            onClick={()=>{
+              uiKit.spopup.destroy();
+            }}
+            variant={'contained'}
+            color={'secondary'}>
+            닫기
+          </Button>
+        </AlignLayout>
+      </div>
+    ));
+  };
 
   render() {
-    const {messages}= this.state;
+    const {count, messages}= this.state;
 
     return (
       <div>
@@ -162,13 +207,6 @@ class Message extends Component {
         <br/>
         <AlignLayout align={'left'}>
           <Button
-            startIcon={<SendIcon/>}
-            variant="contained"
-            color="primary">
-            쪽지 보내기
-          </Button>
-          &nbsp;&nbsp;
-          <Button
             onClick={this.loadMessages}
             startIcon={<RefreshIcon/>}
             variant="contained"
@@ -178,26 +216,29 @@ class Message extends Component {
         </AlignLayout>
         <br/>
         {
-          messages &&
+          (messages && messages.length>0) &&
           (
             <Section>
               <List>
                 {
                   messages.map(msg=>{
+                    const {author}= msg;
                     return (
                       <MenuItem >
                         <ListItemAvatar>
                           <Avatar>
                             <ImageView
-                              width={'32px'}
-                              height={'32px'}
-                              src={msg.profileImage}/>
+                              style={{
+                                height: '48px',
+                                width: '48px',
+                              }}
+                              img={author.profilePicture}/>
                           </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                           style={{
                             cursor: 'pointer',
-                            color: msg.read? '#00000099!important': 'white',
+                            color: msg.isRead? '#00000099!important': 'white',
                           }}
                           onClick={()=>{
                             this.readMessage(msg.id);
@@ -206,10 +247,10 @@ class Message extends Component {
                             <div style={{
                               color: msg.read? 'gray': '#333333',
                             }}>
-                              {msg.title}
+                              {msg.text.length> 10? msg.text.slice(0,10)+ "...": msg.text}
                             </div>
                           }
-                          secondary={`${msg.username} (${msg.sendDate})`} />
+                          secondary={`${author.username} (${beautifyDate(msg.createdAt)})`} />
                         <ListItemSecondaryAction>
                           <IconButton
                             onClick={()=>{

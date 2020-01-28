@@ -570,3 +570,49 @@ export const updateMyPassword= (auth, oldPassword, newPassword)=>{
     }
   });
 };
+
+export const getMessages= (auth)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/messages`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+    params: {
+      limit: 9999,
+    }
+  });
+};
+export const getMessage= (auth, id)=>{
+  return axios.request({
+    method: 'GET',
+    url: `${url}/messages/${id}`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+  });
+};
+
+
+export const createMessage= (auth, target, text)=>{
+  return axios.request({
+    method: 'POST',
+    url: `${url}/messages`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+    data: {
+     target, text,
+    }
+  });
+};
+export const deleteMessage= (auth, id)=>{
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/messages/${id}`,
+    headers: {
+      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+    },
+  });
+};
+

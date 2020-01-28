@@ -4,7 +4,7 @@ const url= 'https://dev.cpsp.kr';
 export const getCharacter= (nameEN)=>{
   return axios.request({
     method: 'GET',
-    url: `${url}/characters`,
+    url: `${url}/characters/`,
     params: {
       nameEN
     }
@@ -12,7 +12,7 @@ export const getCharacter= (nameEN)=>{
 };
 
 export const myRes= {
-  url: 'http://res.cpsp.kr',
+  url: 'https://res.cpsp.kr',
   getClearThumbnail: (nameEN)=>{
     return `${myRes.url}/thumbnail/text/${nameEN}.jpg`;
   },

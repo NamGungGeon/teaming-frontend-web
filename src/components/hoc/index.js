@@ -12,10 +12,12 @@ export const UiBundle = component => {
     toaster: Toaster(component),
     loading: Loader(component),
     popup: PopupMaker(component),
+    spopup: PopupMaker(component),
     destroyAll: ()=>{
-     bundle.toaster.destroy();
-     bundle.loading.end();
-     bundle.popup.destroy();
+       bundle.toaster.destroy();
+       bundle.loading.end();
+       bundle.popup.destroy();
+       bundle.spopup.destroy();
     }
   };
 
@@ -25,6 +27,7 @@ export const UiBundle = component => {
         {bundle.toaster.render()}
         {bundle.loading.render()}
         {bundle.popup.render()}
+        {bundle.spopup.render()}
       </>
     );
   };

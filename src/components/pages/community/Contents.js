@@ -3,13 +3,10 @@ import Section from "../../primitive/Section/Section";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormGroup from "reactstrap/es/FormGroup";
-import Col from "reactstrap/es/Col";
-import Button from "@material-ui/core/Button";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
-import {beautifyDate, delay, momenting, randNum} from "../../../utils/utils";
+import {momenting} from "../../../utils/utils";
 import {getPath, urlQuery} from "../../../utils/url";
 import {quickConnect} from "../../../redux/quick";
 import BoardWrapper from "../../primitive/Board/BoardWrapper/BoardWrapper";
@@ -17,9 +14,11 @@ import PageTitle from "../../primitive/PageTitle/PageTitle";
 import {getBoardPosts} from "../../../http/tming";
 import {errMsg} from "../../../http/util";
 import Pagenation from "../../primitive/Pagenation/Pagenation";
-import Fab from "@material-ui/core/Fab";
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from "@material-ui/core/IconButton";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
 
 class Contents extends Component {
   state={
@@ -27,6 +26,7 @@ class Contents extends Component {
     filter: '',
     myComment: '',
 
+    search: '',
     count: 0,
     offset: 0,
   };
@@ -46,15 +46,24 @@ class Contents extends Component {
       const {category}= urlQuery(location);
       return category? category: 'general';
     };
+    const getSearch= (location)=>{
+      const {search}= urlQuery(location);
+      return search;
+    };
 
     if(
       (getOffset(prevProps.location)!== getOffset(this.props.location))
       ||
       (getCategory(prevProps.location)!== getCategory(this.props.location))
+      ||
+      (getSearch(prevProps.location)!== getSearch(this.props.location))
     )
       this.componentDidMount();
   }
-
+  getCategory= ()=>{
+    const query= urlQuery(this.props.location);
+    return query.category ? query.category : 'general';
+  };
   loadContents= async (offset)=>{
     window.scrollTo(0,0);
 
@@ -64,7 +73,7 @@ class Contents extends Component {
     const query= urlQuery(location);
     const category= query.category? query.category: 'general';
 
-    history.replace(getPath(`/community?offset=${offset}&category=${category}`));
+    history.push(getPath(`/community?offset=${offset}&category=${category}`));
 
     uiKit.loading.start();
     await getBoardPosts(category, filter==='fuckAnonymous', 10, offset)
@@ -111,16 +120,50 @@ class Contents extends Component {
         return "리그 오브 레전드 게시판";
       case "cyphers":
         return "사이퍼즈 게시판";
+      case "overwatch":
+        return "오버워치 게시판";
+      case "pubg":
+        return "배틀그라운드 게시판";
       default:
         return "자유게시판";
     }
   };
-
   search= ()=>{
     const {uiKit}= this.props;
     uiKit.popup.make((
       <div>
         <h5>게시글 검색</h5>
+        <TextField
+          size={'small'}
+          fullWidth
+          variant={'outlined'}
+          label='검색 키워드 입력'
+          type={'text'}
+          onChange={e=>{
+            this.setState({
+              ...this.state,
+              search: e.target.value,
+            })
+          }}/>
+        <br/><br/>
+        <AlignLayout align={'right'}>
+          <Button
+            onClick={()=>{
+              const {uiKit, history}= this.props;
+              const {search}= this.state;
+              if(!search){
+                uiKit.toaster.cooking('검색어를 입력하세요');
+                return;
+              }
+
+              history.push(`/community?category=${this.getCategory()}&search=${search}`);
+            }}
+            startIcon={<SearchIcon/>}
+            variant={'contained'}
+            color={'primary'}>
+            검색
+          </Button>
+        </AlignLayout>
       </div>
     ))
   }
