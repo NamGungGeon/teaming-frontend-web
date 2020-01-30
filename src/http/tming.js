@@ -241,10 +241,10 @@ export const getCommentLogs = (auth, limit) => {
 };
 
 export const uploadProfileImage = (auth, file) => {
-  const formdata = new FormData();
-  formdata.append('image', file);
+  const data = new FormData();
+  data.append('image', file);
 
-  return axios.patch(`${url}/me/picture`, formdata, {
+  return axios.patch(`${url}/me/picture`, data, {
     headers: {
       Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`,
       'Content-Type': 'multipart/form-data'
@@ -332,9 +332,11 @@ export const updateBoardPost = (
     data.append('body', body);
     data.append('modifyCode', code);
 
-    media.forEach(file => {
-      data.append('media', file);
+    media.forEach((file, index) => {
+      const extension = file.name.split('.').pop();
+      data.append('media', file, `${index}.${extension}`);
     });
+
     return axios.request({
       method: 'PUT',
       url: `${url}/boards/${id}`,
@@ -529,10 +531,16 @@ export const createCase = (auth, text, media, replyEmail) => {
   if (media) {
     const data = new FormData();
     data.append('text', text);
-    if (replyEmail) data.append('replyEmail', replyEmail);
-    media.forEach(medium => {
-      data.append('media', medium);
+
+    if (replyEmail) {
+      data.append('replyEmail', replyEmail);
+    }
+
+    media.forEach((file, index) => {
+      const extension = file.name.split('.').pop();
+      data.append('media', file, `${index}.${extension}`);
     });
+
     return axios.request({
       method: 'POST',
       url: `${url}/complains`,

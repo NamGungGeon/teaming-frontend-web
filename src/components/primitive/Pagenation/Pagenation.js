@@ -35,7 +35,9 @@ const pages = (min, max, current, paging) => {
 
 const Pagenation = ({ min, max, current, paging }) => {
   console.log('min', min, 'max', max, 'current', current);
-  if (min === max) return <div />;
+  if (min === max) {
+    return <div />;
+  }
 
   return (
     <AlignLayout align={'center'}>
