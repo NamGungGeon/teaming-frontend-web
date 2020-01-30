@@ -7,7 +7,7 @@ class GoogleAdvertise extends Component {
   adsbygoogle= [];
 
   componentDidMount() {
-    (this.adsbygoogle = window.adsbygoogle || []).push({});
+    //(this.adsbygoogle = window.adsbygoogle || []).push({});
   }
 
   render() {

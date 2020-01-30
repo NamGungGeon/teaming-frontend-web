@@ -29,6 +29,7 @@ export const PopupMaker = component => {
               ret.destroy();
           }}
         >
+
           {component.state['popupContent' + prefix]}
         </Popup>
       ) : (

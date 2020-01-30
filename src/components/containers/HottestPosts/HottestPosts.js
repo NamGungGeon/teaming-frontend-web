@@ -51,7 +51,6 @@ class HottestPosts extends Component {
     return (
       <Section>
         <h6>인기 게시글</h6>
-        <br />
         {posts && <BoardWrapper boards={posts} />}
       </Section>
     );

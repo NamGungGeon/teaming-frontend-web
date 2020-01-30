@@ -78,6 +78,12 @@ const sideNav= {
         )
       },
       {
+        label: (<span><YouTubeIcon/>&nbsp;&nbsp;유튜브 홍보 게시판</span>),
+        onClick: ()=>{
+          getHistory().push(getPath(`/youtuber`))
+        }
+      },
+      {
         label: (
           <span>
             <MdBusinessCenter style={{ fontSize: '24px' }} />
@@ -88,12 +94,6 @@ const sideNav= {
           getHistory().push(getPath(`/center`));
         }
       },
-      {
-        label: (<span><YouTubeIcon/>&nbsp;&nbsp;추천 유튜버</span>),
-        onClick: ()=>{
-          getHistory().push(getPath(`/youtubers`))
-        }
-      }
     ]
   },
   visible: false

@@ -27,12 +27,12 @@ const Section = ({ children, divideStyle, className, style }) => {
 Section.defaultProps = {
   divideStyle: '',
   className: '',
-  style: {}
+  style: {},
 };
 Section.propTypes = {
   // divideStyle: PropTypes.oneOf(['', 'none']),
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 export default Section;

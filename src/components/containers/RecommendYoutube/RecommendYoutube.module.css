@@ -1,0 +1,29 @@
+
+.cardWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    margin: 8px 0;
+}
+.cardWrapper> *{
+    margin: 8px 0;
+    width: calc(33.3% - 8px);
+    border: none!important;
+
+    box-shadow: 0 0 4px #33333333!important;
+}
+
+@media (max-width: 500px) {
+    .cardWrapper{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .cardWrapper> *{
+        width: 97%;
+    }
+
+}

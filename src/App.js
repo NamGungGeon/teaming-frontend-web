@@ -16,7 +16,7 @@ import {
   Notices,
   Center,
   Admin,
-  Magazine
+  Magazine, Youtuber
 } from './components/pages';
 import MyPage from './components/pages/mypage/MyPage';
 import Trade from './components/pages/trade/Trade';
@@ -29,6 +29,7 @@ import Cyphers from './components/pages/cyphers/Cyphers';
 import logo from './components/resource/tming_txt.png';
 import MusicPlayer from './components/containers/MusicPlayer/MusicPlayer';
 import RecommendYoutube from './components/containers/RecommendYoutube/RecommendYoutube';
+import GoogleAdvertise from "./components/containers/GoogleAdvertise/GoogleAdvertise";
 
 class App extends Component {
   state = {
@@ -130,13 +131,15 @@ class App extends Component {
                   <Route path={getPath('/cyphers')} component={Cyphers} />
                   <Route path={getPath('/admin')} component={Admin} />
                   <Route path={getPath('/magazine')} component={Magazine} />
+                  <Route path={getPath('/youtuber')} component={Youtuber} />
+
                   <div className={'mobile'}>
                     <Footer logo={logo} />
                   </div>
                 </div>
                 <div className={'sideContent'}>
                   <MusicPlayer />
-                  <RecommendYoutube />
+                  <GoogleAdvertise/>
                 </div>
               </div>
             </div>

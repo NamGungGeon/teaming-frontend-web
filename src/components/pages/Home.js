@@ -8,6 +8,8 @@ import GoogleAdvertise from '../containers/GoogleAdvertise/GoogleAdvertise';
 import Magazine from '../containers/Magazine/Magazine';
 import Section from '../primitive/Section/Section';
 import HottestPosts from '../containers/HottestPosts/HottestPosts';
+import MusicPlayer from "../containers/MusicPlayer/MusicPlayer";
+import RecommendYoutube from "../containers/RecommendYoutube/RecommendYoutube";
 
 class Home extends Component {
   componentDidMount() {
@@ -22,7 +24,18 @@ class Home extends Component {
         <HelpAppInstall />
         <UsefulInformation />
         <br />
-        <GoogleAdvertise />
+        <Section>
+          <b
+            onClick={() => {
+              history.push(getPath('/youtuber'));
+            }}
+            style={{
+              cursor: 'pointer',
+            }}>
+            유튜브 홍보 게시판
+          </b>
+          <RecommendYoutube max={3}/>
+        </Section>
         <br />
         <Section>
           <h6
@@ -35,7 +48,6 @@ class Home extends Component {
           >
             매거진
           </h6>
-          <br />
           <Magazine max={4} />
         </Section>
         <br />

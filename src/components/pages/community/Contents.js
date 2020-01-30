@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-import { momenting } from '../../../utils/utils';
+import {momenting, pageDescription} from '../../../utils/utils';
 import { getPath, urlQuery } from '../../../utils/url';
 import { quickConnect } from '../../../redux/quick';
 import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
@@ -37,6 +37,7 @@ class Contents extends Component {
     const { location } = this.props;
     const { offset } = urlQuery(location);
 
+    pageDescription("티밍: "+ this.getBoardName(), this.getBoardName());
     this.loadContents(offset? offset: 0);
 
     this.popup= PopupMaker(this);

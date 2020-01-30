@@ -101,12 +101,20 @@ export const fuckHTML= (html)=>{
   return html.replace(/(<([^>]+)>)/ig, "");
 };
 
-export const pageDescription= (title, desc)=>{
-  const descriptor= document.querySelector('meta[name="description"]');
-  console.log('descriptor',descriptor);
-  if(descriptor){
-    descriptor.setAttribute("content", desc);
-  }
+export const pageDescription= (title, desc, img)=>{
+  document.title= title? title: "티밍";
 
-  document.title= title;
+  if(title)
+    document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+  else
+    document.querySelector('meta[property="og:title"]').setAttribute("content", "티밍");
+
+  if(desc)
+    document.querySelector('meta[property="og:description"]').setAttribute("content", desc);
+  else
+    document.querySelector('meta[property="og:description"]').setAttribute("content", "혼자 게임하지 말고 같이 하자!");
+
+  if(img)
+    document.querySelector('meta[property="og:image"]').setAttribute("content", img);
+
 };

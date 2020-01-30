@@ -1,12 +1,11 @@
 .wrapper{
-    padding: 8px 16px;
+    padding: 8px 8px;
     cursor: pointer;
 
     display: flex;
     flex-direction: row;
 
     background-color: white;
-    border-bottom: 1px solid #eff0f5;
 }
 .wrapper> .imgWrap{
     width: 48px;

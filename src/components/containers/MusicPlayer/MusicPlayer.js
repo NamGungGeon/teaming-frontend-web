@@ -32,8 +32,8 @@ const MusicPlayer = () => {
 
   return (
     <Section>
-      <h6>승률이 올라가는 브금</h6>
-      <br />
+      <b>승률이 올라가는 브금</b>
+      <br /><br />
       {musics &&
         musics.map((music, index) => {
           return <MusicCard key={index} {...music} />;

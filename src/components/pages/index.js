@@ -10,5 +10,6 @@ import Center from './center/Center';
 import Cyphers from './cyphers/Cyphers';
 import Admin from './admin/Admin';
 import Magazine from './magazine/Magazine';
+import Youtuber from "./youtuber/Youtuber";
 
-export { Home, Chat, Match, Auth, Trash, Rooms, Events, Notices, Center, Cyphers, Admin, Magazine};
+export { Home, Chat, Match, Auth, Trash, Rooms, Events, Notices, Center, Cyphers, Admin, Magazine, Youtuber};

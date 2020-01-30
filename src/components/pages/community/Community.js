@@ -10,6 +10,7 @@ import Write from "./Write";
 import {quickConnect} from "../../../redux/quick";
 import getHistory from 'react-router-global-history';
 import Update from "./Update";
+import {pageDescription} from "../../../utils/utils";
 
 class Community extends Component {
 

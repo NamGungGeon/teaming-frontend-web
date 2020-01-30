@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import styles from './Popup.module.css';
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
 
 class Popup extends Component {
   render() {
