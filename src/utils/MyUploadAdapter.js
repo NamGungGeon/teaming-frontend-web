@@ -1,5 +1,5 @@
 class MyUploadAdapter {
-  //listener structure
+  // listener structure
   // listener= {
   //   ok: (file)=>{
   //
@@ -9,43 +9,38 @@ class MyUploadAdapter {
   //   },
   // }
 
-  constructor( loader, listener ) {
+  constructor(loader, listener) {
     // The file loader instance to use during the upload.
     this.loader = loader;
-    this.listener= listener;
+    this.listener = listener;
   }
 
   // Starts the upload process.
   upload() {
-    const {loader, listener}= this;
+    const { loader, listener } = this;
 
-
-    return new Promise(((resolve, reject) => {
-      if(loader || listener){
-        loader.file.then(response=>{
-          console.log('file', response);
-          const blob= window.URL.createObjectURL(response);
+    return new Promise((resolve, reject) => {
+      if (loader || listener) {
+        loader.file.then(response => {
+          const blob = window.URL.createObjectURL(response);
 
           //key is object path
           //value is file object,
-          const image= {
+          const image = {
             [blob]: response
           };
 
           listener.ok(image);
           resolve({
-            default: blob,
+            default: blob
           });
         });
-      }
-      else
-        reject("loader or file is not exist");
-    }));
+      } else reject('loader or file is not exist');
+    });
   }
 
   // Aborts the upload process.
-  abort() {
-  }
+  abort() {}
 }
 
 export default MyUploadAdapter;

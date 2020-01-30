@@ -17,7 +17,7 @@ const Optional= ({auth, visible, onlyAdmin, children})=>{
           setAdmin(true);
       });
     }
-  }, []);
+  }, [auth, onlyAdmin]);
 
   if(visible || admin)
     return (

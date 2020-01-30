@@ -1,13 +1,14 @@
-import {authorized, randStr} from "../utils/utils";
-import axios from "axios";
-import moment from "moment";
+import { authorized } from '../utils/utils';
+import axios from 'axios';
+import moment from 'moment';
 
 //base
 const url = 'https://api.tming.kr/v0.1';
 
-export const image = (filename) => {
+export const image = filename => {
   return `https://teaming-kr-bucket.s3.ap-northeast-2.amazonaws.com/production/boards/${filename}`;
 };
+
 /**
  * @param {string} gender gender is one of [M,f].
  * @param {string} username username is nickname.
@@ -28,6 +29,7 @@ export const signup = (email, password, username, gender) => {
     }
   });
 };
+
 /**
  * @param {string} gender gender is one of [M,f].
  * @param {string} username username is nickname.
@@ -55,11 +57,13 @@ export const createTrash = (password, text) => {
     method: 'POST',
     url: `${url}/feelings`,
     data: {
-      text, password
+      text,
+      password
     }
   });
 };
-export const getTrashComments = (id) => {
+
+export const getTrashComments = id => {
   return axios.request({
     method: 'GET',
     url: `${url}/feelings/${id}/replies`,
@@ -68,85 +72,99 @@ export const getTrashComments = (id) => {
     }
   });
 };
+
 export const createTrashComment = (password, id, text) => {
   return axios.request({
     method: 'POST',
     url: `${url}/feelings/${id}/replies`,
     data: {
-      text, password
+      text,
+      password
     }
   });
 };
+
 export const deleteTrashComment = (password, feelId, replyId) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/feelings/${feelId}/replies/${replyId}`,
     headers: {
-      'x-modify-code': password,
+      'x-modify-code': password
     }
   });
 };
-export const updateTrashComment= (password, feelId, replyId, text)=>{
+
+export const updateTrashComment = (password, feelId, replyId, text) => {
   return axios.request({
     method: 'PUT',
     url: `${url}/feelings/${feelId}/replies/${replyId}`,
     headers: {
-      'x-modify-code': password,
+      'x-modify-code': password
     },
     data: {
       text
     }
   });
-}
+};
 
 export const getNotices = () => {
   return axios.request({
     method: 'GET',
-    url: `${url}/admin/notices`,
+    url: `${url}/admin/notices`
   });
 };
-export const getNotice = (id) => {
+
+export const getNotice = id => {
   return axios.request({
     method: 'GET',
-    url: `${url}/admin/notices/${id}`,
+    url: `${url}/admin/notices/${id}`
   });
 };
+
 export const createNotice = (auth, title, text) => {
-  const after30 = moment().add(30, 'days').format("YYYY-MM-DD");
+  const after30 = moment()
+    .add(30, 'days')
+    .format('YYYY-MM-DD');
 
   return axios.request({
     method: 'POST',
     url: `${url}/admin/notices`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
-      title, text, until: after30,
+      title,
+      text,
+      until: after30
     }
   });
 };
+
 export const getEvents = () => {
   return axios.request({
     method: 'GET',
-    url: `${url}/admin/events`,
+    url: `${url}/admin/events`
   });
 };
-export const getEvent = (id) => {
+
+export const getEvent = id => {
   return axios.request({
     method: 'GET',
-    url: `${url}/admin/events/${id}`,
+    url: `${url}/admin/events/${id}`
   });
 };
+
 export const removeNotice = (auth, id) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/admin/notices/${id}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-      'Content-Type': 'multipart/form-data',
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`,
+      'Content-Type': 'multipart/form-data'
+    }
   });
 };
+
 export const createEvent = (auth, title, text, banner, startDate, endDate) => {
   const data = new FormData();
   data.append('title', title);
@@ -159,72 +177,77 @@ export const createEvent = (auth, title, text, banner, startDate, endDate) => {
     method: 'POST',
     url: `${url}/admin/events`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-      'Content-Type': 'multipart/form-data',
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`,
+      'Content-Type': 'multipart/form-data'
     },
-    data,
+    data
   });
 };
+
 export const removeEvent = (auth, id) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/admin/events/${id}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
-}
+};
 
-export const getMyProfile = (auth) => {
+export const getMyProfile = auth => {
   return axios.request({
     method: 'GET',
     url: `${url}/me`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
 };
-export const disableProfile= (auth)=>{
+
+export const disableProfile = auth => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/me`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
 };
-export const getPostLogs= (auth, limit)=>{
+
+export const getPostLogs = (auth, limit) => {
   return axios.request({
     method: 'GET',
     url: `${url}/me/boards`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     params: {
-      limit,
+      limit
     }
   });
 };
-export const getCommentLogs= (auth, limit)=>{
+
+export const getCommentLogs = (auth, limit) => {
   return axios.request({
     method: 'GET',
     url: `${url}/me/comments`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     params: {
-      limit,
+      limit
     }
   });
 };
+
 export const uploadProfileImage = (auth, file) => {
   const formdata = new FormData();
   formdata.append('image', file);
 
   return axios.patch(`${url}/me/picture`, formdata, {
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-      'Content-Type': 'multipart/form-data',
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`,
+      'Content-Type': 'multipart/form-data'
     }
   });
 };
@@ -234,30 +257,38 @@ export const getBoardPosts = (category, anonymous, limit, offset) => {
     method: 'GET',
     url: `${url}/boards`,
     params: {
-      category: category.toUpperCase()
-      , anonymous, limit, offset,
+      category: category.toUpperCase(),
+      anonymous,
+      limit,
+      offset
     }
   });
 };
-export const createBoardPosts = (auth, category, title, body, code, media) => {
 
+export const createBoardPosts = (auth, category, title, body, code, media) => {
   if (media) {
+    // media 는 무조건 array 임
     //formed data
     const data = new FormData();
-    data.append("category", category.toUpperCase());
-    data.append("title", title);
-    data.append("body", body);
-    if(code)
-      data.append("modifyCode", code);
-    media.map(file=>{
-      data.append("media", file);
+    data.append('category', category.toUpperCase());
+    data.append('title', title);
+    data.append('body', body);
+
+    if (code) {
+      data.append('modifyCode', code);
+    }
+
+    media.forEach((file, index) => {
+      const extension = file.name.split('.').pop();
+      data.append('media', file, `${index}.${extension}`);
     });
+
     return axios.request({
       method: 'POST',
       url: `${url}/boards`,
       'Content-Type': 'multipart/form-data',
       headers: {
-        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+        Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
       },
       data
     });
@@ -266,55 +297,66 @@ export const createBoardPosts = (auth, category, title, body, code, media) => {
       method: 'POST',
       url: `${url}/boards`,
       headers: {
-        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+        Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
       },
       data: {
         category: category.toUpperCase(),
-        title, body, modifyCode: code
+        title,
+        body,
+        modifyCode: code
       }
     });
   }
 };
-export const getBoardPost = (id) => {
+export const getBoardPost = id => {
   return axios.request({
     method: 'GET',
-    url: `${url}/boards/${id}`,
+    url: `${url}/boards/${id}`
   });
 };
 
-export const updateBoardPost = (auth, id, category, title, body, code, media) => {
+export const updateBoardPost = (
+  auth,
+  id,
+  category,
+  title,
+  body,
+  code,
+  media
+) => {
   if (media) {
     //formed data
     const data = new FormData();
-    data.append("category", category.toUpperCase());
-    data.append("title", title);
-    data.append("body", body);
-    data.append("modifyCode", code);
-    console.log(media);
-    media.map(file=>{
-      data.append("media", file);
+    data.append('category', category.toUpperCase());
+    data.append('title', title);
+    data.append('body', body);
+    data.append('modifyCode', code);
+
+    media.forEach(file => {
+      data.append('media', file);
     });
     return axios.request({
       method: 'PUT',
       url: `${url}/boards/${id}`,
       'Content-Type': 'multipart/form-data',
       headers: {
-        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-        'x-modify-code': code ? code : '',
+        Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`,
+        'x-modify-code': code ? code : ''
       },
       data
     });
-  }else{
+  } else {
     return axios.request({
       method: 'PUT',
       url: `${url}/boards/${id}`,
       headers: {
-        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-        'x-modify-code': code ? code : '',
+        Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`,
+        'x-modify-code': code ? code : ''
       },
       data: {
         category: category.toUpperCase(),
-        title, body,
+        title,
+        body
       }
     });
   }
@@ -325,27 +367,27 @@ export const deleteBoardPost = (auth, id) => {
     method: 'DELETE',
     url: `${url}/boards/${id}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
 };
 
-export const goodToPost= (auth, id)=>{
+export const goodToPost = (auth, id) => {
   return axios.request({
     method: 'POST',
     url: `${url}/boards/${id}/likes`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
 };
-export const badToPost= (auth, id)=>{
+export const badToPost = (auth, id) => {
   return axios.request({
     method: 'POST',
     url: `${url}/boards/${id}/dislikes`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
 };
 
@@ -354,19 +396,19 @@ export const createPostComment = (auth, id, text) => {
     method: 'POST',
     url: `${url}/boards/${id}/comments`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
-      text,
+      text
     }
   });
 };
-export const getPostComments = (id) => {
+export const getPostComments = id => {
   return axios.request({
     method: 'GET',
     url: `${url}/boards/${id}/comments`,
     params: {
-      limit: 99999,
+      limit: 99999
     }
   });
 };
@@ -375,8 +417,8 @@ export const deletePostComment = (auth, postId, commentId) => {
     method: 'DELETE',
     url: `${url}/boards/${postId}/comments/${commentId}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
 };
 export const updatePostComment = (auth, postId, commentId, text) => {
@@ -384,7 +426,7 @@ export const updatePostComment = (auth, postId, commentId, text) => {
     method: 'PUT',
     url: `${url}/boards/${postId}/comments/${commentId}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
       text
@@ -392,12 +434,12 @@ export const updatePostComment = (auth, postId, commentId, text) => {
   });
 };
 
-export const getFriends = (auth) => {
+export const getFriends = auth => {
   return axios.request({
     method: 'GET',
     url: `${url}/me/friends`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     }
   });
 };
@@ -406,10 +448,10 @@ export const requestFriend = (auth, target) => {
     method: 'POST',
     url: `${url}/me/friendRequests`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
-      target,
+      target
     }
   });
 };
@@ -418,7 +460,7 @@ export const deleteFriend = (auth, relationship_id) => {
     method: 'DELETE',
     url: `${url}/me/friends`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
       relationship_id
@@ -426,15 +468,15 @@ export const deleteFriend = (auth, relationship_id) => {
   });
 };
 
-export const getBlocks = (auth) => {
+export const getBlocks = auth => {
   return axios.request({
     method: 'GET',
     url: `${url}/me/blocks`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     params: {
-      limit: 99999,
+      limit: 99999
     }
   });
 };
@@ -443,20 +485,20 @@ export const createBlock = (auth, target) => {
     method: 'POST',
     url: `${url}/me/blocks`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
-      target,
+      target
     }
   });
 };
-export const removeBlock= (auth, relationship_id)=>{
+export const removeBlock = (auth, relationship_id) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/me/blocks/${relationship_id}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
 };
 
@@ -465,10 +507,10 @@ export const getNotifications = (auth, limit) => {
     method: 'GET',
     url: `${url}/me/notifications`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     params: {
-      limit,
+      limit
     }
   });
 };
@@ -477,80 +519,82 @@ export const removeNotification = (auth, id) => {
     method: 'DELETE',
     url: `${url}/me/notifications/${id}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     }
   });
 };
 
 //auth is nullable
-export const createCase= (auth, text, media, replyEmail)=>{
-  console.log(auth, authorized(auth)? 'true': 'false');
+export const createCase = (auth, text, media, replyEmail) => {
+  console.log(auth, authorized(auth) ? 'true' : 'false');
 
-  if(media){
-    const data= new FormData();
+  if (media) {
+    const data = new FormData();
     data.append('text', text);
-    if(replyEmail)
-      data.append('replyEmail', replyEmail);
-    media.map(m=>{
+    if (replyEmail) data.append('replyEmail', replyEmail);
+    media.map(m => {
       data.append('media', m);
     });
     return axios.request({
       method: 'POST',
       url: `${url}/complains`,
       headers: {
-        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+        Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`,
         'Content-Type': 'multipart/form-data'
       },
       data
     });
-  }else{
+  } else {
     return axios.request({
       method: 'POST',
       url: `${url}/complains`,
       headers: {
-        Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+        Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
       },
       data: {
-        text, replyEmail,
+        text,
+        replyEmail
       }
     });
   }
 };
+
 //for admin
-export const getComplains= (auth)=>{
+export const getComplains = auth => {
   return axios.request({
     method: 'GET',
     url: `${url}/complains`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
-    params:{
+    params: {
       offset: 0,
-      limit: 99999,
+      limit: 99999
     }
   });
 };
+
 //for user
-export const getMyComaplins= (auth)=>{
+export const getMyComaplins = auth => {
   return axios.request({
     method: 'GET',
     url: `${url}/me/complains`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
-    params:{
+    params: {
       offset: 0,
-      limit: 99999,
+      limit: 99999
     }
   });
-}
+};
 
-export const replyComplain= (auth, id, text)=>{
+export const replyComplain = (auth, id, text) => {
   return axios.request({
     method: 'POST',
     url: `${url}/complains/${id}/reply`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
       text
@@ -558,61 +602,63 @@ export const replyComplain= (auth, id, text)=>{
   });
 };
 
-export const updateMyPassword= (auth, oldPassword, newPassword)=>{
+export const updateMyPassword = (auth, oldPassword, newPassword) => {
   return axios.request({
     method: 'PATCH',
     url: `${url}/me/password`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
-      oldPassword, newPassword
+      oldPassword,
+      newPassword
     }
   });
 };
 
-export const getMessages= (auth)=>{
+export const getMessages = auth => {
   return axios.request({
     method: 'GET',
     url: `${url}/messages`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     params: {
-      limit: 9999,
+      limit: 9999
     }
   });
 };
-export const getMessage= (auth, id)=>{
+
+export const getMessage = (auth, id) => {
   return axios.request({
     method: 'GET',
     url: `${url}/messages/${id}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
 };
 
-
-export const createMessage= (auth, target, text)=>{
+export const createMessage = (auth, target, text) => {
   return axios.request({
     method: 'POST',
     url: `${url}/messages`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
-     target, text,
+      target,
+      text
     }
   });
 };
-export const deleteMessage= (auth, id)=>{
+
+export const deleteMessage = (auth, id) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/messages/${id}`,
     headers: {
-      Authorization: `${authorized(auth)? `Bearer ${auth.token}`: ''}`,
-    },
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
   });
 };
-
