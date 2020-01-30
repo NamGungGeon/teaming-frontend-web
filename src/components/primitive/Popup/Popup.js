@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import styles from './Popup.module.css';
 
 class Popup extends Component {
-  componentDidMount() {
-    console.log('popup is mounted');
-  }
-
   render() {
     const { children, plzClose } = this.props;
     return (

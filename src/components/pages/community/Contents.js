@@ -15,9 +15,11 @@ import { getBoardPosts } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import Pagenation from '../../primitive/Pagenation/Pagenation';
 import SearchIcon from '@material-ui/icons/Search';
-import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import IconButton from "@material-ui/core/IconButton";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import {PopupMaker} from "../../hoc/PopupMaker";
+
 
 class Contents extends Component {
   state = {
@@ -26,6 +28,7 @@ class Contents extends Component {
     myComment: '',
 
     search: '',
+    searchField: 'title',
     count: 0,
     offset: 0
   };
@@ -34,12 +37,17 @@ class Contents extends Component {
     const { location } = this.props;
     const { offset } = urlQuery(location);
 
-    this.loadContents(offset ? offset : 0);
-  }
+    this.loadContents(offset? offset: 0);
+
+    this.popup= PopupMaker(this);
+  };
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const getOffset = location => {
-      const { offset } = urlQuery(location);
-      return offset ? offset : 0;
+    console.log('state', this.state);
+
+    const getOffset= (location)=>{
+      const {offset}= urlQuery(location);
+      return offset? offset: 0;
     };
     const getCategory = location => {
       const { category } = urlQuery(location);
@@ -67,19 +75,19 @@ class Contents extends Component {
     const { filter } = this.state;
     const { uiKit, location, history } = this.props;
 
-    const query = urlQuery(location);
-    const category = query.category ? query.category : 'general';
-
-    history.push(getPath(`/community?offset=${offset}&category=${category}`));
+    const {category, search, searchField}= urlQuery(location);
 
     uiKit.loading.start();
-    await getBoardPosts(category, filter === 'fuckAnonymous', 10, offset)
-      .then(response => {
-        const { data } = response;
+    await getBoardPosts(category? category: 'general', 10, offset, searchField, search)
+      .then(response=>{
+        const {data}= response;
         console.log(data);
 
-        if (data.data.length === 0) {
-          uiKit.toaster.cooking('이 게시판에 아직 글이 없습니다');
+        if(data.data.length=== 0){
+          if(search)
+            uiKit.toaster.cooking('검색 결과가 없습니다');
+          else
+            uiKit.toaster.cooking('이 게시판에 아직 글이 없습니다');
         }
 
         this.setState({
@@ -126,18 +134,63 @@ class Contents extends Component {
         return '자유게시판';
     }
   };
-  search = () => {
-    const { uiKit } = this.props;
-    uiKit.popup.make(
+  search= ()=>{
+    const {uiKit}= this.props;
+    const searching= ()=>{
+      const {uiKit, history}= this.props;
+      const {search, searchField}= this.state;
+      if(!search){
+        uiKit.toaster.cooking('검색어를 입력하세요');
+        return;
+      }
+
+      this.popup.destroy();
+      history.push(`/community?category=${this.getCategory()}&search=${search}&searchField=${searchField}&&offset=0`);
+    };
+    this.popup.make((
       <div>
         <h5>게시글 검색</h5>
+        <FormControl
+          fullWidth
+          size={'small'}
+          variant={'outlined'}>
+          <Select
+            style={{
+              width: '100%',
+              border: 'none',
+            }}
+            value={this.state.searchField}
+            displayEmpty
+            onChange={(e)=>{
+              this.setState({
+                ...this.state,
+                searchField: e.target.value,
+              });
+            }}>
+            <MenuItem value="title">
+              제목에서 찾기
+            </MenuItem>
+            <MenuItem value={'body'}>
+              본문에서 찾기
+            </MenuItem>
+            <MenuItem value={'author'}>
+              작성자로 찾기
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <br/><br/>
         <TextField
           size={'small'}
           fullWidth
           variant={'outlined'}
           label="검색 키워드 입력"
           type={'text'}
-          onChange={e => {
+          onKeyDown={e=>{
+            if(e.key=== 'Enter'){
+              searching();
+            }
+          }}
+          onChange={e=>{
             this.setState({
               ...this.state,
               search: e.target.value
@@ -148,19 +201,8 @@ class Contents extends Component {
         <br />
         <AlignLayout align={'right'}>
           <Button
-            onClick={() => {
-              const { uiKit, history } = this.props;
-              const { search } = this.state;
-              if (!search) {
-                uiKit.toaster.cooking('검색어를 입력하세요');
-                return;
-              }
-
-              history.push(
-                `/community?category=${this.getCategory()}&search=${search}`
-              );
-            }}
-            startIcon={<SearchIcon />}
+            onClick={searching}
+            startIcon={<SearchIcon/>}
             variant={'contained'}
             color={'primary'}
           >
@@ -168,7 +210,7 @@ class Contents extends Component {
           </Button>
         </AlignLayout>
       </div>
-    );
+    ))
   };
 
   render() {
@@ -179,6 +221,9 @@ class Contents extends Component {
 
     return (
       <div>
+        {
+          this.popup && this.popup.render()
+        }
         <PageTitle
           title={this.getBoardName()}
           explain={`${this.getBoardName()} 입니다`}
@@ -266,7 +311,10 @@ class Contents extends Component {
         <Pagenation
           paging={page => {
             console.log('page', page);
-            this.loadContents(10 * (page - 1));
+            const nextOffset= 10*(page-1);
+
+            const {category, search}= urlQuery(location);
+            history.push(getPath(`/community?offset=${nextOffset}&category=${category? category: ''}&search=${search? search: ''}`));
           }}
           min={1}
           current={parseInt(offset / 10 + 1)}

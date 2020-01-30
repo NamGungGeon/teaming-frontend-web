@@ -4,14 +4,17 @@ import GamepadIcon from '@material-ui/icons/Gamepad';
 import PeopleIcon from '@material-ui/icons/People';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import ChatIcon from '@material-ui/icons/Chat';
-import { IoIosHeart } from 'react-icons/io';
-import { FaToiletPaper } from 'react-icons/fa';
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import { IoIosHeart, } from "react-icons/io";
+import { FaToiletPaper } from "react-icons/fa";
 import { MdBusinessCenter } from 'react-icons/md';
 import { getPath } from '../../utils/url';
 import React from 'react';
 import getHistory from 'react-router-global-history';
 
-const sideNav = {
+
+
+const sideNav= {
   nav: {
     메뉴: [
       {
@@ -84,13 +87,11 @@ const sideNav = {
         onClick: () => {
           getHistory().push(getPath(`/center`));
         }
-      }
-    ],
-    콜라보: [
+      },
       {
-        label: '사이퍼즈 서포터',
-        onClick: () => {
-          getHistory().push(getPath('/cyphers'));
+        label: (<span><YouTubeIcon/>&nbsp;&nbsp;추천 유튜버</span>),
+        onClick: ()=>{
+          getHistory().push(getPath(`/youtubers`))
         }
       }
     ]

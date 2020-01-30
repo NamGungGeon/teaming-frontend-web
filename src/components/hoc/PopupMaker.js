@@ -18,6 +18,9 @@ export const PopupMaker = component => {
         ['popupContent' + prefix]: ''
       });
     },
+    update: ()=>{
+      component.forceUpdate();
+    },
     render: () => {
       return component.state['popupContent' + prefix] ? (
         <Popup

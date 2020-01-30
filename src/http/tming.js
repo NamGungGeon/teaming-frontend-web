@@ -252,19 +252,23 @@ export const uploadProfileImage = (auth, file) => {
   });
 };
 
-export const getBoardPosts = (category, anonymous, limit, offset) => {
+export const getBoardPosts = (category, limit, offset, searchField, search) => {
+  const options= {};
+  if(searchField && search){
+    options.searchField= searchField;
+    options.search= search;
+  }
+
   return axios.request({
     method: 'GET',
     url: `${url}/boards`,
     params: {
-      category: category.toUpperCase(),
-      anonymous,
-      limit,
-      offset
+      category: category.toUpperCase()
+      , limit, offset,
+      ...options
     }
   });
 };
-
 export const createBoardPosts = (auth, category, title, body, code, media) => {
   if (media) {
     // media 는 무조건 array 임

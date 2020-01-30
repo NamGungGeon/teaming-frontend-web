@@ -96,9 +96,17 @@ export const lastDays= (end)=>{
 };
 export const momenting= (date)=>{
   return moment(date, dateFormat);
-}
-
-
+};
 export const fuckHTML= (html)=>{
   return html.replace(/(<([^>]+)>)/ig, "");
+};
+
+export const pageDescription= (title, desc)=>{
+  const descriptor= document.querySelector('meta[name="description"]');
+  console.log('descriptor',descriptor);
+  if(descriptor){
+    descriptor.setAttribute("content", desc);
+  }
+
+  document.title= title;
 };
