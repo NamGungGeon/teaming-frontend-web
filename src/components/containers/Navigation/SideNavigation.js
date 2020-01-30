@@ -1,23 +1,24 @@
-import React, {Component} from 'react';
-import {quickConnect} from "../../../redux/quick";
+import React, { Component } from 'react';
+import { quickConnect } from '../../../redux/quick';
 import './SideNavigation.css';
-import Footer from "../Footer/Footer";
-import HorizontalNavigation from "./HorizontalNavigation";
+import Footer from '../Footer/Footer';
+import HorizontalNavigation from './HorizontalNavigation';
 
 class SideNavigation extends Component {
   render() {
     console.log(this.props);
-    const {sideNav, SideNavDispatcher}= this.props;
+    const { sideNav } = this.props;
 
     return (
-      <div
-        className={'sidenav'}>
-        <div style={{
-          paddingTop: '16px'
-        }}>
-          <HorizontalNavigation nav={sideNav.nav}/>
+      <div className={'sidenav'}>
+        <div
+          style={{
+            paddingTop: '16px'
+          }}
+        >
+          <HorizontalNavigation nav={sideNav.nav} />
         </div>
-        <Footer/>
+        <Footer />
       </div>
     );
   }

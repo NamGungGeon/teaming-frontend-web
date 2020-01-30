@@ -5,7 +5,7 @@ import Input from 'reactstrap/es/Input';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { quickConnect } from '../../../redux/quick';
 import { urlQuery } from '../../../utils/url';
-import { createBoardPosts, image } from '../../../http/tming';
+import { createBoardPosts } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import Optional from '../../primitive/Optional/Optional';
 import Wysiwyg from '../../primitive/WYSIWYG/WYSIWYG';
@@ -21,7 +21,6 @@ class Write extends Component {
     const { uiKit, auth, location, history } = this.props;
     const { category } = urlQuery(location);
     if (!authorized(auth) && category !== 'anonymous') {
-      console.log(auth, category);
       uiKit.toaster.cooking('익명 게시판이 아니면 로그인이 필요합니다');
       history.goBack();
       return;

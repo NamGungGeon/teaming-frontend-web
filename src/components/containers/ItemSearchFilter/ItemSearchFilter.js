@@ -1,17 +1,15 @@
-import React, {Component} from 'react';
-import FormGroup from "reactstrap/es/FormGroup";
-import InputGroup from "reactstrap/es/InputGroup";
-import Input from "reactstrap/es/Input";
-import {Col, InputGroupAddon, Label} from "reactstrap";
-import Button from "reactstrap/es/Button";
-import {MdSearch} from "react-icons/md";
-import Collapse from "reactstrap/es/Collapse";
-import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
+import React, { Component } from 'react';
+import FormGroup from 'reactstrap/es/FormGroup';
+import InputGroup from 'reactstrap/es/InputGroup';
+import Input from 'reactstrap/es/Input';
+import { InputGroupAddon, Label } from 'reactstrap';
+import Button from 'reactstrap/es/Button';
+import { MdSearch } from 'react-icons/md';
 
 class ItemSearchFilter extends Component {
-  state={
+  state = {
     keyword: '',
-    currency: ['cash', 'gameMoney'],
+    currency: ['cash', 'gameMoney']
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -20,8 +18,7 @@ class ItemSearchFilter extends Component {
   }
 
   render() {
-    const {filtering}= this.props;
-    const {currency}= this.state;
+    const { currency } = this.state;
 
     return (
       <div>
@@ -32,80 +29,69 @@ class ItemSearchFilter extends Component {
               className={'transparent'}
               type={'text'}
               placeholder={'아이템 이름을 입력하세요'}
-              onKeyDown={e => {
-              }}
-              onChange={e => {
-              }}
+              onKeyDown={e => {}}
+              onChange={e => {}}
             />
             <InputGroupAddon addonType="append">
-              <Button
-                onClick={() => {
-                }}
-                color={'danger'}
-              >
+              <Button onClick={() => {}} color={'danger'}>
                 <MdSearch color={'white'} />
               </Button>
             </InputGroupAddon>
           </InputGroup>
         </FormGroup>
 
-
         <b>거래 수단</b>
         <FormGroup check>
           <Label check>
             <Input
-              checked={
-                currency.findIndex(value=> value==='cash')!== -1
-              }
+              checked={currency.findIndex(value => value === 'cash') !== -1}
               type="checkbox"
-              onChange={(e)=>{
-                const idx= currency.findIndex(value=> value==='cash');
-                if(idx=== -1)
-                  currency.push('cash');
-                else
-                  delete currency[idx];
+              onChange={e => {
+                const idx = currency.findIndex(value => value === 'cash');
+                if (idx === -1) currency.push('cash');
+                else delete currency[idx];
 
                 this.setState({
                   ...this.state,
-                  currency,
+                  currency
                 });
-              }}/>
+              }}
+            />
             &nbsp;현금거래
           </Label>
-          <br/>
+          <br />
           <Label check>
             <Input
               checked={
-                currency.findIndex(value=> value==='gameMoney')!== -1
+                currency.findIndex(value => value === 'gameMoney') !== -1
               }
               type="checkbox"
-              onChange={(e)=>{
-                const idx= currency.findIndex(value=> value==='gameMoney');
-                if(idx=== -1)
-                  currency.push('gameMoney');
-                else
-                  delete currency[idx];
+              onChange={e => {
+                const idx = currency.findIndex(value => value === 'gameMoney');
+                if (idx === -1) currency.push('gameMoney');
+                else delete currency[idx];
 
                 this.setState({
                   ...this.state,
-                  currency,
+                  currency
                 });
-              }}/>
+              }}
+            />
             &nbsp;게임 재화
           </Label>
         </FormGroup>
-        <br/>
+        <br />
 
         <b>정렬</b>
         <FormGroup check>
           <Label check>
-            <Input type="radio" name="radio2"/>
+            <Input type="radio" name="radio2" />
             가격순
           </Label>
         </FormGroup>
         <FormGroup check disabled>
           <Label check>
-            <Input type="radio" name="radio2"/>
+            <Input type="radio" name="radio2" />
             최신순
           </Label>
         </FormGroup>

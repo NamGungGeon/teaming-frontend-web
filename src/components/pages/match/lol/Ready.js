@@ -6,66 +6,131 @@ import ImageSelect from '../../../primitive/ImageSelect/ImageSelect';
 import ImageViewGroup from '../../../containers/ImageViewGroup/ImageViewGroup';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import ChampionSelect from '../../../containers/ChampionSelect/ChampionSelect';
-import {getPath, resPath} from '../../../../utils/url';
-import {Button} from "reactstrap";
-import Input from "reactstrap/es/Input";
-import Collapse from "reactstrap/es/Collapse";
-import ButtonGroup from "reactstrap/es/ButtonGroup";
-import {championSquareImage} from "../../../../http/lol";
+import { getPath, resPath } from '../../../../utils/url';
+import { Button } from 'reactstrap';
+import Input from 'reactstrap/es/Input';
+import Collapse from 'reactstrap/es/Collapse';
+import ButtonGroup from 'reactstrap/es/ButtonGroup';
+import { championSquareImage } from '../../../../http/lol';
 import AddIcon from '@material-ui/icons/Add';
-import {quickConnect} from "../../../../redux/quick";
+import { quickConnect } from '../../../../redux/quick';
 
-const lines= [
-  { img: `${resPath}/lol/line/top.png`, id: 'top', label: '탑', style: {width: '48px'}},
-  { img: `${resPath}/lol/line/md.png`, id: 'mid', label: '미드', style: {width: '48px'}},
-  { img: `${resPath}/lol/line/ad.png`, id: 'bottom', label: '바텀', style: {width: '48px'}},
-  { img: `${resPath}/lol/line/jg.png`, id: 'jungle', label: '정글', style: {width: '48px'}},
-  { img: `${resPath}/lol/line/sp.png`, id: 'supporter', label: '서포터', style: {width: '48px'}},
-  { img: `${resPath}/lol/line/all.png`, id: 'all', label: '상관없음', style: {width: '48px'}},
+const lines = [
+  {
+    img: `${resPath}/lol/line/top.png`,
+    id: 'top',
+    label: '탑',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/line/md.png`,
+    id: 'mid',
+    label: '미드',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/line/ad.png`,
+    id: 'bottom',
+    label: '바텀',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/line/jg.png`,
+    id: 'jungle',
+    label: '정글',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/line/sp.png`,
+    id: 'supporter',
+    label: '서포터',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/line/all.png`,
+    id: 'all',
+    label: '상관없음',
+    style: { width: '48px' }
+  }
 ];
-const tiers= [
-  { img: `${resPath}/lol/tier/bronze.png`, id: 'bronze', label: '브론즈' , style: {width: '48px'}},
-  { img: `${resPath}/lol/tier/silver.png`, id: 'silver', label: '실버', style: {width: '48px'}},
-  { img: `${resPath}/lol/tier/gold.png`, id: 'gold', label: '골드', style: {width: '48px'}},
-  { img: `${resPath}/lol/tier/platinum.png`, id: 'platinum', label: '플래티넘', style: {width: '48px'}},
-  { img: `${resPath}/lol/tier/diamond.png`, id: 'diamond', label: '다이아몬드', style: {width: '48px'}},
-  { img: `${resPath}/lol/tier/master.png`, id: 'master', label: '마스터', style: {width: '48px'}},
-  { img: `${resPath}/lol/tier/grandmaster.png`, id: 'grandmaster', label: '그랜드마스터', style: {width: '48px'}},
-  { img: `${resPath}/lol/tier/challenger.png`, id: 'challenger', label: '챌린저', style: {width: '48px'}},
+const tiers = [
+  {
+    img: `${resPath}/lol/tier/bronze.png`,
+    id: 'bronze',
+    label: '브론즈',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/tier/silver.png`,
+    id: 'silver',
+    label: '실버',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/tier/gold.png`,
+    id: 'gold',
+    label: '골드',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/tier/platinum.png`,
+    id: 'platinum',
+    label: '플래티넘',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/tier/diamond.png`,
+    id: 'diamond',
+    label: '다이아몬드',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/tier/master.png`,
+    id: 'master',
+    label: '마스터',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/tier/grandmaster.png`,
+    id: 'grandmaster',
+    label: '그랜드마스터',
+    style: { width: '48px' }
+  },
+  {
+    img: `${resPath}/lol/tier/challenger.png`,
+    id: 'challenger',
+    label: '챌린저',
+    style: { width: '48px' }
+  }
 ];
 
 class Ready extends Component {
   constructor(props) {
     super(props);
     //마지막으로 사용한 설정 불러오기
-    const {match}= this.props;
+    const { match } = this.props;
     console.log(this.props);
     this.state = {
-      ...match,
+      ...match
     };
-  };
+  }
 
   openChampions = (inits, selections) => {
     const { uiKit } = this.props;
 
     uiKit.popup.make(
-      <ChampionSelect
-        id={'open'}
-        selections={selections}
-        inits={inits}
-        popup />
+      <ChampionSelect id={'open'} selections={selections} inits={inits} popup />
     );
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {match, setMatch}= this.props;
+    const { setMatch } = this.props;
     setMatch(this.state);
     console.log(this.state);
   }
 
   requestStart = async () => {
-    const { uiKit, history, match, fulfilled } = this.props;
-    const { tier, champions, mainPos, partnerPos } = this.state;
+    const { history, match, fulfilled } = this.props;
     // if (!tier) {
     //   uiKit.toaster.cooking('티어를 선택하세요');
     //   return;
@@ -83,12 +148,11 @@ class Ready extends Component {
     //   return;
     // }
     console.log(match);
-    if(fulfilled())
-      history.push(getPath(`/match/lol/start`));
+    if (fulfilled()) history.push(getPath(`/match/lol/start`));
   };
 
   render() {
-    const {mode, goal, champions, likes, ban}= this.state;
+    const { mode, goal, champions, likes, ban } = this.state;
 
     return (
       <div>
@@ -97,89 +161,105 @@ class Ready extends Component {
           explain={'리그 오브 레전드 팀 매칭을 위한 사전 정보 입력'}
           align={'left'}
         />
-        <br/>
+        <br />
 
         <Section>
           <div style={{ textAlign: 'left' }}>
             <div>
-              <div style={{display: 'inline-block', maxWidth: '350px', width: '100%'}}>
+              <div
+                style={{
+                  display: 'inline-block',
+                  maxWidth: '350px',
+                  width: '100%'
+                }}
+              >
                 <PageTitle title={'닉네임'} explain={''} noMargin />
                 <Input
                   className={'transparent'}
                   width={'400px'}
-                  type='text'
-                  placeholder='게임 내에서 사용중인 닉네임을 입력하세요'
+                  type="text"
+                  placeholder="게임 내에서 사용중인 닉네임을 입력하세요"
                   onChange={e => {
                     this.setState({ ...this.state, nickname: e.target.value });
-                  }}/>
+                  }}
+                />
               </div>
             </div>
-            <br/>
+            <br />
             <div>
-              <PageTitle title={'목표'} noMargin/>
+              <PageTitle title={'목표'} noMargin />
               <ButtonGroup>
-                <Button color={'danger'} outline={goal!== 'win'}
-                        onClick={()=>{
-                          this.setState({
-                            ...this.state,
-                            goal: 'win',
-                          })
-                        }}>
+                <Button
+                  color={'danger'}
+                  outline={goal !== 'win'}
+                  onClick={() => {
+                    this.setState({
+                      ...this.state,
+                      goal: 'win'
+                    });
+                  }}
+                >
                   빡겜
                 </Button>
-                <Button color={'primary'} outline={goal!== 'fun'}
-                        onClick={()=>{
-                          this.setState({
-                            ...this.state,
-                            goal: 'fun',
-                          })
-                        }}>
+                <Button
+                  color={'primary'}
+                  outline={goal !== 'fun'}
+                  onClick={() => {
+                    this.setState({
+                      ...this.state,
+                      goal: 'fun'
+                    });
+                  }}
+                >
                   즐겜
                 </Button>
               </ButtonGroup>
             </div>
-            <br/>
+            <br />
             <div>
-              <PageTitle title={'게임 모드'} noMargin/>
+              <PageTitle title={'게임 모드'} noMargin />
               <ButtonGroup>
                 <Button
                   color={'primary'}
-                  outline={mode!=='rank'}
-                  onClick={()=>{
+                  outline={mode !== 'rank'}
+                  onClick={() => {
                     this.setState({
                       ...this.state,
-                      mode: 'rank',
-                    })
-                  }}>
+                      mode: 'rank'
+                    });
+                  }}
+                >
                   랭크
                 </Button>
                 <Button
                   color={'primary'}
-                  outline={mode!=='freerank'}
-                  onClick={()=>{
+                  outline={mode !== 'freerank'}
+                  onClick={() => {
                     this.setState({
                       ...this.state,
-                      mode: 'freerank',
-                    })
-                  }}>
+                      mode: 'freerank'
+                    });
+                  }}
+                >
                   자유 랭크
                 </Button>
                 <Button
                   color={'primary'}
-                  outline={mode!=='normal'}
-                  onClick={()=>{
+                  outline={mode !== 'normal'}
+                  onClick={() => {
                     this.setState({
                       ...this.state,
-                      mode: 'normal',
-                    })
-                  }}>
+                      mode: 'normal'
+                    });
+                  }}
+                >
                   일반
                 </Button>
               </ButtonGroup>
             </div>
-            <br/>
+            <br />
             <div>
-              <Collapse isOpen={mode!=='normal'}>
+              <Collapse isOpen={mode !== 'normal'}>
                 <div>
                   <PageTitle title={'티어'} explain={''} noMargin />
                   <ImageSelect
@@ -190,10 +270,10 @@ class Ready extends Component {
                     }}
                   />
                 </div>
-                <br/>
+                <br />
               </Collapse>
             </div>
-            <Collapse isOpen={mode!== 'chess'}>
+            <Collapse isOpen={mode !== 'chess'}>
               <div>
                 <PageTitle title={'메인 라인'} explain={''} noMargin />
                 <ImageSelect
@@ -204,7 +284,7 @@ class Ready extends Component {
                   }}
                 />
               </div>
-              <br/>
+              <br />
               <div>
                 <PageTitle title={'파트너 라인'} explain={''} noMargin />
                 <ImageSelect
@@ -215,7 +295,7 @@ class Ready extends Component {
                   }}
                 />
               </div>
-              <br/>
+              <br />
               <div>
                 <PageTitle
                   title={'챔피언'}
@@ -228,12 +308,12 @@ class Ready extends Component {
                       return {
                         img: championSquareImage(select),
                         style: {
-                          width: '48px',
+                          width: '48px'
                         }
                       };
                     }),
                     {
-                      img: <AddIcon style={{fontSize: '48px'}}/>,
+                      img: <AddIcon style={{ fontSize: '48px' }} />,
                       onClick: () => {
                         this.openChampions(champions, selections => {
                           this.setState({
@@ -241,13 +321,13 @@ class Ready extends Component {
                             champions: selections
                           });
                         });
-                      },
+                      }
                     }
                   ]}
                   style={{ justifyContent: 'left' }}
                 />
               </div>
-              <br/>
+              <br />
               <div>
                 <PageTitle
                   title={'파트너 선호 챔피언'}
@@ -260,13 +340,13 @@ class Ready extends Component {
                       return {
                         img: championSquareImage(select),
                         style: {
-                          width: '48px',
+                          width: '48px'
                         }
                       };
                     }),
                     {
-                      img: <AddIcon style={{fontSize: '48px'}}/>,
-                      onClick: (event) => {
+                      img: <AddIcon style={{ fontSize: '48px' }} />,
+                      onClick: event => {
                         this.openChampions(likes, selections => {
                           this.setState({
                             ...this.state,
@@ -279,7 +359,7 @@ class Ready extends Component {
                   style={{ justifyContent: 'left' }}
                 />
               </div>
-              <br/>
+              <br />
               <div>
                 <PageTitle
                   title={'파트너 금지 챔피언'}
@@ -292,14 +372,14 @@ class Ready extends Component {
                       return {
                         img: championSquareImage(select),
                         style: {
-                          width: '48px',
+                          width: '48px'
                         }
                       };
                     }),
                     {
-                      img: <AddIcon style={{fontSize: '48px'}}/>,
+                      img: <AddIcon style={{ fontSize: '48px' }} />,
                       onClick: () => {
-                        this.openChampions(ban,   selections => {
+                        this.openChampions(ban, selections => {
                           this.setState({
                             ...this.state,
                             ban: selections
@@ -312,9 +392,14 @@ class Ready extends Component {
                 />
               </div>
             </Collapse>
-            <br/>
+            <br />
             <AlignLayout align={'right'}>
-              <Button block color={'primary'} onClick={this.requestStart} size={'large'}>
+              <Button
+                block
+                color={'primary'}
+                onClick={this.requestStart}
+                size={'large'}
+              >
                 시작 &gt;
               </Button>
             </AlignLayout>

@@ -1,38 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './Section.module.css';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Section= ({children, divideStyle, className, style})=> {
+const Section = ({ children, divideStyle, className, style }) => {
   return (
     <AlignLayout
       style={{
-        ...style,
+        ...style
       }}
-      align="left">
+      align="left"
+    >
       <div
         style={{
-          ...style,
+          ...style
         }}
-        className={classNames(styles.wrapper, styles[divideStyle], className)}>
-        {
-          children
-        }
+        className={classNames(styles.wrapper, styles[divideStyle], className)}
+      >
+        {children}
       </div>
     </AlignLayout>
   );
 };
 
-Section.defaultProps= {
+Section.defaultProps = {
   divideStyle: '',
   className: '',
   style: {}
 };
-Section.propTypes= {
-  divideStyle: PropTypes.oneOf(['', 'none']),
+Section.propTypes = {
+  // divideStyle: PropTypes.oneOf(['', 'none']),
   className: PropTypes.string,
-  style: PropTypes.object,
+  style: PropTypes.object
 };
 
 export default Section;

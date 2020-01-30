@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import styles from './PageTitle.module.css';
 
 class PageTitle extends Component {
@@ -10,13 +9,10 @@ class PageTitle extends Component {
     align: 'left'
   };
   render() {
-    const { title, titleColor, explain, align } = this.props;
+    const { title, titleColor, explain } = this.props;
     return (
       <div className={styles.wrapper}>
-        <h4
-          className={classNames('title')}
-          style={{ color: titleColor }}
-        >
+        <h4 className={classNames('title')} style={{ color: titleColor }}>
           {title}
         </h4>
         {explain && (

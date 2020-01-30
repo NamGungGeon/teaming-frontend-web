@@ -1,11 +1,11 @@
-import React, {Component, useState} from 'react';
-import {Route} from "react-router-dom";
-import {getPath} from "../../../../utils/url";
-import Ready from "./Ready";
-import Start from "./Start";
+import React, { useState } from 'react';
+import { Route } from 'react-router-dom';
+import { getPath } from '../../../../utils/url';
+import Ready from './Ready';
+import Start from './Start';
 
-const Lol= ()=> {
-  const [match, setMatch]= useState({
+const Lol = () => {
+  const [match, setMatch] = useState({
     gameType: 'rank',
     tier: '',
     champions: [],
@@ -16,37 +16,36 @@ const Lol= ()=> {
     nickname: '',
     isRank: true,
     mode: 'rank',
-    goal: 'win',
+    goal: 'win'
   });
 
-  const fulfilled= ()=>{
-
+  const fulfilled = () => {
     return true;
-  }
+  };
 
   return (
     <>
       <Route
         exact
         path={getPath(`/match/lol/`)}
-        render={(props)=> (
+        render={props => (
           <Ready
             {...props}
             match={match}
             setMatch={setMatch}
-            fulfilled={fulfilled}/>
-        )}/>
+            fulfilled={fulfilled}
+          />
+        )}
+      />
       <Route
         exact
         path={getPath(`/match/lol/start`)}
-        render={(props)=>(
-          <Start
-            {...props}
-            match={match}
-            fulfilled={fulfilled}/>
-        )}/>
+        render={props => (
+          <Start {...props} match={match} fulfilled={fulfilled} />
+        )}
+      />
     </>
   );
-}
+};
 
 export default Lol;

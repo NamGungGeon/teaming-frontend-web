@@ -1,21 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import styles from './ButtonsWrapper.module.css';
-import {randStr} from "../../../utils/utils";
 
-const ButtonsWrapper= ({buttons, children})=> {
+const ButtonsWrapper = ({ buttons, children }) => {
   return (
     <div className={styles.wrapper}>
-      {
-        buttons && buttons.map(button=>{
+      {buttons &&
+        buttons.map(button => {
           return button;
-        })
-      }
-      {
-        children
-      }
+        })}
+      {children}
     </div>
   );
 };
-
 
 export default ButtonsWrapper;

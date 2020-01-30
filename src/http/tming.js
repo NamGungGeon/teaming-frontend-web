@@ -526,14 +526,12 @@ export const removeNotification = (auth, id) => {
 
 //auth is nullable
 export const createCase = (auth, text, media, replyEmail) => {
-  console.log(auth, authorized(auth) ? 'true' : 'false');
-
   if (media) {
     const data = new FormData();
     data.append('text', text);
     if (replyEmail) data.append('replyEmail', replyEmail);
-    media.map(m => {
-      data.append('media', m);
+    media.forEach(medium => {
+      data.append('media', medium);
     });
     return axios.request({
       method: 'POST',

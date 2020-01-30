@@ -1,142 +1,148 @@
-import React, {Component} from 'react';
-import {quickConnect} from "../../../redux/quick";
-import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
-import Button from "@material-ui/core/Button";
-import {createBlock, createMessage, requestFriend} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
-import Optional from "../../primitive/Optional/Optional";
-import {authorized} from "../../../utils/utils";
-
+import React, { Component } from 'react';
+import { quickConnect } from '../../../redux/quick';
+import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
+import Button from '@material-ui/core/Button';
+import { createBlock, createMessage, requestFriend } from '../../../http/tming';
+import { errMsg } from '../../../http/util';
+import Optional from '../../primitive/Optional/Optional';
+import { authorized } from '../../../utils/utils';
 import AddIcon from '@material-ui/icons/Add';
 import BlockIcon from '@material-ui/icons/Block';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
-import {PopupMaker} from "../../hoc/PopupMaker";
-import Input from "reactstrap/es/Input";
-
+import Input from 'reactstrap/es/Input';
 
 class UserInfoViewer extends Component {
-  state={
+  state = {
     user: null,
 
-    newMsg: '',
+    newMsg: ''
   };
 
-
-  requestFriends= async ()=>{
-    const {uiKit, auth, id}= this.props;
+  requestFriends = async () => {
+    const { uiKit, auth, id } = this.props;
     uiKit.loading.start();
-    await requestFriend(auth, id).then(response=>{
-      //ok
-      uiKit.toaster.cooking('친구 요청이 발송되었습니다');
-      uiKit.popup.destroy();
-    }).catch(e=>{
-      uiKit.toaster.cooking(errMsg(e));
-    });
+    await requestFriend(auth, id)
+      .then(response => {
+        //ok
+        uiKit.toaster.cooking('친구 요청이 발송되었습니다');
+        uiKit.popup.destroy();
+      })
+      .catch(e => {
+        uiKit.toaster.cooking(errMsg(e));
+      });
 
     uiKit.loading.end();
   };
-  blockUser= async ()=>{
-    const {uiKit, auth, id}= this.props;
+  blockUser = async () => {
+    const { uiKit, auth, id } = this.props;
     uiKit.loading.start();
-    await createBlock(auth, id).then(response=>{
-      //ok
-      uiKit.toaster.cooking('해당 유저가 차단되었습니다');
-      uiKit.popup.destroy();
-    }).catch(e=>{
-      uiKit.toaster.cooking(errMsg(e));
-    });
+    await createBlock(auth, id)
+      .then(response => {
+        //ok
+        uiKit.toaster.cooking('해당 유저가 차단되었습니다');
+        uiKit.popup.destroy();
+      })
+      .catch(e => {
+        uiKit.toaster.cooking(errMsg(e));
+      });
     uiKit.loading.end();
   };
 
-  sendMessage= ()=>{
-    const {uiKit, auth, id, username}= this.props;
+  sendMessage = () => {
+    const { uiKit, auth, id, username } = this.props;
 
-    uiKit.spopup.make((
+    uiKit.spopup.make(
       <div>
         <h5>
           쪽지
-          <p className={'explain'}>
-            {username}
-          </p>
+          <p className={'explain'}>{username}</p>
           <Input
             maxlength={300}
             className={'transparent'}
             type={'textarea'}
-            style={{height: '300px'}}
-            onChange={e=>{
-              const msg= e.target.value;
+            style={{ height: '300px' }}
+            onChange={e => {
+              const msg = e.target.value;
               console.log(msg);
               this.setState({
                 ...this.state,
-                newMsg: msg,
+                newMsg: msg
               });
             }}
-            placeholder={'내용을 입력하세요'}/>
+            placeholder={'내용을 입력하세요'}
+          />
         </h5>
-        <br/>
+        <br />
         <AlignLayout align={'right'}>
           <Button
-            startIcon={<SendIcon/>}
-            onClick={async ()=>{
+            startIcon={<SendIcon />}
+            onClick={async () => {
               uiKit.loading.start();
-              await createMessage(auth, id, this.state.newMsg).then(response=>{
-                //ok
-                uiKit.toaster.cooking('성공적으로 발송되었습니다');
-                uiKit.spopup.destroy();
-              }).catch(e=>{
-                uiKit.toaster.cooking(errMsg(e));
-              });
+              await createMessage(auth, id, this.state.newMsg)
+                .then(response => {
+                  //ok
+                  uiKit.toaster.cooking('성공적으로 발송되었습니다');
+                  uiKit.spopup.destroy();
+                })
+                .catch(e => {
+                  uiKit.toaster.cooking(errMsg(e));
+                });
               uiKit.loading.end();
             }}
             variant={'contained'}
-            color={'primary'}>
+            color={'primary'}
+          >
             보내기
           </Button>
           &nbsp;&nbsp;
           <Button
-            startIcon={<CloseIcon/>}
-            onClick={()=>{
+            startIcon={<CloseIcon />}
+            onClick={() => {
               uiKit.spopup.destroy();
             }}
             variant={'contained'}
-            color={'secondary'}>
+            color={'secondary'}
+          >
             닫기
           </Button>
         </AlignLayout>
       </div>
-    ));
+    );
   };
 
   render() {
-    const {id, username, uiKit, auth}= this.props;
+    const { username, auth } = this.props;
     return (
       <div>
         <h5>{username}</h5>
         <Optional visible={authorized(auth)}>
-          <br/>
+          <br />
           <AlignLayout align={'right'}>
             <Button
-              startIcon={<SendIcon/>}
+              startIcon={<SendIcon />}
               variant={'contained'}
               color={'primary'}
-              onClick={this.sendMessage}>
+              onClick={this.sendMessage}
+            >
               쪽지 보내기
             </Button>
             &nbsp;&nbsp;
             <Button
-              startIcon={<AddIcon/>}
+              startIcon={<AddIcon />}
               variant={'contained'}
               color={'primary'}
-              onClick={this.requestFriends}>
+              onClick={this.requestFriends}
+            >
               친구추가
             </Button>
             &nbsp;&nbsp;
             <Button
-              startIcon={<BlockIcon/>}
+              startIcon={<BlockIcon />}
               onClick={this.blockUser}
               variant={'contained'}
-              color={'secondary'}>
+              color={'secondary'}
+            >
               차단
             </Button>
           </AlignLayout>

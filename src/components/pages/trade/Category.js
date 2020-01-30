@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import SquareButton from '../../primitive/SquareButton/SquareButton';
 import { getPath } from '../../../utils/url';
-import Popcorn from '../../primitive/Popcorn/Popcorn';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
-import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-
-import {randStr} from "../../../utils/utils";
-import FlexLayout from "../../layouts/FlexLayout/FlexLayout";
-import FormGroup from "reactstrap/es/FormGroup";
-import Col from "reactstrap/es/Col";
-import {Input} from "reactstrap";
-import CardWrapper from "../../primitive/CardWrapper/CardWrapper";
+import { randStr } from '../../../utils/utils';
+import FormGroup from 'reactstrap/es/FormGroup';
+import Col from 'reactstrap/es/Col';
+import { Input } from 'reactstrap';
+import CardWrapper from '../../primitive/CardWrapper/CardWrapper';
 
 class Category extends Component {
   componentDidMount() {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   state = {
@@ -39,9 +35,9 @@ class Category extends Component {
         onClick: () => {
           this.go(getPath(`/trade/dnf`));
         }
-      },
+      }
     ],
-    filter: '',
+    filter: ''
   };
 
   go = path => {
@@ -60,27 +56,27 @@ class Category extends Component {
           <Col sm={4}>
             <Input
               className={'transparent'}
-              onChange={e=>{
+              onChange={e => {
                 this.setState({
                   ...this.state,
-                  filter: e.target.value,
-                })
+                  filter: e.target.value
+                });
               }}
-              placeholder="게임 검색"/>
+              placeholder="게임 검색"
+            />
           </Col>
-          <Col sm={8}/>
+          <Col sm={8} />
         </FormGroup>
 
-        <br/>
+        <br />
         <CardWrapper>
           {gameList.map((game, idx) => {
-            if(filter!== '' && !game.label.includes(filter))
-              return '';
+            if (filter !== '' && !game.label.includes(filter)) return '';
             return (
               <div key={randStr(5)}>
                 <SquareButton
                   style={{
-                    animationDelay: `${0.1*idx}s`,
+                    animationDelay: `${0.1 * idx}s`
                   }}
                   enableAnimation
                   {...game}

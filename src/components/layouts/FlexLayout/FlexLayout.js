@@ -17,20 +17,19 @@ export default function FlexLayout({
       })}
       style={{ ...style }}
     >
-      {
-        children.map((child, idx) => {
-          const rate = 100 / children.length;
-          const width = `calc(${fixed ? fixed : `${parseInt(rate)}%`} - ${
-            margin ? margin * 2 : 0
-          }px)`;
-          const marg = `${margin ? margin : 0}px`;
-          if(child)
-            return (
-              <div key={idx} style={{ width: width, margin: marg }}>
-                {child}
-              </div>
-            );
-        })}
+      {children.forEach((child, idx) => {
+        const rate = 100 / children.length;
+        const width = `calc(${fixed ? fixed : `${parseInt(rate)}%`} - ${
+          margin ? margin * 2 : 0
+        }px)`;
+        const marg = `${margin ? margin : 0}px`;
+        if (child)
+          return (
+            <div key={idx} style={{ width: width, margin: marg }}>
+              {child}
+            </div>
+          );
+      })}
     </div>
   );
 }

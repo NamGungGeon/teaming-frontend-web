@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import styles from './Window.module.css';
-import classNames from 'classnames';
-import { MdExpandLess, MdExpandMore } from 'react-icons/md';
-import {ExpansionPanel, ExpansionPanelDetails} from "@material-ui/core";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import { MdExpandMore } from 'react-icons/md';
+import { ExpansionPanel, ExpansionPanelDetails } from '@material-ui/core';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
 class Window extends Component {
   state = {
@@ -20,7 +19,7 @@ class Window extends Component {
   };
 
   render() {
-    const { title, children, foldable, style } = this.props;
+    const { title, children, foldable } = this.props;
     return (
       <ExpansionPanel
         style={{
@@ -33,15 +32,12 @@ class Window extends Component {
           });
         }}
         className={styles.body}
-        expanded={this.state.folded || !foldable}>
-        <ExpansionPanelSummary
-          expandIcon={<MdExpandMore/>}
-        >
+        expanded={this.state.folded || !foldable}
+      >
+        <ExpansionPanelSummary expandIcon={<MdExpandMore />}>
           <b>{title}</b>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          {children}
-        </ExpansionPanelDetails>
+        <ExpansionPanelDetails>{children}</ExpansionPanelDetails>
       </ExpansionPanel>
     );
   }

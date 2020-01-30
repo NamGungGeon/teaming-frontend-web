@@ -1,38 +1,36 @@
-import React, {Component} from 'react';
-import PageTitle from "../../primitive/PageTitle/PageTitle";
-import Input from "reactstrap/es/Input";
-import {Button, Col, FormGroup, InputGroupAddon, Label} from "reactstrap";
-import Form from "reactstrap/es/Form";
-import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
-import {Validator} from "class-validator";
-import {quickConnect} from "../../../redux/quick";
-import ButtonGroup from "reactstrap/es/ButtonGroup";
-import {signup} from "../../../http/tming";
-import {errMsg, responseCode} from "../../../http/util";
-import {getPath} from "../../../utils/url";
-import {privacy} from "../../../utils/strings";
-import {authorized} from "../../../utils/utils";
-import {Button as MdButton} from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
+import React, { Component } from 'react';
+import PageTitle from '../../primitive/PageTitle/PageTitle';
+import { Button } from 'reactstrap';
+import Form from 'reactstrap/es/Form';
+import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
+import { Validator } from 'class-validator';
+import { quickConnect } from '../../../redux/quick';
+import { signup } from '../../../http/tming';
+import { errMsg } from '../../../http/util';
+import { getPath } from '../../../utils/url';
+import { privacy } from '../../../utils/strings';
+import { authorized } from '../../../utils/utils';
+import { Button as MdButton } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
 
 class SignUp extends Component {
-  state= {
+  state = {
     email: '',
     gender: 'M',
     nickname: '',
     pw: '',
-    pwCheck: '',
+    pwCheck: ''
   };
-  validator= new Validator();
+  validator = new Validator();
 
   componentDidMount() {
-    const {auth, history}= this.props;
-    if(authorized(auth)){
+    const { auth, history } = this.props;
+    if (authorized(auth)) {
       history.push(getPath(`/`));
       return;
     }
@@ -43,204 +41,233 @@ class SignUp extends Component {
   componentWillUnmount() {
     this.props.uiKit.destroyAll();
   }
-  openPrivacyRule= ()=>{
-    const {uiKit, history}= this.props;
+  openPrivacyRule = () => {
+    const { uiKit, history } = this.props;
 
-    uiKit.popup.make((
+    uiKit.popup.make(
       <div>
         <h3>티밍 개인정보 처리방침</h3>
         <div
           style={{
             overflowY: 'scroll',
             height: '400px'
-          }}>
+          }}
+        >
           {privacy}
         </div>
-        <br/>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between'
-        }}>
+        <br />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between'
+          }}
+        >
           <MdButton
             style={{
-              flex: '1',
+              flex: '1'
             }}
             variant={'contained'}
             color={'primary'}
             fullWidth
-            onClick={()=>{
+            onClick={() => {
               uiKit.popup.destroy();
-            }}>
+            }}
+          >
             동의함
           </MdButton>
           &nbsp;
           <MdButton
             style={{
-              flex: '1',
+              flex: '1'
             }}
             variant={'contained'}
             color={'default'}
             fullWidth
-            onClick={()=>{
-              uiKit.toaster.cooking('약관에 동의하지 않으면 사용할 수 없습니다');
+            onClick={() => {
+              uiKit.toaster.cooking(
+                '약관에 동의하지 않으면 사용할 수 없습니다'
+              );
               uiKit.popup.destroy();
               history.push(getPath('/'));
-            }}>
-            <span style={{
-              color: '#333333'
-            }}>
+            }}
+          >
+            <span
+              style={{
+                color: '#333333'
+              }}
+            >
               동의하지 않음
             </span>
           </MdButton>
         </div>
-      </div>
-    ), true);
+      </div>,
+      true
+    );
   };
 
-  submit= async ()=>{
-    const {uiKit, history}= this.props;
-    const {email, gender, nickname, pw, pwCheck}= this.state;
-    if(!email || !this.validator.isEmail(email)){
+  submit = async () => {
+    const { uiKit, history } = this.props;
+    const { email, gender, nickname, pw, pwCheck } = this.state;
+    if (!email || !this.validator.isEmail(email)) {
       uiKit.toaster.cooking('이메일 형식을 다시 확인하세요');
       return;
     }
-    if(!pw){
+    if (!pw) {
       uiKit.toaster.cooking('비밀번호를 입력하세요');
       return;
     }
-    if(pw!== pwCheck){
+    if (pw !== pwCheck) {
       uiKit.toaster.cooking('비밀번호와 비밀번호 확인이 일치하지 않습니다');
       return;
     }
-    if(!nickname || nickname.length> 32){
+    if (!nickname || nickname.length > 32) {
       uiKit.toaster.cooking('닉네임은 32자 이하로 작성해주세요');
       return;
     }
 
     uiKit.loading.start();
     await signup(email, pw, nickname, gender)
-      .then(response=>{
-        uiKit.popup.make((
+      .then(response => {
+        uiKit.popup.make(
           <div>
             <h4>회원가입이 완료되었습니다</h4>
-            <br/>
+            <br />
             <Button
               color={'primary'}
-              onClick={()=>{
+              onClick={() => {
                 history.push(getPath(`/auth/signin`));
-              }}>
+              }}
+            >
               로그인 페이지로 이동
             </Button>
           </div>
-        ))
+        );
       })
-      .catch(e=>{
+      .catch(e => {
         uiKit.toaster.cooking(errMsg(e));
       });
     uiKit.loading.end();
   };
 
   render() {
-    const {uiKit}= this.props;
-    const {emailCheck, email, gender, nickname, nicknameCheck}= this.state;
+    const { gender } = this.state;
 
     return (
       <div>
         <div
           style={{
             padding: '8px'
-          }}>
+          }}
+        >
           <PageTitle
             title={'회원 가입'}
             explain={'얼마 걸리지 않습니다'}
-            align={'left'}/>
-            <br/>
+            align={'left'}
+          />
+          <br />
           <Form>
-          <TextField
-            fullWidth
-            variant={'outlined'}
-            label="이메일"
-            type={'email'}
-            onChange={(e)=>{
-              this.setState({
-                ...this.state,
-                email: e.target.value
-              });
-            }}/>
-            <br/><br/>
+            <TextField
+              fullWidth
+              variant={'outlined'}
+              label="이메일"
+              type={'email'}
+              onChange={e => {
+                this.setState({
+                  ...this.state,
+                  email: e.target.value
+                });
+              }}
+            />
+            <br />
+            <br />
             <TextField
               fullWidth
               variant={'outlined'}
               label="패스워드"
               type={'password'}
-              onChange={(e)=>{
+              onChange={e => {
                 this.setState({
                   ...this.state,
                   pw: e.target.value
                 });
-              }}/>
-            <br/><br/>
+              }}
+            />
+            <br />
+            <br />
             <TextField
               fullWidth
               variant={'outlined'}
               label="패스워드 확인"
               type={'password'}
-              onChange={(e)=>{
+              onChange={e => {
                 this.setState({
                   ...this.state,
                   pwCheck: e.target.value
                 });
-              }}/>
-            <br/><br/>
-            <div style={{
-              padding: '18.5px 14px',
-              borderRadius: '4px',
-              border: '1px solid #33333355',
-              display: 'inline-block',
-              width: '100%',
-            }}>
-              <FormControl
-                component="fieldset">
+              }}
+            />
+            <br />
+            <br />
+            <div
+              style={{
+                padding: '18.5px 14px',
+                borderRadius: '4px',
+                border: '1px solid #33333355',
+                display: 'inline-block',
+                width: '100%'
+              }}
+            >
+              <FormControl component="fieldset">
                 <FormLabel component="legend">성별</FormLabel>
-                <RadioGroup row aria-label="gender" name="gender1" value={gender}>
+                <RadioGroup
+                  row
+                  aria-label="gender"
+                  name="gender1"
+                  value={gender}
+                >
                   <FormControlLabel
                     value="M"
-                    control={<Radio color={'primary'}/>}
+                    control={<Radio color={'primary'} />}
                     label="남자"
-                    onClick={()=>{
-                      this.setState({...this.state, gender: 'M'});
-                    }}/>
+                    onClick={() => {
+                      this.setState({ ...this.state, gender: 'M' });
+                    }}
+                  />
                   <FormControlLabel
                     value="F"
-                    control={<Radio color={'secondary'}/>}
+                    control={<Radio color={'secondary'} />}
                     label="여자"
-                    onClick={()=>{
-                      this.setState({...this.state, gender: 'F'});
-                    }}/>
+                    onClick={() => {
+                      this.setState({ ...this.state, gender: 'F' });
+                    }}
+                  />
                 </RadioGroup>
               </FormControl>
             </div>
-            <br/><br/>
+            <br />
+            <br />
             <TextField
               fullWidth
               variant={'outlined'}
-              label='닉네임'
+              label="닉네임"
               type={'text'}
-              onChange={(e)=>{
+              onChange={e => {
                 this.setState({
                   ...this.state,
                   nickname: e.target.value
                 });
-              }}/>
+              }}
+            />
           </Form>
-          <br/> <br/>
+          <br /> <br />
           <AlignLayout align={'left'}>
             <MdButton
               variant={'contained'}
               color={'primary'}
               onClick={this.submit}
-              size={'large'}>
+              size={'large'}
+            >
               가입 완료!
             </MdButton>
           </AlignLayout>

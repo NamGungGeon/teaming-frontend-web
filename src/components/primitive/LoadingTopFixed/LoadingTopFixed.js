@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import LinearProgress from "@material-ui/core/LinearProgress";
+import React from 'react';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-const LoadingTopFixed= ({color})=>{
-
+const LoadingTopFixed = ({ color }) => {
   return (
     <LinearProgress
       style={{
@@ -10,9 +9,9 @@ const LoadingTopFixed= ({color})=>{
         top: '0',
         left: '0',
         width: '100%',
-        zIndex: '99999',
+        zIndex: '99999'
       }}
-      color={color? color: 'primary'}
+      color={color ? color : 'primary'}
     />
   );
 };

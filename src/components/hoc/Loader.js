@@ -1,6 +1,5 @@
-import React from "react";
-import Loading from "../primitive/Loading/Loading";
-import LoadingTopFixed from "../primitive/LoadingTopFixed/LoadingTopFixed";
+import React from 'react';
+import LoadingTopFixed from '../primitive/LoadingTopFixed/LoadingTopFixed';
 
 export const Loader = component => {
   return {
@@ -17,7 +16,7 @@ export const Loader = component => {
       });
     },
     render: () => {
-      return component.state.isLoading ? <LoadingTopFixed /> : "";
+      return component.state.isLoading ? <LoadingTopFixed /> : '';
     }
   };
 };
