@@ -10,9 +10,11 @@ import Section from '../primitive/Section/Section';
 import HottestPosts from '../containers/HottestPosts/HottestPosts';
 import MusicPlayer from "../containers/MusicPlayer/MusicPlayer";
 import RecommendYoutube from "../containers/RecommendYoutube/RecommendYoutube";
+import {pageDescription} from "../../utils/utils";
 
 class Home extends Component {
   componentDidMount() {
+    pageDescription();
     window.scrollTo(0, 0);
   }
 

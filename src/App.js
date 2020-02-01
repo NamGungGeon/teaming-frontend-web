@@ -30,6 +30,9 @@ import logo from './components/resource/tming_txt.png';
 import MusicPlayer from './components/containers/MusicPlayer/MusicPlayer';
 import RecommendYoutube from './components/containers/RecommendYoutube/RecommendYoutube';
 import GoogleAdvertise from "./components/containers/GoogleAdvertise/GoogleAdvertise";
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import Optional from "./components/primitive/Optional/Optional";
+import {Button} from "@material-ui/core";
 
 class App extends Component {
   state = {
@@ -86,7 +89,7 @@ class App extends Component {
   };
 
   render() {
-    const { config } = this.props;
+    const { config, history } = this.props;
     const { ready } = this.state;
 
     return (
@@ -138,6 +141,20 @@ class App extends Component {
                   </div>
                 </div>
                 <div className={'sideContent'}>
+                  <Optional onlyAdmin>
+                    <Button
+                      fullWidth
+                      size={'large'}
+                      startIcon={<SupervisedUserCircleIcon/>}
+                      onClick={()=>{
+                        history.push(getPath('/admin'))
+                      }}
+                      color={'secondary'}
+                      variant={'contained'}>
+                      관리자 페이지로 이동
+                    </Button>
+                    <br/>
+                  </Optional>
                   <MusicPlayer />
                   <GoogleAdvertise/>
                 </div>

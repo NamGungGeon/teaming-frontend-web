@@ -10,7 +10,7 @@ import { errMsg } from '../../../../http/util';
 import { quickConnect } from '../../../../redux/quick';
 import FormGroup from 'reactstrap/es/FormGroup';
 import Col from 'reactstrap/es/Col';
-import { authorized } from '../../../../utils/utils';
+import {authorized, pageDescription} from '../../../../utils/utils';
 
 class EventList extends Component {
   state = {
@@ -25,6 +25,7 @@ class EventList extends Component {
 
   componentDidMount() {
     const { auth } = this.props;
+    pageDescription("티밍: 이벤트", "티밍의 푸짐한 이벤트에 참여하세요");
 
     if (authorized(auth))
       getMyProfile(auth).then(response => {
@@ -35,6 +36,10 @@ class EventList extends Component {
             isAdmin: true
           });
       });
+  }
+
+  componentWillUnmount() {
+    pageDescription();
   }
 
   submitNewEvent = async () => {

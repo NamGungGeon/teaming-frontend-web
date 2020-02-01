@@ -9,6 +9,7 @@ import { errMsg } from '../../../http/util';
 import Button from '@material-ui/core/Button';
 import { FaToiletPaper } from 'react-icons/fa';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import {pageDescription} from "../../../utils/utils";
 
 class Trash extends Component {
   state = {
@@ -17,6 +18,7 @@ class Trash extends Component {
     trashes: []
   };
   componentDidMount() {
+    pageDescription("티밍: 화장실", "뿌지지지지지직");
     this.loadTrashes();
   }
   loadTrashes = async () => {
@@ -59,6 +61,7 @@ class Trash extends Component {
   };
 
   componentWillUnmount() {
+    pageDescription();
     this.props.uiKit.destroyAll();
   }
 

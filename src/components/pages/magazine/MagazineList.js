@@ -7,8 +7,18 @@ import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
 import {Button} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import {getPath} from "../../../utils/url";
+import {pageDescription} from "../../../utils/utils";
 
 class MagazineList extends Component {
+
+  componentDidMount() {
+    pageDescription("티밍: 매거진", "주요 소식들을 쉽고 빠르게 받아보세요");
+  }
+
+  componentWillUnmount() {
+    pageDescription();
+  }
+
   render() {
     const {history}= this.props;
 

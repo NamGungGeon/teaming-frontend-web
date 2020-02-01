@@ -12,7 +12,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import Section from '../../../primitive/Section/Section';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import moment from 'moment';
-import { authorized } from '../../../../utils/utils';
+import {authorized, pageDescription} from '../../../../utils/utils';
 
 class NoticeList extends Component {
   state = {
@@ -27,6 +27,7 @@ class NoticeList extends Component {
 
   async componentDidMount() {
     const { uiKit, auth } = this.props;
+    pageDescription("티밍: 공지사항", "티밍 공지사항");
 
     uiKit.loading.start();
     await getNotices()
@@ -51,6 +52,10 @@ class NoticeList extends Component {
             isAdmin: true
           });
       });
+  }
+
+  componentWillUnmount() {
+    pageDescription();
   }
 
   createNewNotice = () => {

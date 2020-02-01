@@ -64,12 +64,12 @@ export const getDays = milliSecond => {
 export const scrollToBottom = ref => {
   //console.log('scroll go!');
   const { scrollHeight, clientHeight } = ref;
-  ref.scrollTop = scrollHeight - clientHeight;
+  ref.scrollTop = scrollHeight;
 };
 
 export const scrollToTop= ()=>{
   window.scrollTo(0,0);
-}
+};
 
 export const isEndScroll = ref => {
   const { scrollHeight, clientHeight } = ref;

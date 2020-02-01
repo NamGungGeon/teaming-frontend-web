@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { quickConnect } from '../../../redux/quick';
-import { authorized } from '../../../utils/utils';
+import {authorized, pageDescription} from '../../../utils/utils';
 import { getPath } from '../../../utils/url';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { Route } from 'react-router-dom';
@@ -10,6 +10,8 @@ import Service from './service/Service';
 
 class MyPage extends Component {
   async componentDidMount() {
+    pageDescription("티밍: 마이페이지", "내 정보");
+
     //init sideNav
     this.props.SideNavDispatcher.set({
       회원정보: [
@@ -96,6 +98,7 @@ class MyPage extends Component {
   }
 
   componentWillUnmount() {
+    pageDescription();
     this.props.SideNavDispatcher.remove();
   }
 

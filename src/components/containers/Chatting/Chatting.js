@@ -12,9 +12,7 @@ class Chatting extends Component {
     this.state = {
       msgs: [{
         alert: (
-          <div style={{
-            color: '#00000099'
-          }}>
+          <div>
             매칭되었습니다
             <br/><br/>
             성희롱이나 폭언과 같은 행위가 발각되면 이용 제재 및 정보통신망법에 의거 처벌받을 수 있습니다
@@ -29,21 +27,20 @@ class Chatting extends Component {
   }
 
   componentDidMount() {
+    this.msgBox.addEventListener('scroll', ()=>{
+      if(isEndScroll(this.msgBox))
+        this.setState({
+          ...this.state,
+          ring: false,
+        });
+    });
+
     //welcome!
     const { socket } = this.props;
 
     socket.on('MESSAGE', text => {
-      const { msgs } = this.state;
-      this.setState({
-        msgs: [
-          ...msgs,
-          {
-            profile: null,
-            msg: text,
-            encounter: true
-          }
-        ]
-      });
+      if(text)
+        this.renderMsg(text, true);
     });
     socket.on('OPPONENT_LEFT', text => {
       const { msgs } = this.state;
@@ -54,35 +51,46 @@ class Chatting extends Component {
             alert: '상대가 나갔습니다'
           }
         ]
+      },()=>{
+        scrollToBottom(this.msgBox);
       });
     });
   }
 
-  sendMessage = text => {
+  renderMsg= (text, isOpponent)=>{
     const { uiKit, socket, room } = this.props;
     const { msgs } = this.state;
-    if (!text) {
-      uiKit.toaster.cooking('텍스트를 입력하세요');
+
+    if(!text){
+      uiKit.toaster.cooking('메시지를 입력하세요');
+      return;
     }
 
+    const endScroll= isEndScroll(this.msgBox);
     this.setState({
+      ...this.state,
       msgs: [
         ...msgs,
         {
           profile: null,
+          encounter: isOpponent,
           msg: text,
-          encounter: false
         }
       ]
+    }, ()=>{
+      if(endScroll)
+        scrollToBottom(this.msgBox);
+      else
+        this.setState({
+          ...this.state,
+          ring: true,
+        })
     });
-
-    socket.emit('MESSAGE', text, room);
-
-    scrollToBottom(this.msgBox);
   };
 
   render() {
-    const { msgs } = this.state;
+    const { msgs, ring } = this.state;
+    const {socket, room}= this.props;
     return (
       <Section
         style={{
@@ -94,30 +102,32 @@ class Chatting extends Component {
           {msgs.map((msg, idx) => {
             return <ChatMsg key={idx} {...msg} />;
           })}
+          {
+            ring &&
+              <div
+                onClick={()=>{
+                  scrollToBottom(this.msgBox);
+                  this.setState({
+                    ...this.state,
+                    ring: false,
+                    needScroll: false,
+                  })
+                }}
+                className={styles.ring}>
+                새로운 메시지가 있습니다
+              </div>
+          }
         </div>
         <div className={styles.chatInput}>
-          <ChatInputBox sendMessage={this.sendMessage} />
+          <ChatInputBox sendMessage={(text)=>{
+            scrollToBottom(this.msgBox);
+
+            socket.emit('MESSAGE', text, room);
+            this.renderMsg(text, false);
+          }} />
         </div>
       </Section>
     );
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.state.needScroll) {
-      scrollToBottom(this.msgBox);
-      this.setState({
-        ...this.state,
-        needScroll: false,
-        ring: false
-      });
-    }
-
-    if (!isEndScroll(this.msgBox) && !this.state.ring) {
-      this.setState({
-        ...this.state,
-        ring: true
-      });
-    }
   }
 }
 

@@ -4,7 +4,7 @@ import Wait from '../primitive/Wait/Wait';
 import ChatLayout from '../layouts/ChatLayout/ChatLayout';
 import Window from '../primitive/Window/Window';
 import io from 'socket.io-client';
-import { scrollToTop } from '../../utils/utils';
+import {pageDescription, scrollToTop} from '../../utils/utils';
 import Button from "@material-ui/core/Button";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CloseIcon from '@material-ui/icons/Close';
@@ -36,10 +36,13 @@ class Chat extends Component {
     this.startChat();
   };
 
+
   componentDidMount() {
+    pageDescription("티밍: 랜덤채팅", "과연 누구를 만날까요?!");
     scrollToTop();
     this.init();
   }
+
 
   chatStatus= ()=>{
     const {connected, numPeople}= this.state;
@@ -143,7 +146,7 @@ class Chat extends Component {
         </ButtonGroup>
         <br/><br/>
         <Window title={'상대방 정보'} foldable>
-          ㅔㅔㅔㅔㅔㅔ
+          이곳에 상대방 정보가 표시됩니다
         </Window>
       </div>
     );
@@ -164,6 +167,7 @@ class Chat extends Component {
 
   componentWillUnmount() {
     this.endChat();
+    pageDescription();
   }
 }
 

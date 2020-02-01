@@ -46,6 +46,9 @@ class Contents extends Component {
 
     this.popup= PopupMaker(this);
   };
+  componentWillUnmount() {
+    pageDescription();
+  }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('state', this.state);
