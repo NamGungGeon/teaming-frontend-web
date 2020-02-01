@@ -124,7 +124,7 @@ tbody tr{
 .sidenav+ .content{
   left: 240px;
   width: calc(100% - 240px);
-  top: 48px;
+  top: 56px;
 }
 .content{
   display: flex;
@@ -203,6 +203,7 @@ tbody tr{
 table.noHead tr > td:nth-child(1) {
   font-weight: 700;
 }
+
 @media (max-width: 500px) {
   .mobile {
     display: initial;
@@ -241,6 +242,9 @@ table.noHead tr > td:nth-child(1) {
   }
 }
 
+.MuiBadge-badge{
+  color: white!important;
+}
 
 .ck.ck-editor__main{
 }

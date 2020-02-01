@@ -11,15 +11,14 @@ export const PopupMaker = component => {
         ['popupContent' + prefix]: content ? content : '',
         ['popupCloseable' + prefix]: !preventClose
       });
+
+      console.log('popup', component)
     },
     destroy: () => {
       component.setState({
         ...component.state,
         ['popupContent' + prefix]: ''
       });
-    },
-    update: ()=>{
-      component.forceUpdate();
     },
     render: () => {
       return component.state['popupContent' + prefix] ? (
@@ -29,7 +28,6 @@ export const PopupMaker = component => {
               ret.destroy();
           }}
         >
-
           {component.state['popupContent' + prefix]}
         </Popup>
       ) : (

@@ -22,7 +22,6 @@ class Chatting extends Component {
         ),
       }],
       ring: false,
-      needScroll: false
     };
   }
 
@@ -37,6 +36,7 @@ class Chatting extends Component {
 
     //welcome!
     const { socket } = this.props;
+    console.log('socket', socket);
 
     socket.on('MESSAGE', text => {
       if(text)
@@ -61,6 +61,11 @@ class Chatting extends Component {
     const { uiKit, socket, room } = this.props;
     const { msgs } = this.state;
 
+
+    if(socket.disconnected){
+      uiKit.toaster.cooking('이미 종료된 대화입니다');
+      return;
+    }
     if(!text){
       uiKit.toaster.cooking('메시지를 입력하세요');
       return;
@@ -93,9 +98,6 @@ class Chatting extends Component {
     const {socket, room}= this.props;
     return (
       <Section
-        style={{
-          height: '100%'
-        }}
         divideStyle={'fill'}
         className={styles.wrapper}>
         <div className={styles.chatMsgs} ref={ref => (this.msgBox = ref)}>
@@ -110,7 +112,6 @@ class Chatting extends Component {
                   this.setState({
                     ...this.state,
                     ring: false,
-                    needScroll: false,
                   })
                 }}
                 className={styles.ring}>

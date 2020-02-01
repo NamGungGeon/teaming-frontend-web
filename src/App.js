@@ -28,11 +28,11 @@ import Footer from './components/containers/Footer/Footer';
 import Cyphers from './components/pages/cyphers/Cyphers';
 import logo from './components/resource/tming_txt.png';
 import MusicPlayer from './components/containers/MusicPlayer/MusicPlayer';
-import RecommendYoutube from './components/containers/RecommendYoutube/RecommendYoutube';
 import GoogleAdvertise from "./components/containers/GoogleAdvertise/GoogleAdvertise";
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import Optional from "./components/primitive/Optional/Optional";
 import {Button} from "@material-ui/core";
+import HocWrapper from "./components/containers/HocWrapper/HocWrapper";
 
 class App extends Component {
   state = {
@@ -50,14 +50,13 @@ class App extends Component {
     }, 200);
   }
 
-  componentWillUnmount() {
-    console.log('unmount: App');
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    console.log('App.js is updated', nextState, nextProps);
   }
 
   init = async () => {
     const {
       AuthDispatcher,
-      UIKitDispatcher,
       ConfigDispatcher,
       location,
       history
@@ -70,7 +69,6 @@ class App extends Component {
     if (imapp) await ConfigDispatcher.imapp();
 
     //uiKit initialize
-    await UIKitDispatcher.init(UiBundle(this));
 
     //auth info is passed as query-string?
     const { id, token, refresh } = query;
@@ -89,28 +87,27 @@ class App extends Component {
   };
 
   render() {
-    const { config, history } = this.props;
+    const { config, history, uiKit } = this.props;
     const { ready } = this.state;
+    console.log('App.js', this.state);
 
     return (
       <div>
-        {ready && (
+        <HocWrapper/>
+        {(ready && uiKit) && (
           <>
-            <div>{this.props.uiKit.render()}</div>
             <TopNavigation
               history={this.props.history}
-              location={this.props.location}
-            />
+              location={this.props.location}/>
             <MobileSideNavigation />
             <div className="fullSizeDisplay">
               <SideNavigation />
               <div
                 style={{
-                  top: config.hideNav ? '0' : '55px'
+                  top: config.hideNav ? '0' : '56px'
                 }}
                 id={'content'}
-                className={'content'}
-              >
+                className={'content'}>
                 <div className="ruler">
                   <Route exact path={getPath('/')} component={Home} />
                   <Route path={getPath('/match')} component={Match} />

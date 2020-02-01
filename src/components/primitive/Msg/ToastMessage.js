@@ -27,6 +27,6 @@ ToastMessage.propTypes= {
 };
 ToastMessage.defaultProps={
   msg: [],
-}
+};
 
 export default ToastMessage;

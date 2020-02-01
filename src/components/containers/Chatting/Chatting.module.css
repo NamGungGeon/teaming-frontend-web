@@ -39,15 +39,14 @@
 
 @media (max-width: 500px) {
     .wrapper{
-        height: calc(100% - 48px);
+        height: calc(100% - 56px);
         width: 100%;
-        top: 48px;
+        top: 56px;
         left: 0;
         position: fixed;
     }
 
     .chatInput{
-        height: 84px;
         width: 100%;
     }
 }

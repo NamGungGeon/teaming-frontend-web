@@ -12,6 +12,13 @@ import ReportIcon from '@material-ui/icons/Report';
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import {getPath} from "../../utils/url";
 import PageTitle from "../primitive/PageTitle/PageTitle";
+import Floating from "../primitive/Floating/Floating";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from '@material-ui/icons/Add';
+import uikit from "../../redux/quick/uikit";
+import PersonIcon from '@material-ui/icons/Person';
+import {quickConnect} from "../../redux/quick";
+import ChatResult from "../containers/ChatResult/ChatResult";
 
 class Chat extends Component {
   constructor(props) {
@@ -34,6 +41,7 @@ class Chat extends Component {
       ...this.initState,
     });
     this.startChat();
+
   };
 
 
@@ -55,7 +63,7 @@ class Chat extends Component {
           <PageTitle title={title} explain={explain}/>
         )}/>
     );
-  }
+  };
 
   startChat= ()=>{
     this.socket = io('https://api.tming.kr/chat', {
@@ -72,6 +80,7 @@ class Chat extends Component {
     });
 
     this.socket.on('MATCHED', (room, opponent) => {
+      this.unblock= this.props.history.block('이 페이지를 나가면 상대와 연결이 끊어집니다');
       console.log('MATCHED');
       this.setState({
         ...this.state,
@@ -90,16 +99,19 @@ class Chat extends Component {
   };
 
   endChat= ()=>{
+    if(this.unblock)
+      this.unblock();
+
     const { room } = this.state;
-    if (room) {
+    if (room)
       this.socket.emit('CHAT_ENDED', room);
-    }
     this.socket.disconnect();
+
   };
 
   render() {
     const { matchComplete, room, opponent } = this.state;
-    const { history } = this.props;
+    const { history, uiKit } = this.props;
 
     const chatting = (
       <Chatting socket={this.socket} room={room} opponent={opponent} />
@@ -156,19 +168,39 @@ class Chat extends Component {
         {matchComplete ? (
           <ChatLayout
             tools={tools}
-            chat={chatting}>
-            {tools}
-          </ChatLayout>
-        ) : this.chatStatus()
+            chat={chatting}/>
+          ) : this.chatStatus()
         }
+        <Floating
+          style={{
+            opacity: 0.8,
+          }}
+          className={'mobile'}>
+          <Fab
+            onClick={()=>{
+              uiKit.popup.make(tools)
+            }}
+            color="primary">
+            <PersonIcon />
+          </Fab>
+        </Floating>
       </>
     );
   }
 
   componentWillUnmount() {
+    console.log(this.props);
+    const {uiKit}= this.props;
+    uiKit.popup.make(
+      (<ChatResult close={()=>{uiKit.popup.destroy()}}/>)
+    );
+
+    if(this.unblock)
+      this.unblock();
+
     this.endChat();
     pageDescription();
   }
 }
 
-export default Chat;
+export default quickConnect(Chat);

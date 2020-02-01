@@ -15,9 +15,13 @@ const Gallery = ({ list, max }) => {
             }}
             className={styles.frame}
           >
-            <img className={styles.img} src={one.img} alt="" />
-            <div className={styles.title}>{one.title}</div>
-            <div className={styles.explain}>{one.explain}</div>
+            <div className={styles.imgWrapper}>
+              <img className={styles.img} src={one.img} alt="" />
+            </div>
+            <div>
+              <div className={styles.title}>{one.title}</div>
+              <div className={styles.explain}>{one.explain}</div>
+            </div>
           </div>
         );
       })}

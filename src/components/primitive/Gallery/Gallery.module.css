@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: stretch;
     flex-wrap: wrap;
 }
 .frame{
@@ -15,6 +15,8 @@
     transition-property: transform;
     transition-duration: 0.3s;
 
+    display: flex;
+    flex-direction: column;
 }
 .frame:hover{
     padding: 7px;
@@ -22,7 +24,10 @@
 
     transform: translateY(-4px);
 }
-.frame> .img{
+.frame> .imgWrapper{
+    flex: 1;
+}
+.frame> .imgWrapper> img{
     width: 100%;
     height: auto;
     margin-bottom: 8px;

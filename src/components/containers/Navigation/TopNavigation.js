@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from './TopNavigation.module.css';
-import logo from '../../resource/logo_txt_white.png';
+import logo from '../../resource/tming_txt.png';
 import { NavLink } from 'react-router-dom';
 import { getPath } from '../../../utils/url';
 import classNames from 'classnames';

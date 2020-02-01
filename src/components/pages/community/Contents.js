@@ -149,7 +149,7 @@ class Contents extends Component {
     const query = urlQuery(location);
     const searching= ()=>{
       const {uiKit, history}= this.props;
-      const {search, searchField, openSearchPanel}= this.state;
+      const {search, searchField}= this.state;
       if(!search){
         uiKit.toaster.cooking('검색어를 입력하세요');
         return;
@@ -182,7 +182,9 @@ class Contents extends Component {
               <ExpansionPanelSummary style={{
                 display: 'none',
               }}/>
-              <ExpansionPanelDetails>
+              <ExpansionPanelDetails style={{
+                padding: 0,
+              }}>
                 <div style={{flex: 1}}>
                   <h5>게시글 검색</h5>
                   <br/>

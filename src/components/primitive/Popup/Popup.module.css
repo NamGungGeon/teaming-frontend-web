@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9998;
+    z-index: 1200;
 }
 @keyframes slideDown {
     from{
@@ -39,4 +39,8 @@
     background-color: #eff0f5;
 
     color: #333333;
+}
+
+.content *{
+    z-index: 9997;
 }

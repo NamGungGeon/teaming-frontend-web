@@ -120,6 +120,9 @@ class Complains extends Component {
           }}
         >
           <Select
+            fullWidth
+            size={'small'}
+            variant={'outlined'}
             value={this.state.filter}
             displayEmpty
             onChange={e => {

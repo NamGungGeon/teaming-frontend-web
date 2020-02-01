@@ -21,6 +21,8 @@ export const UiBundle = component => {
     }
   };
 
+  console.log('hoc is init', component);
+
   bundle.render = () => {
     return (
       <>

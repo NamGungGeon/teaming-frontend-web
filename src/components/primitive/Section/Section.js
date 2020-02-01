@@ -10,6 +10,7 @@ const Section = ({ children, divideStyle, className, style }) => {
       style={{
         ...style
       }}
+      className={className}
       align="left"
     >
       <div

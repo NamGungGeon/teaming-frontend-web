@@ -83,6 +83,7 @@ class Notifications extends Component{
                   className={styles.badge}
                   style={{
                     fontSize: '8px',
+                    color: 'white',
                   }}
                   max={9}
                   badgeContent={count}
