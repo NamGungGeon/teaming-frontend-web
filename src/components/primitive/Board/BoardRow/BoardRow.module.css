@@ -6,7 +6,13 @@
     flex-direction: row;
 
     background-color: white;
+    transition-property: background-color;
+    transition-duration: 0.2s;
 }
+.wrapper:hover{
+    background-color: #33333311;
+}
+
 .wrapper> .imgWrap{
     width: 48px;
     height: 48px;

@@ -39,7 +39,7 @@ const RecommendYoutube = ({max}) => {
           link: ''
         },
       ]);
-    }, 1000);
+    }, 600);
   }, []);
 
   if(!youtubers)

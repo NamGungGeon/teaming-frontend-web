@@ -19,7 +19,7 @@ class Magazine extends Component {
     const { uiKit, max } = this.props;
 
     uiKit.loading.start();
-    await getBoardPosts('MAGAZINE', false, max ? max : 10, 0)
+    await getBoardPosts('MAGAZINE', max ? max : 10, 0, 0)
       .then(response => {
         const { data } = response;
         this.setState({
@@ -44,8 +44,7 @@ class Magazine extends Component {
                 title: magazine.title,
                 link: `/magazine/read/${magazine.id}`,
                 explain: `${beautifyDate(magazine.createdAt)}`,
-                img:
-                  'https://img.resized.co/dexerto/eyJkYXRhIjoie1widXJsXCI6XCJodHRwczpcXFwvXFxcL2ltYWdlcy5kZXhlcnRvLmNvbVxcXC91cGxvYWRzXFxcLzIwMjBcXFwvMDFcXFwvMDIxNjI3NTFcXFwvcmlvdC1yZXZlYWwtaWYtZHJhdmVuLXNldHQtZmF0aGVyLTEwMjR4NTc2LmpwZ1wiLFwid2lkdGhcIjo2MjAsXCJoZWlnaHRcIjozNDcsXCJkZWZhdWx0XCI6XCJodHRwczpcXFwvXFxcL3MzLWV1LXdlc3QtMS5hbWF6b25hd3MuY29tXFxcL3BwbHVzLmltYWdlcy5kZXhlcnRvLmNvbVxcXC91cGxvYWRzXFxcLzIwMTlcXFwvMTFcXFwvMTEyMTQ5NDNcXFwvcGxhY2Vob2xkZXIuanBnXCJ9IiwiaGFzaCI6ImU0OWZiODBhMjhkOTAwNzBmMGNhZDFhNDI5MWUzZjNkNzMzZWIyZGQifQ==/riot-reveal-whether-league-of-legends-champion-draven-is-sett-s-father.jpg'
+                img: magazine.thumbnail,
               };
             })}
           />

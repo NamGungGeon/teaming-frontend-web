@@ -240,7 +240,10 @@ class Message extends Component {
               {messages.map(msg => {
                 const { author } = msg;
                 return (
-                  <MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      this.readMessage(msg.id);
+                    }}>
                     <ListItemAvatar>
                       <Avatar>
                         <ImageView
@@ -256,9 +259,6 @@ class Message extends Component {
                       style={{
                         cursor: 'pointer',
                         color: msg.isRead ? '#00000099!important' : 'white'
-                      }}
-                      onClick={() => {
-                        this.readMessage(msg.id);
                       }}
                       primary={
                         <div

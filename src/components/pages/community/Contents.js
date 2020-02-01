@@ -19,18 +19,22 @@ import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {PopupMaker} from "../../hoc/PopupMaker";
+import {ExpansionPanel} from "@material-ui/core";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Tooltip from "@material-ui/core/Tooltip";
 
 
 class Contents extends Component {
   state = {
     contents: [],
-    filter: '',
     myComment: '',
 
     search: '',
     searchField: 'title',
     count: 0,
-    offset: 0
+    offset: 0,
+    openSearchPanel: false,
   };
 
   componentDidMount() {
@@ -135,11 +139,14 @@ class Contents extends Component {
         return '자유게시판';
     }
   };
-  search= ()=>{
-    const {uiKit}= this.props;
+  render() {
+    const { location, history } = this.props;
+    const { count, offset, openSearchPanel } = this.state;
+
+    const query = urlQuery(location);
     const searching= ()=>{
       const {uiKit, history}= this.props;
-      const {search, searchField}= this.state;
+      const {search, searchField, openSearchPanel}= this.state;
       if(!search){
         uiKit.toaster.cooking('검색어를 입력하세요');
         return;
@@ -148,77 +155,6 @@ class Contents extends Component {
       this.popup.destroy();
       history.push(`/community?category=${this.getCategory()}&search=${search}&searchField=${searchField}&&offset=0`);
     };
-    this.popup.make((
-      <div>
-        <h5>게시글 검색</h5>
-        <FormControl
-          fullWidth
-          size={'small'}
-          variant={'outlined'}>
-          <Select
-            style={{
-              width: '100%',
-              border: 'none',
-            }}
-            value={this.state.searchField}
-            displayEmpty
-            onChange={(e)=>{
-              this.setState({
-                ...this.state,
-                searchField: e.target.value,
-              });
-            }}>
-            <MenuItem value="title">
-              제목에서 찾기
-            </MenuItem>
-            <MenuItem value={'body'}>
-              본문에서 찾기
-            </MenuItem>
-            <MenuItem value={'author'}>
-              작성자로 찾기
-            </MenuItem>
-          </Select>
-        </FormControl>
-        <br/><br/>
-        <TextField
-          size={'small'}
-          fullWidth
-          variant={'outlined'}
-          label="검색 키워드 입력"
-          type={'text'}
-          onKeyDown={e=>{
-            if(e.key=== 'Enter'){
-              searching();
-            }
-          }}
-          onChange={e=>{
-            this.setState({
-              ...this.state,
-              search: e.target.value
-            });
-          }}
-        />
-        <br />
-        <br />
-        <AlignLayout align={'right'}>
-          <Button
-            onClick={searching}
-            startIcon={<SearchIcon/>}
-            variant={'contained'}
-            color={'primary'}
-          >
-            검색
-          </Button>
-        </AlignLayout>
-      </div>
-    ))
-  };
-
-  render() {
-    const { location, history } = this.props;
-    const { count, offset } = this.state;
-
-    const query = urlQuery(location);
 
     return (
       <div>
@@ -234,53 +170,116 @@ class Contents extends Component {
 
         <Section divideStyle={'fill'}>
           <div>
-            <FormControl fullWidth size={'small'} variant={'outlined'}>
-              <Select
-                style={{
-                  width: '100%',
-                  border: 'none'
-                }}
-                value={this.state.filter}
-                displayEmpty
-                onChange={e => {
-                  this.setState({
-                    ...this.state,
-                    filter: e.target.value
-                  });
-                }}
-              >
-                <MenuItem value="">모든 글 보기</MenuItem>
-                <MenuItem value={'hottest'}>인기글만 보기</MenuItem>
-                <MenuItem value={'fuckAnonymous'}>
-                  익명 사용자 제외하고 보기
-                </MenuItem>
-              </Select>
-            </FormControl>
-            <br />
-            <br />
+            <ExpansionPanel
+              style={{
+                boxShadow: 'none',
+                padding: '0'
+              }}
+              expanded={openSearchPanel}>
+              <ExpansionPanelSummary style={{
+                display: 'none',
+              }}/>
+              <ExpansionPanelDetails>
+                <div style={{flex: 1}}>
+                  <h5>게시글 검색</h5>
+                  <br/>
+                  <FormControl
+                    fullWidth
+                    size={'small'}
+                    variant={'outlined'}>
+                    <Select
+                      style={{
+                        width: '100%',
+                        border: 'none',
+                      }}
+                      value={this.state.searchField}
+                      displayEmpty
+                      onChange={(e)=>{
+                        this.setState({
+                          ...this.state,
+                          searchField: e.target.value,
+                        });
+                      }}>
+                      <MenuItem value="title">
+                        제목에서 찾기
+                      </MenuItem>
+                      <MenuItem value={'body'}>
+                        본문에서 찾기
+                      </MenuItem>
+                      <MenuItem value={'author'}>
+                        작성자로 찾기
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                  <br/><br/>
+                  <TextField
+                    size={'small'}
+                    fullWidth
+                    variant={'outlined'}
+                    label="검색 키워드 입력"
+                    type={'text'}
+                    onKeyDown={e=>{
+                      if(e.key=== 'Enter'){
+                        searching();
+                      }
+                    }}
+                    onChange={e=>{
+                      this.setState({
+                        ...this.state,
+                        search: e.target.value
+                      });
+                    }}
+                  />
+                  <br />
+                  <br />
+                  <AlignLayout align={'right'}>
+                    <Button
+                      fullWidth
+                      onClick={searching}
+                      startIcon={<SearchIcon/>}
+                      variant={'contained'}
+                      color={'primary'}>
+                      검색
+                    </Button>
+                  </AlignLayout>
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
             <AlignLayout align={'right'}>
-              <IconButton variant="contained" onClick={this.search}>
-                <SearchIcon />
-              </IconButton>
+              <Tooltip title={'게시글 검색'}>
+                <IconButton
+                  variant="contained"
+                  onClick={()=>{
+                    this.setState({
+                      ...this.state,
+                      openSearchPanel: !openSearchPanel,
+                    })
+                  }}>
+                  <SearchIcon />
+                </IconButton>
+              </Tooltip>
               &nbsp;
-              <IconButton
-                onClick={() => {
-                  history.push(
-                    getPath(
-                      `/community/write?category=${
-                        query.category ? query.category : ''
-                      }`
-                    )
-                  );
-                }}
-                variant="contained"
-              >
-                <CreateIcon />
-              </IconButton>
+              <Tooltip title={'글쓰기'}>
+                <IconButton
+                  onClick={() => {
+                    history.push(
+                      getPath(
+                        `/community/write?category=${
+                          query.category ? query.category : ''
+                        }`
+                      )
+                    );
+                  }}
+                  variant="contained">
+                  <CreateIcon />
+                </IconButton>
+              </Tooltip>
               &nbsp;
-              <IconButton onClick={this.loadContents} variant="contained">
-                <RefreshIcon />
-              </IconButton>
+              <Tooltip title={'새로고침'}>
+                <IconButton onClick={this.loadContents} variant="contained">
+                  <RefreshIcon />
+                </IconButton>
+              </Tooltip>
             </AlignLayout>
           </div>
         </Section>

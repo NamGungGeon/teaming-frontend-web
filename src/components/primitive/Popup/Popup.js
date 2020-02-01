@@ -14,14 +14,12 @@ class Popup extends Component {
         onKeyDown={e => {
           if (e.key === 'esc')
             plzClose();
-        }}
-      >
+        }}>
         <div
           className={styles.content}
           onMouseUp={e => {
             e.stopPropagation();
-          }}
-        >
+          }}>
           {children}
         </div>
       </div>
