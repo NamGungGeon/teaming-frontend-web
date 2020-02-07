@@ -253,18 +253,19 @@ export const uploadProfileImage = (auth, file) => {
 };
 
 export const getBoardPosts = (category, limit, offset, searchField, search) => {
-  const options= {};
-  if(searchField && search){
-    options.searchField= searchField;
-    options.search= search;
+  const options = {};
+  if (searchField && search) {
+    options.searchField = searchField;
+    options.search = search;
   }
 
   return axios.request({
     method: 'GET',
     url: `${url}/boards`,
     params: {
-      category: category.toUpperCase()
-      , limit, offset,
+      category: category.toUpperCase(),
+      limit,
+      offset,
       ...options
     }
   });

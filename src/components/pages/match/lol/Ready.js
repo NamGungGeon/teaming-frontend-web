@@ -42,7 +42,7 @@ const lines = [
   },
   {
     img: `${resPath}/lol/line/sp.png`,
-    id: 'supporter',
+    id: 'support',
     label: '서포터',
     style: { width: '48px' }
   },
@@ -107,11 +107,9 @@ const tiers = [
 class Ready extends Component {
   constructor(props) {
     super(props);
-    //마지막으로 사용한 설정 불러오기
-    const { match } = this.props;
-    console.log(this.props);
+    const { playerInfo } = this.props;
     this.state = {
-      ...match
+      ...playerInfo
     };
   }
 
@@ -124,31 +122,44 @@ class Ready extends Component {
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const { setMatch } = this.props;
-    setMatch(this.state);
-    console.log(this.state);
+    const { setPlayerInfo } = this.props;
+    setPlayerInfo(this.state);
   }
 
-  requestStart = async () => {
-    const { history, match, fulfilled } = this.props;
-    // if (!tier) {
-    //   uiKit.toaster.cooking('티어를 선택하세요');
-    //   return;
-    // }
-    // if (champions.length === 0) {
-    //   uiKit.toaster.cooking('챔피언을 하나 이상 선택하세요');
-    //   return;
-    // }
-    // if (!mainPos) {
-    //   uiKit.toaster.cooking('메인 라인을 선택하세요');
-    //   return;
-    // }
-    // if (!subPos) {
-    //   uiKit.toaster.cooking('서브 라인을 선택하세요');
-    //   return;
-    // }
-    console.log(match);
-    if (fulfilled()) history.push(getPath(`/match/lol/start`));
+  requestStart = () => {
+    const { history, uiKit } = this.props;
+    const {
+      nickname,
+      goal,
+      mode,
+      tier,
+      mainPos,
+      partnerPos,
+      champions,
+      likes,
+      ban
+    } = this.state;
+
+    // TODO validation
+
+    /*
+    console.log(this.state);
+
+    if (!tier) {
+      uiKit.toaster.cooking('티어를 선택하세요');
+      return;
+    }
+    if (champions.length === 0) {
+      uiKit.toaster.cooking('챔피언을 하나 이상 선택하세요');
+      return;
+    }
+    if (!mainPos) {
+      uiKit.toaster.cooking('메인 라인을 선택하세요');
+      return;
+    }
+    */
+
+    history.push(getPath(`/match/lol/start`));
   };
 
   render() {

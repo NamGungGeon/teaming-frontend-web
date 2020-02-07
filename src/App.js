@@ -16,7 +16,8 @@ import {
   Notices,
   Center,
   Admin,
-  Magazine, Youtuber
+  Magazine,
+  Youtuber
 } from './components/pages';
 import MyPage from './components/pages/mypage/MyPage';
 import Trade from './components/pages/trade/Trade';
@@ -28,11 +29,11 @@ import Footer from './components/containers/Footer/Footer';
 import Cyphers from './components/pages/cyphers/Cyphers';
 import logo from './components/resource/tming_txt.png';
 import MusicPlayer from './components/containers/MusicPlayer/MusicPlayer';
-import GoogleAdvertise from "./components/containers/GoogleAdvertise/GoogleAdvertise";
+import GoogleAdvertise from './components/containers/GoogleAdvertise/GoogleAdvertise';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
-import Optional from "./components/primitive/Optional/Optional";
-import {Button} from "@material-ui/core";
-import HocWrapper from "./components/containers/HocWrapper/HocWrapper";
+import Optional from './components/primitive/Optional/Optional';
+import { Button } from '@material-ui/core';
+import HocWrapper from './components/containers/HocWrapper/HocWrapper';
 
 class App extends Component {
   state = {
@@ -55,12 +56,7 @@ class App extends Component {
   }
 
   init = async () => {
-    const {
-      AuthDispatcher,
-      ConfigDispatcher,
-      location,
-      history
-    } = this.props;
+    const { AuthDispatcher, ConfigDispatcher, location, history } = this.props;
     const query = urlQuery(location);
 
     //navigation setting
@@ -93,12 +89,13 @@ class App extends Component {
 
     return (
       <div>
-        <HocWrapper/>
-        {(ready && uiKit) && (
+        <HocWrapper />
+        {ready && uiKit && (
           <>
             <TopNavigation
               history={this.props.history}
-              location={this.props.location}/>
+              location={this.props.location}
+            />
             <MobileSideNavigation />
             <div className="fullSizeDisplay">
               <SideNavigation />
@@ -107,7 +104,8 @@ class App extends Component {
                   top: config.hideNav ? '0' : '56px'
                 }}
                 id={'content'}
-                className={'content'}>
+                className={'content'}
+              >
                 <div className="ruler">
                   <Route exact path={getPath('/')} component={Home} />
                   <Route path={getPath('/match')} component={Match} />
@@ -142,18 +140,19 @@ class App extends Component {
                     <Button
                       fullWidth
                       size={'large'}
-                      startIcon={<SupervisedUserCircleIcon/>}
-                      onClick={()=>{
-                        history.push(getPath('/admin'))
+                      startIcon={<SupervisedUserCircleIcon />}
+                      onClick={() => {
+                        history.push(getPath('/admin'));
                       }}
                       color={'secondary'}
-                      variant={'contained'}>
+                      variant={'contained'}
+                    >
                       관리자 페이지로 이동
                     </Button>
-                    <br/>
+                    <br />
                   </Optional>
                   <MusicPlayer />
-                  <GoogleAdvertise/>
+                  <GoogleAdvertise />
                 </div>
               </div>
             </div>

@@ -1,12 +1,10 @@
-import Block from "./Blocks";
-import Friends from "./Friends";
-import React, {Component} from 'react';
-import {getPath} from "../../../../utils/url";
-import {Route} from "react-router-dom";
-import Message from "./Message";
-import Logs from "./logs/Logs";
-import Notifications from "./Notifications";
-import {pageDescription} from "../../../../utils/utils";
+import Block from './Blocks';
+import Friends from './Friends';
+import React, { Component } from 'react';
+import { getPath } from '../../../../utils/url';
+import { Route } from 'react-router-dom';
+import Message from './Message';
+import Notifications from './Notifications';
 
 class Community extends Component {
   componentDidMount() {

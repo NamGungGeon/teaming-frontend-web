@@ -5,8 +5,7 @@ import Ready from './Ready';
 import Start from './Start';
 
 const Lol = () => {
-  const [match, setMatch] = useState({
-    gameType: 'rank',
+  const [playerInfo, setPlayerInfo] = useState({
     tier: '',
     champions: [],
     ban: [],
@@ -14,14 +13,9 @@ const Lol = () => {
     mainPos: '',
     partnerPos: '',
     nickname: '',
-    isRank: true,
     mode: 'rank',
     goal: 'win'
   });
-
-  const fulfilled = () => {
-    return true;
-  };
 
   return (
     <>
@@ -31,18 +25,15 @@ const Lol = () => {
         render={props => (
           <Ready
             {...props}
-            match={match}
-            setMatch={setMatch}
-            fulfilled={fulfilled}
+            playerInfo={playerInfo}
+            setPlayerInfo={setPlayerInfo}
           />
         )}
       />
       <Route
         exact
         path={getPath(`/match/lol/start`)}
-        render={props => (
-          <Start {...props} match={match} fulfilled={fulfilled} />
-        )}
+        render={props => <Start {...props} playerInfo={playerInfo} />}
       />
     </>
   );
