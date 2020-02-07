@@ -1,5 +1,5 @@
-import moment from "moment";
-import "moment/locale/ko";
+import moment from 'moment';
+import 'moment/locale/ko';
 
 moment.locale('ko');
 
@@ -63,12 +63,12 @@ export const getDays = milliSecond => {
 
 export const scrollToBottom = ref => {
   //console.log('scroll go!');
-  const { scrollHeight, clientHeight } = ref;
+  const { scrollHeight } = ref;
   ref.scrollTop = scrollHeight;
 };
 
-export const scrollToTop= ()=>{
-  window.scrollTo(0,0);
+export const scrollToTop = () => {
+  window.scrollTo(0, 0);
 };
 
 export const isEndScroll = ref => {
@@ -78,43 +78,54 @@ export const isEndScroll = ref => {
   return ref.scrollTop >= scrollHeight - clientHeight;
 };
 
-export const authorized= auth=>{
- return auth && auth.token && auth.refresh && auth.id;
+export const authorized = auth => {
+  return auth && auth.token && auth.refresh && auth.id;
 };
 
-export const randNum= limit=>{
-  return parseInt(Math.random()*10000%limit);
+export const randNum = limit => {
+  return parseInt((Math.random() * 10000) % limit);
 };
 
-const dateFormat= 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]';
-export const beautifyDate= (stringDateTime)=>{
-  return moment(stringDateTime, dateFormat).format('YYYY[년]MM[월]DD[일 ]HH[시]mm[분]');
+const dateFormat = 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]';
+export const beautifyDate = stringDateTime => {
+  return moment(stringDateTime, dateFormat).format(
+    'YYYY[년]MM[월]DD[일 ]HH[시]mm[분]'
+  );
 };
-export const lastDays= (end)=>{
-  const endDate= moment(end, dateFormat);
+export const lastDays = end => {
+  const endDate = moment(end, dateFormat);
   return endDate.diff(moment(), 'days');
 };
-export const momenting= (date)=>{
+export const momenting = date => {
   return moment(date, dateFormat);
 };
-export const fuckHTML= (html)=>{
-  return html.replace(/(<([^>]+)>)/ig, "");
+export const fuckHTML = html => {
+  return html.replace(/(<([^>]+)>)/gi, '');
 };
 
-export const pageDescription= (title, desc, img)=>{
-  document.title= title? title: "티밍";
+export const pageDescription = (title, desc, img) => {
+  document.title = title ? title : '티밍';
 
-  if(title)
-    document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+  if (title)
+    document
+      .querySelector('meta[property="og:title"]')
+      .setAttribute('content', title);
   else
-    document.querySelector('meta[property="og:title"]').setAttribute("content", "티밍");
+    document
+      .querySelector('meta[property="og:title"]')
+      .setAttribute('content', '티밍');
 
-  if(desc)
-    document.querySelector('meta[property="og:description"]').setAttribute("content", desc);
+  if (desc)
+    document
+      .querySelector('meta[property="og:description"]')
+      .setAttribute('content', desc);
   else
-    document.querySelector('meta[property="og:description"]').setAttribute("content", "혼자 게임하지 말고 같이 하자!");
+    document
+      .querySelector('meta[property="og:description"]')
+      .setAttribute('content', '혼자 게임하지 말고 같이 하자!');
 
-  if(img)
-    document.querySelector('meta[property="og:image"]').setAttribute("content", img);
-
+  if (img)
+    document
+      .querySelector('meta[property="og:image"]')
+      .setAttribute('content', img);
 };

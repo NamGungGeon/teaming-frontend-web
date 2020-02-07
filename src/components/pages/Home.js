@@ -4,13 +4,11 @@ import { getPath } from '../../utils/url';
 import UsefulInformation from '../containers/UsefulInformation/UsefulInformation';
 import { quickConnect } from '../../redux/quick';
 import HelpAppInstall from '../containers/HelpAppInstall/HelpAppInstall';
-import GoogleAdvertise from '../containers/GoogleAdvertise/GoogleAdvertise';
 import Magazine from '../containers/Magazine/Magazine';
 import Section from '../primitive/Section/Section';
 import HottestPosts from '../containers/HottestPosts/HottestPosts';
-import MusicPlayer from "../containers/MusicPlayer/MusicPlayer";
-import RecommendYoutube from "../containers/RecommendYoutube/RecommendYoutube";
-import {pageDescription} from "../../utils/utils";
+import RecommendYoutube from '../containers/RecommendYoutube/RecommendYoutube';
+import { pageDescription } from '../../utils/utils';
 
 class Home extends Component {
   componentDidMount() {
@@ -32,11 +30,12 @@ class Home extends Component {
               history.push(getPath('/youtuber'));
             }}
             style={{
-              cursor: 'pointer',
-            }}>
+              cursor: 'pointer'
+            }}
+          >
             유튜브 홍보 게시판
           </b>
-          <RecommendYoutube max={3}/>
+          <RecommendYoutube max={3} />
         </Section>
         <br />
         <Section>

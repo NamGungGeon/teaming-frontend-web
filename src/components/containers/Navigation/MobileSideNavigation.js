@@ -1,26 +1,26 @@
-import React, {Component} from 'react';
-import {quickConnect} from "../../../redux/quick";
+import React, { Component } from 'react';
+import { quickConnect } from '../../../redux/quick';
 import styles from './MobileSideNavigation.module.css';
-import HorizontalNavigation from "./HorizontalNavigation";
+import HorizontalNavigation from './HorizontalNavigation';
 
 class MobileSideNavigation extends Component {
   render() {
     console.log(this.props);
-    const {sideNav, SideNavDispatcher}= this.props;
+    const { sideNav, SideNavDispatcher } = this.props;
 
-    if(!sideNav.visible){
+    if (!sideNav.visible) {
       return '';
     }
 
     return (
       <div
-        onClick={()=>{
+        onClick={() => {
           SideNavDispatcher.toggle();
         }}
-        className={`${styles.wrapper} mobile`}>
-        <div
-          className={styles.sidenav}>
-          <HorizontalNavigation nav={sideNav.nav}/>
+        className={`${styles.wrapper} mobile`}
+      >
+        <div className={styles.sidenav}>
+          <HorizontalNavigation nav={sideNav.nav} />
         </div>
       </div>
     );

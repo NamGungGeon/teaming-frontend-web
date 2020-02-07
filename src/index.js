@@ -17,7 +17,7 @@ const store = createStore(reduxChunk);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <ReactRouterGlobalHistory/>
+      <ReactRouterGlobalHistory />
       <Route path={getPath('/')} component={App} />
     </BrowserRouter>
   </Provider>,

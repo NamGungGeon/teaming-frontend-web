@@ -3,16 +3,18 @@ import { randStr } from '../../utils/utils';
 import Cookies from 'universal-cookie';
 
 const tokenKey = 'srghqw4ttq34tqagaga';
-const refreshKey= 'agarwrt3qrtrhresadfgawgg';
-const idKey= '34tw5ehyes5tushe';
+const refreshKey = 'agarwrt3qrtrhresadfgawgg';
+const idKey = '34tw5ehyes5tushe';
 
 const cookie = new Cookies();
-const initAuth = ( newToken, newRefresh, newId) => {
+const initAuth = (newToken, newRefresh, newId) => {
   const token = newToken ? newToken : cookie.get(tokenKey);
-  const refresh= newRefresh? newRefresh: cookie.get(refreshKey);
-  const id= newId? newId: cookie.get(idKey);
+  const refresh = newRefresh ? newRefresh : cookie.get(refreshKey);
+  const id = newId ? newId : cookie.get(idKey);
   return {
-    token, refresh,id
+    token,
+    refresh,
+    id
   };
 };
 const user = initAuth();

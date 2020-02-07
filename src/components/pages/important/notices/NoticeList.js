@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import PageTitle from '../../../primitive/PageTitle/PageTitle';
 import { quickConnect } from '../../../../redux/quick';
-import { createNotice, getMyProfile, getNotices } from '../../../../http/tming';
+import { getNotices } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import moment from 'moment';
-import {authorized, beautifyDate, pageDescription} from '../../../../utils/utils';
-import AlignLayout from "../../../layouts/AlignLayout/AlignLayout";
-import {Button} from "@material-ui/core";
-import uikit from "../../../../redux/quick/uikit";
-import Optional from "../../../primitive/Optional/Optional";
+import { beautifyDate, pageDescription } from '../../../../utils/utils';
+import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
+import { Button } from '@material-ui/core';
+import Optional from '../../../primitive/Optional/Optional';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 class NoticeList extends Component {
@@ -27,8 +25,8 @@ class NoticeList extends Component {
   };
 
   async componentDidMount() {
-    const { uiKit, auth } = this.props;
-    pageDescription("티밍: 공지사항", "티밍 공지사항");
+    const { uiKit } = this.props;
+    pageDescription('티밍: 공지사항', '티밍 공지사항');
 
     uiKit.loading.start();
     await getNotices()
@@ -49,10 +47,9 @@ class NoticeList extends Component {
     pageDescription();
   }
 
-
   render() {
-    const { notices, isAdmin, open } = this.state;
-    const {uiKit}= this.props;
+    const { notices, open } = this.state;
+    const { uiKit } = this.props;
 
     return (
       <div>
@@ -94,21 +91,21 @@ class NoticeList extends Component {
                   <ExpansionPanelDetails
                     style={{
                       flexDirection: 'column'
-                    }}>
-                    <div>
-                      {notice.text}
-                    </div>
-                    <br/>
+                    }}
+                  >
+                    <div>{notice.text}</div>
+                    <br />
                     <Optional onlyAdmin>
                       <AlignLayout align={'right'}>
                         <Button
-                          startIcon={<DeleteIcon/>}
-                          onClick={()=>{
+                          startIcon={<DeleteIcon />}
+                          onClick={() => {
                             uiKit.toaster.cooking('개발중');
                           }}
                           fullWidth
                           color={'secondary'}
-                          variant={'contained'}>
+                          variant={'contained'}
+                        >
                           이 공지사항 삭제
                         </Button>
                       </AlignLayout>

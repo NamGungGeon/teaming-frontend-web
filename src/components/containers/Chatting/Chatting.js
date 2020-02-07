@@ -69,7 +69,7 @@ class Chatting extends Component {
   }
 
   renderMsg = (text, isOpponent) => {
-    const { uiKit, socket, room } = this.props;
+    const { uiKit, socket } = this.props;
     const { msgs } = this.state;
 
     if (socket.disconnected) {

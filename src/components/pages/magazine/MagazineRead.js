@@ -1,12 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class MagazineRead extends Component {
   render() {
-    return (
-      <div>
-        
-      </div>
-    );
+    return <div></div>;
   }
 }
 

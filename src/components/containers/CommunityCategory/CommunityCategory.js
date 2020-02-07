@@ -1,17 +1,16 @@
-import React, {Component} from 'react';
-import {getPath} from "../../../utils/url";
-import lol from "../../resource/icon/lol.jpg";
-import overwatch from "../../resource/icon/overwatch.png";
-import battleground from "../../resource/icon/battleground.png";
-import Window from "../../primitive/Window/Window";
-import HorizontalNavigation from "../Navigation/HorizontalNavigation";
-import HorizontalSlicedLayout from "../../layouts/HorizontalSlicedLayout/HorizontalSlicedLayout";
+import React, { Component } from 'react';
+import { getPath } from '../../../utils/url';
+import lol from '../../resource/icon/lol.jpg';
+import overwatch from '../../resource/icon/overwatch.png';
+import battleground from '../../resource/icon/battleground.png';
+import Window from '../../primitive/Window/Window';
+import HorizontalNavigation from '../Navigation/HorizontalNavigation';
+import HorizontalSlicedLayout from '../../layouts/HorizontalSlicedLayout/HorizontalSlicedLayout';
 
 class CommunityCategory extends Component {
-
   state = {
     nav: {
-      "일반": [
+      일반: [
         {
           label: '통합게시판',
           onClick: () => {
@@ -29,9 +28,9 @@ class CommunityCategory extends Component {
           onClick: () => {
             this.go(getPath(`/community?category=anonymous`));
           }
-        },
+        }
       ],
-      "게임": [
+      게임: [
         {
           label: '리그 오브 레전드',
           icon: lol,
@@ -47,8 +46,8 @@ class CommunityCategory extends Component {
           label: '배틀그라운드',
           icon: battleground
         }
-      ],
-    },
+      ]
+    }
   };
 
   go = path => {
@@ -56,11 +55,9 @@ class CommunityCategory extends Component {
   };
 
   render() {
-
     return (
       <Window title={'메뉴'} foldable>
-        <HorizontalNavigation
-          nav={this.state.nav}/>
+        <HorizontalNavigation nav={this.state.nav} />
       </Window>
     );
   }

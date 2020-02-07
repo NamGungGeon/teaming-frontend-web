@@ -12,7 +12,7 @@ export const PopupMaker = component => {
         ['popupCloseable' + prefix]: !preventClose
       });
 
-      console.log('popup', component)
+      console.log('popup', component);
     },
     destroy: () => {
       component.setState({
@@ -24,8 +24,7 @@ export const PopupMaker = component => {
       return component.state['popupContent' + prefix] ? (
         <Popup
           plzClose={() => {
-            if (component.state['popupCloseable' + prefix])
-              ret.destroy();
+            if (component.state['popupCloseable' + prefix]) ret.destroy();
           }}
         >
           {component.state['popupContent' + prefix]}

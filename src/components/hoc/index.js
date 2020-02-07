@@ -13,11 +13,11 @@ export const UiBundle = component => {
     loading: Loader(component),
     popup: PopupMaker(component),
     spopup: PopupMaker(component),
-    destroyAll: ()=>{
-       bundle.toaster.destroy();
-       bundle.loading.end();
-       bundle.popup.destroy();
-       bundle.spopup.destroy();
+    destroyAll: () => {
+      bundle.toaster.destroy();
+      bundle.loading.end();
+      bundle.popup.destroy();
+      bundle.spopup.destroy();
     }
   };
 

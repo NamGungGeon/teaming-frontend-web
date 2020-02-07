@@ -10,9 +10,7 @@ class ToastMessage extends Component {
         {msg &&
           msg.map((value, idx) => {
             return (
-              <div
-                className={styles.toast}
-                key={`${value}_${idx}`}>
+              <div className={styles.toast} key={`${value}_${idx}`}>
                 {value}
               </div>
             );
@@ -22,11 +20,11 @@ class ToastMessage extends Component {
   }
 }
 
-ToastMessage.propTypes= {
-  msg: PropTypes.array,
+ToastMessage.propTypes = {
+  msg: PropTypes.array
 };
-ToastMessage.defaultProps={
-  msg: [],
+ToastMessage.defaultProps = {
+  msg: []
 };
 
 export default ToastMessage;

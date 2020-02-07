@@ -2,7 +2,6 @@ import './App.css';
 import { Route } from 'react-router-dom';
 import TopNavigation from './components/containers/Navigation/TopNavigation';
 import React, { Component } from 'react';
-import { UiBundle } from './components/hoc';
 import { quickConnect } from './redux/quick';
 import { getPath, urlQuery } from './utils/url';
 import {

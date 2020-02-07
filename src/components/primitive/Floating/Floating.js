@@ -1,21 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 import styles from './Floating.module.css';
 import classNames from 'classnames';
 
-const Floating= ({className, style, children})=> {
+const Floating = ({ className, style, children }) => {
   return (
-    <div
-      style={style}
-      className={classNames(styles.wrapper, className)}>
+    <div style={style} className={classNames(styles.wrapper, className)}>
       {children}
     </div>
   );
 };
 
-Floating.defaultProps= {
+Floating.defaultProps = {
   className: '',
   style: {},
-  children: (<></>),
+  children: <></>
 };
 
 export default Floating;

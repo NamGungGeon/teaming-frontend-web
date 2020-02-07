@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-import {momenting, pageDescription} from '../../../utils/utils';
+import { momenting, pageDescription } from '../../../utils/utils';
 import { getPath, urlQuery } from '../../../utils/url';
 import { quickConnect } from '../../../redux/quick';
 import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
@@ -15,15 +15,14 @@ import { getBoardPosts } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import Pagenation from '../../primitive/Pagenation/Pagenation';
 import SearchIcon from '@material-ui/icons/Search';
-import IconButton from "@material-ui/core/IconButton";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import {PopupMaker} from "../../hoc/PopupMaker";
-import {ExpansionPanel} from "@material-ui/core";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Tooltip from "@material-ui/core/Tooltip";
-
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { PopupMaker } from '../../hoc/PopupMaker';
+import { ExpansionPanel } from '@material-ui/core';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class Contents extends Component {
   state = {
@@ -34,18 +33,18 @@ class Contents extends Component {
     searchField: 'title',
     count: 0,
     offset: 0,
-    openSearchPanel: false,
+    openSearchPanel: false
   };
 
   componentDidMount() {
     const { location } = this.props;
     const { offset } = urlQuery(location);
 
-    pageDescription("티밍: "+ this.getBoardName(), this.getBoardName());
-    this.loadContents(offset? offset: 0);
+    pageDescription('티밍: ' + this.getBoardName(), this.getBoardName());
+    this.loadContents(offset ? offset : 0);
 
-    this.popup= PopupMaker(this);
-  };
+    this.popup = PopupMaker(this);
+  }
   componentWillUnmount() {
     pageDescription();
   }
@@ -53,9 +52,9 @@ class Contents extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('state', this.state);
 
-    const getOffset= (location)=>{
-      const {offset}= urlQuery(location);
-      return offset? offset: 0;
+    const getOffset = location => {
+      const { offset } = urlQuery(location);
+      return offset ? offset : 0;
     };
     const getCategory = location => {
       const { category } = urlQuery(location);
@@ -80,22 +79,25 @@ class Contents extends Component {
   loadContents = async offset => {
     window.scrollTo(0, 0);
 
-    const { filter } = this.state;
-    const { uiKit, location, history } = this.props;
+    const { uiKit, location } = this.props;
 
-    const {category, search, searchField}= urlQuery(location);
+    const { category, search, searchField } = urlQuery(location);
 
     uiKit.loading.start();
-    await getBoardPosts(category? category: 'general', 10, offset, searchField, search)
-      .then(response=>{
-        const {data}= response;
+    await getBoardPosts(
+      category ? category : 'general',
+      10,
+      offset,
+      searchField,
+      search
+    )
+      .then(response => {
+        const { data } = response;
         console.log(data);
 
-        if(data.data.length=== 0){
-          if(search)
-            uiKit.toaster.cooking('검색 결과가 없습니다');
-          else
-            uiKit.toaster.cooking('이 게시판에 아직 글이 없습니다');
+        if (data.data.length === 0) {
+          if (search) uiKit.toaster.cooking('검색 결과가 없습니다');
+          else uiKit.toaster.cooking('이 게시판에 아직 글이 없습니다');
         }
 
         this.setState({
@@ -147,23 +149,23 @@ class Contents extends Component {
     const { count, offset, openSearchPanel } = this.state;
 
     const query = urlQuery(location);
-    const searching= ()=>{
-      const {uiKit, history}= this.props;
-      const {search, searchField}= this.state;
-      if(!search){
+    const searching = () => {
+      const { uiKit, history } = this.props;
+      const { search, searchField } = this.state;
+      if (!search) {
         uiKit.toaster.cooking('검색어를 입력하세요');
         return;
       }
 
       this.popup.destroy();
-      history.push(`/community?category=${this.getCategory()}&search=${search}&searchField=${searchField}&&offset=0`);
+      history.push(
+        `/community?category=${this.getCategory()}&search=${search}&searchField=${searchField}&&offset=0`
+      );
     };
 
     return (
       <div>
-        {
-          this.popup && this.popup.render()
-        }
+        {this.popup && this.popup.render()}
         <PageTitle
           title={this.getBoardName()}
           explain={`${this.getBoardName()} 입니다`}
@@ -178,57 +180,55 @@ class Contents extends Component {
                 boxShadow: 'none',
                 padding: '0'
               }}
-              expanded={openSearchPanel}>
-              <ExpansionPanelSummary style={{
-                display: 'none',
-              }}/>
-              <ExpansionPanelDetails style={{
-                padding: 0,
-              }}>
-                <div style={{flex: 1}}>
+              expanded={openSearchPanel}
+            >
+              <ExpansionPanelSummary
+                style={{
+                  display: 'none'
+                }}
+              />
+              <ExpansionPanelDetails
+                style={{
+                  padding: 0
+                }}
+              >
+                <div style={{ flex: 1 }}>
                   <h5>게시글 검색</h5>
-                  <br/>
-                  <FormControl
-                    fullWidth
-                    size={'small'}
-                    variant={'outlined'}>
+                  <br />
+                  <FormControl fullWidth size={'small'} variant={'outlined'}>
                     <Select
                       style={{
                         width: '100%',
-                        border: 'none',
+                        border: 'none'
                       }}
                       value={this.state.searchField}
                       displayEmpty
-                      onChange={(e)=>{
+                      onChange={e => {
                         this.setState({
                           ...this.state,
-                          searchField: e.target.value,
+                          searchField: e.target.value
                         });
-                      }}>
-                      <MenuItem value="title">
-                        제목에서 찾기
-                      </MenuItem>
-                      <MenuItem value={'body'}>
-                        본문에서 찾기
-                      </MenuItem>
-                      <MenuItem value={'author'}>
-                        작성자로 찾기
-                      </MenuItem>
+                      }}
+                    >
+                      <MenuItem value="title">제목에서 찾기</MenuItem>
+                      <MenuItem value={'body'}>본문에서 찾기</MenuItem>
+                      <MenuItem value={'author'}>작성자로 찾기</MenuItem>
                     </Select>
                   </FormControl>
-                  <br/><br/>
+                  <br />
+                  <br />
                   <TextField
                     size={'small'}
                     fullWidth
                     variant={'outlined'}
                     label="검색 키워드 입력"
                     type={'text'}
-                    onKeyDown={e=>{
-                      if(e.key=== 'Enter'){
+                    onKeyDown={e => {
+                      if (e.key === 'Enter') {
                         searching();
                       }
                     }}
-                    onChange={e=>{
+                    onChange={e => {
                       this.setState({
                         ...this.state,
                         search: e.target.value
@@ -241,9 +241,10 @@ class Contents extends Component {
                     <Button
                       fullWidth
                       onClick={searching}
-                      startIcon={<SearchIcon/>}
+                      startIcon={<SearchIcon />}
                       variant={'contained'}
-                      color={'primary'}>
+                      color={'primary'}
+                    >
                       검색
                     </Button>
                   </AlignLayout>
@@ -254,12 +255,13 @@ class Contents extends Component {
               <Tooltip title={'게시글 검색'}>
                 <IconButton
                   variant="contained"
-                  onClick={()=>{
+                  onClick={() => {
                     this.setState({
                       ...this.state,
-                      openSearchPanel: !openSearchPanel,
-                    })
-                  }}>
+                      openSearchPanel: !openSearchPanel
+                    });
+                  }}
+                >
                   <SearchIcon />
                 </IconButton>
               </Tooltip>
@@ -275,7 +277,8 @@ class Contents extends Component {
                       )
                     );
                   }}
-                  variant="contained">
+                  variant="contained"
+                >
                   <CreateIcon />
                 </IconButton>
               </Tooltip>
@@ -316,10 +319,16 @@ class Contents extends Component {
         <Pagenation
           paging={page => {
             console.log('page', page);
-            const nextOffset= 10*(page-1);
+            const nextOffset = 10 * (page - 1);
 
-            const {category, search}= urlQuery(location);
-            history.push(getPath(`/community?offset=${nextOffset}&category=${category? category: ''}&search=${search? search: ''}`));
+            const { category, search } = urlQuery(location);
+            history.push(
+              getPath(
+                `/community?offset=${nextOffset}&category=${
+                  category ? category : ''
+                }&search=${search ? search : ''}`
+              )
+            );
           }}
           min={1}
           current={parseInt(offset / 10 + 1)}

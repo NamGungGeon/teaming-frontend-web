@@ -6,11 +6,11 @@ import PageTitle from '../../primitive/PageTitle/PageTitle';
 import lol from '../../resource/icon/lol.jpg';
 import overwatch from '../../resource/icon/overwatch.png';
 import battleground from '../../resource/icon/battleground.png';
-import {randStr} from "../../../utils/utils";
-import {Input} from "reactstrap";
-import FormGroup from "reactstrap/es/FormGroup";
-import Col from "reactstrap/es/Col";
-import ButtonsWrapper from "../../primitive/ButtonsWrapper/ButtonsWrapper";
+import { randStr } from '../../../utils/utils';
+import { Input } from 'reactstrap';
+import FormGroup from 'reactstrap/es/FormGroup';
+import Col from 'reactstrap/es/Col';
+import ButtonsWrapper from '../../primitive/ButtonsWrapper/ButtonsWrapper';
 
 class GameList extends Component {
   state = {
@@ -31,35 +31,35 @@ class GameList extends Component {
         icon: battleground
       },
       {
-        label: '???',
+        label: '???'
       },
       {
-        label: '???',
+        label: '???'
       },
       {
-        label: '???',
+        label: '???'
       },
       {
-        label: '???',
+        label: '???'
       },
       {
-        label: '???',
+        label: '???'
       },
       {
-        label: '???',
+        label: '???'
       },
       {
-        label: '???',
+        label: '???'
       },
       {
-        label: '???',
-      },
+        label: '???'
+      }
     ],
-    filter: '',
+    filter: ''
   };
 
   componentDidMount() {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   go = path => {
@@ -79,30 +79,25 @@ class GameList extends Component {
           <Col sm={4}>
             <Input
               className={'transparent'}
-              onChange={e=>{
+              onChange={e => {
                 this.setState({
                   ...this.state,
-                  filter: e.target.value,
-                })
+                  filter: e.target.value
+                });
               }}
-              placeholder="게임 검색"/>
+              placeholder="게임 검색"
+            />
           </Col>
-          <Col sm={8}/>
+          <Col sm={8} />
         </FormGroup>
 
-        <br/>
+        <br />
 
         <ButtonsWrapper>
           {gameList.map(game => {
-            if(filter!== '' && !game.label.includes(filter))
-              return '';
+            if (filter !== '' && !game.label.includes(filter)) return '';
 
-            return (
-              <SquareButton
-                key={randStr(10)}
-                {...game}
-              />
-            );
+            return <SquareButton key={randStr(10)} {...game} />;
           })}
         </ButtonsWrapper>
       </div>

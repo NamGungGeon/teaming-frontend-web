@@ -13,27 +13,25 @@ export const Toaster = component => {
       //remove after lastTime seconds
       window.setTimeout(
         () => {
-          const {msg}= component.state;
+          const { msg } = component.state;
           msg.shift();
 
           component.setState({
             ...component.state,
-            msg,
+            msg
           });
         },
         lastTime ? lastTime : 1500
       );
     },
     render: () => {
-      return (
-        <ToastMessage msg={component.state.msg} />
-      );
+      return <ToastMessage msg={component.state.msg} />;
     },
-    destroy: ()=>{
+    destroy: () => {
       component.setState({
         ...component.state,
-        msg: [],
-      })
+        msg: []
+      });
     }
   };
 };

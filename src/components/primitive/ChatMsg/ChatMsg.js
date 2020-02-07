@@ -9,18 +9,16 @@ class ChatMsg extends Component {
     encounter: false,
     profile: null,
     msg: '',
-    alert: null,
+    alert: null
   };
 
   render() {
     const { encounter, profile, msg, alert } = this.props;
 
     //alert message
-    if(alert)
+    if (alert)
       return (
-        <div className={classNames(styles.wrapper, styles.alert)}>
-          {alert}
-        </div>
+        <div className={classNames(styles.wrapper, styles.alert)}>{alert}</div>
       );
 
     //conversations

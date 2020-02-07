@@ -6,10 +6,10 @@ import classNames from 'classnames';
 
 class ImageViewGroup extends Component {
   static defaultProps = {
-    icons: [],
+    icons: []
   };
   static propTypes = {
-    icons: PropTypes.array,
+    icons: PropTypes.array
   };
 
   render() {

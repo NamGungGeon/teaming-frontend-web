@@ -40,7 +40,7 @@ class ImageView extends Component {
     if (typeof img === 'string')
       return (
         <img
-          src={img? img: empty}
+          src={img ? img : empty}
           alt={'ImageView'}
           className={classNames(
             {
@@ -53,13 +53,12 @@ class ImageView extends Component {
           )}
           style={{
             ...style,
-            border,
+            border
           }}
           onClick={onClick ? onClick : () => {}}
         />
       );
-    else
-      return img;
+    else return img;
   }
 }
 

@@ -1,20 +1,17 @@
-import React, {Component} from 'react';
-import Section from "../../primitive/Section/Section";
-import {quickConnect} from "../../../redux/quick";
-import AlignLayout from "../../layouts/AlignLayout/AlignLayout";
-import Button from "@material-ui/core/Button";
-import Input from "reactstrap/es/Input";
-import FormGroup from "reactstrap/es/FormGroup";
-import Col from "reactstrap/es/Col";
-import {createEvent, createNotice} from "../../../http/tming";
-import {errMsg} from "../../../http/util";
-import {getPath} from "../../../utils/url";
+import React, { Component } from 'react';
+import Section from '../../primitive/Section/Section';
+import { quickConnect } from '../../../redux/quick';
+import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
+import Button from '@material-ui/core/Button';
+import Input from 'reactstrap/es/Input';
+import FormGroup from 'reactstrap/es/FormGroup';
+import Col from 'reactstrap/es/Col';
+import { createEvent, createNotice } from '../../../http/tming';
+import { errMsg } from '../../../http/util';
+import { getPath } from '../../../utils/url';
 
-
-class Creating extends Component{
-  state={
-
-  };
+class Creating extends Component {
+  state = {};
 
   createNewEvent = () => {
     const { uiKit, auth, history } = this.props;
@@ -122,7 +119,7 @@ class Creating extends Component{
           <Button
             variant="contained"
             color="primary"
-            onClick={async ()=>{
+            onClick={async () => {
               const {
                 newEventTitle,
                 newEventText,
@@ -132,7 +129,13 @@ class Creating extends Component{
               } = this.state;
 
               //valid check
-              if (newEventTitle && newEventText && bannerFile && startDate && endDate) {
+              if (
+                newEventTitle &&
+                newEventText &&
+                bannerFile &&
+                startDate &&
+                endDate
+              ) {
                 uiKit.loading.start();
                 await createEvent(
                   auth,
@@ -249,19 +252,17 @@ class Creating extends Component{
   };
 
   render() {
-    const {history}= this.props;
+    const { history } = this.props;
 
     return (
       <div>
         <Section divideStyle={'fill'}>
-          <h5>
-            새로운 공지사항 등록
-          </h5>
+          <h5>새로운 공지사항 등록</h5>
           <AlignLayout align={'right'}>
             <Button
               variant="contained"
               color="primary"
-              onClick={()=>{
+              onClick={() => {
                 this.createNewNotice();
               }}
             >
@@ -269,16 +270,14 @@ class Creating extends Component{
             </Button>
           </AlignLayout>
         </Section>
-        <br/>
+        <br />
         <Section divideStyle={'fill'}>
-          <h5>
-            새로운 이벤트 등록
-          </h5>
+          <h5>새로운 이벤트 등록</h5>
           <AlignLayout align={'right'}>
             <Button
               variant="contained"
               color="primary"
-              onClick={()=>{
+              onClick={() => {
                 this.createNewEvent();
               }}
             >
@@ -286,16 +285,14 @@ class Creating extends Component{
             </Button>
           </AlignLayout>
         </Section>
-        <br/>
+        <br />
         <Section>
-          <h5>
-            새로운 매거진 등록
-          </h5>
+          <h5>새로운 매거진 등록</h5>
           <AlignLayout align={'right'}>
             <Button
               variant="contained"
               color="primary"
-              onClick={()=>{
+              onClick={() => {
                 history.push(`/community/write?category=magazine`);
               }}
             >
@@ -305,13 +302,11 @@ class Creating extends Component{
         </Section>
       </div>
     );
-  };
+  }
 
   componentWillUnmount() {
     this.props.uiKit.destroyAll();
   }
-
-};
-
+}
 
 export default quickConnect(Creating);

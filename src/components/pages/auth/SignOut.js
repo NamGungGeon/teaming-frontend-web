@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {quickConnect} from "../../../redux/quick";
-import {getPath} from "../../../utils/url";
+import React, { Component } from 'react';
+import { quickConnect } from '../../../redux/quick';
+import { getPath } from '../../../utils/url';
 
 class SignOut extends Component {
   componentDidMount() {
@@ -10,11 +10,7 @@ class SignOut extends Component {
   }
 
   render() {
-    return (
-      <div>
-        로그아웃
-      </div>
-    );
+    return <div>로그아웃</div>;
   }
 }
 

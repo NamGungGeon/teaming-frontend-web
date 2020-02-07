@@ -243,7 +243,8 @@ class Message extends Component {
                   <MenuItem
                     onClick={() => {
                       this.readMessage(msg.id);
-                    }}>
+                    }}
+                  >
                     <ListItemAvatar>
                       <Avatar>
                         <ImageView

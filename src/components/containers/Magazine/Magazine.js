@@ -44,7 +44,7 @@ class Magazine extends Component {
                 title: magazine.title,
                 link: `/magazine/read/${magazine.id}`,
                 explain: `${beautifyDate(magazine.createdAt)}`,
-                img: magazine.thumbnail,
+                img: magazine.thumbnail
               };
             })}
           />

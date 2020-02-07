@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Paper from '@material-ui/core/Paper';
@@ -21,16 +21,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-start',
     textAlign: 'center',
     padding: '8px',
-    fontWeight: 600,
+    fontWeight: 600
   },
   img: {
     display: 'block',
     overflow: 'hidden',
-    width: '100%',
-  },
+    width: '100%'
+  }
 }));
 
-function Carousel({steps}) {
+function Carousel({ steps }) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -51,9 +51,7 @@ function Carousel({steps}) {
   return (
     <div className={classes.root}>
       <Paper square elevation={0} className={classes.header}>
-        <Typography>
-          {steps[activeStep].label}
-        </Typography>
+        <Typography>{steps[activeStep].label}</Typography>
       </Paper>
       <AutoPlaySwipeableViews
         index={activeStep}
@@ -65,43 +63,49 @@ function Carousel({steps}) {
             style={{
               cursor: 'pointer'
             }}
-            onClick={()=>{
-              if(step.onClick)
-                step.onClick();
+            onClick={() => {
+              if (step.onClick) step.onClick();
             }}
-            key={step.label}>
+            key={step.label}
+          >
             {Math.abs(activeStep - index) <= 2 ? (
               <img className={classes.img} src={step.img} alt={step.label} />
             ) : null}
           </div>
         ))}
       </AutoPlaySwipeableViews>
-      {
-        maxSteps> 1 && (
-          <MobileStepper
-            steps={maxSteps}
-            position="static"
-            style={{
-              padding: '4px',
-              color: 'white'
-            }}
-            variant="text"
-            activeStep={activeStep}
-            nextButton={
-              <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-                Next
-                <KeyboardArrowRight />
-              </Button>
-            }
-            backButton={
-              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                <KeyboardArrowLeft />
-                Back
-              </Button>
-            }
-          />
-        )
-      }
+      {maxSteps > 1 && (
+        <MobileStepper
+          steps={maxSteps}
+          position="static"
+          style={{
+            padding: '4px',
+            color: 'white'
+          }}
+          variant="text"
+          activeStep={activeStep}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === maxSteps - 1}
+            >
+              Next
+              <KeyboardArrowRight />
+            </Button>
+          }
+          backButton={
+            <Button
+              size="small"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+            >
+              <KeyboardArrowLeft />
+              Back
+            </Button>
+          }
+        />
+      )}
     </div>
   );
 }

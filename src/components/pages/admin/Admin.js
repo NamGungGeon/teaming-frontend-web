@@ -6,7 +6,7 @@ import { getPath } from '../../../utils/url';
 import Complains from './Complains';
 import { Route } from 'react-router-dom';
 import Lab from './Lab';
-import Creating from "./Creating";
+import Creating from './Creating';
 
 class Admin extends Component {
   state = {
@@ -55,7 +55,7 @@ class Admin extends Component {
                     history.push(getPath(`/admin/lab`));
                   }
                 }
-              ],
+              ]
             });
           }
         })
@@ -88,7 +88,11 @@ class Admin extends Component {
               component={Complains}
             />
             <Route exact path={getPath('/admin/lab')} component={Lab} />
-            <Route exact path={getPath('/admin/creating')} component={Creating} />
+            <Route
+              exact
+              path={getPath('/admin/creating')}
+              component={Creating}
+            />
           </div>
         )}
       </div>

@@ -5,16 +5,14 @@ import PeopleIcon from '@material-ui/icons/People';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import ChatIcon from '@material-ui/icons/Chat';
 import YouTubeIcon from '@material-ui/icons/YouTube';
-import { IoIosHeart, } from "react-icons/io";
-import { FaToiletPaper } from "react-icons/fa";
+import { IoIosHeart } from 'react-icons/io';
+import { FaToiletPaper } from 'react-icons/fa';
 import { MdBusinessCenter } from 'react-icons/md';
 import { getPath } from '../../utils/url';
 import React from 'react';
 import getHistory from 'react-router-global-history';
 
-
-
-const sideNav= {
+const sideNav = {
   nav: {
     메뉴: [
       {
@@ -78,9 +76,14 @@ const sideNav= {
         )
       },
       {
-        label: (<span><YouTubeIcon/>&nbsp;&nbsp;유튜브 홍보 게시판</span>),
-        onClick: ()=>{
-          getHistory().push(getPath(`/youtuber`))
+        label: (
+          <span>
+            <YouTubeIcon />
+            &nbsp;&nbsp;유튜브 홍보 게시판
+          </span>
+        ),
+        onClick: () => {
+          getHistory().push(getPath(`/youtuber`));
         }
       },
       {
@@ -93,7 +96,7 @@ const sideNav= {
         onClick: () => {
           getHistory().push(getPath(`/center`));
         }
-      },
+      }
     ]
   },
   visible: false

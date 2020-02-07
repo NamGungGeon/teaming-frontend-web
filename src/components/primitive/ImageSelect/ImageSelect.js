@@ -2,26 +2,23 @@ import React, { Component } from 'react';
 import ImageView from '../ImageView/ImageView';
 import styles from './ImageSelect.module.css';
 import PropTypes from 'prop-types';
-import {randStr} from "../../../utils/utils";
+import { randStr } from '../../../utils/utils';
 
 class ImageSelect extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state= {
-      selected: props.inits,
+    this.state = {
+      selected: props.inits
     };
-  };
+  }
 
   componentWillUpdate(nextProps, nextState, nextContext) {
-    const { multiple, selections} = this.props;
+    const { multiple, selections } = this.props;
     const { selected } = this.state;
-    const { selected: nextSelected}= nextState;
+    const { selected: nextSelected } = nextState;
 
-    if(selected!== nextSelected)
-      selections(
-        multiple===1?
-          nextSelected[0]: nextSelected
-      );
+    if (selected !== nextSelected)
+      selections(multiple === 1 ? nextSelected[0] : nextSelected);
   }
 
   select = id => {
@@ -32,8 +29,7 @@ class ImageSelect extends Component {
 
     if (newSelected.findIndex(s => s === id) === -1) {
       //not selected
-      if (selected.length === multiple)
-        newSelected.pop();
+      if (selected.length === multiple) newSelected.pop();
       newSelected.push(id);
     } else {
       //already selected
@@ -81,7 +77,6 @@ class ImageSelect extends Component {
     );
   }
 }
-
 
 ImageSelect.defaultProps = {
   icons: [],

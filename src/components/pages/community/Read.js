@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { quickConnect } from '../../../redux/quick';
 import Comment from '../../primitive/Comment/Comment';
-import {authorized, beautifyDate, fuckHTML, pageDescription} from '../../../utils/utils';
+import {
+  authorized,
+  beautifyDate,
+  fuckHTML,
+  pageDescription
+} from '../../../utils/utils';
 import { Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
@@ -70,7 +75,7 @@ class Read extends Component {
         const { data } = response;
         console.log(data);
 
-        pageDescription(data.title, fuckHTML(data.body).slice(0,10));
+        pageDescription(data.title, fuckHTML(data.body).slice(0, 10));
         this.setState({
           ...this.state,
           content: {
