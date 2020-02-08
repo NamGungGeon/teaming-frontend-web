@@ -107,9 +107,17 @@ class Chatting extends Component {
 
   render() {
     const { msgs, ring } = this.state;
-    const { socket, room } = this.props;
+    const { socket, room, config } = this.props;
     return (
-      <Section divideStyle={'fill'} className={styles.wrapper}>
+      <Section
+        divideStyle={'fill'}
+        className={styles.wrapper}
+        style={
+          config.hideNav? {
+            top: 0,
+            height: '100%'
+          }: {}
+        }>
         <div className={styles.chatMsgs} ref={ref => (this.msgBox = ref)}>
           {msgs.map((msg, idx) => {
             return <ChatMsg key={idx} {...msg} />;
