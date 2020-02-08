@@ -41,16 +41,14 @@ class Chatting extends Component {
 
     //welcome!
     const { socket } = this.props;
-    console.log('socket', socket);
 
     socket.on('MESSAGE', text => {
-      console.log(text);
       if (text) {
         this.renderMsg(text, true);
       }
     });
 
-    socket.on('OPPONENT_LEFT', text => {
+    socket.on('OPPONENT_LEFT', () => {
       const { msgs } = this.state;
       this.setState(
         {
@@ -113,11 +111,14 @@ class Chatting extends Component {
         divideStyle={'fill'}
         className={styles.wrapper}
         style={
-          config.hideNav? {
-            top: 0,
-            height: '100%'
-          }: {}
-        }>
+          config.hideNav
+            ? {
+                top: 0,
+                height: '100%'
+              }
+            : {}
+        }
+      >
         <div className={styles.chatMsgs} ref={ref => (this.msgBox = ref)}>
           {msgs.map((msg, idx) => {
             return <ChatMsg key={idx} {...msg} />;
