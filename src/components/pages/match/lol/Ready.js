@@ -135,18 +135,19 @@ class Ready extends Component {
       tier,
       mainPos,
       partnerPos,
-      champions,
-      likes,
-      ban
+      champions
     } = this.state;
 
-    // TODO validation
-
-    /*
-    console.log(this.state);
-
-    if (!tier) {
-      uiKit.toaster.cooking('티어를 선택하세요');
+    if (!nickname) {
+      uiKit.toaster.cooking('롤 닉네임을 입력하세요');
+      return;
+    }
+    if (!goal) {
+      uiKit.toaster.cooking('게임 목표를 선택하세요');
+      return;
+    }
+    if (!tier && mode !== 'normal') {
+      uiKit.toaster.cooking('랭크/자유랭크 티어를 선택하세요');
       return;
     }
     if (champions.length === 0) {
@@ -157,7 +158,10 @@ class Ready extends Component {
       uiKit.toaster.cooking('메인 라인을 선택하세요');
       return;
     }
-    */
+    if (!partnerPos) {
+      uiKit.toaster.cooking('파트너의 라인을 선택하세요');
+      return;
+    }
 
     history.push(getPath(`/match/lol/start`));
   };
