@@ -1,31 +1,30 @@
+footer {
+  width: 100%;
 
-footer{
-    width: 100%;
+  margin-top: 32px;
+  width: 100%;
+  padding: 8px;
+  color: #000000aa;
+  font-size: 0.9rem;
 
-    margin-top: 32px;
-    width: 100%;
-    padding: 8px;
-    color: #000000AA;
-    font-size: 0.9rem;
-
-    display: flex!important;
-    justify-content: center;
-    align-items: center;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
 }
-footer> .guide{
-    width: 100%;
-    text-align: left;
+footer > .guide {
+  width: 100%;
+  text-align: left;
 }
-.texts{
-    font-size: 0.7rem;
+.texts {
+  font-size: 0.7rem;
 }
 
-.list{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
-.list> *{
-    padding-right: 16px;
-    color: #b9b9b9;
+.list > * {
+  padding-right: 16px;
+  color: #b9b9b9;
 }

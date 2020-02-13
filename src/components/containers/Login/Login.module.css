@@ -1,36 +1,33 @@
+.child {
+  width: 100%;
+  max-width: 500px;
 
-
-
-.child{
-    width: 100%;
-    max-width: 500px;
-
-    padding: 32px 16px;
-    padding-top: 0!important;
+  padding: 32px 16px;
+  padding-top: 0 !important;
 }
-.form{
-    text-align: left;
+.form {
+  text-align: left;
 }
-.form .buttons{
-    display: flex;
-    justify-content: space-between;
+.form .buttons {
+  display: flex;
+  justify-content: space-between;
 }
-.form .buttons> *{
-    width: 48%;
+.form .buttons > * {
+  width: 48%;
 }
-.icon{
-    width: 200px;
-    margin-bottom: 16px;
+.icon {
+  width: 200px;
+  margin-bottom: 16px;
 }
 
 @media (max-width: 500px) {
-    .parent{
-        justify-content: center;
-        align-items: center;
-    }
-    .child{
-        padding: 0;
-        width: 100%;
-        border: none;
-    }
+  .parent {
+    justify-content: center;
+    align-items: center;
+  }
+  .child {
+    padding: 0;
+    width: 100%;
+    border: none;
+  }
 }

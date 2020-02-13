@@ -1,50 +1,49 @@
-.wrapper{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
-.wrapper> .profile{
-    display: flex;
-    width: 86px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: auto;
+.wrapper > .profile {
+  display: flex;
+  width: 86px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
 
-    font-size: 0.5rem;
-    padding: 4px;
+  font-size: 0.5rem;
+  padding: 4px;
 
-
-    border: 0.6px solid #33333399;
-    border-radius: 8px;
-    background: none;
-    cursor: pointer;
+  border: 0.6px solid #33333399;
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
 }
-.wrapper> .profile> .picture *{
-    width: 48px;
-    height: 48px;
-    font-size: 32px;
-    margin-bottom: 4px;
-    border-radius: 4px;
+.wrapper > .profile > .picture * {
+  width: 48px;
+  height: 48px;
+  font-size: 32px;
+  margin-bottom: 4px;
+  border-radius: 4px;
 }
-.wrapper> .contents{
-    flex: 1;
-    padding-left: 16px;
+.wrapper > .contents {
+  flex: 1;
+  padding-left: 16px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 75px;
 }
-.wrapper> .contents> .options{
-    font-size: 0.8rem;
-    color: #b9b9b9;
+.wrapper > .contents > .options {
+  font-size: 0.8rem;
+  color: #b9b9b9;
 
-    margin-top: 8px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

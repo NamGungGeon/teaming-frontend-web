@@ -1,15 +1,15 @@
-.wrapper{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 500px) {
-    .wrapper{
-        justify-content: center;
-    }
-    .wrapper> *{
-        margin: 4px!important;
-    }
+  .wrapper {
+    justify-content: center;
+  }
+  .wrapper > * {
+    margin: 4px !important;
+  }
 }

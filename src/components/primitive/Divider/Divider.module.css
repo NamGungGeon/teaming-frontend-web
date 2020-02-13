@@ -1,18 +1,18 @@
-.wrapper{
-    display: flex;
-    width: 100%;
-    align-items: center;
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
 
-    margin: 16px 0;
+  margin: 16px 0;
 }
 
-.wrapper> .border{
-    flex: 1;
-    height: 1px;
-    background-color: #ffffff66;
+.wrapper > .border {
+  flex: 1;
+  height: 1px;
+  background-color: #ffffff66;
 }
-.wrapper> .label{
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin: 0 8px;
+.wrapper > .label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 8px;
 }

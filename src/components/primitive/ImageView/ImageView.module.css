@@ -1,11 +1,11 @@
-.rounding{
-    border-radius: 8px;
+.rounding {
+  border-radius: 8px;
 }
-.circle{
-    border-radius: 100%;
+.circle {
+  border-radius: 100%;
 }
 
-.img{
-    max-width: 100%;
-    height: auto;
+.img {
+  max-width: 100%;
+  height: auto;
 }

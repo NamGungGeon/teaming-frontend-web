@@ -1,6 +1,6 @@
-.wrapper> *{
-    border-bottom: 1px solid #eff0f5;
+.wrapper > * {
+  border-bottom: 1px solid #eff0f5;
 }
-.wrapper> *:nth-last-child(1){
-    border-bottom: none;
+.wrapper > *:nth-last-child(1) {
+  border-bottom: none;
 }

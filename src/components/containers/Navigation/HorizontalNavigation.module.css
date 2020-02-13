@@ -1,14 +1,14 @@
-.topic{
-    display: block;
-    padding: 8px 16px;
+.topic {
+  display: block;
+  padding: 8px 16px;
 }
-.portal{
-    cursor: pointer;
-    font-size: 0.8rem;
-    opacity: 0.8;
-    transition-property: opacity;
-    transition-duration: 0.3s;
+.portal {
+  cursor: pointer;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  transition-property: opacity;
+  transition-duration: 0.3s;
 }
-.portal:hover{
-    opacity: 1;
+.portal:hover {
+  opacity: 1;
 }
