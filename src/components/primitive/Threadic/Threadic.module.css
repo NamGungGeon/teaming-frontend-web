@@ -1,13 +1,13 @@
-.wrapper{
-    padding: 8px;
-    cursor: pointer;
+.wrapper {
+  padding: 8px;
+  cursor: pointer;
 }
-.content{
-    word-break: break-all;
+.content {
+  word-break: break-all;
 }
 
-.comments{
+.comments {
 }
-.create{
-    margin: 8px 0;
+.create {
+  margin: 8px 0;
 }

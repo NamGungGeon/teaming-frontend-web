@@ -1,47 +1,47 @@
-.wrapper{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: stretch;
-    flex-wrap: wrap;
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: wrap;
 }
-.frame{
-    width: 25%;
-    box-sizing: border-box;
-    padding: 8px;
-    cursor: pointer;
-    text-align: center;
+.frame {
+  width: 25%;
+  box-sizing: border-box;
+  padding: 8px;
+  cursor: pointer;
+  text-align: center;
 
-    transition-property: transform;
-    transition-duration: 0.3s;
+  transition-property: transform;
+  transition-duration: 0.3s;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-.frame:hover{
-    padding: 7px;
-    border: 1px solid #e83e8c;
+.frame:hover {
+  padding: 7px;
+  border: 1px solid #e83e8c;
 
-    transform: translateY(-4px);
+  transform: translateY(-4px);
 }
-.frame> .imgWrapper{
-    flex: 1;
+.frame > .imgWrapper {
+  flex: 1;
 }
-.frame> .imgWrapper> img{
-    width: 100%;
-    height: auto;
-    margin-bottom: 8px;
+.frame > .imgWrapper > img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 8px;
 }
-.frame> .title{
-    overflow: hidden;
+.frame > .title {
+  overflow: hidden;
 }
-.frame> .explain{
-    color: #00000099;
-    font-size: 0.8rem;
+.frame > .explain {
+  color: #00000099;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 500px) {
-    .frame{
-        width: 50%;
-    }
+  .frame {
+    width: 50%;
+  }
 }

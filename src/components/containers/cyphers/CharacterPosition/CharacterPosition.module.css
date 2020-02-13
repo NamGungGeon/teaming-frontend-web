@@ -1,10 +1,10 @@
-.wrapper{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-.wrapper> *{
-    margin: 8px;
-    flex: 1;
-    min-width: 200px;
+.wrapper > * {
+  margin: 8px;
+  flex: 1;
+  min-width: 200px;
 }

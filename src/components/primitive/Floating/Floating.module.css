@@ -1,12 +1,11 @@
-
-.wrapper{
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
+.wrapper {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
 }
 
-@media (max-width: 500px){
-    .wrapper{
-        top: 64px;
-    }
+@media (max-width: 500px) {
+  .wrapper {
+    top: 64px;
+  }
 }

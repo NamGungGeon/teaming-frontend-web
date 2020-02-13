@@ -1,31 +1,31 @@
-.toaster{
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    z-index: 99999;
-    text-align: right;
+.toaster {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 99999;
+  text-align: right;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.toast{
-    padding: 4px 8px;
-    border-radius: 4px;
-    background-color: #dc3545;
-    color: white;
-    margin: 4px;
+.toast {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #dc3545;
+  color: white;
+  margin: 4px;
 
-    animation: popping 0.3s ease;
+  animation: popping 0.3s ease;
 }
 
 @keyframes popping {
-    0%{
-        transform: translateY(36px);
-        opacity: 0.3;
-    }
-    100%{
-        transform: translateY(0px);
-        opacity: 1;
-    }
+  0% {
+    transform: translateY(36px);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }

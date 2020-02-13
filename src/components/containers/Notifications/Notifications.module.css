@@ -1,4 +1,5 @@
-.badge, .badge *{
-    width: auto;
-    padding: 0!important;
+.badge,
+.badge * {
+  width: auto;
+  padding: 0 !important;
 }

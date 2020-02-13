@@ -1,31 +1,30 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  align-items: stretch;
+  padding: 4px 0;
 
-.wrapper{
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    align-items: stretch;
-    padding: 4px 0;
+  margin-bottom: 8px;
+  border-radius: 2px;
 
-    margin-bottom: 8px;
-    border-radius: 2px;
-
-    transition-duration: 0.1s;
-    transition-property: background-color;
+  transition-duration: 0.1s;
+  transition-property: background-color;
 }
 
-.wrapper:hover{
-    background-color: #33333311;
+.wrapper:hover {
+  background-color: #33333311;
 }
 
-.wrapper> .content{
-    flex: 1;
+.wrapper > .content {
+  flex: 1;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.wrapper> .coverImage{
-    width: 64px;
-    background-size: auto 100%!important;
-    background-position: right!important;
+.wrapper > .coverImage {
+  width: 64px;
+  background-size: auto 100% !important;
+  background-position: right !important;
 }

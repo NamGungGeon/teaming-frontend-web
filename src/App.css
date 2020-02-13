@@ -22,14 +22,14 @@ body {
 label {
   font-weight: 600;
 }
-sub{
+sub {
   color: #b9b9b9;
   font-style: italic;
 }
-textarea{
-  resize: none!important;
+textarea {
+  resize: none !important;
 }
-label{
+label {
   font-weight: initial;
   cursor: pointer;
 }
@@ -50,17 +50,17 @@ h5,
 h6 {
   font-weight: 600 !important;
 }
-tbody tr{
+tbody tr {
   cursor: pointer;
 }
 .table td {
   vertical-align: middle !important;
 }
-.form-control.transparent{
-  background-color: inherit!important;
+.form-control.transparent {
+  background-color: inherit !important;
 
-  transition-property: background-color, border-color, box-shadow!important;
-  transition-duration: 0.2s!important;
+  transition-property: background-color, border-color, box-shadow !important;
+  transition-duration: 0.2s !important;
 }
 .title {
   font-size: 1.6rem;
@@ -103,7 +103,7 @@ tbody tr{
   margin: 20px;
   transform: translate(1px, -8px);
 }
-.fullSizeDisplay{
+.fullSizeDisplay {
   position: absolute;
   left: 0;
   width: 100%;
@@ -116,30 +116,30 @@ tbody tr{
 
   background-color: #eff0f5;
 }
-.sidenav> *:nth-child(1){
+.sidenav > *:nth-child(1) {
   flex: 1;
   overflow-y: auto;
 }
 
-.sidenav+ .content{
+.sidenav + .content {
   left: 240px;
   width: calc(100% - 240px);
   top: 56px;
 }
-.content{
+.content {
   display: flex;
   position: absolute;
   height: 100%;
 }
-.content> *{
+.content > * {
   padding: 16px 32px;
 }
-.content> .sideContent{
+.content > .sideContent {
   display: none;
   padding-left: 0;
   padding-right: 0;
 }
-.ruler{
+.ruler {
   text-align: left;
   width: 100%;
   min-width: 1024px;
@@ -191,10 +191,10 @@ tbody tr{
   padding: 16px;
   margin: 8px 0;
 }
-.reader{
+.reader {
   width: 100%;
 }
-.reader *{
+.reader * {
   max-width: 100%;
 }
 .childMargin > * {
@@ -227,14 +227,13 @@ table.noHead tr > td:nth-child(1) {
   .flexBox > div {
     width: calc(100% - 16px);
   }
-  .sidenav+ .content{
+  .sidenav + .content {
     left: 0;
     width: 100%;
   }
 }
 @media (min-width: 1300px) {
-
-  .content> .sideContent{
+  .content > .sideContent {
     display: block;
     flex: 1;
     min-width: 256px;
@@ -242,15 +241,13 @@ table.noHead tr > td:nth-child(1) {
   }
 }
 
-.MuiBadge-badge{
-  color: white!important;
+.MuiBadge-badge {
+  color: white !important;
 }
 
-.ck.ck-editor__main{
-}
-.ck.ck-content{
+.ck.ck-content {
   height: 600px;
 }
-.ck.ck-content> *{
+.ck.ck-content > * {
   color: black;
 }

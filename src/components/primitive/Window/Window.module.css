@@ -1,18 +1,19 @@
-.frame{
-    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #333333;
+.frame {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #333333;
 }
-.title{
-    color: white;
-    font-weight: 700;
-    padding: 8px 16px;
+.title {
+  color: white;
+  font-weight: 700;
+  padding: 8px 16px;
 }
-.title .mileStone{
-    float: right;
+.title .mileStone {
+  float: right;
 }
-.body{
-    border-top: 0.6px solid #ffffff33;
-    transition-property: height;
+.body {
+  border-top: 0.6px solid #ffffff33;
+  transition-property: height;
 }

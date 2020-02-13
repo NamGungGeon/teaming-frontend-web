@@ -1,51 +1,49 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
 
-.button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    cursor: pointer;
+  padding: 8px;
+  transform: none;
 
-    padding: 8px;
-    transform: none;
+  transition-property: transform, box-shadow, background-color;
+  transition-duration: 0.3s;
 
-    transition-property: transform, box-shadow, background-color;
-    transition-duration: 0.3s;
+  max-width: 128px;
+  height: 128px;
+  width: calc(100% / 3 - 16px);
+  margin: 16px 16px 16px 0;
 
-
-    max-width: 128px;
-    height: 128px;
-    width: calc(100% / 3 - 16px);
-    margin: 16px 16px 16px 0;
-
-    border-radius: 4px;
-    border: 1px solid #00000099;
-    background: none;
+  border-radius: 4px;
+  border: 1px solid #00000099;
+  background: none;
 }
-.button:not(.disable):hover{
-    box-shadow: 0 4px 16px #33333399;
-    transform: translateY(-4px);
+.button:not(.disable):hover {
+  box-shadow: 0 4px 16px #33333399;
+  transform: translateY(-4px);
 }
-.button.disable{
-    border: 1px solid #99999933;
+.button.disable {
+  border: 1px solid #99999933;
 }
-.button.disable> *{
-    opacity: 0.4;
-    filter: grayscale(100%);
+.button.disable > * {
+  opacity: 0.4;
+  filter: grayscale(100%);
 }
 
-.button .icon> *{
-    filter: brightness(0%);
-    height: auto;
-    width: 65px;
-    font-size: 65px;
-    color: white;
+.button .icon > * {
+  filter: brightness(0%);
+  height: auto;
+  width: 65px;
+  font-size: 65px;
+  color: white;
 
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
-.button .label{
-    font-size: 13px;
-    font-weight: 600;
+.button .label {
+  font-size: 13px;
+  font-weight: 600;
 }
 
 @media (max-width: 500px) {
