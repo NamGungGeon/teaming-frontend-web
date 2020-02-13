@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import FormGroup from 'reactstrap/es/FormGroup';
 import styles from './Login.module.css';
 import { quickConnect } from '../../../redux/quick';
 import { getPath } from '../../../utils/url';
-import { signin } from '../../../http/tming';
+import { signin, socialSignIn, socialSignUp } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import Button from '@material-ui/core/Button';
 import getHistory from 'react-router-global-history';
@@ -28,9 +30,7 @@ class Login extends Component {
     uiKit.loading.start();
     await signin(email, pw)
       .then(response => {
-        console.log(response.data);
         const { id, access, refresh } = response.data;
-
         AuthDispatcher.login({
           token: access,
           refresh,
@@ -45,9 +45,38 @@ class Login extends Component {
     uiKit.loading.end();
   };
 
-  render() {
-    const { uiKit } = this.props;
+  handleGoogleLogin = async event => {
+    const { AuthDispatcher, uiKit } = this.props;
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().useDeviceLanguage();
 
+    const { user } = await firebase.auth().signInWithPopup(provider);
+    const { uid } = user;
+
+    try {
+      uiKit.loading.start();
+      const response = await socialSignIn('GOOGLE', uid);
+      const { id, access, refresh } = response.data;
+      AuthDispatcher.login({ id, token: access, refresh });
+      uiKit.popup.destroy();
+      uiKit.toaster.cooking('로그인 되었습니다');
+      uiKit.loading.end();
+    } catch (error) {
+      try {
+        const { email, displayName } = user;
+        const response = await socialSignUp('GOOGLE', uid, email, displayName);
+        const { id, access, refresh } = response.data;
+        AuthDispatcher.login({ id, token: access, refresh });
+        uiKit.popup.destroy();
+        uiKit.toaster.cooking('로그인 되었습니다');
+        uiKit.loading.end();
+      } catch (error) {
+        uiKit.toaster.cooking(errMsg(error));
+      }
+    }
+  };
+
+  render() {
     return (
       <div className={styles.parent}>
         <div className={styles.child}>
@@ -116,9 +145,7 @@ class Login extends Component {
               fullWidth
               variant={'contained'}
               color={'primary'}
-              onClick={e => {
-                uiKit.toaster.cooking('개발중인 기능입니다');
-              }}
+              onClick={this.handleGoogleLogin}
             >
               구글 계정으로 로그인
             </Button>

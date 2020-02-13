@@ -24,9 +24,16 @@ class Start extends Component {
   }
 
   componentDidMount() {
-    this.socket = io('https://api.tming.kr/match', {
-      transports: ['websocket']
-    });
+    this.socket = io(
+      `${
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:4000'
+          : 'https://api.tming.kr'
+      }/match`,
+      {
+        transports: ['websocket']
+      }
+    );
 
     this.socket.on('HELLO', payload => {
       this.setState({

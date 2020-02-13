@@ -3,47 +3,54 @@ import axios from 'axios';
 import moment from 'moment';
 
 //base
-const url = 'https://api.tming.kr/v0.1';
+const baseURL = `${
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000'
+    : 'https://api.tming.kr'
+}`;
+const version = 'v0.1';
 
-export const image = filename => {
-  return `https://teaming-kr-bucket.s3.ap-northeast-2.amazonaws.com/production/boards/${filename}`;
-};
+const url = `${baseURL}/${version}`;
 
-/**
- * @param {string} gender gender is one of [M,f].
- * @param {string} username username is nickname.
- */
-export const signup = (email, password, username, gender) => {
-  return axios.request({
-    method: 'POST',
-    url: `${url}/auth/register`,
-    data: {
-      user: {
-        email,
-        password
-      },
-      profile: {
-        username,
-        gender
-      }
-    }
-  });
-};
+export const image = filename =>
+  `https://teaming-kr-bucket.s3.ap-northeast-2.amazonaws.com/${process.env.NODE_ENV}/boards/${filename}`;
 
 /**
  * @param {string} gender gender is one of [M,f].
  * @param {string} username username is nickname.
  */
-export const signin = (email, password) => {
-  return axios.request({
-    method: 'POST',
-    url: `${url}/auth/login`,
-    data: {
-      email,
-      password
-    }
+export const signup = (email, password, username, gender) =>
+  axios.post(`${url}/auth/register`, {
+    user: { email, password },
+    profile: { username, gender }
   });
-};
+
+/**
+ * @param {string} gender gender is one of [M,f].
+ * @param {string} username username is nickname.
+ */
+export const signin = (email, password) =>
+  axios.post(`${url}/auth/login`, { email, password });
+
+export const socialSignUp = (
+  provider,
+  uid,
+  email,
+  username,
+  gender,
+  birthday
+) =>
+  axios.post(`${url}/auth/register/social`, {
+    provider,
+    uid,
+    email,
+    username,
+    gender,
+    birthday
+  });
+
+export const socialSignIn = (provider, uid) =>
+  axios.post(`${url}/auth/login/social`, { provider, uid });
 
 export const getTrashes = () => {
   return axios.request({

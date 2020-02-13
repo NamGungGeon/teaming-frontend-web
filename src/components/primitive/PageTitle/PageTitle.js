@@ -8,6 +8,7 @@ class PageTitle extends Component {
     explain: '',
     align: 'left'
   };
+
   render() {
     const { title, titleColor, explain } = this.props;
     return (

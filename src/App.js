@@ -41,17 +41,12 @@ class App extends Component {
 
   componentDidMount() {
     this.init();
-    console.log('mount: App');
 
     window.setInterval(() => {
       try {
         document.getElementById('content').style.height = '100%';
       } catch (e) {}
     }, 200);
-  }
-
-  componentWillUpdate(nextProps, nextState, nextContext) {
-    console.log('App.js is updated', nextState, nextProps);
   }
 
   init = async () => {
@@ -84,7 +79,6 @@ class App extends Component {
   render() {
     const { config, history, uiKit } = this.props;
     const { ready } = this.state;
-    console.log('App.js', this.state);
 
     return (
       <div>

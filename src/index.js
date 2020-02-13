@@ -6,13 +6,31 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ReactRouterGlobalHistory } from 'react-router-global-history';
-
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/analytics';
 import reduxChunk from './redux/quick';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { getPath } from './utils/url';
 
 const store = createStore(reduxChunk);
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyC-bJ2yt6CCjgo665O2ROZWhFVRw_Vfisc',
+  authDomain: 'teaming-b5b2b.firebaseapp.com',
+  databaseURL: 'https://teaming-b5b2b.firebaseio.com',
+  projectId: 'teaming-b5b2b',
+  storageBucket: 'teaming-b5b2b.appspot.com',
+  messagingSenderId: '460572824656',
+  appId: '1:460572824656:web:58ac3c81ce3461c0b02d55',
+  measurementId: 'G-L20Q8LFE9L'
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+firebase.analytics();
 
 ReactDOM.render(
   <Provider store={store}>
@@ -24,7 +42,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

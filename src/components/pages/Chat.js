@@ -58,9 +58,16 @@ class Chat extends Component {
   };
 
   startChat = () => {
-    this.socket = io('https://api.tming.kr/chat', {
-      transports: ['websocket']
-    });
+    this.socket = io(
+      `${
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:4000'
+          : 'https://api.tming.kr'
+      }/chat`,
+      {
+        transports: ['websocket']
+      }
+    );
 
     this.socket.on('connect_error', error => {
       console.error(error);

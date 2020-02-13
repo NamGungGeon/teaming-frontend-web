@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import styles from './TopNavigation.module.css';
 import logo from '../../resource/tming_txt.png';
 import { NavLink } from 'react-router-dom';
@@ -11,11 +13,9 @@ import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ListIcon from '@material-ui/icons/List';
-
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from '@material-ui/core/Tooltip';
 import Login from '../Login/Login';
-
 import getHistory from 'react-router-global-history';
 import Notifications from '../Notifications/Notifications';
 
@@ -31,7 +31,6 @@ class TopNavigation extends Component {
       uiKit,
       AuthDispatcher,
       config,
-      sideNav,
       SideNavDispatcher
     } = this.props;
     const history = getHistory();
@@ -93,7 +92,8 @@ class TopNavigation extends Component {
             </IconButton>
           </Tooltip>
         ),
-        click: () => {
+        click: async () => {
+          await firebase.auth().signOut();
           AuthDispatcher.logout();
           history.push(getPath(''));
           window.alert('로그아웃 되었습니다');
@@ -101,13 +101,10 @@ class TopNavigation extends Component {
         requireAuth: true
       }
     ];
-    console.log('sideNav', sideNav.content);
 
     return (
       <nav
-        style={{
-          display: hideNav ? 'none' : 'flex'
-        }}
+        style={{ display: hideNav ? 'none' : 'flex' }}
         className={classNames(styles.vertical)}
       >
         <div className={styles.ruler}>

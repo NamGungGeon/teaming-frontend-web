@@ -5,7 +5,6 @@ import HorizontalNavigation from './HorizontalNavigation';
 
 class MobileSideNavigation extends Component {
   render() {
-    console.log(this.props);
     const { sideNav, SideNavDispatcher } = this.props;
 
     if (!sideNav.visible) {

@@ -286,6 +286,7 @@ class Read extends Component {
     const { content, comments, imAuthor } = this.state;
     const query = urlQuery(location);
 
+    // TODO PageTitle 부분 <p> 밑에 <div> 태그 들어가있는 부분 수정하기
     return (
       <div>
         {content && (
