@@ -35,7 +35,8 @@ class Window extends Component {
         <ExpansionPanelSummary
           style={{
             cursor: foldable? 'cursor': 'default',
-            display: title? 'flex': 'none'
+            display: title? 'flex': 'none',
+            padding: '0 16px'
           }}
           className={styles.title}
           expandIcon={foldable? <MdExpandMore />: ''}>
