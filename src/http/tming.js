@@ -4,8 +4,7 @@ import moment from 'moment';
 
 //base
 const baseURL = `${
-  // process.env.NODE_ENV === 'development'
-    false
+  process.env.NODE_ENV === 'development'
     ? 'http://localhost:4000'
     : 'https://api.tming.kr'
 }`;
