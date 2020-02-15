@@ -4,7 +4,8 @@ import moment from 'moment';
 
 //base
 const baseURL = `${
-  process.env.NODE_ENV === 'development'
+  // process.env.NODE_ENV === 'development'
+    false
     ? 'http://localhost:4000'
     : 'https://api.tming.kr'
 }`;
@@ -539,10 +540,11 @@ export const removeNotification = (auth, id) => {
 };
 
 //auth is nullable
-export const createCase = (auth, text, media, replyEmail) => {
+export const createCase = (auth, title, text, media, replyEmail) => {
   if (media) {
     const data = new FormData();
     data.append('text', text);
+    data.append('title', title)
 
     if (replyEmail) {
       data.append('replyEmail', replyEmail);

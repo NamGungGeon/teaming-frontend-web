@@ -5,17 +5,25 @@ import Notices from '../Notices/Notices';
 import Section from '../../primitive/Section/Section';
 import { getPath } from '../../../utils/url';
 import getHistory from 'react-router-global-history';
+import {scrollToBottom} from "../../../utils/utils";
 
 const UsefulInformation = () => {
   const history = getHistory();
+  const headerStyle= {
+    padding: '16px',
+    textAlign: 'left',
+    borderBottom: '0.6px solid #e9e9e9',
+  }
 
   return (
     <div className={styles.wrapper}>
-      <Section divideStyle={'fill'}>
-        <p
-          style={{
-            textAlign: 'left'
-          }}
+      <Section
+        style={{
+          padding: 0,
+        }}
+        divideStyle={'fill'}>
+        <div
+          style={headerStyle}
         >
           <b
             style={{
@@ -27,14 +35,16 @@ const UsefulInformation = () => {
           >
             진행중인 이벤트
           </b>
-        </p>
+        </div>
         <EventGallery />
       </Section>
-      <Section divideStyle={'fill'}>
-        <p
-          style={{
-            textAlign: 'left'
-          }}
+      <Section
+        style={{
+          padding: 0,
+        }}
+        divideStyle={'fill'}>
+        <div
+          style={headerStyle}
         >
           <b
             style={{
@@ -46,7 +56,7 @@ const UsefulInformation = () => {
           >
             공지사항
           </b>
-        </p>
+        </div>
         <Notices history={history} />
       </Section>
     </div>

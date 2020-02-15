@@ -11,6 +11,9 @@ import { errMsg } from '../../../../http/util';
 import ImageIcon from '@material-ui/icons/Image';
 import { Col, FormGroup } from 'reactstrap';
 import moment from 'moment';
+import Window from "../../../primitive/Window/Window";
+import HashTable from "../../../primitive/HashTable/HashTable";
+import {beautifyDate} from "../../../../utils/utils";
 
 class MyInfo extends Component {
   state = {
@@ -119,33 +122,30 @@ class MyInfo extends Component {
         <br />
         {profile && (
           <div>
-            <Section>
-              <h5>프로필 사진</h5>
-              <br />
+            <Window title={'프로필 사진'}>
               <div
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-end'
+                  justifyContent: 'flex-start',
+                  alignItems: 'center'
                 }}
               >
                 <div>
                   <ImageView
                     img={this.state.profile.profilePicture}
                     style={{
-                      width: '128px'
+                      width: '128px',
                     }}
                   />
                 </div>
                 <AlignLayout
                   style={{
-                    flex: '1'
+                    flex: '1',
+                    marginLeft: '32px'
                   }}
-                  align={'right'}
                 >
                   <Button
-                    size={'small'}
                     variant="contained"
                     color="primary"
                     onClick={() => {
@@ -172,48 +172,42 @@ class MyInfo extends Component {
                   }}
                 />
               </Form>
-            </Section>
-            <Section>
-              <h5>내 정보</h5>
-              <br />
+            </Window>
+            <Window title={'내 정보'}>
               <div>
-                <FormGroup row>
-                  <Col sm={4}>
-                    <b>닉네임</b>
-                  </Col>
-                  <Col sm={8}>{profile.username}</Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Col sm={4}>
-                    <b>성별</b>
-                  </Col>
-                  <Col sm={8}>{profile.gender === 'M' ? '남자' : '여자'}</Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Col sm={4}>
-                    <b>가입일</b>
-                  </Col>
-                  <Col sm={8}>
-                    {moment(
-                      profile.createdAt,
-                      'YYYY-MM-DD[T]hh:mm:ss.SSS[Z]'
-                    ).format('YYYY-MM-DD')}
-                    <br />
-                    <span className={'explain'}>
-                      티밍과 함께한지
-                      {moment().diff(
-                        moment(
-                          profile.createdAt,
-                          'YYYY-MM-DD[T]hh:mm:ss.SSS[Z]'
-                        ),
-                        'days'
-                      )}
-                      일째 입니다!
-                    </span>
-                  </Col>
-                </FormGroup>
+                <HashTable
+                  table={[
+                    {
+                      key: '닉네임',
+                      value: profile.username
+                    },
+                    {
+                      key: '성별',
+                      value: profile.gender=== 'M'? '남자': '여자'
+                    },
+                    {
+                      key: '가입일',
+                      value: (
+                        <div>
+                          {beautifyDate(profile.createdAt)}
+                          <br/>
+                          <span className={'explain'}>
+                            티밍과 함께한지
+                            {moment().diff(
+                              moment(
+                                profile.createdAt,
+                                'YYYY-MM-DD[T]hh:mm:ss.SSS[Z]'
+                              ),
+                              'days'
+                            )}
+                            일 째 입니다
+                          </span>
+                        </div>
+                      )
+                    },
+                  ]}/>
               </div>
-            </Section>
+            </Window>
           </div>
         )}
       </div>

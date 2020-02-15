@@ -11,6 +11,12 @@ import Section from '../../../primitive/Section/Section';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import { Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import Tabs from "../../../primitive/Tabs/Tabs/Tabs";
+import ReorderIcon from '@material-ui/icons/Reorder';
+import PeopleIcon from '@material-ui/icons/People';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import EmailIcon from '@material-ui/icons/Email';
 
 class Notifications extends Component {
   state = {
@@ -126,7 +132,36 @@ class Notifications extends Component {
         </AlignLayout>
         <br />
         {notifications && (
-          <Section divideStyle={'fill'}>
+          <Section
+            style={{
+              marginTop: 0
+            }}
+            divideStyle={'fill'}>
+            <Tabs
+              initActive={'전체'}
+              tabs={[
+                {
+                  label: '전체',
+                  startIcon: (<ReorderIcon/>),
+                },
+                {
+                  label: '커뮤니티',
+                  startIcon: (<PeopleIcon/>),
+                },
+                {
+                  label: '친구',
+                  startIcon: (<PersonAddIcon/>),
+                },
+                {
+                  label: '쪽지',
+                  startIcon: (<EmailIcon/>),
+                },
+                {
+                  label: '문의',
+                  startIcon: (<QuestionAnswerIcon/>),
+                },
+              ]}/>
+            <br/>
             {notifications.map(notification => {
               return (
                 <MenuItem

@@ -36,6 +36,7 @@ class Notices extends Component {
           textAlign: 'left',
           padding: '0'
         }}
+        className={styles.wrapper}
       >
         {notices ? (
           notices.map(notice => {

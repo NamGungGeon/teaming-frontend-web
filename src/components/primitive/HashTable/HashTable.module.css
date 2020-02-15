@@ -1,0 +1,38 @@
+.wrapper{
+
+}
+
+.wrapper> .row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.wrapper> .row.header{
+
+}
+.wrapper> .row> *{
+    padding: 8px;
+}
+.wrapper> .row> .key{
+    font-weight: bold;
+    width: 256px;
+}
+.wrapper> .row> .value{
+    flex: 1;
+    background-color: #F2F4F9;
+    border-radius: 4px;
+}
+
+@media (max-width: 500px) {
+    .wrapper> .row{
+        flex-direction: column;
+    }
+    .wrapper> .row> .key{
+        margin-bottom: 4px;
+    }
+    .wrapper> .row> *{
+        width: 100%!important;
+    }
+
+}

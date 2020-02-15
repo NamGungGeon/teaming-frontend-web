@@ -40,14 +40,6 @@ const sideNav = {
       {
         label: (
           <span>
-            <SwapHorizIcon />
-            &nbsp;&nbsp;거래소
-          </span>
-        )
-      },
-      {
-        label: (
-          <span>
             <FaToiletPaper style={{ fontSize: '24px' }} />
             &nbsp;&nbsp;화장실
           </span>
@@ -78,23 +70,12 @@ const sideNav = {
       {
         label: (
           <span>
-            <YouTubeIcon />
-            &nbsp;&nbsp;유튜브 홍보 게시판
-          </span>
-        ),
-        onClick: () => {
-          getHistory().push(getPath(`/youtuber`));
-        }
-      },
-      {
-        label: (
-          <span>
             <MdBusinessCenter style={{ fontSize: '24px' }} />
             &nbsp;&nbsp;고객센터
           </span>
         ),
         onClick: () => {
-          getHistory().push(getPath(`/center`));
+          getHistory().push(getPath(`/center/create`));
         }
       }
     ]

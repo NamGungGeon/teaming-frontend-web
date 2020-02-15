@@ -46,6 +46,7 @@ class EventGallery extends Component {
           textAlign: 'left',
           padding: '0'
         }}
+        className={styles.wrapper}
       >
         {events ? (
           events.map(event => {

@@ -9,10 +9,9 @@
   right: 0;
 
   display: none;
-  background-color: #333333;
+  background-color: #eff0f5;
   padding: 16px;
-  box-shadow: 0 -4px 4px #00000066;
-  color: white;
+  box-shadow: 0 -4px 4px #00000033;
 }
 .wrapper > .title {
   display: flex;
@@ -20,7 +19,7 @@
   justify-content: space-between;
   align-items: flex-start;
 
-  color: white;
+  color: black;
 }
 
 @media (max-width: 500px) {

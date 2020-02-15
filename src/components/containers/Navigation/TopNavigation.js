@@ -71,7 +71,7 @@ class TopNavigation extends Component {
           </Tooltip>
         ),
         click: () => {
-          history.push(getPath(`/mypage`));
+          history.push(getPath(`/mypage/info`));
         },
         requireAuth: true
       },

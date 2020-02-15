@@ -5,10 +5,9 @@ import UsefulInformation from '../containers/UsefulInformation/UsefulInformation
 import { quickConnect } from '../../redux/quick';
 import HelpAppInstall from '../containers/HelpAppInstall/HelpAppInstall';
 import Magazine from '../containers/Magazine/Magazine';
-import Section from '../primitive/Section/Section';
 import HottestPosts from '../containers/HottestPosts/HottestPosts';
-import RecommendYoutube from '../containers/RecommendYoutube/RecommendYoutube';
 import { pageDescription } from '../../utils/utils';
+import Window from "../primitive/Window/Window";
 
 class Home extends Component {
   componentDidMount() {
@@ -24,33 +23,20 @@ class Home extends Component {
         <HelpAppInstall />
         <UsefulInformation />
         <br />
-        <Section>
-          <b
-            onClick={() => {
-              history.push(getPath('/youtuber'));
-            }}
-            style={{
-              cursor: 'pointer'
-            }}
-          >
-            유튜브 홍보 게시판
-          </b>
-          <RecommendYoutube max={3} />
-        </Section>
-        <br />
-        <Section>
-          <h6
-            style={{
-              cursor: 'pointer'
-            }}
-            onClick={() => {
-              history.push(getPath('/magazine'));
-            }}
-          >
-            매거진
-          </h6>
+        <Window
+          title={
+            <span
+              style={{
+                cursor: 'pointer'
+              }}
+              onClick={() => {
+                history.push(getPath('/magazine'));
+              }}>
+              매거진
+            </span>
+          }>
           <Magazine max={4} />
-        </Section>
+        </Window>
         <br />
         <HottestPosts />
         <br />

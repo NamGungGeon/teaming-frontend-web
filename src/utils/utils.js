@@ -103,6 +103,17 @@ export const fuckHTML = html => {
   return html.replace(/(<([^>]+)>)/gi, '');
 };
 
+export const getImageSrcFromHTML= html=>{
+  const src= html.match(/(<img src=")(.*)(">)/gm);
+  if(!src || src.length=== 0)
+    return '';
+
+  const one= src[0];
+  const imgLink= one.replace(`<img src="`, '').replace(`">`, '');
+  console.log(imgLink);
+  return imgLink;
+}
+
 export const pageDescription = (title, desc, img) => {
   document.title = title ? title : '티밍';
 

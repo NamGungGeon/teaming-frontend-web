@@ -112,7 +112,7 @@ class UserInfoViewer extends Component {
   };
 
   render() {
-    const { username, auth } = this.props;
+    const { username, auth,id } = this.props;
     return (
       <div>
         <h5>{username}</h5>

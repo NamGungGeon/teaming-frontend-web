@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-import { momenting, pageDescription } from '../../../utils/utils';
+import {getImageSrcFromHTML, momenting, pageDescription} from '../../../utils/utils';
 import { getPath, urlQuery } from '../../../utils/url';
 import { quickConnect } from '../../../redux/quick';
 import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
@@ -23,6 +23,9 @@ import { ExpansionPanel } from '@material-ui/core';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Tooltip from '@material-ui/core/Tooltip';
+import HashTable from "../../primitive/HashTable/HashTable";
+import ReorderIcon from '@material-ui/icons/Reorder';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
 
 class Contents extends Component {
   state = {
@@ -78,9 +81,12 @@ class Contents extends Component {
   };
   loadContents = async offset => {
     window.scrollTo(0, 0);
+    this.setState({
+      ...this.state,
+      contents: [],
+    })
 
     const { uiKit, location } = this.props;
-
     const { category, search, searchField } = urlQuery(location);
 
     uiKit.loading.start();
@@ -166,14 +172,12 @@ class Contents extends Component {
     return (
       <div>
         {this.popup && this.popup.render()}
-        <PageTitle
-          title={this.getBoardName()}
-          explain={`${this.getBoardName()} 입니다`}
-          align={'left'}
-        />
-        <br />
-
         <Section divideStyle={'fill'}>
+          <PageTitle
+            title={this.getBoardName()}
+            explain={`${this.getBoardName()} 입니다`}
+            align={'left'}
+          />
           <div>
             <ExpansionPanel
               style={{
@@ -193,50 +197,49 @@ class Contents extends Component {
                 }}
               >
                 <div style={{ flex: 1 }}>
-                  <h5>게시글 검색</h5>
-                  <br />
-                  <FormControl fullWidth size={'small'} variant={'outlined'}>
-                    <Select
-                      style={{
-                        width: '100%',
-                        border: 'none'
-                      }}
-                      value={this.state.searchField}
-                      displayEmpty
-                      onChange={e => {
-                        this.setState({
-                          ...this.state,
-                          searchField: e.target.value
-                        });
-                      }}
-                    >
-                      <MenuItem value="title">제목에서 찾기</MenuItem>
-                      <MenuItem value={'body'}>본문에서 찾기</MenuItem>
-                      <MenuItem value={'author'}>작성자로 찾기</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <br />
-                  <br />
-                  <TextField
-                    size={'small'}
-                    fullWidth
-                    variant={'outlined'}
-                    label="검색 키워드 입력"
-                    type={'text'}
-                    onKeyDown={e => {
-                      if (e.key === 'Enter') {
-                        searching();
+                  <HashTable
+                    table={[
+                      {
+                        key: (<FormControl fullWidth size={'small'} variant={'outlined'}>
+                          <Select
+                            style={{
+                              width: '100%',
+                              border: 'none'
+                            }}
+                            value={this.state.searchField}
+                            displayEmpty
+                            onChange={e => {
+                              this.setState({
+                                ...this.state,
+                                searchField: e.target.value
+                              });
+                            }}
+                          >
+                            <MenuItem value="title">제목에서 찾기</MenuItem>
+                            <MenuItem value={'body'}>본문에서 찾기</MenuItem>
+                            <MenuItem value={'author'}>작성자로 찾기</MenuItem>
+                          </Select>
+                        </FormControl>),
+                        value: (
+                          <TextField
+                            size={'small'}
+                            fullWidth
+                            placeholder={'키워드를 입력하세요'}
+                            type={'text'}
+                            onKeyDown={e => {
+                              if (e.key === 'Enter') {
+                                searching();
+                              }
+                            }}
+                            onChange={e => {
+                              this.setState({
+                                ...this.state,
+                                search: e.target.value
+                              });
+                            }}
+                          />)
                       }
-                    }}
-                    onChange={e => {
-                      this.setState({
-                        ...this.state,
-                        search: e.target.value
-                      });
-                    }}
-                  />
-                  <br />
-                  <br />
+                    ]}/>
                   <AlignLayout align={'right'}>
                     <Button
                       fullWidth
@@ -291,17 +294,55 @@ class Contents extends Component {
             </AlignLayout>
           </div>
         </Section>
-
         <br />
-
+        <div style={{
+          padding: '16px',
+          backgroundColor: 'white',
+          borderBottom: '0.6px solid #e9e9e9',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+          <div>
+            <Button
+              startIcon={<ReorderIcon/>}
+              color="secondary">
+              전체
+            </Button>
+            <Button
+              startIcon={<WhatshotIcon/>}>
+              인기글
+            </Button>
+          </div>
+          <div>
+            <Tooltip title={'글쓰기'}>
+              <IconButton
+                color={'secondary'}
+                onClick={() => {
+                  history.push(
+                    getPath(
+                      `/community/write?category=${
+                        query.category ? query.category : ''
+                      }`
+                    )
+                  );
+                }}
+                variant="contained"
+              >
+                <CreateIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+        </div>
         <BoardWrapper
           boards={this.state.contents.map(content => {
+            console.log(content.title, content);
             return {
               title: `${content.title}`,
-              exp_l: `${content.nickname}`,
-              exp_r: `조회수: ${content.views} (${momenting(
+              explains: [`닉네임: ${content.nickname}`, `| ${momenting(
                 content.createDate
-              ).fromNow()})`,
+              ).fromNow()}`, `| 조회수 ${content.views}회`],
+              thumbnail: getImageSrcFromHTML(content.content),
               onClick: () => {
                 history.push(
                   getPath(

@@ -15,6 +15,7 @@ import { getFriends } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
 import CardBody from 'reactstrap/es/CardBody';
 import Avatar from '@material-ui/core/Avatar';
+import Adress from "../../../primitive/Adress/Adress";
 
 class Friends extends Component {
   state = {
@@ -55,53 +56,17 @@ class Friends extends Component {
             friends.map(_friend => {
               const friend = _friend.friends;
               return (
-                <Card>
-                  <CardHeader
-                    style={{
-                      cursor: 'pointer'
-                    }}
-                    avatar={
-                      <Avatar
-                        style={{
-                          backgroundColor: `${
-                            friend.gender === 'M' ? 'blue' : 'pink'
-                          }`
-                        }}
-                      >
-                        <ImageView
-                          src={friend.profilePicture}
-                          width={'32px'}
-                          height={'32px'}
-                        />
-                      </Avatar>
-                    }
-                    title={friend.username}
-                    subheader={
-                      beautifyDate(friend.createdAt) + '에 친구가 되었습니다'
-                    }
-                  />
-                  <CardBody>
-                    친구의 생일: {beautifyDate(friend.birthday)}
-                    <br />
-                  </CardBody>
-                  <CardActions
-                    style={{
-                      flexDirection: 'row-reverse'
-                    }}
-                    disableSpacing
-                  >
-                    <Tooltip title={'차단'}>
+                <Adress
+                  picture={friend.profilePicture}
+                  name={friend.username}
+                  explain={beautifyDate(friend.createdAt)+ '에 친구가 되었습니다'}
+                  options={[
+                    (<Tooltip title={'친구삭제'}>
                       <IconButton>
-                        <MdBlock />
+                      <TiUserDelete />
                       </IconButton>
-                    </Tooltip>
-                    <Tooltip title={'친구삭제'}>
-                      <IconButton>
-                        <TiUserDelete />
-                      </IconButton>
-                    </Tooltip>
-                  </CardActions>
-                </Card>
+                    </Tooltip>),
+                  ]}/>
               );
             })}
         </CardWrapper>

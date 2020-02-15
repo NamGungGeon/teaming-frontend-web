@@ -14,6 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
 import { beautifyDate } from '../../../../utils/utils';
+import Adress from "../../../primitive/Adress/Adress";
 
 class Blocks extends Component {
   state = {
@@ -100,33 +101,24 @@ class Blocks extends Component {
             blocks.map(data => {
               const { block } = data;
               return (
-                <Card>
-                  <CardHeader
-                    avatar={
-                      <Avatar>
-                        <CloseIcon />
-                      </Avatar>
-                    }
-                    title={block.username}
-                    subheader={beautifyDate(data.createdAt) + '에 차단'}
-                  />
-                  <CardActions
-                    style={{
-                      flexDirection: 'row-reverse'
-                    }}
-                    disableSpacing
-                  >
-                    <Tooltip title={'차단해제'}>
-                      <IconButton
-                        onClick={() => {
-                          this.removeBlock(data.id);
-                        }}
-                      >
-                        <CloseIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </CardActions>
-                </Card>
+                <Adress
+                  onClick={()=>{
+                    this.removeBlock(data.id);
+                  }}
+                  name={block.username}
+                  explain={beautifyDate(data.createdAt)}
+                  options={[
+                    (<Tooltip title={'차단해제'}>
+                        <IconButton
+                          onClick={() => {
+                            this.removeBlock(data.id);
+                          }}
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                      </Tooltip>)
+                  ]}
+                />
               );
             })}
         </CardWrapper>

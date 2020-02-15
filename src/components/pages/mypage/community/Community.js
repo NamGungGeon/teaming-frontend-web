@@ -5,6 +5,7 @@ import { getPath } from '../../../../utils/url';
 import { Route } from 'react-router-dom';
 import Message from './Message';
 import Notifications from './Notifications';
+import Logs from "./logs/Logs";
 
 class Community extends Component {
   componentDidMount() {
@@ -34,7 +35,10 @@ class Community extends Component {
           path={getPath(`/mypage/community/notifications`)}
           component={Notifications}
         />
-        {/*<Route path={getPath(`/mypage/community/logs`)} component={Logs}/>*/}
+        <Route
+          path={getPath(`/mypage/community/logs`)}
+          component={Logs}
+        />
       </div>
     );
   }

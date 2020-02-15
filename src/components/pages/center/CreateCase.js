@@ -13,7 +13,8 @@ import { quickConnect } from '../../../redux/quick';
 
 class CreateCase extends Component {
   state = {
-    email: ''
+    email: '',
+    title: '',
   };
 
   componentDidMount() {
@@ -25,7 +26,7 @@ class CreateCase extends Component {
   }
 
   submit = async () => {
-    const { email } = this.state;
+    const { email, title } = this.state;
     const { uiKit, auth, history } = this.props;
     const data = this.editor.getBody();
 
@@ -44,7 +45,7 @@ class CreateCase extends Component {
     }
 
     uiKit.loading.start();
-    await createCase(auth, data.body, data.media, email)
+    await createCase(auth, title, data.body, data.media, email)
       .then(response => {
         //ok
         uiKit.toaster.cooking('접수 완료');
@@ -81,6 +82,17 @@ class CreateCase extends Component {
           />
           <br />
         </Optional>
+        <Input
+          type="text"
+          placeholder="문의 제목을 입력하세요"
+          onChange={e => {
+            this.setState({
+              ...this.state,
+              title: e.target.value
+            });
+          }}
+        />
+        <br/>
         <Wysiwyg ref={ref => (this.editor = ref)} />
         <br />
         <AlignLayout align={'right'}>

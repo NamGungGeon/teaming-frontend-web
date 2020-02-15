@@ -1,0 +1,9 @@
+.tab{
+    border-bottom: 2px solid #e7146900!important;
+    border-radius: 0!important;
+    box-sizing: border-box;
+}
+.active{
+    border-bottom: 2px solid #e71469!important;
+    transition: 0.3s all;
+}

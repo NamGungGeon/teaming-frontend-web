@@ -9,6 +9,9 @@ import { updateMyPassword } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
 import getHistory from 'react-router-global-history';
 import Button from '@material-ui/core/Button';
+import Window from "../../../primitive/Window/Window";
+import RefreshIcon from '@material-ui/icons/Refresh';
+import HashTable from "../../../primitive/HashTable/HashTable";
 
 class PwChange extends Component {
   state = {
@@ -108,7 +111,6 @@ class PwChange extends Component {
     const inputWrapperStyle = {
       display: 'inline-block',
       width: '100%',
-      maxWidth: '700px'
     };
 
     return (
@@ -118,50 +120,59 @@ class PwChange extends Component {
           explain={'현재 사용중인 비밀번호를 다시 확인합니다'}
         />
         <br />
-        <>
-          <div style={inputWrapperStyle}>
-            <TextField
-              size={'small'}
-              fullWidth
-              variant={'outlined'}
-              label="현재 사용중인 비밀번호"
-              type={'password'}
-              name={'oldPassword'}
-              onChange={this.handleChange}
-            />
-          </div>
+        <Window >
+          <HashTable
+            table={[
+              {
+                key: '현재 사용중인 비밀번호',
+                value: (
+                  <TextField
+                    size={'small'}
+                    fullWidth
+                    type={'password'}
+                    name={'oldPassword'}
+                    onChange={this.handleChange}
+                  />
+                )
+              },
+              {
+                key: '새로 설정할 비밀번호',
+                value: (
+                  <TextField
+                    size={'small'}
+                    fullWidth
+                    type={'password'}
+                    name={'newPassword'}
+                    onChange={this.handleChange}
+                  />
+                )
+              },
+              {
+                key: '새 비밀번호 확인',
+                value: (
+                  <TextField
+                    size={'small'}
+                    fullWidth
+                    type={'password'}
+                    name={'newPasswordCheck'}
+                    onChange={this.handleChange}
+                  />
+                )
+              },
+            ]}/>
           <br />
           <br />
-          <div style={inputWrapperStyle}>
-            <TextField
-              size={'small'}
-              fullWidth
-              variant={'outlined'}
-              label="새 비밀번호"
-              type={'password'}
-              name={'newPassword'}
-              onChange={this.handleChange}
-            />
-          </div>
-          <br />
-          <br />
-          <div style={inputWrapperStyle}>
-            <TextField
-              size={'small'}
-              fullWidth
-              variant={'outlined'}
-              label="새 비밀번호 확인"
-              type={'password'}
-              name={'newPasswordCheck'}
-              onChange={this.handleChange}
-            />
-          </div>
-          <br />
-          <br />
-          <Button variant={'contained'} color={'primary'} onClick={this.submit}>
-            변경
-          </Button>
-        </>
+          <AlignLayout align={'right'}>
+            <Button
+              startIcon={<RefreshIcon/>}
+              variant={'contained'}
+              color={'primary'}
+              size={'large'}
+              onClick={this.submit}>
+              변경
+            </Button>
+          </AlignLayout>
+        </Window>
       </div>
     );
   }

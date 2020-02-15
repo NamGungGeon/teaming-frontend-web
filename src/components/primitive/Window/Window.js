@@ -23,7 +23,7 @@ class Window extends Component {
     return (
       <ExpansionPanel
         style={{
-          padding: 0
+          padding: 0,
         }}
         onClick={() => {
           this.setState({
@@ -31,13 +31,22 @@ class Window extends Component {
             folded: !this.state.folded
           });
         }}
-        className={styles.body}
-        expanded={this.state.folded || !foldable}
-      >
-        <ExpansionPanelSummary expandIcon={<MdExpandMore />}>
-          <b>{title}</b>
+        expanded={this.state.folded || !foldable}>
+        <ExpansionPanelSummary
+          style={{
+            cursor: foldable? 'cursor': 'default',
+            display: title? 'flex': 'none'
+          }}
+          className={styles.title}
+          expandIcon={foldable? <MdExpandMore />: ''}>
+          <div>{title}</div>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>{children}</ExpansionPanelDetails>
+        <ExpansionPanelDetails
+          className={styles.body}>
+          <div>
+            {children}
+          </div>
+        </ExpansionPanelDetails>
       </ExpansionPanel>
     );
   }

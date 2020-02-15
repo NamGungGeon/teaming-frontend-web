@@ -203,7 +203,6 @@ tbody tr {
 table.noHead tr > td:nth-child(1) {
   font-weight: 700;
 }
-
 @media (max-width: 500px) {
   .mobile {
     display: initial;
