@@ -9,9 +9,9 @@ import { updateMyPassword } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
 import getHistory from 'react-router-global-history';
 import Button from '@material-ui/core/Button';
-import Window from "../../../primitive/Window/Window";
+import Window from '../../../primitive/Window/Window';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import HashTable from "../../../primitive/HashTable/HashTable";
+import HashTable from '../../../primitive/HashTable/HashTable';
 
 class PwChange extends Component {
   state = {
@@ -110,7 +110,7 @@ class PwChange extends Component {
   render() {
     const inputWrapperStyle = {
       display: 'inline-block',
-      width: '100%',
+      width: '100%'
     };
 
     return (
@@ -120,7 +120,7 @@ class PwChange extends Component {
           explain={'현재 사용중인 비밀번호를 다시 확인합니다'}
         />
         <br />
-        <Window >
+        <Window>
           <HashTable
             table={[
               {
@@ -158,17 +158,19 @@ class PwChange extends Component {
                     onChange={this.handleChange}
                   />
                 )
-              },
-            ]}/>
+              }
+            ]}
+          />
           <br />
           <br />
           <AlignLayout align={'right'}>
             <Button
-              startIcon={<RefreshIcon/>}
+              startIcon={<RefreshIcon />}
               variant={'contained'}
               color={'primary'}
               size={'large'}
-              onClick={this.submit}>
+              onClick={this.submit}
+            >
               변경
             </Button>
           </AlignLayout>

@@ -6,7 +6,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-import {getImageSrcFromHTML, momenting, pageDescription} from '../../../utils/utils';
+import {
+  getImageSrcFromHTML,
+  momenting,
+  pageDescription
+} from '../../../utils/utils';
 import { getPath, urlQuery } from '../../../utils/url';
 import { quickConnect } from '../../../redux/quick';
 import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
@@ -23,7 +27,7 @@ import { ExpansionPanel } from '@material-ui/core';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Tooltip from '@material-ui/core/Tooltip';
-import HashTable from "../../primitive/HashTable/HashTable";
+import HashTable from '../../primitive/HashTable/HashTable';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 
@@ -83,8 +87,8 @@ class Contents extends Component {
     window.scrollTo(0, 0);
     this.setState({
       ...this.state,
-      contents: [],
-    })
+      contents: []
+    });
 
     const { uiKit, location } = this.props;
     const { category, search, searchField } = urlQuery(location);
@@ -200,26 +204,34 @@ class Contents extends Component {
                   <HashTable
                     table={[
                       {
-                        key: (<FormControl fullWidth size={'small'} variant={'outlined'}>
-                          <Select
-                            style={{
-                              width: '100%',
-                              border: 'none'
-                            }}
-                            value={this.state.searchField}
-                            displayEmpty
-                            onChange={e => {
-                              this.setState({
-                                ...this.state,
-                                searchField: e.target.value
-                              });
-                            }}
+                        key: (
+                          <FormControl
+                            fullWidth
+                            size={'small'}
+                            variant={'outlined'}
                           >
-                            <MenuItem value="title">제목에서 찾기</MenuItem>
-                            <MenuItem value={'body'}>본문에서 찾기</MenuItem>
-                            <MenuItem value={'author'}>작성자로 찾기</MenuItem>
-                          </Select>
-                        </FormControl>),
+                            <Select
+                              style={{
+                                width: '100%',
+                                border: 'none'
+                              }}
+                              value={this.state.searchField}
+                              displayEmpty
+                              onChange={e => {
+                                this.setState({
+                                  ...this.state,
+                                  searchField: e.target.value
+                                });
+                              }}
+                            >
+                              <MenuItem value="title">제목에서 찾기</MenuItem>
+                              <MenuItem value={'body'}>본문에서 찾기</MenuItem>
+                              <MenuItem value={'author'}>
+                                작성자로 찾기
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        ),
                         value: (
                           <TextField
                             size={'small'}
@@ -237,9 +249,11 @@ class Contents extends Component {
                                 search: e.target.value
                               });
                             }}
-                          />)
+                          />
+                        )
                       }
-                    ]}/>
+                    ]}
+                  />
                   <AlignLayout align={'right'}>
                     <Button
                       fullWidth
@@ -295,24 +309,21 @@ class Contents extends Component {
           </div>
         </Section>
         <br />
-        <div style={{
-          padding: '16px',
-          backgroundColor: 'white',
-          borderBottom: '0.6px solid #e9e9e9',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
+        <div
+          style={{
+            padding: '16px',
+            backgroundColor: 'white',
+            borderBottom: '0.6px solid #e9e9e9',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
           <div>
-            <Button
-              startIcon={<ReorderIcon/>}
-              color="secondary">
+            <Button startIcon={<ReorderIcon />} color="secondary">
               전체
             </Button>
-            <Button
-              startIcon={<WhatshotIcon/>}>
-              인기글
-            </Button>
+            <Button startIcon={<WhatshotIcon />}>인기글</Button>
           </div>
           <div>
             <Tooltip title={'글쓰기'}>
@@ -339,9 +350,11 @@ class Contents extends Component {
             console.log(content.title, content);
             return {
               title: `${content.title}`,
-              explains: [`닉네임: ${content.nickname}`, `| ${momenting(
-                content.createDate
-              ).fromNow()}`, `| 조회수 ${content.views}회`],
+              explains: [
+                `닉네임: ${content.nickname}`,
+                `| ${momenting(content.createDate).fromNow()}`,
+                `| 조회수 ${content.views}회`
+              ],
               thumbnail: getImageSrcFromHTML(content.content),
               onClick: () => {
                 history.push(

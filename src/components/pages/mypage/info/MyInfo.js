@@ -11,9 +11,9 @@ import { errMsg } from '../../../../http/util';
 import ImageIcon from '@material-ui/icons/Image';
 import { Col, FormGroup } from 'reactstrap';
 import moment from 'moment';
-import Window from "../../../primitive/Window/Window";
-import HashTable from "../../../primitive/HashTable/HashTable";
-import {beautifyDate} from "../../../../utils/utils";
+import Window from '../../../primitive/Window/Window';
+import HashTable from '../../../primitive/HashTable/HashTable';
+import { beautifyDate } from '../../../../utils/utils';
 
 class MyInfo extends Component {
   state = {
@@ -135,7 +135,7 @@ class MyInfo extends Component {
                   <ImageView
                     img={this.state.profile.profilePicture}
                     style={{
-                      width: '128px',
+                      width: '128px'
                     }}
                   />
                 </div>
@@ -183,14 +183,14 @@ class MyInfo extends Component {
                     },
                     {
                       key: '성별',
-                      value: profile.gender=== 'M'? '남자': '여자'
+                      value: profile.gender === 'M' ? '남자' : '여자'
                     },
                     {
                       key: '가입일',
                       value: (
                         <div>
                           {beautifyDate(profile.createdAt)}
-                          <br/>
+                          <br />
                           <span className={'explain'}>
                             티밍과 함께한지
                             {moment().diff(
@@ -204,8 +204,9 @@ class MyInfo extends Component {
                           </span>
                         </div>
                       )
-                    },
-                  ]}/>
+                    }
+                  ]}
+                />
               </div>
             </Window>
           </div>

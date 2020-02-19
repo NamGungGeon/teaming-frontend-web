@@ -7,7 +7,7 @@ import HelpAppInstall from '../containers/HelpAppInstall/HelpAppInstall';
 import Magazine from '../containers/Magazine/Magazine';
 import HottestPosts from '../containers/HottestPosts/HottestPosts';
 import { pageDescription } from '../../utils/utils';
-import Window from "../primitive/Window/Window";
+import Window from '../primitive/Window/Window';
 
 class Home extends Component {
   componentDidMount() {
@@ -31,10 +31,12 @@ class Home extends Component {
               }}
               onClick={() => {
                 history.push(getPath('/magazine'));
-              }}>
+              }}
+            >
               매거진
             </span>
-          }>
+          }
+        >
           <Magazine max={4} />
         </Window>
         <br />

@@ -1,8 +1,7 @@
-
-.wrapper> .notice{
+.wrapper > .notice {
   border-bottom: 0.6px solid #e9e9e9;
 }
-.wrapper> .notice:nth-last-child(1){
+.wrapper > .notice:nth-last-child(1) {
   border: none;
 }
 .notice {
@@ -14,9 +13,9 @@
   flex-direction: row;
   align-items: center !important;
   justify-items: flex-start;
-  padding: 8px 16px!important;
+  padding: 8px 16px !important;
 }
-.notice> *{
+.notice > * {
   flex: 1;
   text-overflow: ellipsis;
   padding: 16px 0;

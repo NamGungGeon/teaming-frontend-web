@@ -3,7 +3,7 @@ import Section from '../../primitive/Section/Section';
 import { quickConnect } from '../../../redux/quick';
 import { delay } from '../../../utils/utils';
 import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
-import Window from "../../primitive/Window/Window";
+import Window from '../../primitive/Window/Window';
 
 class HottestPosts extends Component {
   state = {
@@ -19,32 +19,20 @@ class HottestPosts extends Component {
       posts: [
         {
           title: 'REACT IS GOD',
-          explains: [
-            'JQUERY IS SHIT',
-            '| 3일 전',
-          ],
+          explains: ['JQUERY IS SHIT', '| 3일 전']
         },
         {
           title: 'REACT IS GOD',
-          explains: [
-            'JQUERY IS SHIT',
-            '| 3일 전',
-          ],
+          explains: ['JQUERY IS SHIT', '| 3일 전']
         },
         {
           title: 'REACT IS GOD',
-          explains: [
-            'JQUERY IS SHIT',
-            '| 3일 전',
-          ],
+          explains: ['JQUERY IS SHIT', '| 3일 전']
         },
         {
           title: 'REACT IS GOD',
-          explains: [
-            'JQUERY IS SHIT',
-            '| 3일 전',
-          ],
-        },
+          explains: ['JQUERY IS SHIT', '| 3일 전']
+        }
       ]
     });
   }

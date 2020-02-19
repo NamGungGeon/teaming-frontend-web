@@ -543,7 +543,7 @@ export const createCase = (auth, title, text, media, replyEmail) => {
   if (media) {
     const data = new FormData();
     data.append('text', text);
-    data.append('title', title)
+    data.append('title', title);
 
     if (replyEmail) {
       data.append('replyEmail', replyEmail);

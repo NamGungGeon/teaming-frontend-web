@@ -11,7 +11,7 @@ import Section from '../../../primitive/Section/Section';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import { Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import Tabs from "../../../primitive/Tabs/Tabs/Tabs";
+import Tabs from '../../../primitive/Tabs/Tabs/Tabs';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -136,32 +136,34 @@ class Notifications extends Component {
             style={{
               marginTop: 0
             }}
-            divideStyle={'fill'}>
+            divideStyle={'fill'}
+          >
             <Tabs
               initActive={'전체'}
               tabs={[
                 {
                   label: '전체',
-                  startIcon: (<ReorderIcon/>),
+                  startIcon: <ReorderIcon />
                 },
                 {
                   label: '커뮤니티',
-                  startIcon: (<PeopleIcon/>),
+                  startIcon: <PeopleIcon />
                 },
                 {
                   label: '친구',
-                  startIcon: (<PersonAddIcon/>),
+                  startIcon: <PersonAddIcon />
                 },
                 {
                   label: '쪽지',
-                  startIcon: (<EmailIcon/>),
+                  startIcon: <EmailIcon />
                 },
                 {
                   label: '문의',
-                  startIcon: (<QuestionAnswerIcon/>),
-                },
-              ]}/>
-            <br/>
+                  startIcon: <QuestionAnswerIcon />
+                }
+              ]}
+            />
+            <br />
             {notifications.map(notification => {
               return (
                 <MenuItem

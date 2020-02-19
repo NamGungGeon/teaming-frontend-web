@@ -14,7 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
 import { beautifyDate } from '../../../../utils/utils';
-import Adress from "../../../primitive/Adress/Adress";
+import Adress from '../../../primitive/Adress/Adress';
 
 class Blocks extends Component {
   state = {
@@ -102,21 +102,21 @@ class Blocks extends Component {
               const { block } = data;
               return (
                 <Adress
-                  onClick={()=>{
+                  onClick={() => {
                     this.removeBlock(data.id);
                   }}
                   name={block.username}
                   explain={beautifyDate(data.createdAt)}
                   options={[
-                    (<Tooltip title={'차단해제'}>
-                        <IconButton
-                          onClick={() => {
-                            this.removeBlock(data.id);
-                          }}
-                        >
-                          <CloseIcon />
-                        </IconButton>
-                      </Tooltip>)
+                    <Tooltip title={'차단해제'}>
+                      <IconButton
+                        onClick={() => {
+                          this.removeBlock(data.id);
+                        }}
+                      >
+                        <CloseIcon />
+                      </IconButton>
+                    </Tooltip>
                   ]}
                 />
               );
