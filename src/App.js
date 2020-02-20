@@ -45,10 +45,14 @@ class App extends Component {
     this.state = {
       ready: false
     };
-    this.messaging = firebase.messaging();
-    this.messaging.usePublicVapidKey(
-      'BIrV7uyitS8cjnVhcZwwYaU6kRmnU1ndXaQu31SpV8JzcsnAAdbSnhfDa-7tcbZnZSHHtna7YGs9r3oHNrxOun4'
-    );
+    try {
+      this.messaging = firebase.messaging();
+      this.messaging.usePublicVapidKey(
+        'BIrV7uyitS8cjnVhcZwwYaU6kRmnU1ndXaQu31SpV8JzcsnAAdbSnhfDa-7tcbZnZSHHtna7YGs9r3oHNrxOun4'
+      );
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async componentDidMount() {
