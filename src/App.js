@@ -33,13 +33,24 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import Optional from './components/primitive/Optional/Optional';
 import { Button } from '@material-ui/core';
 import HocWrapper from './components/containers/HocWrapper/HocWrapper';
+import firebase from 'firebase/app';
+import 'firebase/messaging';
+import { registerFCM } from './http/tming';
+import { authorized } from './utils/utils';
 
 class App extends Component {
-  state = {
-    ready: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      ready: false
+    };
+    this.messaging = firebase.messaging();
+    this.messaging.usePublicVapidKey(
+      'BIrV7uyitS8cjnVhcZwwYaU6kRmnU1ndXaQu31SpV8JzcsnAAdbSnhfDa-7tcbZnZSHHtna7YGs9r3oHNrxOun4'
+    );
+  }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.init();
 
     window.setInterval(() => {
@@ -47,6 +58,21 @@ class App extends Component {
         document.getElementById('content').style.height = '100%';
       } catch (e) {}
     }, 200);
+
+    // TODO ask for fcm notification permission
+    const { auth } = this.props;
+
+    if (authorized(auth)) {
+      try {
+        await this.messaging.requestPermission();
+        const token = await this.messaging.getToken();
+        if (token) {
+          await registerFCM(token, auth);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   init = async () => {
@@ -55,8 +81,12 @@ class App extends Component {
 
     //navigation setting
     const { hideNav, imapp } = query;
-    if (hideNav) await ConfigDispatcher.hideNav();
-    if (imapp) await ConfigDispatcher.imapp();
+    if (hideNav) {
+      await ConfigDispatcher.hideNav();
+    }
+    if (imapp) {
+      await ConfigDispatcher.imapp();
+    }
 
     //uiKit initialize
 
