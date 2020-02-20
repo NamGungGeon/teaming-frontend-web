@@ -1,4 +1,5 @@
 import React from 'react';
+import contact1 from '../components/resource/contact/contact1.jpg';
 
 export const privacy = (
   <div className="panel panel_white" style={{ fontSize: '0.8rem' }}>
@@ -269,5 +270,50 @@ export const privacy = (
       <br />
       <br />
     </p>
+  </div>
+);
+
+export const contact = (
+  <div>
+    <img
+      style={{ width: '100%' }}
+      src={require('../components/resource/contact/contact1.jpg')}
+      alt=""
+    />
+    <img
+      style={{ width: '100%' }}
+      src={require('../components/resource/contact/contact2.jpg')}
+      alt=""
+    />
+    <img
+      style={{ width: '100%' }}
+      src={require('../components/resource/contact/contact3.jpg')}
+      alt=""
+    />
+    <img
+      style={{ width: '100%' }}
+      src={require('../components/resource/contact/contact4.jpg')}
+      alt=""
+    />
+    <img
+      style={{ width: '100%' }}
+      src={require('../components/resource/contact/contact5.jpg')}
+      alt=""
+    />
+    <img
+      style={{ width: '100%' }}
+      src={require('../components/resource/contact/contact6.jpg')}
+      alt=""
+    />
+    <img
+      style={{ width: '100%' }}
+      src={require('../components/resource/contact/contact7.jpg')}
+      alt=""
+    />
+    <img
+      style={{ width: '100%' }}
+      src={require('../components/resource/contact/contact8.jpg')}
+      alt=""
+    />
   </div>
 );

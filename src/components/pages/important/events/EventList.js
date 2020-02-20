@@ -45,10 +45,7 @@ class EventList extends Component {
           align={'left'}
         />
         <Section>
-          <EventGallery
-            ref={ref => (this.eventList = ref)}
-            history={this.props.history}
-          />
+          <EventGallery history={this.props.history} />
         </Section>
       </div>
     );

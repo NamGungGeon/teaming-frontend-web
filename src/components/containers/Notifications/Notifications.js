@@ -24,7 +24,6 @@ class Notifications extends Component {
 
   refresh = () => {
     const { auth } = this.props;
-
     getNotifications(auth, 8)
       .then(response => {
         this.setState({
@@ -38,10 +37,12 @@ class Notifications extends Component {
       });
   };
   componentDidMount() {
+    console.log('notifications: im mounted');
     this.refresh();
     this.timer = setInterval(this.refresh, 60 * 1000);
   }
   componentWillUnmount() {
+    console.log('notifications: im will unmounted');
     window.clearInterval(this.timer);
   }
 

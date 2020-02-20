@@ -30,7 +30,6 @@ class Message extends Component {
   state = {
     messages: null,
     count: 0,
-
     newMsg: ''
   };
 

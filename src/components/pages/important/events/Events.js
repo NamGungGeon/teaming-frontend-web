@@ -7,7 +7,7 @@ import Event from './Event';
 class Events extends Component {
   render() {
     return (
-      <div>
+      <>
         <Route
           exact
           path={getPath('/important/events/')}
@@ -18,7 +18,7 @@ class Events extends Component {
           path={getPath('/important/events/:id')}
           component={Event}
         />
-      </div>
+      </>
     );
   }
 }

@@ -97,25 +97,31 @@ class Chat extends Component {
 
     this.socket.on('OPPONENT_LEFT', () => {
       console.log('OPPONENT_LEFT');
-      this.setState({
-        ...this.state,
-        room: null,
-        opponent: null
-      });
       this.endChat();
     });
   };
 
   endChat = () => {
-    if (this.unblock) {
-      this.unblock();
-    }
-
+    const { uiKit, auth } = this.props;
+    uiKit.popup.make(
+      <ChatResult
+        auth={auth}
+        opponent={this.state.opponent.clone()}
+        close={() => {
+          uiKit.popup.destroy();
+        }}
+      />
+    );
     const { room } = this.state;
     if (room) {
       this.socket.emit('CHAT_ENDED', room);
     }
     this.socket.disconnect();
+    this.setState({
+      ...this.state,
+      room: null,
+      opponent: null
+    });
   };
 
   render() {
@@ -200,16 +206,6 @@ class Chat extends Component {
   }
 
   componentWillUnmount() {
-    console.log(this.props);
-    const { uiKit } = this.props;
-    uiKit.popup.make(
-      <ChatResult
-        close={() => {
-          uiKit.popup.destroy();
-        }}
-      />
-    );
-
     if (this.unblock) {
       this.unblock();
     }

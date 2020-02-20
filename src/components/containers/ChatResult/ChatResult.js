@@ -3,9 +3,15 @@ import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { Rating } from '@material-ui/lab';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import { Button } from '@material-ui/core';
+import { createChatRating } from '../../../http/tming';
 
-const ChatResult = ({ close }) => {
+const ChatResult = ({ auth, opponent, close }) => {
   const [rating, setRating] = useState(5);
+
+  const submitRating = async () => {
+    createChatRating(auth, opponent, rating, '');
+    close();
+  };
 
   return (
     <div>
@@ -30,7 +36,7 @@ const ChatResult = ({ close }) => {
       <AlignLayout align={'right'}>
         <Button
           onClick={() => {
-            close();
+            submitRating();
           }}
           color={'primary'}
           variant={'contained'}

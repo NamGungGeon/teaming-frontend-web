@@ -75,7 +75,7 @@ const sideNav = {
           </span>
         ),
         onClick: () => {
-          getHistory().push(getPath(`/center/create`));
+          getHistory().push(getPath(`/center`));
         }
       }
     ]

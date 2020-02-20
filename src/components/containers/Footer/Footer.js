@@ -18,7 +18,7 @@ class Footer extends Component {
             <div>사업자등록번호: 270-09-01066</div>
             <div className={styles.list}>
               <NavLink to={getPath('/privacy')}>개인정보처리방침</NavLink>
-              <NavLink to={getPath('/privacy')}>이용약관</NavLink>
+              <NavLink to={getPath('/contact')}>이용약관</NavLink>
             </div>
           </div>
         </div>

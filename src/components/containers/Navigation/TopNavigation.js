@@ -19,139 +19,119 @@ import Login from '../Login/Login';
 import getHistory from 'react-router-global-history';
 import Notifications from '../Notifications/Notifications';
 
-class TopNavigation extends Component {
-  state = {
-    openOptions: false,
-    anchor: 0
-  };
+const TopNavigation = ({
+  auth,
+  uiKit,
+  AuthDispatcher,
+  config,
+  SideNavDispatcher
+}) => {
+  const history = getHistory();
+  const { hideNav } = config;
+  const quickMenus = [
+    {
+      title: (
+        <Tooltip title={'로그인'}>
+          <IconButton>
+            <VpnKeyIcon />
+          </IconButton>
+        </Tooltip>
+      ),
+      click: () => {
+        uiKit.popup.make(<Login />);
+      },
+      requireAuth: false
+    },
+    {
+      title: (
+        <Tooltip title={'회원가입'}>
+          <IconButton>
+            <PersonAddIcon />
+          </IconButton>
+        </Tooltip>
+      ),
+      click: () => {
+        history.push(getPath('/auth/signup'));
+      },
+      requireAuth: false
+    },
+    {
+      title: (
+        <Tooltip title={'마이페이지'}>
+          <IconButton>
+            <PersonIcon />
+          </IconButton>
+        </Tooltip>
+      ),
+      click: () => {
+        history.push(getPath(`/mypage/info`));
+      },
+      requireAuth: true
+    },
+    {
+      title: (
+        <Tooltip title={'알림'}>
+          <Notifications />
+        </Tooltip>
+      ),
+      click: () => {},
+      requireAuth: true
+    },
+    {
+      title: (
+        <Tooltip title={'로그아웃'}>
+          <IconButton>
+            <ExitToAppIcon />
+          </IconButton>
+        </Tooltip>
+      ),
+      click: async () => {
+        await firebase.auth().signOut();
+        AuthDispatcher.logout();
+        history.push(getPath(''));
+        window.alert('로그아웃 되었습니다');
+      },
+      requireAuth: true
+    }
+  ];
 
-  render() {
-    const {
-      auth,
-      uiKit,
-      AuthDispatcher,
-      config,
-      SideNavDispatcher
-    } = this.props;
-    const history = getHistory();
-    const { hideNav } = config;
-    const quickMenus = [
-      {
-        title: (
-          <Tooltip title={'로그인'}>
-            <IconButton>
-              <VpnKeyIcon />
-            </IconButton>
-          </Tooltip>
-        ),
-        click: () => {
-          uiKit.popup.make(<Login />);
-        },
-        requireAuth: false
-      },
-      {
-        title: (
-          <Tooltip title={'회원가입'}>
-            <IconButton>
-              <PersonAddIcon />
-            </IconButton>
-          </Tooltip>
-        ),
-        click: () => {
-          history.push(getPath('/auth/signup'));
-        },
-        requireAuth: false
-      },
-      {
-        title: (
-          <Tooltip title={'마이페이지'}>
-            <IconButton>
-              <PersonIcon />
-            </IconButton>
-          </Tooltip>
-        ),
-        click: () => {
-          history.push(getPath(`/mypage/info`));
-        },
-        requireAuth: true
-      },
-      {
-        title: (
-          <Tooltip title={'알림'}>
-            <Notifications />
-          </Tooltip>
-        ),
-        click: () => {},
-        requireAuth: true
-      },
-      {
-        title: (
-          <Tooltip title={'로그아웃'}>
-            <IconButton>
-              <ExitToAppIcon />
-            </IconButton>
-          </Tooltip>
-        ),
-        click: async () => {
-          await firebase.auth().signOut();
-          AuthDispatcher.logout();
-          history.push(getPath(''));
-          window.alert('로그아웃 되었습니다');
-        },
-        requireAuth: true
-      }
-    ];
-
-    return (
-      <nav
-        style={{ display: hideNav ? 'none' : 'flex' }}
-        className={classNames(styles.vertical)}
-      >
-        <div className={styles.ruler}>
-          <span className={styles.left}>
-            <span className={'mobile'}>
-              <span
-                onClick={() => {
-                  SideNavDispatcher.toggle();
-                }}
-                className={styles.openOption}
-              >
-                <IconButton>
-                  <ListIcon />
-                </IconButton>
-              </span>
+  return (
+    <nav
+      style={{ display: hideNav ? 'none' : 'flex' }}
+      className={classNames(styles.vertical)}
+    >
+      <div className={styles.ruler}>
+        <span className={styles.left}>
+          <span className={'mobile'}>
+            <span
+              onClick={() => {
+                SideNavDispatcher.toggle();
+              }}
+              className={styles.openOption}
+            >
+              <IconButton>
+                <ListIcon />
+              </IconButton>
             </span>
-            &nbsp;
-            <NavLink to={getPath('/')}>
-              <img src={logo} alt="" className={styles.icon} />
-            </NavLink>
           </span>
-          <span className={styles.right}>
-            {quickMenus.map((value, index) =>
-              value.requireAuth === !!authorized(auth) || value.alwaysShow ? (
-                <span
-                  style={{
-                    marginLeft: typeof value.title === 'string' ? '16px' : '0'
-                  }}
-                  key={randStr(10)}
-                  onClick={value.click}
-                >
-                  {value.title}
+          &nbsp;
+          <NavLink to={getPath('/')}>
+            <img src={logo} alt="" className={styles.icon} />
+          </NavLink>
+        </span>
+        <span className={styles.right}>
+          {quickMenus.map(
+            menu =>
+              menu.requireAuth === !!authorized(auth) && (
+                <span key={randStr(10)} onClick={menu.click}>
+                  {menu.title}
                 </span>
-              ) : (
-                ''
               )
-            )}
-          </span>
-        </div>
-      </nav>
-    );
-  }
-}
-
-TopNavigation.defaultProps = {
-  auth: null,
-  history: {}
+          )}
+        </span>
+      </div>
+    </nav>
+  );
 };
 
 export default quickConnect(TopNavigation);

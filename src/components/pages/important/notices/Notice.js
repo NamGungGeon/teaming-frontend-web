@@ -7,11 +7,11 @@ import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
 import { getPath } from '../../../../utils/url';
 import { authorized } from '../../../../utils/utils';
+import Optional from '../../../primitive/Optional/Optional';
 
 class Notice extends Component {
   state = {
-    notice: null,
-    isAdmin: false
+    notice: null
   };
   removeNotice = () => {
     const { uiKit, auth, match, history } = this.props;
@@ -60,7 +60,7 @@ class Notice extends Component {
   async componentDidMount() {
     window.scrollTo(0, 0);
 
-    const { uiKit, match, auth } = this.props;
+    const { uiKit, match } = this.props;
     const { params } = match;
 
     const { id } = params;
@@ -76,23 +76,13 @@ class Notice extends Component {
         uiKit.toaster.cooking(errMsg(e));
       });
     uiKit.loading.end();
-
-    if (authorized(auth))
-      getMyProfile(auth).then(response => {
-        const { role } = response.data;
-        if (role === 'ADMIN')
-          this.setState({
-            ...this.state,
-            isAdmin: true
-          });
-      });
   }
 
   render() {
-    const { notice, isAdmin } = this.state;
+    const { notice } = this.state;
     return (
       <div>
-        {isAdmin && (
+        <Optional onlyAdmin={true}>
           <Section divideStyle={'fill'}>
             <h5>관리자 메뉴</h5>
             <AlignLayout align={'right'}>
@@ -105,7 +95,7 @@ class Notice extends Component {
               </Button>
             </AlignLayout>
           </Section>
-        )}
+        </Optional>
         {notice ? (
           <Section>
             <div>

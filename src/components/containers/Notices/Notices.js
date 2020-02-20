@@ -27,7 +27,15 @@ class Notices extends Component {
     const { notices } = this.state;
 
     if (notices && notices.length === 0) {
-      return <p>공지사항이 없습니다</p>;
+      return (
+        <p
+          style={{
+            padding: '16px'
+          }}
+        >
+          공지사항이 없습니다
+        </p>
+      );
     }
 
     return (

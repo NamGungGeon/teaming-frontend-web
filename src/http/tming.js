@@ -8,6 +8,7 @@ const baseURL = `${
     ? 'http://localhost:4000'
     : 'https://api.tming.kr'
 }`;
+// const baseURL= `https://api.tming.kr`;
 const version = 'v0.1';
 
 const url = `${baseURL}/${version}`;
@@ -543,7 +544,7 @@ export const createCase = (auth, title, text, media, replyEmail) => {
   if (media) {
     const data = new FormData();
     data.append('text', text);
-    data.append('title', title)
+    data.append('title', title);
 
     if (replyEmail) {
       data.append('replyEmail', replyEmail);
@@ -678,6 +679,21 @@ export const deleteMessage = (auth, id) => {
     url: `${url}/messages/${id}`,
     headers: {
       Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
+  });
+};
+
+export const createChatRating = (auth, opponent, rating, detail) => {
+  return axios.request({
+    method: 'POST',
+    url: `${url}/chatRatings`,
+    headers: {
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    },
+    data: {
+      opponent,
+      rating,
+      detail
     }
   });
 };

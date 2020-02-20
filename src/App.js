@@ -33,6 +33,7 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import Optional from './components/primitive/Optional/Optional';
 import { Button } from '@material-ui/core';
 import HocWrapper from './components/containers/HocWrapper/HocWrapper';
+import Contact from './components/pages/Contact';
 
 class App extends Component {
   state = {
@@ -109,6 +110,7 @@ class App extends Component {
                   <Route path={getPath('/mypage')} component={MyPage} />
                   <Route path={getPath('/trade')} component={Trade} />
                   <Route path={getPath('/privacy')} component={Privacy} />
+                  <Route path={getPath('/contact')} component={Contact} />
                   <Route path={getPath('/community')} component={Community} />
                   <Route
                     path={getPath('/important/notices')}

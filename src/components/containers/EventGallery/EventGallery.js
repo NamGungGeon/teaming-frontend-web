@@ -37,7 +37,15 @@ class EventGallery extends Component {
     const { events } = this.state;
 
     if (events && events.length === 0) {
-      return <p>진행중인 이벤트가 없습니다</p>;
+      return (
+        <p
+          style={{
+            padding: '16px'
+          }}
+        >
+          진행중인 이벤트가 없습니다
+        </p>
+      );
     }
 
     return (
