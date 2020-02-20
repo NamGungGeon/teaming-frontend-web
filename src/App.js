@@ -28,7 +28,7 @@ import Footer from './components/containers/Footer/Footer';
 import Cyphers from './components/pages/cyphers/Cyphers';
 import logo from './components/resource/tming_txt.png';
 import MusicPlayer from './components/containers/MusicPlayer/MusicPlayer';
-import GoogleAdvertise from './components/containers/GoogleAdvertise/GoogleAdvertise';
+import Advertise from './components/containers/Advertise/Advertise';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import Optional from './components/primitive/Optional/Optional';
 import { Button } from '@material-ui/core';
@@ -181,7 +181,7 @@ class App extends Component {
                     <br />
                   </Optional>
                   <MusicPlayer />
-                  <GoogleAdvertise />
+                  <Advertise />
                 </div>
               </div>
             </div>
