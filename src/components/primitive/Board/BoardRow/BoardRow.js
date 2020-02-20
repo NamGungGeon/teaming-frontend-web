@@ -10,7 +10,7 @@ const BoardRow= ({ title, explains, exp_l, exp_r, thumbnail, onClick })=> {
           {
             explains.map(explain=>{
               return (
-                <span className="explain">
+                <span key={explain} className="explain">
                   {explain}
                 </span>
               )
