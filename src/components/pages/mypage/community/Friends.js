@@ -15,7 +15,7 @@ import { getFriends } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
 import CardBody from 'reactstrap/es/CardBody';
 import Avatar from '@material-ui/core/Avatar';
-import Adress from "../../../primitive/Adress/Adress";
+import Adress from '../../../primitive/Adress/Adress';
 
 class Friends extends Component {
   state = {
@@ -59,14 +59,17 @@ class Friends extends Component {
                 <Adress
                   picture={friend.profilePicture}
                   name={friend.username}
-                  explain={beautifyDate(friend.createdAt)+ '에 친구가 되었습니다'}
+                  explain={
+                    beautifyDate(friend.createdAt) + '에 친구가 되었습니다'
+                  }
                   options={[
-                    (<Tooltip title={'친구삭제'}>
+                    <Tooltip title={'친구삭제'}>
                       <IconButton>
-                      <TiUserDelete />
+                        <TiUserDelete />
                       </IconButton>
-                    </Tooltip>),
-                  ]}/>
+                    </Tooltip>
+                  ]}
+                />
               );
             })}
         </CardWrapper>

@@ -44,6 +44,6 @@ img + .content {
   justify-content: flex-start;
   flex-wrap: wrap;
 }
-.explain> *{
-  margin-right:8px;
+.explain > * {
+  margin-right: 8px;
 }

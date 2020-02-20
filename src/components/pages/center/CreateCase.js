@@ -14,7 +14,7 @@ import { quickConnect } from '../../../redux/quick';
 class CreateCase extends Component {
   state = {
     email: '',
-    title: '',
+    title: ''
   };
 
   componentDidMount() {
@@ -92,7 +92,7 @@ class CreateCase extends Component {
             });
           }}
         />
-        <br/>
+        <br />
         <Wysiwyg ref={ref => (this.editor = ref)} />
         <br />
         <AlignLayout align={'right'}>

@@ -53,6 +53,13 @@ export const socialSignUp = (
 export const socialSignIn = (provider, uid) =>
   axios.post(`${url}/auth/login/social`, { provider, uid });
 
+export const registerFCM = (fcmToken, auth) =>
+  axios.patch(
+    `${url}/auth/fcm`,
+    { token: fcmToken },
+    { headers: { Authorization: `Bearer ${auth.token}` } }
+  );
+
 export const getTrashes = () => {
   return axios.request({
     method: 'GET',

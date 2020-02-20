@@ -4,7 +4,7 @@ import './SideNavigation.css';
 import Footer from '../Footer/Footer';
 import HorizontalNavigation from './HorizontalNavigation';
 
-const SideNavigation= (props)=>{
+const SideNavigation = props => {
   const { sideNav } = props;
 
   return (
@@ -19,6 +19,6 @@ const SideNavigation= (props)=>{
       <Footer />
     </div>
   );
-}
+};
 
 export default quickConnect(SideNavigation);

@@ -5,26 +5,25 @@ import Notices from '../Notices/Notices';
 import Section from '../../primitive/Section/Section';
 import { getPath } from '../../../utils/url';
 import getHistory from 'react-router-global-history';
-import {scrollToBottom} from "../../../utils/utils";
+import { scrollToBottom } from '../../../utils/utils';
 
 const UsefulInformation = () => {
   const history = getHistory();
-  const headerStyle= {
+  const headerStyle = {
     padding: '16px',
     textAlign: 'left',
-    borderBottom: '0.6px solid #e9e9e9',
-  }
+    borderBottom: '0.6px solid #e9e9e9'
+  };
 
   return (
     <div className={styles.wrapper}>
       <Section
         style={{
-          padding: 0,
+          padding: 0
         }}
-        divideStyle={'fill'}>
-        <div
-          style={headerStyle}
-        >
+        divideStyle={'fill'}
+      >
+        <div style={headerStyle}>
           <b
             style={{
               cursor: 'pointer'
@@ -40,12 +39,11 @@ const UsefulInformation = () => {
       </Section>
       <Section
         style={{
-          padding: 0,
+          padding: 0
         }}
-        divideStyle={'fill'}>
-        <div
-          style={headerStyle}
-        >
+        divideStyle={'fill'}
+      >
+        <div style={headerStyle}>
           <b
             style={{
               cursor: 'pointer'
