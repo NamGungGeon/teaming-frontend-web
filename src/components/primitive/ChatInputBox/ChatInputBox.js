@@ -43,6 +43,9 @@ class ChatInputBox extends Component {
       <Form className="chat-submission-form" onSubmit={this.handleSubmit}>
         <InputGroup>
           <Input
+            style={{
+              backgroundColor: 'white!important'
+            }}
             className={'transparent'}
             type={type}
             value={this.state.value}

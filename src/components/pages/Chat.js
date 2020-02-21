@@ -103,34 +103,36 @@ class Chat extends Component {
 
   endChat = () => {
     const { uiKit, auth } = this.props;
-    uiKit.popup.make(
-      <ChatResult
-        auth={auth}
-        opponent={this.state.opponent.clone()}
-        close={() => {
-          uiKit.popup.destroy();
-        }}
-      />
-    );
-    const { room } = this.state;
+    const { room, opponent } = this.state;
+
+    console.log(opponent);
+    if (opponent)
+      uiKit.popup.make(
+        <ChatResult
+          auth={auth}
+          opponent={opponent.slice()}
+          close={() => {
+            uiKit.popup.destroy();
+          }}
+        />
+      );
     if (room) {
       this.socket.emit('CHAT_ENDED', room);
     }
-    this.socket.disconnect();
-    this.setState({
-      ...this.state,
-      room: null,
-      opponent: null
-    });
+    if (this.socket) {
+      this.socket.disconnect();
+      this.setState({
+        ...this.state,
+        room: null,
+        opponent: null
+      });
+    }
   };
 
   render() {
     const { matchComplete, room, opponent } = this.state;
     const { history, uiKit } = this.props;
 
-    const chatting = (
-      <Chatting socket={this.socket} room={room} opponent={opponent} />
-    );
     const tools = (
       <div>
         <ButtonGroup
@@ -178,6 +180,14 @@ class Chat extends Component {
         </Window>
       </div>
     );
+    const chatting = (
+      <Chatting
+        tools={tools}
+        socket={this.socket}
+        room={room}
+        opponent={opponent}
+      />
+    );
 
     return (
       <>
@@ -186,21 +196,6 @@ class Chat extends Component {
         ) : (
           this.chatStatus()
         )}
-        <Floating
-          style={{
-            opacity: 0.8
-          }}
-          className={'mobile'}
-        >
-          <Fab
-            onClick={() => {
-              uiKit.popup.make(tools);
-            }}
-            color="primary"
-          >
-            <PersonIcon />
-          </Fab>
-        </Floating>
       </>
     );
   }

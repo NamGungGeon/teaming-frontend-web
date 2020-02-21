@@ -5,6 +5,8 @@ import { quickConnect } from '../../../redux/quick';
 import { isEndScroll, scrollToBottom } from '../../../utils/utils';
 import ChatInputBox from '../../primitive/ChatInputBox/ChatInputBox';
 import Section from '../../primitive/Section/Section';
+import classNames from 'classnames';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
 
 class Chatting extends Component {
   constructor(props) {
@@ -105,7 +107,7 @@ class Chatting extends Component {
 
   render() {
     const { msgs, ring } = this.state;
-    const { socket, room, config } = this.props;
+    const { socket, room, config, tools, uiKit } = this.props;
     return (
       <Section
         divideStyle={'fill'}
@@ -114,11 +116,24 @@ class Chatting extends Component {
           config.hideNav
             ? {
                 top: 0,
-                height: '100%'
+                height: '100%',
+                padding: 0
               }
-            : {}
+            : {
+                padding: 0
+              }
         }
       >
+        <div
+          className={classNames(styles.header, 'mobile')}
+          onClick={() => {
+            if (tools) uiKit.popup.make(tools);
+          }}
+        >
+          <PersonPinIcon />
+          &nbsp;&nbsp;
+          <span>상대방 정보 보기</span>
+        </div>
         <div className={styles.chatMsgs} ref={ref => (this.msgBox = ref)}>
           {msgs.map((msg, idx) => {
             return <ChatMsg key={idx} {...msg} />;

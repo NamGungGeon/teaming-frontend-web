@@ -2,10 +2,12 @@
   position: fixed;
   bottom: 16px;
   right: 16px;
+  height: auto;
 }
 
 @media (max-width: 500px) {
   .wrapper {
     top: 64px;
+    bottom: initial;
   }
 }

@@ -17,26 +17,47 @@ import PeopleIcon from '@material-ui/icons/People';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import EmailIcon from '@material-ui/icons/Email';
+import { urlQuery } from '../../../../utils/url';
 
 class Notifications extends Component {
-  state = {
-    notifications: null,
-    count: 0
-  };
+  constructor(props, context, state) {
+    super(props, context);
+    this.state = {
+      notifications: null,
+      count: 0,
+      activeLabel: '전체'
+    };
+
+    const { category } = urlQuery(props.location);
+    if (category) {
+      const convertToLabel = () => {
+        switch (category) {
+          case 'friends':
+            return '친구';
+          case 'community':
+            return '커뮤니티';
+          case 'message':
+            return '쪽지';
+          case 'complain':
+            return '문의';
+          default:
+            return '전체';
+        }
+      };
+      this.state.activeLabel = convertToLabel();
+    }
+  }
 
   componentDidMount() {
     this.loadNotifications();
   }
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(this.state);
-  }
-
   loadNotifications = async () => {
     const { auth, uiKit } = this.props;
 
     uiKit.loading.start();
     await getNotifications(auth, 99999)
       .then(response => {
+        console.log(response.data.data);
         if (response.data.count === 0) {
           uiKit.toaster.cooking('알림이 없습니다');
           return;
@@ -112,9 +133,51 @@ class Notifications extends Component {
       });
     uiKit.loading.end();
   };
-
+  renderNotifications = notifications => {
+    return notifications.map(notification => {
+      return (
+        <MenuItem
+          variant={'inherit'}
+          key={randStr(10)}
+          onClick={() => {
+            //TODO: 알림 클릭 시 동작
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              alignItems: 'center'
+            }}
+          >
+            <div
+              style={{
+                flex: '1',
+                overflow: 'hidden'
+              }}
+            >
+              <div>{notification.title}</div>
+              <Typography noWrap className={'explain'}>
+                {notification.body}
+              </Typography>
+            </div>
+            <div>
+              <DeleteIcon
+                onClick={() => {
+                  this.removeNotification(notification.id);
+                }}
+              />
+            </div>
+          </div>
+        </MenuItem>
+      );
+    });
+  };
   render() {
-    const { notifications, count } = this.state;
+    const { notifications, count, activeLabel } = this.state;
+    console.log('activelabel', activeLabel);
 
     return (
       <div>
@@ -132,79 +195,42 @@ class Notifications extends Component {
         </AlignLayout>
         <br />
         {notifications && (
-          <Section
-            style={{
-              marginTop: 0
+          <Tabs
+            initActive={activeLabel}
+            handleTab={label => {
+              this.setState({
+                ...this.state,
+                label
+              });
             }}
-            divideStyle={'fill'}
-          >
-            <Tabs
-              initActive={'전체'}
-              tabs={[
-                {
-                  label: '전체',
-                  startIcon: <ReorderIcon />
-                },
-                {
-                  label: '커뮤니티',
-                  startIcon: <PeopleIcon />
-                },
-                {
-                  label: '친구',
-                  startIcon: <PersonAddIcon />
-                },
-                {
-                  label: '쪽지',
-                  startIcon: <EmailIcon />
-                },
-                {
-                  label: '문의',
-                  startIcon: <QuestionAnswerIcon />
-                }
-              ]}
-            />
-            <br />
-            {notifications.map(notification => {
-              return (
-                <MenuItem
-                  variant={'inherit'}
-                  key={randStr(10)}
-                  onClick={() => {
-                    //TODO: 알림 클릭 시 동작
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'flex-start',
-                      alignItems: 'center'
-                    }}
-                  >
-                    <div
-                      style={{
-                        flex: '1',
-                        overflow: 'hidden'
-                      }}
-                    >
-                      <div>{notification.title}</div>
-                      <Typography noWrap className={'explain'}>
-                        {notification.body}
-                      </Typography>
-                    </div>
-                    <div>
-                      <DeleteIcon
-                        onClick={() => {
-                          this.removeNotification(notification.id);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </MenuItem>
-              );
-            })}
-          </Section>
+            tabs={[
+              {
+                label: '전체',
+                startIcon: <ReorderIcon />,
+                content: this.renderNotifications(notifications)
+              },
+              {
+                label: '커뮤니티',
+                startIcon: <PeopleIcon />,
+                content: this.renderNotifications(notifications)
+              },
+              {
+                label: '친구',
+                startIcon: <PersonAddIcon />,
+                content: this.renderNotifications(notifications)
+              },
+              {
+                label: '쪽지',
+                startIcon: <EmailIcon />,
+                content: this.renderNotifications(notifications)
+              },
+              {
+                label: '문의',
+                startIcon: <QuestionAnswerIcon />,
+                content: this.renderNotifications(notifications)
+              }
+            ]}
+          />
         )}
         <br />
       </div>

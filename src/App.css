@@ -57,8 +57,6 @@ tbody tr {
   vertical-align: middle !important;
 }
 .form-control.transparent {
-  background-color: inherit !important;
-
   transition-property: background-color, border-color, box-shadow !important;
   transition-duration: 0.2s !important;
 }

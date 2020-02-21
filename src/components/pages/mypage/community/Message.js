@@ -25,6 +25,7 @@ import {
 import { errMsg } from '../../../../http/util';
 import Input from 'reactstrap/es/Input';
 import CloseIcon from '@material-ui/icons/Close';
+import { urlQuery } from '../../../../utils/url';
 
 class Message extends Component {
   state = {
@@ -33,8 +34,13 @@ class Message extends Component {
     newMsg: ''
   };
 
-  componentDidMount() {
-    this.loadMessages();
+  async componentDidMount() {
+    await this.loadMessages();
+    const { location } = this.props;
+    const { message: messageId } = urlQuery(location);
+    if (messageId) {
+      this.readMessage(messageId);
+    }
   }
   componentWillUnmount() {
     this.props.uiKit.destroyAll();
@@ -209,7 +215,6 @@ class Message extends Component {
 
   render() {
     const { messages } = this.state;
-
     return (
       <div>
         <PageTitle

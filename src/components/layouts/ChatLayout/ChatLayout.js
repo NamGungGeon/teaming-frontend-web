@@ -7,7 +7,9 @@ const ChatLayout = ({ chat, tools }) => {
 
   return (
     <div className={styles.wrapper}>
-      {tools ? <div className={styles.info}>{tools}</div> : ''}
+      <div className={styles.info}>
+        {tools ? <div className={'desktop'}>{tools}</div> : ''}
+      </div>
       <div className={styles.chat} style={chatStyle}>
         {chat}
       </div>
