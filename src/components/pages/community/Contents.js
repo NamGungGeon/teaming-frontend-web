@@ -119,7 +119,8 @@ class Contents extends Component {
               content: content.body,
               nickname: content.author ? content.author.username : '익명',
               createDate: content.createdAt,
-              views: content.views
+              views: content.views,
+              thumbnail: content.thumbnail
             };
           }),
           count: data.count,
@@ -347,7 +348,6 @@ class Contents extends Component {
         </div>
         <BoardWrapper
           boards={this.state.contents.map(content => {
-            console.log(content.title, content);
             return {
               title: `${content.title}`,
               explains: [
@@ -355,7 +355,7 @@ class Contents extends Component {
                 `| ${momenting(content.createDate).fromNow()}`,
                 `| 조회수 ${content.views}회`
               ],
-              thumbnail: getImageSrcFromHTML(content.content),
+              thumbnail: content.thumbnail,
               onClick: () => {
                 history.push(
                   getPath(

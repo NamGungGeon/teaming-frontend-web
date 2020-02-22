@@ -285,6 +285,7 @@ export const getBoardPosts = (category, limit, offset, searchField, search) => {
     }
   });
 };
+
 export const createBoardPosts = (auth, category, title, body, code, media) => {
   if (media) {
     // media 는 무조건 array 임
@@ -298,9 +299,9 @@ export const createBoardPosts = (auth, category, title, body, code, media) => {
       data.append('modifyCode', code);
     }
 
-    media.forEach((file, index) => {
-      const extension = file.name.split('.').pop();
-      data.append('media', file, `${index}.${extension}`);
+    media.forEach(({ index, media }) => {
+      const extension = media.name.split('.').pop();
+      data.append('media', media, `${index}.${extension}`);
     });
 
     return axios.request({
@@ -352,9 +353,9 @@ export const updateBoardPost = (
     data.append('body', body);
     data.append('modifyCode', code);
 
-    media.forEach((file, index) => {
-      const extension = file.name.split('.').pop();
-      data.append('media', file, `${index}.${extension}`);
+    media.forEach(({ index, media }) => {
+      const extension = media.name.split('.').pop();
+      data.append('media', media, `${index}.${extension}`);
     });
 
     return axios.request({

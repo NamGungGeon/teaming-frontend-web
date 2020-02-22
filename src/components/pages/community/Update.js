@@ -63,6 +63,7 @@ class Update extends Component {
     const data = this.editor.getBody();
 
     uiKit.loading.start();
+
     await updateBoardPost(
       auth,
       match.params.id,
