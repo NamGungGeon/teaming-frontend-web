@@ -23,7 +23,6 @@ class MyUploadAdapter {
       if (loader || listener) {
         loader.file.then(response => {
           const blob = window.URL.createObjectURL(response);
-
           //key is object path
           //value is file object,
           const image = {

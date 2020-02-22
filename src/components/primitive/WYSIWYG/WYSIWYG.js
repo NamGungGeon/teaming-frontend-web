@@ -30,12 +30,8 @@ class Wysiwyg extends Component {
             // Configure the URL to the upload script in your back-end here!
             return new MyUploadAdapter(loader, {
               ok: file => {
-                const { media } = this.state;
-                media.push(file);
-
                 this.setState({
-                  ...this.state,
-                  media
+                  media: [...this.state.media, file]
                 });
               },
               fail: e => {
@@ -67,9 +63,10 @@ class Wysiwyg extends Component {
       Object.keys(data).forEach(blob => {
         const extension = data[blob].name.split('.').pop();
         const replaced = body.replace(blob, image(`${index}.${extension}`));
+
         if (replaced !== body) {
           body = body.replace(blob, image(`${index}.${extension}`));
-          usedMedia.push(data[blob]);
+          usedMedia.push({ index, media: data[blob] });
         }
       });
     });

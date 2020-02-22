@@ -12,10 +12,13 @@ import Wysiwyg from '../../primitive/WYSIWYG/WYSIWYG';
 import { authorized } from '../../../utils/utils';
 
 class Write extends Component {
-  state = {
-    title: '',
-    code: ''
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      code: ''
+    };
+  }
 
   componentDidMount() {
     const { uiKit, auth, location, history } = this.props;
@@ -44,6 +47,7 @@ class Write extends Component {
     const data = this.wysiwyg.getBody();
 
     uiKit.loading.start();
+
     await createBoardPosts(auth, category, title, data.body, code, data.media)
       .then(response => {
         //ok!
@@ -54,6 +58,7 @@ class Write extends Component {
       .catch(e => {
         uiKit.toaster.cooking(errMsg(e));
       });
+
     uiKit.loading.end();
   };
 
