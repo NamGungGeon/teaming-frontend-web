@@ -11,11 +11,13 @@ import CardActions from '@material-ui/core/CardActions';
 import { TiUserDelete } from 'react-icons/ti';
 import { MdBlock } from 'react-icons/md';
 import Tooltip from '@material-ui/core/Tooltip';
-import { getFriends } from '../../../../http/tming';
+import { deleteFriend, getFriends } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
 import CardBody from 'reactstrap/es/CardBody';
 import Avatar from '@material-ui/core/Avatar';
-import Adress from '../../../primitive/Adress/Adress';
+import Address from '../../../primitive/Address/Address';
+import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
+import Button from '@material-ui/core/Button';
 
 class Friends extends Component {
   state = {
@@ -43,6 +45,46 @@ class Friends extends Component {
     uiKit.loading.end();
   };
 
+  removeFriend = friend_id => {
+    const { uiKit, auth } = this.props;
+    uiKit.popup.make(
+      <div>
+        <h4>이 친구를 삭제하시겠습니까?</h4>
+        <br />
+        <AlignLayout align={'right'}>
+          <Button
+            onClick={async () => {
+              uiKit.loading.start();
+              await deleteFriend(auth, friend_id)
+                .then(response => {
+                  uiKit.toaster.cooking('삭제되었습니다');
+                  uiKit.popup.destroy();
+                  this.loadFriends();
+                })
+                .catch(e => {
+                  uiKit.toaster.cooking(errMsg(e));
+                });
+              uiKit.loading.end();
+            }}
+            color={'secondary'}
+            variant={'contained'}
+          >
+            삭제
+          </Button>
+          &nbsp;&nbsp;
+          <Button
+            onClick={() => {
+              uiKit.popup.destroy();
+            }}
+            variant={'contained'}
+          >
+            닫기
+          </Button>
+        </AlignLayout>
+      </div>
+    );
+  };
+
   render() {
     const { friends } = this.state;
 
@@ -54,9 +96,9 @@ class Friends extends Component {
           {friends && friends.length === 0 && <p>등록된 친구가 없습니다</p>}
           {friends &&
             friends.map(_friend => {
-              const friend = _friend.friends;
+              const friend = _friend.friend;
               return (
-                <Adress
+                <Address
                   picture={friend.profilePicture}
                   name={friend.username}
                   explain={
@@ -64,7 +106,11 @@ class Friends extends Component {
                   }
                   options={[
                     <Tooltip title={'친구삭제'}>
-                      <IconButton>
+                      <IconButton
+                        onClick={() => {
+                          this.removeFriend(_friend.id);
+                        }}
+                      >
                         <TiUserDelete />
                       </IconButton>
                     </Tooltip>

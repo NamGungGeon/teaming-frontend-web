@@ -13,7 +13,7 @@ const HottestPosts = ({ category, uiKit }) => {
   useEffect(() => {
     (async () => {
       uiKit.loading.start();
-      await getBoardPosts(category, 4, 0, '', '')
+      await getBoardPosts(category, 4, 0, '', '', 'popular')
         .then(response => {
           const { data } = response.data;
           console.log('hottestPost', data);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import styles from './Adress.module.css';
+import styles from './Address.module.css';
 
-const Adress = ({ picture, name, explain, options, onClick }) => {
+const Address = ({ picture, name, explain, options, onClick }) => {
   return (
     <div onClick={onClick} className={styles.wrapper}>
       {typeof picture === 'string' ? <img src={picture} alt="" /> : picture}
@@ -18,9 +18,9 @@ const Adress = ({ picture, name, explain, options, onClick }) => {
   );
 };
 
-Adress.defaultProps = {
+Address.defaultProps = {
   picture: '',
   onClick: () => {}
 };
 
-export default Adress;
+export default Address;

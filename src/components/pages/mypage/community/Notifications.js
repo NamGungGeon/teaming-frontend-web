@@ -18,10 +18,13 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import EmailIcon from '@material-ui/icons/Email';
 import { urlQuery } from '../../../../utils/url';
+import axios from 'axios';
+import NotificationList from '../../../containers/NotificationList/NotificationList';
+import Menu from '@material-ui/core/Menu';
 
 class Notifications extends Component {
   constructor(props, context, state) {
-    super(props, context);
+    super(props, context, state);
     this.state = {
       notifications: null,
       count: 0,
@@ -133,52 +136,8 @@ class Notifications extends Component {
       });
     uiKit.loading.end();
   };
-  renderNotifications = notifications => {
-    return notifications.map(notification => {
-      return (
-        <MenuItem
-          variant={'inherit'}
-          key={randStr(10)}
-          onClick={() => {
-            //TODO: 알림 클릭 시 동작
-          }}
-        >
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center'
-            }}
-          >
-            <div
-              style={{
-                flex: '1',
-                overflow: 'hidden'
-              }}
-            >
-              <div>{notification.title}</div>
-              <Typography noWrap className={'explain'}>
-                {notification.body}
-              </Typography>
-            </div>
-            <div>
-              <DeleteIcon
-                onClick={() => {
-                  this.removeNotification(notification.id);
-                }}
-              />
-            </div>
-          </div>
-        </MenuItem>
-      );
-    });
-  };
   render() {
     const { notifications, count, activeLabel } = this.state;
-    console.log('activelabel', activeLabel);
-
     return (
       <div>
         <PageTitle title={'알림'} explain={`${count}개의 알림이 있습니다`} />
@@ -207,27 +166,27 @@ class Notifications extends Component {
               {
                 label: '전체',
                 startIcon: <ReorderIcon />,
-                content: this.renderNotifications(notifications)
+                content: <NotificationList limit={8} />
               },
               {
                 label: '커뮤니티',
                 startIcon: <PeopleIcon />,
-                content: this.renderNotifications(notifications)
+                content: <NotificationList filter="comment" limit={8} />
               },
               {
                 label: '친구',
                 startIcon: <PersonAddIcon />,
-                content: this.renderNotifications(notifications)
+                content: <NotificationList filter="friend" limit={8} />
               },
               {
                 label: '쪽지',
                 startIcon: <EmailIcon />,
-                content: this.renderNotifications(notifications)
+                content: <NotificationList filter="message" limit={8} />
               },
               {
                 label: '문의',
                 startIcon: <QuestionAnswerIcon />,
-                content: this.renderNotifications(notifications)
+                content: <NotificationList filter="complain" limit={8} />
               }
             ]}
           />

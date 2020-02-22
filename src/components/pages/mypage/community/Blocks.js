@@ -14,7 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
 import { beautifyDate } from '../../../../utils/utils';
-import Adress from '../../../primitive/Adress/Adress';
+import Address from '../../../primitive/Address/Address';
 
 class Blocks extends Component {
   state = {
@@ -101,7 +101,7 @@ class Blocks extends Component {
             blocks.map(data => {
               const { block } = data;
               return (
-                <Adress
+                <Address
                   onClick={() => {
                     this.removeBlock(data.id);
                   }}

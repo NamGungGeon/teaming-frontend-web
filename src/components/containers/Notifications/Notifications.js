@@ -15,6 +15,7 @@ import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import getHistory from 'react-router-global-history';
 import { getPath } from '../../../utils/url';
 import Tooltip from '@material-ui/core/Tooltip';
+import NotificationList from '../NotificationList/NotificationList';
 
 class Notifications extends Component {
   state = {
@@ -38,11 +39,11 @@ class Notifications extends Component {
   };
   componentDidMount() {
     console.log('notifications: im mounted');
-    this.refresh();
-    this.timer = setInterval(this.refresh, 60 * 1000);
+    //this.refresh();
+    //this.timer = setInterval(this.refresh, 60 * 1000);
   }
   componentWillUnmount() {
-    console.log('notifications: im will unmounted');
+    console.log('notifications: i will be unmounted');
     window.clearInterval(this.timer);
   }
 
@@ -114,75 +115,18 @@ class Notifications extends Component {
             }
           }}
         >
-          {notifications && notifications.length < count && (
-            <MenuItem
-              onClick={() => {
-                history.push(getPath('/mypage/community/notifications'));
-              }}
-              variant={'inherit'}
-            >
-              <AlignLayout align={'center'}>
-                <NotificationsIcon />
-                &nbsp;&nbsp;알림 모두 보기
-              </AlignLayout>
-            </MenuItem>
-          )}
-          {notifications &&
-            notifications.map(notification => {
-              return (
-                <MenuItem
-                  variant={'inherit'}
-                  key={randStr(10)}
-                  onClick={() => {
-                    //TODO: 알림 클릭 시 동작
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'flex-start',
-                      alignItems: 'center'
-                    }}
-                  >
-                    <div
-                      style={{
-                        flex: '1',
-                        overflow: 'hidden'
-                      }}
-                    >
-                      <div>{notification.title}</div>
-                      <Typography noWrap className={'explain'}>
-                        {notification.body}
-                      </Typography>
-                    </div>
-                    <div>
-                      <DeleteIcon
-                        onClick={async () => {
-                          //remove
-                          uiKit.loading.start();
-                          await removeNotification(auth, notification.id)
-                            .then(response => {
-                              this.setState({
-                                ...this.state,
-                                count: this.state.count - 1,
-                                notifications: notifications.filter(n => {
-                                  return n.id !== notification.id;
-                                })
-                              });
-                            })
-                            .catch(e => {
-                              uiKit.toaster.cooking(errMsg(e));
-                            });
-                          uiKit.loading.end();
-                        }}
-                      />
-                    </div>
-                  </div>
-                </MenuItem>
-              );
-            })}
+          <MenuItem
+            onClick={() => {
+              history.push(getPath('/mypage/community/notifications'));
+            }}
+            variant={'inherit'}
+          >
+            <AlignLayout align={'center'}>
+              <NotificationsIcon />
+              &nbsp;&nbsp;알림 모두 보기
+            </AlignLayout>
+          </MenuItem>
+          <NotificationList limit={8} />
         </Menu>
       </span>
     );

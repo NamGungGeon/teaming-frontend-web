@@ -119,7 +119,8 @@ class Contents extends Component {
               content: content.body,
               nickname: content.author ? content.author.username : '익명',
               createDate: content.createdAt,
-              views: content.views
+              views: content.views,
+              thumbnail: content.thumbnail
             };
           }),
           count: data.count,

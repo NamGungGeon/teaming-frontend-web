@@ -6,6 +6,7 @@ import { getNotices } from '../../../http/tming';
 import Spinner from 'reactstrap/es/Spinner';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
+import SimpleRow from '../../primitive/SimpleRow/SimpleRow';
 
 class Notices extends Component {
   state = {
@@ -49,18 +50,14 @@ class Notices extends Component {
         {notices ? (
           notices.map(notice => {
             return (
-              <MenuItem
+              <SimpleRow
                 key={notice.title}
-                className={styles.notice}
                 onClick={() => {
                   history.push(getPath(`/important/notices/${notice.id}`));
                 }}
-              >
-                <div className={styles.title}>{notice.title}</div>
-                <div className={styles.date}>
-                  {beautifyDate(notice.createdAt)}
-                </div>
-              </MenuItem>
+                title={notice.title}
+                desc={beautifyDate(notice.createdAt)}
+              />
             );
           })
         ) : (

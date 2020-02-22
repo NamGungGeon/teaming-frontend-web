@@ -9,6 +9,7 @@ import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
 import getHistory from 'react-router-global-history';
 import { beautifyDate } from '../../../utils/utils';
+import SimpleRow from '../../primitive/SimpleRow/SimpleRow';
 
 class EventGallery extends Component {
   state = {
@@ -60,18 +61,18 @@ class EventGallery extends Component {
           events.map(event => {
             console.log('event', event);
             return (
-              <MenuItem
-                className={styles.event}
-                key={event.title}
-                onClick={() => {
-                  getHistory().push(getPath(`/important/events/${event.id}`));
-                }}
-              >
-                <div className={styles.title}>{event.title}</div>
-                <div className={styles.date}>
-                  {beautifyDate(event.endDate)}까지
-                </div>
-              </MenuItem>
+              <div className={styles.event}>
+                <img src={event.banner} />
+                <SimpleRow
+                  className={styles.explain}
+                  key={event.title}
+                  title={event.title}
+                  desc={beautifyDate(event.endDate)}
+                  onClick={() => {
+                    getHistory().push(getPath(`/important/events/${event.id}`));
+                  }}
+                />
+              </div>
             );
           })
         ) : (

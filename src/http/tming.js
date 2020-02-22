@@ -3,12 +3,12 @@ import axios from 'axios';
 import moment from 'moment';
 
 //base
-const baseURL = `${
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:4000'
-    : 'https://api.tming.kr'
-}`;
-// const baseURL= `https://api.tming.kr`;
+// const baseURL = `${
+//   process.env.NODE_ENV === 'development'
+//     ? 'http://localhost:4000'
+//     : 'https://api.tming.kr'
+// }`;
+const baseURL = `https://api.tming.kr`;
 const version = 'v0.1';
 
 const url = `${baseURL}/${version}`;
@@ -267,7 +267,14 @@ export const uploadProfileImage = (auth, file) => {
   });
 };
 
-export const getBoardPosts = (category, limit, offset, searchField, search) => {
+export const getBoardPosts = (
+  category,
+  limit,
+  offset,
+  searchField,
+  search,
+  ordering
+) => {
   const options = {};
   if (searchField && search) {
     options.searchField = searchField;
@@ -278,6 +285,7 @@ export const getBoardPosts = (category, limit, offset, searchField, search) => {
     method: 'GET',
     url: `${url}/boards`,
     params: {
+      ordering,
       category: category.toUpperCase(),
       limit,
       offset,
@@ -465,6 +473,18 @@ export const getFriends = auth => {
     }
   });
 };
+export const agreeFriend = (auth, target) => {
+  return axios.request({
+    method: 'POST',
+    url: `${url}/me/friends`,
+    headers: {
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    },
+    data: {
+      target
+    }
+  });
+};
 export const requestFriend = (auth, target) => {
   return axios.request({
     method: 'POST',
@@ -480,12 +500,9 @@ export const requestFriend = (auth, target) => {
 export const deleteFriend = (auth, relationship_id) => {
   return axios.request({
     method: 'DELETE',
-    url: `${url}/me/friends`,
+    url: `${url}/me/friends/${relationship_id}`,
     headers: {
       Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
-    },
-    data: {
-      relationship_id
     }
   });
 };
@@ -533,6 +550,15 @@ export const getNotifications = (auth, limit) => {
     },
     params: {
       limit
+    }
+  });
+};
+export const readNotification = (auth, id) => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/me/notifications/${id}`,
+    headers: {
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     }
   });
 };
