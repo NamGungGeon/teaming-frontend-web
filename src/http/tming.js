@@ -33,21 +33,11 @@ export const signup = (email, password, username, gender) =>
 export const signin = (email, password) =>
   axios.post(`${url}/auth/login`, { email, password });
 
-export const socialSignUp = (
-  provider,
-  uid,
-  email,
-  username,
-  gender,
-  birthday
-) =>
+export const socialSignUp = (provider, uid, email) =>
   axios.post(`${url}/auth/register/social`, {
     provider,
     uid,
-    email,
-    username,
-    gender,
-    birthday
+    email
   });
 
 export const socialSignIn = (provider, uid) =>
