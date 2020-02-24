@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { quickConnect } from '../../../../redux/quick';
 import { beautifyDate, fuckHTML } from '../../../../utils/utils';
-import { getMyComaplins } from '../../../../http/tming';
+import { getMyComaplains } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
 
 class Asked extends Component {
@@ -19,7 +19,7 @@ class Asked extends Component {
     const { uiKit, auth } = this.props;
 
     uiKit.loading.start();
-    await getMyComaplins(auth)
+    await getMyComaplains(auth)
       .then(response => {
         const { data } = response;
         console.log(data.data);

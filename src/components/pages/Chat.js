@@ -106,7 +106,7 @@ class Chat extends Component {
     const { room, opponent } = this.state;
 
     console.log(opponent);
-    if (opponent)
+    if (opponent && auth)
       uiKit.popup.make(
         <ChatResult
           auth={auth}

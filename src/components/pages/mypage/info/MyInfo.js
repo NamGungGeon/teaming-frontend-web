@@ -3,7 +3,11 @@ import PageTitle from '../../../primitive/PageTitle/PageTitle';
 import ImageView from '../../../primitive/ImageView/ImageView';
 import Section from '../../../primitive/Section/Section';
 import { Button } from '@material-ui/core';
-import { getMyProfile, uploadProfileImage } from '../../../../http/tming';
+import {
+  getMyProfile,
+  updateMyProfile,
+  uploadProfileImage
+} from '../../../../http/tming';
 import { quickConnect } from '../../../../redux/quick';
 import Form from 'reactstrap/es/Form';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
@@ -14,10 +18,12 @@ import moment from 'moment';
 import Window from '../../../primitive/Window/Window';
 import HashTable from '../../../primitive/HashTable/HashTable';
 import { beautifyDate } from '../../../../utils/utils';
+import TextField from '@material-ui/core/TextField';
 
 class MyInfo extends Component {
   state = {
-    profile: null
+    profile: null,
+    newNickname: ''
   };
 
   async componentDidMount() {
@@ -110,6 +116,65 @@ class MyInfo extends Component {
       );
     }
   };
+  updateNickname = () => {
+    const { auth, uiKit } = this.props;
+    uiKit.popup.make(
+      <div>
+        <h4>닉네임 변경</h4>
+        <TextField
+          fullWidth
+          type={'text'}
+          name={'nickname'}
+          placeholder={'새로 사용할 닉네임을 입력하세요'}
+          onChange={e => {
+            this.setState({
+              ...this.state,
+              newNickname: e.target.value
+            });
+          }}
+        />
+        <br />
+        <br />
+        <AlignLayout align={'right'}>
+          <Button
+            onClick={async () => {
+              const { newNickname } = this.state;
+              if (!newNickname) {
+                uiKit.toaster.cooking('새로 사용할 닉네임을 입력하세요');
+                return;
+              }
+
+              uiKit.loading.start();
+              await updateMyProfile(auth, newNickname)
+                .then(response => {
+                  uiKit.toaster.cooking('변경이 완료되었습니다');
+                  uiKit.popup.destroy();
+                  this.componentDidMount();
+                })
+                .catch(e => {
+                  uiKit.toaster.cooking(errMsg(e));
+                });
+              uiKit.loading.end();
+            }}
+            variant={'contained'}
+            color={'primary'}
+          >
+            변경
+          </Button>
+          &nbsp;&nbsp;
+          <Button
+            onClick={() => {
+              uiKit.popup.destroy();
+            }}
+            variant={'contained'}
+            color={''}
+          >
+            닫기
+          </Button>
+        </AlignLayout>
+      </div>
+    );
+  };
 
   render() {
     const { profile } = this.state;
@@ -179,7 +244,8 @@ class MyInfo extends Component {
                   table={[
                     {
                       key: '닉네임',
-                      value: profile.username
+                      value: profile.username,
+                      onClick: this.updateNickname
                     },
                     {
                       key: '성별',

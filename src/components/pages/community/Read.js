@@ -84,13 +84,16 @@ class Read extends Component {
     document.querySelectorAll('oembed[url]').forEach(element => {
       // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
       // to discover the media.
-      const anchor = document.createElement('a');
+      console.log(element.querySelectorAll('a').length);
+      if (element.querySelectorAll('a').length === 0) {
+        const anchor = document.createElement('a');
 
-      anchor.setAttribute('href', element.getAttribute('url'));
-      anchor.className = 'embedly-card';
+        anchor.setAttribute('href', element.getAttribute('url'));
+        anchor.className = 'embedly-card';
 
-      element.innerHTML = '';
-      element.append(anchor);
+        element.innerHTML = '';
+        element.append(anchor);
+      }
     });
   }
 
@@ -107,7 +110,7 @@ class Read extends Component {
 
         console.log('loadPost', query.category, data.category);
         if (!query.category) {
-          history.push(
+          history.replace(
             getPath(`/community/read/${id}?category=${data.category}`)
           );
         }
