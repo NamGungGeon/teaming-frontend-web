@@ -63,8 +63,8 @@ class Login extends Component {
       uiKit.loading.end();
     } catch (error) {
       try {
-        const { email, displayName } = user;
-        const response = await socialSignUp('GOOGLE', uid, email, displayName);
+        const { email } = user;
+        const response = await socialSignUp('GOOGLE', uid, email);
         const { id, access, refresh } = response.data;
         AuthDispatcher.login({ id, token: access, refresh });
         uiKit.popup.destroy();
