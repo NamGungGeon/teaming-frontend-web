@@ -98,6 +98,15 @@ class Write extends Component {
         <br />
         <AlignLayout align={'right'}>
           <Button
+            onClick={() => {
+              console.log(this.wysiwyg.getBody());
+            }}
+            variant="contained"
+            color="primary"
+          >
+            테스터
+          </Button>
+          <Button
             onClick={this.createBoardPost}
             variant="contained"
             color="primary"
