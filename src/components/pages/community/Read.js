@@ -89,7 +89,8 @@ class Read extends Component {
       anchor.setAttribute('href', element.getAttribute('url'));
       anchor.className = 'embedly-card';
 
-      element.appendChild(anchor);
+      element.innerHTML = '';
+      element.append(anchor);
     });
   }
 
