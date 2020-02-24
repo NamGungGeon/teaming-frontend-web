@@ -127,10 +127,11 @@ class SignUp extends Component {
       ...this.state,
       [name]: checked
     });
+    console.log(this.state);
   };
 
   render() {
-    const { gender, privacyAgree, contactAgree } = this.state;
+    const { gender, agreePrivacy, agreeContact } = this.state;
     return (
       <div>
         <PageTitle
@@ -244,8 +245,8 @@ class SignUp extends Component {
             </div>
             <FormControlLabel
               onChange={this.handleChecked}
-              name={'privacyAgree'}
-              checked={privacyAgree}
+              name={'agreePrivacy'}
+              checked={agreePrivacy}
               control={<Checkbox value="checkedB" color="primary" />}
               label="약관에 동의합니다"
             />
@@ -266,8 +267,8 @@ class SignUp extends Component {
             </div>
             <FormControlLabel
               onChange={this.handleChecked}
-              name={'contactAgree'}
-              checked={contactAgree}
+              name={'agreeContact'}
+              checked={agreeContact}
               control={<Checkbox value="checkedB" color="primary" />}
               label="약관에 동의합니다"
             />

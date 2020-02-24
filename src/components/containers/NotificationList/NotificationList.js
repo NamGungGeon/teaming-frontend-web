@@ -17,7 +17,7 @@ import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import getHistory from 'react-router-global-history';
 import { getPath } from '../../../utils/url';
 
-const NotificationList = ({ limit, filter, uiKit, auth }) => {
+const NotificationList = ({ limit, filter, updated, uiKit, auth }) => {
   const [notifications, setNotifications] = useState(null);
 
   const refresh = async () => {
@@ -26,6 +26,7 @@ const NotificationList = ({ limit, filter, uiKit, auth }) => {
       .then(response => {
         const { data: notifications } = response.data;
         setNotifications(notifications);
+        updated(response.data.count);
       })
       .catch(e => {
         uiKit.toaster.cooking(errMsg(e));
@@ -48,6 +49,7 @@ const NotificationList = ({ limit, filter, uiKit, auth }) => {
 
   useEffect(() => {
     const timer = window.setInterval(refresh, 30 * 1000);
+    refresh();
     (async () => {
       uiKit.loading.start();
       await refresh();
@@ -109,7 +111,9 @@ const NotificationList = ({ limit, filter, uiKit, auth }) => {
                 };
               case 'comment':
                 return () => {
-                  getHistory().push(getPath(`/community/${notification.ref}`));
+                  getHistory().push(
+                    getPath(`/community/read/${notification.ref}`)
+                  );
                 };
               case 'complain':
                 return () => {
@@ -177,7 +181,8 @@ const NotificationList = ({ limit, filter, uiKit, auth }) => {
 
 NotificationList.defaultProps = {
   limit: 8,
-  filter: ''
+  filter: '',
+  updated: count => {}
 };
 
 export default quickConnect(NotificationList);

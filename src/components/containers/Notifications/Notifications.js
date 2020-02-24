@@ -19,36 +19,25 @@ import NotificationList from '../NotificationList/NotificationList';
 
 class Notifications extends Component {
   state = {
-    notifications: null,
-    count: 0
+    count: null
   };
 
-  refresh = () => {
-    const { auth } = this.props;
-    getNotifications(auth, 8)
-      .then(response => {
-        this.setState({
-          ...this.state,
-          count: response.data.count,
-          notifications: response.data.data
-        });
-      })
-      .catch(e => {
-        console.log(errMsg(e));
-      });
+  updateNotificationBadge = count => {
+    this.setState({
+      ...this.state,
+      count
+    });
   };
+
   componentDidMount() {
     console.log('notifications: im mounted');
-    //this.refresh();
-    //this.timer = setInterval(this.refresh, 60 * 1000);
   }
   componentWillUnmount() {
     console.log('notifications: i will be unmounted');
-    window.clearInterval(this.timer);
   }
 
   render() {
-    const { count, notifications } = this.state;
+    const { count } = this.state;
     const { uiKit, auth } = this.props;
     const history = getHistory();
 
@@ -60,12 +49,13 @@ class Notifications extends Component {
             aria-controls="long-menu"
             aria-haspopup="true"
             onClick={e => {
-              if (!notifications) {
+              console.log(count);
+              if (count === null) {
                 uiKit.toaster.cooking('알림 로딩 중 입니다');
                 return;
               }
 
-              if (notifications.length === 0) {
+              if (count === 0) {
                 uiKit.toaster.cooking('새로운 알림이 없습니다');
                 return;
               }
@@ -126,7 +116,7 @@ class Notifications extends Component {
               &nbsp;&nbsp;알림 모두 보기
             </AlignLayout>
           </MenuItem>
-          <NotificationList limit={8} />
+          <NotificationList limit={8} updated={this.updateNotificationBadge} />
         </Menu>
       </span>
     );

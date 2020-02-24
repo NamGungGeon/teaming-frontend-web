@@ -63,9 +63,25 @@ class Read extends Component {
   componentWillUnmount() {
     pageDescription();
   }
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      (async () => {
+        const { uiKit } = nextProps;
+        const { id } = nextProps.match.params;
+        uiKit.loading.start();
+
+        //load post data
+        await this.loadPost(id);
+        //load post's comment data
+        await this.loadComments(id);
+
+        uiKit.loading.end();
+      })();
+    }
+  }
 
   loadPost = async id => {
-    const { uiKit, auth, location } = this.props;
+    const { uiKit, auth, location, history } = this.props;
     const query = urlQuery(location);
 
     uiKit.loading.start();
@@ -74,6 +90,13 @@ class Read extends Component {
       .then(response => {
         const { data } = response;
         console.log(data);
+
+        console.log('loadPost', query.category, data.category);
+        if (!query.category) {
+          history.push(
+            getPath(`/community/read/${id}?category=${data.category}`)
+          );
+        }
 
         pageDescription(data.title, fuckHTML(data.body).slice(0, 10));
         this.setState({

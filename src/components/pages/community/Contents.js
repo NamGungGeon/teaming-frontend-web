@@ -30,6 +30,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import HashTable from '../../primitive/HashTable/HashTable';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
+import HistoryIcon from '@material-ui/icons/History';
+import Tabs from '../../primitive/Tabs/Tabs/Tabs';
 
 class Contents extends Component {
   state = {
@@ -40,7 +42,8 @@ class Contents extends Component {
     searchField: 'title',
     count: 0,
     offset: 0,
-    openSearchPanel: false
+    openSearchPanel: false,
+    ordering: 'newest'
   };
 
   componentDidMount() {
@@ -75,7 +78,8 @@ class Contents extends Component {
     if (
       getOffset(prevProps.location) !== getOffset(this.props.location) ||
       getCategory(prevProps.location) !== getCategory(this.props.location) ||
-      getSearch(prevProps.location) !== getSearch(this.props.location)
+      getSearch(prevProps.location) !== getSearch(this.props.location) ||
+      this.state.ordering !== prevState.ordering
     )
       this.componentDidMount();
   }
@@ -90,6 +94,7 @@ class Contents extends Component {
       contents: []
     });
 
+    const { ordering } = this.state;
     const { uiKit, location } = this.props;
     const { category, search, searchField } = urlQuery(location);
 
@@ -99,7 +104,8 @@ class Contents extends Component {
       10,
       offset,
       searchField,
-      search
+      search,
+      ordering
     )
       .then(response => {
         const { data } = response;
@@ -173,7 +179,30 @@ class Contents extends Component {
         `/community?category=${this.getCategory()}&search=${search}&searchField=${searchField}&&offset=0`
       );
     };
-
+    const boardWrapper = (
+      <BoardWrapper
+        boards={this.state.contents.map(content => {
+          return {
+            title: `${content.title}`,
+            explains: [
+              `닉네임: ${content.nickname}`,
+              `| ${momenting(content.createDate).fromNow()}`,
+              `| 조회수 ${content.views}회`
+            ],
+            thumbnail: content.thumbnail,
+            onClick: () => {
+              history.push(
+                getPath(
+                  `/community/read/${content.id}?category=${
+                    query.category ? query.category : ''
+                  }`
+                )
+              );
+            }
+          };
+        })}
+      />
+    );
     return (
       <div>
         {this.popup && this.popup.render()}
@@ -310,65 +339,53 @@ class Contents extends Component {
           </div>
         </Section>
         <br />
-        <div
-          style={{
-            padding: '16px',
-            backgroundColor: 'white',
-            borderBottom: '0.6px solid #e9e9e9',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
+        <Tabs
+          initActive={'전체'}
+          handleTab={label => {
+            switch (label) {
+              case '전체':
+                this.setState({
+                  ...this.state,
+                  ordering: 'newest'
+                });
+                break;
+              case '인기글':
+                this.setState({
+                  ...this.state,
+                  ordering: 'popular'
+                });
+                break;
+              case '과거로!':
+                this.setState({
+                  ...this.state,
+                  ordering: 'oldest'
+                });
+                break;
+              default:
+                this.setState({
+                  ...this.state,
+                  ordering: 'newest'
+                });
+            }
           }}
-        >
-          <div>
-            <Button startIcon={<ReorderIcon />} color="secondary">
-              전체
-            </Button>
-            <Button startIcon={<WhatshotIcon />}>인기글</Button>
-          </div>
-          <div>
-            <Tooltip title={'글쓰기'}>
-              <IconButton
-                color={'secondary'}
-                onClick={() => {
-                  history.push(
-                    getPath(
-                      `/community/write?category=${
-                        query.category ? query.category : ''
-                      }`
-                    )
-                  );
-                }}
-                variant="contained"
-              >
-                <CreateIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
-        </div>
-        <BoardWrapper
-          boards={this.state.contents.map(content => {
-            return {
-              title: `${content.title}`,
-              explains: [
-                `닉네임: ${content.nickname}`,
-                `| ${momenting(content.createDate).fromNow()}`,
-                `| 조회수 ${content.views}회`
-              ],
-              thumbnail: content.thumbnail,
-              onClick: () => {
-                history.push(
-                  getPath(
-                    `/community/read/${content.id}?category=${
-                      query.category ? query.category : ''
-                    }`
-                  )
-                );
-              }
-            };
-          })}
+          tabs={[
+            {
+              label: '전체',
+              startIcon: <ReorderIcon />,
+              content: boardWrapper
+            },
+            {
+              label: '인기글',
+              startIcon: <WhatshotIcon />,
+              content: boardWrapper
+            },
+            {
+              label: '과거로!',
+              startIcon: <HistoryIcon />,
+              content: boardWrapper
+            }
+          ]}
         />
-
         <br />
         <Pagenation
           paging={page => {
@@ -386,7 +403,7 @@ class Contents extends Component {
           }}
           min={1}
           current={parseInt(offset / 10 + 1)}
-          max={parseInt(count / 10 + 1)}
+          max={parseInt((count - 1) / 10 + 1)}
         />
         <br />
       </div>
