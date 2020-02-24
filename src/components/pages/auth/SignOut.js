@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { quickConnect } from '../../../redux/quick';
 import { getPath } from '../../../utils/url';
 
-class SignOut extends Component {
-  componentDidMount() {
-    this.props.AuthDispatcher.logout();
+const SignOut = ({ AuthDispatcher, history, auth }) => {
+  useEffect(() => {
+    AuthDispatcher.logout();
     window.alert('로그아웃 되었습니다');
-    this.props.history.push(getPath('/'));
-  }
+    history.push(getPath('/'));
 
-  render() {
-    return <div>로그아웃</div>;
-  }
-}
+    window.auth = auth;
+  });
+
+  return <div/>;
+};
 
 export default quickConnect(SignOut);

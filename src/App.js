@@ -81,7 +81,13 @@ class App extends Component {
   }
 
   init = async () => {
-    const { AuthDispatcher, ConfigDispatcher, location, history } = this.props;
+    const {
+      AuthDispatcher,
+      ConfigDispatcher,
+      location,
+      history,
+      auth
+    } = this.props;
     const query = urlQuery(location);
 
     //navigation setting
