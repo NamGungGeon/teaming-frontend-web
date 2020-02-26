@@ -19,6 +19,7 @@ import Comment from '../Comment/Comment';
 import Section from '../Section/Section';
 import Button from '@material-ui/core/Button';
 import { IoIosPerson } from 'react-icons/io';
+import QuickComplain from '../../containers/QuickComplain/QuickComplain';
 
 class Threadic extends Component {
   state = {
@@ -270,8 +271,14 @@ class Threadic extends Component {
           &nbsp;&nbsp;
           <span
             onClick={() => {
-              //report
-              uiKit.popup.make(<div>신고 ㄱ?</div>);
+              uiKit.popup.make(
+                <QuickComplain
+                  onFinished={() => {
+                    uiKit.toaster.cooking('신고가 완료되었습니다');
+                    uiKit.popup.destroy();
+                  }}
+                />
+              );
             }}
           >
             <MdBuild />
@@ -317,13 +324,22 @@ class Threadic extends Component {
               <br />
               {comments.map(comment => (
                 <Comment
+                  reportComment={() => {
+                    uiKit.popup.make(
+                      <QuickComplain
+                        onFinished={() => {
+                          uiKit.toaster.cooking('신고가 완료되었습니다');
+                          uiKit.popup.destroy();
+                        }}
+                      />
+                    );
+                  }}
                   deleteComment={() => {
                     this.removeComment(comment.id);
                   }}
                   updateComment={text => {
                     this.updateComment(comment.id, text);
                   }}
-                  profile={<IoIosPerson style={{ fontSize: '32px' }} />}
                   text={comment.text}
                   createdAt={'3일 전'}
                 />

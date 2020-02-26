@@ -16,5 +16,5 @@ export const getChampions = nameEN => {
 };
 
 export const championSquareImage = nameEN => {
-  return `http://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/${nameEN}.png`;
+  return `https://ddragon.leagueoflegends.com/cdn/10.1.1/img/champion/${nameEN}.png`;
 };

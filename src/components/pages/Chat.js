@@ -17,6 +17,8 @@ import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import { quickConnect } from '../../redux/quick';
 import ChatResult from '../containers/ChatResult/ChatResult';
+import QuickComplain from "../containers/QuickComplain/QuickComplain";
+import IconButton from "@material-ui/core/IconButton";
 
 class Chat extends Component {
   constructor(props) {
@@ -157,7 +159,16 @@ class Chat extends Component {
             variant={'contained'}
             color={'secondary'}
             fullWidth
-            onClick={() => {}}
+            onClick={() => {
+              uiKit.popup.make(
+                <QuickComplain
+                  onFinished={() => {
+                    uiKit.toaster.cooking('신고가 완료되었습니다');
+                    uiKit.popup.destroy();
+                  }}
+                />
+              );
+            }}
           >
             신고하기
           </Button>

@@ -34,6 +34,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import UserInfoViewer from '../../containers/UserInfoViewer/UserInfoViewer';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import Section from '../../primitive/Section/Section';
+import QuickComplain from '../../containers/QuickComplain/QuickComplain';
+import { TextField } from '@material-ui/core';
 
 class Read extends Component {
   state = {
@@ -42,7 +44,10 @@ class Read extends Component {
     comments: null,
 
     myComment: '',
-    imAuthor: false
+    imAuthor: false,
+
+    postPw: '',
+    commentPw: ''
   };
 
   async componentDidMount() {
@@ -153,13 +158,14 @@ class Read extends Component {
               author: comment.author,
               text: comment.text,
               createdAt: comment.createdAt,
-              picture: comment.author.profilePicture
+              picture: comment.author ? comment.author.profilePicture : null
             };
           })
         });
       })
       .catch(e => {
         uiKit.toaster.cooking(errMsg(e));
+        console.log(e);
       });
   };
 
@@ -170,17 +176,36 @@ class Read extends Component {
 
   deletePost = () => {
     const { history, location, match, uiKit, auth } = this.props;
+    const { postPw } = this.state;
     const query = urlQuery(location);
 
     uiKit.popup.make(
       <div>
         <h5>이 포스트를 삭제하시겠습니까?</h5>
         <br />
+        {this.isAnonymous() && (
+          <div>
+            <TextField
+              fullWidth
+              type={'password'}
+              placeholder={'글 작성 시 입력했던 비밀번호를 입력하세요'}
+              onChange={e => {
+                this.setState({
+                  ...this.state,
+                  postPw: e.target.value
+                });
+              }}
+              color={'primary'}
+            />
+            <br />
+            <br />
+          </div>
+        )}
         <AlignLayout align={'right'}>
           <Button
             onClick={async () => {
               uiKit.loading.start();
-              await deleteBoardPost(auth, match.params.id)
+              await deleteBoardPost(auth, match.params.id, postPw)
                 .then(response => {
                   //ok, deleted!
                   uiKit.toaster.cooking('삭제되었습니다');
@@ -219,63 +244,169 @@ class Read extends Component {
 
   deleteComment = async (postId, commentId) => {
     const { uiKit, auth } = this.props;
-    uiKit.loading.start();
-    await deletePostComment(auth, postId, commentId)
-      .then(response => {
-        //ok, deleted!
-        uiKit.toaster.cooking('댓글이 삭제되었습니다');
-        uiKit.popup.destroy();
-        this.loadComments(postId);
-      })
-      .catch(e => {
-        uiKit.toaster.cooking(errMsg(e));
-      });
-    uiKit.loading.end();
+
+    const remove = async () => {
+      const { commentPw } = this.state;
+      uiKit.loading.start();
+      await deletePostComment(auth, postId, commentId, commentPw)
+        .then(response => {
+          //ok, deleted!
+          this.setState({
+            ...this.state,
+            commentPw: ''
+          });
+          uiKit.toaster.cooking('댓글이 삭제되었습니다');
+          uiKit.popup.destroy();
+          this.loadComments(postId);
+        })
+        .catch(e => {
+          uiKit.toaster.cooking(errMsg(e));
+        });
+      uiKit.loading.end();
+    };
+
+    if (this.isAnonymous()) {
+      uiKit.popup.make(
+        <div>
+          <h4>댓글 삭제</h4>
+          <br />
+          <TextField
+            fullWidth
+            placeholder={'댓글 작성 시 입력한 비밀번호를 입력하세요'}
+            type={'password'}
+            color={'primary'}
+            onChange={e => {
+              this.setState({
+                ...this.state,
+                commentPw: e.target.value
+              });
+            }}
+          />
+          <br />
+          <br />
+          <AlignLayout align={'right'}>
+            <Button
+              startIcon={<DeleteIcon />}
+              onClick={remove}
+              color={'primary'}
+              variant={'contained'}
+            >
+              삭제
+            </Button>
+          </AlignLayout>
+        </div>
+      );
+    } else {
+      await remove;
+    }
   };
 
   createComment = async () => {
     const { uiKit, auth, match } = this.props;
-    const { myComment } = this.state;
 
     const id = match.params.id;
-
-    if (!authorized(auth)) {
-      uiKit.toaster.cooking('로그인이 필요합니다');
-      return;
-    }
-
-    uiKit.loading.start();
-    await createPostComment(auth, id, myComment)
-      .then(response => {
-        //reload!
-        uiKit.toaster.cooking('댓글이 작성되었습니다');
-        this.setState({
-          ...this.state,
-          myComment: ''
+    const create = async () => {
+      const { myComment, commentPw } = this.state;
+      uiKit.loading.start();
+      await createPostComment(auth, id, myComment, commentPw)
+        .then(response => {
+          //reload!
+          uiKit.toaster.cooking('댓글이 작성되었습니다');
+          this.setState({
+            ...this.state,
+            myComment: '',
+            commentPw: ''
+          });
+          uiKit.popup.destroy();
+          this.componentDidMount();
+        })
+        .catch(e => {
+          uiKit.toaster.cooking(errMsg(e));
         });
-        this.componentDidMount();
-      })
-      .catch(e => {
-        uiKit.toaster.cooking(errMsg(e));
-      });
-    uiKit.loading.end();
+      uiKit.loading.end();
+    };
+
+    if (this.isAnonymous()) {
+      uiKit.popup.make(
+        <div>
+          <h4>댓글 비밀번호 설정</h4>
+          <br />
+          <TextField
+            fullWidth
+            placeholder={'댓글 수정/삭제에 사용할 비밀번호를 입력하세요'}
+            type={'password'}
+            color={'primary'}
+            onChange={e => {
+              this.setState({
+                ...this.state,
+                commentPw: e.target.value
+              });
+              console.log(e.target.value);
+            }}
+          />
+          <br />
+          <br />
+          <AlignLayout align={'right'}>
+            <Button onClick={create} color={'primary'} variant={'contained'}>
+              작성
+            </Button>
+          </AlignLayout>
+        </div>
+      );
+    } else {
+      await create();
+    }
   };
 
   updateComment = async (postId, commentId, text) => {
     const { auth, uiKit } = this.props;
     //do update!
 
-    uiKit.loading.start();
-    await updatePostComment(auth, postId, commentId, text)
-      .then(response => {
-        //ok updated!
-        this.loadComments(postId);
-        uiKit.toaster.cooking('수정 완료');
-      })
-      .catch(e => {
-        uiKit.toaster.cooking(errMsg(e));
-      });
-    uiKit.loading.end();
+    const update = async () => {
+      const { commentPw } = this.state;
+      uiKit.loading.start();
+      await updatePostComment(auth, postId, commentId, text, update, commentPw)
+        .then(response => {
+          //ok updated!
+          this.loadComments(postId);
+          uiKit.toaster.cooking('수정 완료');
+        })
+        .catch(e => {
+          console.log(e);
+          uiKit.toaster.cooking(errMsg(e));
+        });
+      uiKit.loading.end();
+    };
+
+    if (this.isAnonymous()) {
+      uiKit.popup.make(
+        <div>
+          <h4>댓글 수정</h4>
+          <br />
+          <TextField
+            fullWidth
+            placeholder={'댓글 작성 시 사용했던 비밀번호를 입력하세요'}
+            type={'password'}
+            color={'primary'}
+            onChange={e => {
+              this.setState({
+                ...this.state,
+                commentPw: e.target.value
+              });
+            }}
+          />
+          <br />
+          <br />
+          <AlignLayout align={'right'}>
+            <Button onClick={update} color={'primary'} variant={'contained'}>
+              수정
+            </Button>
+          </AlignLayout>
+        </div>
+      );
+    } else {
+      await update();
+    }
   };
 
   good = async () => {
@@ -319,6 +450,11 @@ class Read extends Component {
         uiKit.toaster.cooking(errMsg(e));
       });
     uiKit.loading.end();
+  };
+
+  isAnonymous = () => {
+    const query = urlQuery(this.props.location);
+    return query.category && query.category.toLowerCase() === 'anonymous';
   };
 
   render() {
@@ -385,7 +521,18 @@ class Read extends Component {
                 <br />
                 <AlignLayout align={'right'}>
                   <Tooltip title={'이 글 신고하기'}>
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        uiKit.popup.make(
+                          <QuickComplain
+                            onFinished={() => {
+                              uiKit.toaster.cooking('신고가 완료되었습니다');
+                              uiKit.popup.destroy();
+                            }}
+                          />
+                        );
+                      }}
+                    >
                       <ReportIcon />
                     </IconButton>
                   </Tooltip>
@@ -422,7 +569,7 @@ class Read extends Component {
         {comments && (
           <Section>
             <p className={'explain'}>{comments.length}개의 댓글이 있습니다</p>
-            {authorized(auth) ? (
+            {authorized(auth) || this.isAnonymous() ? (
               <InputGroup>
                 <Input
                   value={this.state.myComment}
@@ -460,6 +607,16 @@ class Read extends Component {
               <Comment
                 updateComment={text => {
                   this.updateComment(match.params.id, comment.id, text);
+                }}
+                reportComment={() => {
+                  uiKit.popup.make(
+                    <QuickComplain
+                      onFinished={() => {
+                        uiKit.toaster.cooking('신고가 완료되었습니다');
+                        uiKit.popup.destroy();
+                      }}
+                    />
+                  );
                 }}
                 showUserInfo={this.showUserInfo}
                 deleteComment={() => {

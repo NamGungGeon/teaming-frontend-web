@@ -12,6 +12,7 @@ import ReportIcon from '@material-ui/icons/Report';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
+import QuickComplain from '../../containers/QuickComplain/QuickComplain';
 
 class Comment extends Component {
   state = {
@@ -37,6 +38,7 @@ class Comment extends Component {
       auth,
       deleteComment,
       updateComment,
+      reportComment,
       showUserInfo
     } = this.props;
     const { updateMode, newText } = this.state;
@@ -51,7 +53,11 @@ class Comment extends Component {
         >
           <span className={styles.picture}>
             {!profile || typeof profile === 'string' ? (
-              <img src={profile ? profile : logo} alt="" />
+              profile ? (
+                <img src={profile ? profile : logo} alt="" />
+              ) : (
+                <IoIosPerson style={{ fontSize: '32px' }} />
+              )
             ) : (
               profile
             )}
@@ -101,7 +107,7 @@ class Comment extends Component {
           <div className={styles.options}>
             <span className={'explain'}>{createdAt}</span>
             <div>
-              <Optional visible={!auth || auth.id === author.id}>
+              <Optional visible={!auth || !author || auth.id === author.id}>
                 <Tooltip title={'수정'}>
                   <IconButton
                     size={'small'}
@@ -127,7 +133,7 @@ class Comment extends Component {
                 </Tooltip>
               </Optional>
               <Tooltip title={'신고'}>
-                <IconButton size={'small'}>
+                <IconButton onClick={reportComment} size={'small'}>
                   <ReportIcon fontSize={'small'} />
                 </IconButton>
               </Tooltip>

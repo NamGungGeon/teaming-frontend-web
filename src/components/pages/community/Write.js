@@ -46,20 +46,53 @@ class Write extends Component {
 
     const data = this.wysiwyg.getBody();
 
-    uiKit.loading.start();
+    //경고 추가 필요
+    uiKit.popup.make(
+      <div>
+        <h4>경고</h4>
+        <br />
+        <p>
+          타인에게 불쾌감을 줄 수 있는 내용이 포함되어 있을 경우 관리자의 재량에
+          따라 게시글이 삭제될 수 있습니다.
+          <br />
+          또한 법적으로 불법인 컨텐츠 (음란물, 도박 등)을 업로드 시 관계 법령에
+          의거 처벌 받을 수 있습니다
+        </p>
+        <br />
+        <AlignLayout align={'right'}>
+          <Button
+            onClick={async () => {
+              uiKit.loading.start();
 
-    await createBoardPosts(auth, category, title, data.body, code, data.media)
-      .then(response => {
-        //ok!
-        uiKit.toaster.cooking('작성 완료!');
-        this.unblock();
-        history.goBack();
-      })
-      .catch(e => {
-        uiKit.toaster.cooking(errMsg(e));
-      });
+              await createBoardPosts(
+                auth,
+                category,
+                title,
+                data.body,
+                code,
+                data.media
+              )
+                .then(response => {
+                  //ok!
+                  uiKit.popup.destroy();
+                  uiKit.toaster.cooking('작성 완료!');
+                  this.unblock();
+                  history.goBack();
+                })
+                .catch(e => {
+                  uiKit.toaster.cooking(errMsg(e));
+                });
 
-    uiKit.loading.end();
+              uiKit.loading.end();
+            }}
+            variant={'contained'}
+            color={'primary'}
+          >
+            동의합니다
+          </Button>
+        </AlignLayout>
+      </div>
+    );
   };
 
   render() {

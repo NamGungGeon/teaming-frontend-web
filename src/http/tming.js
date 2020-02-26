@@ -396,12 +396,13 @@ export const updateBoardPost = (
   }
 };
 
-export const deleteBoardPost = (auth, id) => {
+export const deleteBoardPost = (auth, id, modifyCode) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/boards/${id}`,
     headers: {
-      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`,
+      'x-modify-code': modifyCode
     }
   });
 };
@@ -425,7 +426,7 @@ export const badToPost = (auth, id) => {
   });
 };
 
-export const createPostComment = (auth, id, text) => {
+export const createPostComment = (auth, id, text, modifyCode) => {
   return axios.request({
     method: 'POST',
     url: `${url}/boards/${id}/comments`,
@@ -433,7 +434,8 @@ export const createPostComment = (auth, id, text) => {
       Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
-      text
+      text,
+      modifyCode
     }
   });
 };
@@ -446,20 +448,29 @@ export const getPostComments = id => {
     }
   });
 };
-export const deletePostComment = (auth, postId, commentId) => {
+export const deletePostComment = (auth, postId, commentId, modifyCode) => {
   return axios.request({
     method: 'DELETE',
     url: `${url}/boards/${postId}/comments/${commentId}`,
     headers: {
-      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`,
+      'x-modify-code': modifyCode
     }
   });
 };
-export const updatePostComment = (auth, postId, commentId, text) => {
+export const updatePostComment = (
+  auth,
+  postId,
+  commentId,
+  text,
+  modifyCode
+) => {
+  //TODO x-modify-code 헤더 삽입 시, TypeError: Failed to execute 'setRequestHeader' on 'XMLHttpRequest': Value is not a valid ByteString. 오류 발생
   return axios.request({
     method: 'PUT',
     url: `${url}/boards/${postId}/comments/${commentId}`,
     headers: {
+      'x-modify-code': modifyCode,
       Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     },
     data: {
