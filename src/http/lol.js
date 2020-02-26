@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = `http://ddragon.leagueoflegends.com/cdn/10.1.1`;
+const url = `https://ddragon.leagueoflegends.com/cdn/10.1.1`;
 
 const champions = null;
 export const getChampions = nameEN => {
