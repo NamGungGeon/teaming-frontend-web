@@ -297,7 +297,7 @@ class Read extends Component {
         </div>
       );
     } else {
-      await remove;
+      await remove();
     }
   };
 
