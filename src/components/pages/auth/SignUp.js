@@ -131,6 +131,7 @@ class SignUp extends Component {
   };
 
   render() {
+    const { config } = this.props;
     const { gender, agreePrivacy, agreeContact } = this.state;
     return (
       <div>
@@ -181,36 +182,38 @@ class SignUp extends Component {
                   />
                 )
               },
-              {
-                key: '성별',
-                value: (
-                  <FormControl component="fieldset">
-                    <RadioGroup
-                      row
-                      aria-label="gender"
-                      name="gender1"
-                      value={gender}
-                    >
-                      <FormControlLabel
-                        value="M"
-                        control={<Radio color={'primary'} />}
-                        label="남자"
-                        onClick={() => {
-                          this.setState({ ...this.state, gender: 'M' });
-                        }}
-                      />
-                      <FormControlLabel
-                        value="F"
-                        control={<Radio color={'secondary'} />}
-                        label="여자"
-                        onClick={() => {
-                          this.setState({ ...this.state, gender: 'F' });
-                        }}
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                )
-              },
+              config.imapp
+                ? ''
+                : {
+                    key: '성별',
+                    value: (
+                      <FormControl component="fieldset">
+                        <RadioGroup
+                          row
+                          aria-label="gender"
+                          name="gender1"
+                          value={gender}
+                        >
+                          <FormControlLabel
+                            value="M"
+                            control={<Radio color={'primary'} />}
+                            label="남자"
+                            onClick={() => {
+                              this.setState({ ...this.state, gender: 'M' });
+                            }}
+                          />
+                          <FormControlLabel
+                            value="F"
+                            control={<Radio color={'secondary'} />}
+                            label="여자"
+                            onClick={() => {
+                              this.setState({ ...this.state, gender: 'F' });
+                            }}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    )
+                  },
               {
                 key: '닉네임',
                 value: (
