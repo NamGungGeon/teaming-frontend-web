@@ -76,7 +76,18 @@ class Start extends Component {
 
     this.socket.on('MATCHED', (roomID, partner) => {
       this.setState({ ...this.state, partner, roomID });
-      console.log('matched', roomID, partner);
+      //partner
+      // playerInfo:
+      //   tier: ""
+      // champions: ["Ekko"]
+      // ban: []
+      // likes: []
+      // mainPos: "bottom"
+      // partnerPos: "mid"
+      // nickname: "ㄴㅇㄹㅎㄴㅇㅎㄴㅇ"
+      // mode: "normal"
+      // goal: "win"
+      console.log('matched', partner);
     });
 
     //timer
@@ -126,14 +137,17 @@ class Start extends Component {
     };
     const chatting = (
       <Chatting
-        tools={<Tools refresher={refresher} />}
+        tools={<Tools partner={partner} refresher={refresher} />}
         socket={this.socket}
         room={roomID}
         opponent={partner}
       />
     );
     const chatLayout = (
-      <ChatLayout tools={<Tools refresher={refresher} />} chat={chatting} />
+      <ChatLayout
+        tools={<Tools partner={partner} refresher={refresher} />}
+        chat={chatting}
+      />
     );
     const isMatched = partner && roomID;
     const chatStatus = (
