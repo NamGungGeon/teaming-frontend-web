@@ -2,23 +2,12 @@ import React, { Component } from 'react';
 import Chatting from '../containers/Chatting/Chatting';
 import Wait from '../primitive/Wait/Wait';
 import ChatLayout from '../layouts/ChatLayout/ChatLayout';
-import Window from '../primitive/Window/Window';
 import io from 'socket.io-client';
-import { pageDescription, scrollToTop } from '../../utils/utils';
-import Button from '@material-ui/core/Button';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import CloseIcon from '@material-ui/icons/Close';
-import ReportIcon from '@material-ui/icons/Report';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { getPath } from '../../utils/url';
+import { authorized, pageDescription, scrollToTop } from '../../utils/utils';
 import PageTitle from '../primitive/PageTitle/PageTitle';
-import Floating from '../primitive/Floating/Floating';
-import Fab from '@material-ui/core/Fab';
-import PersonIcon from '@material-ui/icons/Person';
 import { quickConnect } from '../../redux/quick';
 import ChatResult from '../containers/ChatResult/ChatResult';
-import QuickComplain from "../containers/QuickComplain/QuickComplain";
-import IconButton from "@material-ui/core/IconButton";
+import ChattingTool from '../primitive/ChattingTool/ChattingTool';
 
 class Chat extends Component {
   constructor(props) {
@@ -108,7 +97,7 @@ class Chat extends Component {
     const { room, opponent } = this.state;
 
     console.log(opponent);
-    if (opponent && auth)
+    if (opponent && authorized(auth))
       uiKit.popup.make(
         <ChatResult
           auth={auth}
@@ -133,67 +122,19 @@ class Chat extends Component {
 
   render() {
     const { matchComplete, room, opponent } = this.state;
-    const { history, uiKit } = this.props;
-
-    const tools = (
-      <div>
-        <ButtonGroup
-          orientation="vertical"
-          aria-label="vertical outlined primary button group"
-          fullWidth
-        >
-          <Button
-            startIcon={<RefreshIcon />}
-            variant={'contained'}
-            color={'primary'}
-            onClick={() => {
-              this.endChat();
-              this.init();
-            }}
-            fullWidth
-          >
-            재매칭
-          </Button>
-          <Button
-            startIcon={<ReportIcon />}
-            variant={'contained'}
-            color={'secondary'}
-            fullWidth
-            onClick={() => {
-              uiKit.popup.make(
-                <QuickComplain
-                  onFinished={() => {
-                    uiKit.toaster.cooking('신고가 완료되었습니다');
-                    uiKit.popup.destroy();
-                  }}
-                />
-              );
-            }}
-          >
-            신고하기
-          </Button>
-          <Button
-            startIcon={<CloseIcon />}
-            variant={'contained'}
-            color={'primary'}
-            fullWidth
-            onClick={() => {
-              history.push(getPath('/'));
-            }}
-          >
-            나가기
-          </Button>
-        </ButtonGroup>
-        <br />
-        <br />
-        <Window title={'상대방 정보'} foldable>
-          이곳에 상대방 정보가 표시됩니다
-        </Window>
-      </div>
+    const { uiKit } = this.props;
+    const chatTool = (
+      <ChattingTool
+        uiKit={uiKit}
+        rematching={() => {
+          this.endChat();
+          this.init();
+        }}
+      />
     );
     const chatting = (
       <Chatting
-        tools={tools}
+        tools={chatTool}
         socket={this.socket}
         room={room}
         opponent={opponent}
@@ -203,7 +144,7 @@ class Chat extends Component {
     return (
       <>
         {matchComplete ? (
-          <ChatLayout tools={tools} chat={chatting} />
+          <ChatLayout tools={chatTool} chat={chatting} />
         ) : (
           this.chatStatus()
         )}

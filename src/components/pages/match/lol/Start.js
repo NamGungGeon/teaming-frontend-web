@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
-import Fab from '@material-ui/core/Fab';
-import PersonIcon from '@material-ui/icons/Person';
 import Wait from '../../../primitive/Wait/Wait';
-import Floating from '../../../primitive/Floating/Floating';
 import PageTitle from '../../../primitive/PageTitle/PageTitle';
-import Tools from './Tools';
 import ChatResult from '../../../containers/ChatResult/ChatResult';
 import { quickConnect } from '../../../../redux/quick';
 import Chatting from '../../../containers/Chatting/Chatting';
 import ChatLayout from '../../../layouts/ChatLayout/ChatLayout';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import { Button } from '@material-ui/core';
+import ChattingTool from '../../../primitive/ChattingTool/ChattingTool';
+import ImageView from '../../../primitive/ImageView/ImageView';
+import { resPath } from '../../../../utils/url';
+import ImageViewGroup from '../../../containers/ImageViewGroup/ImageViewGroup';
+import { championSquareImage } from '../../../../http/lol';
+import { authorized } from '../../../../utils/utils';
 
 class Start extends Component {
   constructor(props) {
@@ -130,25 +132,109 @@ class Start extends Component {
   }
 
   render() {
+    const { uiKit } = this.props;
     const { title, explain, partner, roomID, lastTime } = this.state;
-    const refresher = () => {
-      this.endChat();
-      this.init();
+
+    const chattingTool = () => {
+      if (!partner || !partner.playerInfo) return <div />;
+      const { playerInfo } = partner;
+      return (
+        <ChattingTool
+          uiKit={uiKit}
+          partnerInfo={
+            <div>
+              {playerInfo.nickname && (
+                <p>
+                  <h5>상대방 닉네임</h5>
+                  {playerInfo.nickname}
+                </p>
+              )}
+              {playerInfo.tier && (
+                <p>
+                  <h5>상대방 티어</h5>
+                  <ImageView img={`${resPath}/tier/${playerInfo.tier}.png`} />
+                </p>
+              )}
+              {playerInfo.tier && (
+                <p>
+                  <h5>상대방 주 라인</h5>
+                  <ImageView img={`${resPath}/tier/${playerInfo.tie}.png`} />
+                </p>
+              )}
+              {playerInfo.champions.length !== 0 && (
+                <p>
+                  <h5>상대방 주 챔피언</h5>
+                  <ImageViewGroup
+                    styles={{
+                      justifyContent: 'flex-start'
+                    }}
+                    icons={playerInfo.champions.map(champ => {
+                      return {
+                        img: championSquareImage(champ),
+                        style: {
+                          width: '36px'
+                        }
+                      };
+                    })}
+                  />
+                </p>
+              )}
+              {playerInfo.ban.length !== 0 && (
+                <p>
+                  <h5>상대방 금지 챔피언</h5>
+                  <ImageViewGroup
+                    styles={{
+                      justifyContent: 'flex-start'
+                    }}
+                    icons={playerInfo.ban.map(champ => {
+                      return {
+                        img: championSquareImage(champ),
+                        style: {
+                          width: '36px',
+                          filter: 'grayscale(1)'
+                        }
+                      };
+                    })}
+                  />
+                </p>
+              )}
+              {playerInfo.likes.length !== 0 && (
+                <p>
+                  <h5>상대방 선호 챔피언</h5>
+                  <ImageViewGroup
+                    styles={{
+                      justifyContent: 'flex-start'
+                    }}
+                    icons={playerInfo.likes.map(champ => {
+                      return {
+                        img: championSquareImage(champ),
+                        style: {
+                          width: '36px'
+                        }
+                      };
+                    })}
+                  />
+                </p>
+              )}
+            </div>
+          }
+          rematching={() => {
+            this.endChat();
+            this.init();
+          }}
+        />
+      );
     };
+
     const chatting = (
       <Chatting
-        tools={<Tools partner={partner} refresher={refresher} />}
+        tools={chattingTool()}
         socket={this.socket}
         room={roomID}
         opponent={partner}
       />
     );
-    const chatLayout = (
-      <ChatLayout
-        tools={<Tools partner={partner} refresher={refresher} />}
-        chat={chatting}
-      />
-    );
+    const chatLayout = <ChatLayout tools={chattingTool()} chat={chatting} />;
     const isMatched = partner && roomID;
     const chatStatus = (
       <Wait
@@ -178,7 +264,7 @@ class Start extends Component {
     const { roomID, partner } = this.state;
     if (roomID && partner) {
       this.socket.emit('CHAT_ENDED', roomID);
-      if (auth) {
+      if (authorized(auth)) {
         uiKit.popup.make(
           <ChatResult
             close={() => {

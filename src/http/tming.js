@@ -67,7 +67,15 @@ export const createTrash = (password, text) => {
     }
   });
 };
-
+export const deleteTrash = (password, feelId) => {
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/feelings/${feelId}`,
+    headers: {
+      'x-modify-code': password
+    }
+  });
+};
 export const getTrashComments = id => {
   return axios.request({
     method: 'GET',
