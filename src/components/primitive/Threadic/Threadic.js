@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import styles from './Threadic.module.css';
 import Collapse from 'reactstrap/es/Collapse';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-import { MdComment, MdBuild } from 'react-icons/md';
 import { InputGroupAddon } from 'reactstrap';
 import Input from 'reactstrap/es/Input';
 import InputGroup from 'reactstrap/es/InputGroup';
 import { quickConnect } from '../../../redux/quick';
 import {
   createTrashComment,
+  deleteTrash,
   deleteTrashComment,
   getTrashComments,
   updateTrashComment
@@ -18,11 +18,14 @@ import moment from 'moment';
 import Comment from '../Comment/Comment';
 import Section from '../Section/Section';
 import Button from '@material-ui/core/Button';
-import { IoIosPerson } from 'react-icons/io';
+import CommentIcon from '@material-ui/icons/Comment';
+import ReportIcon from '@material-ui/icons/Report';
+import DeleteIcon from '@material-ui/icons/Delete';
 import QuickComplain from '../../containers/QuickComplain/QuickComplain';
 
 class Threadic extends Component {
   state = {
+    isVisible: true,
     password: '',
     myComment: '',
     comments: null,
@@ -213,6 +216,10 @@ class Threadic extends Component {
             await updateTrashComment(password, id, replyId, text)
               .then(r => {
                 //ok, reload!
+                this.setState({
+                  ...this.state,
+                  password: ''
+                });
                 uiKit.popup.destroy();
                 this.loadComments();
               })
@@ -239,10 +246,73 @@ class Threadic extends Component {
       </div>
     );
   };
+  deleteTrash = () => {
+    const { uiKit, id } = this.props;
+
+    //open deleting comment popup
+    uiKit.popup.make(
+      <div>
+        <h5>글 삭제</h5>
+        <br />
+        <Input
+          className={'transparent'}
+          type={'password'}
+          onChange={e => {
+            this.setState({
+              ...this.state,
+              password: e.target.value
+            });
+          }}
+          placeholder={'작성 시 입력한 비밀번호를 입력하세요'}
+        />
+        <br />
+        <Button
+          startIcon={<DeleteIcon />}
+          onClick={async () => {
+            const { password } = this.state;
+
+            uiKit.loading.start();
+            await deleteTrash(password, id)
+              .then(r => {
+                //ok, reload!
+                this.setState({
+                  ...this.state,
+                  isVisible: false,
+                  password: ''
+                });
+                uiKit.toaster.cooking('삭제되었습니다');
+                uiKit.popup.destroy();
+              })
+              .catch(e => {
+                uiKit.toaster.cooking(errMsg(e));
+              });
+            uiKit.loading.end();
+          }}
+          variant={'contained'}
+          color={'primary'}
+        >
+          삭제
+        </Button>
+        &nbsp;&nbsp;
+        <Button
+          onClick={() => {
+            uiKit.popup.destroy();
+          }}
+          variant={'contained'}
+          color={'secondary'}
+        >
+          닫기
+        </Button>
+      </div>
+    );
+  };
 
   render() {
-    const { user, content, createdAt, uiKit, replies } = this.props;
-    const { openComment, comments } = this.state;
+    const { id, user, content, createdAt, uiKit, replies } = this.props;
+    const { openComment, comments, isVisible } = this.state;
+    console.log(content);
+
+    if (!isVisible) return <div />;
 
     return (
       <Section divideStyle={'fill'} className={styles.wrapper}>
@@ -265,7 +335,7 @@ class Threadic extends Component {
               this.handleCommentState(true);
             }}
           >
-            <MdComment />
+            <CommentIcon />
             &nbsp;{comments ? comments.length : replies}
           </span>
           &nbsp;&nbsp;
@@ -281,8 +351,13 @@ class Threadic extends Component {
               );
             }}
           >
-            <MdBuild />
+            <ReportIcon />
             &nbsp;신고
+          </span>
+          &nbsp;&nbsp;
+          <span onClick={this.deleteTrash}>
+            <DeleteIcon />
+            &nbsp;삭제
           </span>
         </AlignLayout>
         {comments && (
