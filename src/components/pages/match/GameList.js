@@ -4,6 +4,7 @@ import { getPath } from '../../../utils/url';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 
 import lol from '../../resource/icon/lol.jpg';
+import cyphers from '../../resource/icon/cyphers.png';
 import overwatch from '../../resource/icon/overwatch.png';
 import battleground from '../../resource/icon/battleground.png';
 import { randStr } from '../../../utils/utils';
@@ -23,36 +24,22 @@ class GameList extends Component {
         }
       },
       {
+        label: '배틀그라운드',
+        icon: battleground,
+        onClick: () => {
+          this.go(getPath(`/match/battleground`));
+        }
+      },
+      {
+        label: '사이퍼즈',
+        icon: cyphers,
+        onClick: () => {
+          this.go(getPath(`/match/cyphers`));
+        }
+      },
+      {
         label: '오버워치',
         icon: overwatch
-      },
-      {
-        label: '배틀그라운드',
-        icon: battleground
-      },
-      {
-        label: '???'
-      },
-      {
-        label: '???'
-      },
-      {
-        label: '???'
-      },
-      {
-        label: '???'
-      },
-      {
-        label: '???'
-      },
-      {
-        label: '???'
-      },
-      {
-        label: '???'
-      },
-      {
-        label: '???'
       }
     ],
     filter: ''

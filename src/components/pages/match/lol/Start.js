@@ -102,6 +102,15 @@ class Start extends Component {
     }, 1000);
   };
   componentDidMount() {
+    //check props are valid
+    const { playerInfo, history } = this.props;
+    if (!playerInfo.nickname) {
+      //invalid
+      //move to ready
+      history.push('/match/lol/');
+      return;
+    }
+
     this.init();
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -155,10 +164,12 @@ class Start extends Component {
                   <ImageView img={`${resPath}/tier/${playerInfo.tier}.png`} />
                 </p>
               )}
-              {playerInfo.tier && (
+              {playerInfo.partnerPos && (
                 <p>
                   <h5>상대방 주 라인</h5>
-                  <ImageView img={`${resPath}/tier/${playerInfo.tie}.png`} />
+                  <ImageView
+                    img={`${resPath}/tier/${playerInfo.partnerPos}.png`}
+                  />
                 </p>
               )}
               {playerInfo.champions.length !== 0 && (

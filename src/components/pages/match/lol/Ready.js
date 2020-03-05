@@ -14,6 +14,7 @@ import ButtonGroup from 'reactstrap/es/ButtonGroup';
 import { championSquareImage } from '../../../../http/lol';
 import AddIcon from '@material-ui/icons/Add';
 import { quickConnect } from '../../../../redux/quick';
+import ButtonSelector from '../../../primitive/ButtonSelector/ButtonSelector';
 
 const lines = [
   {
@@ -167,7 +168,7 @@ class Ready extends Component {
   };
 
   render() {
-    const { mode, goal, champions, likes, ban } = this.state;
+    const { mode, goal, champions, likes, ban, partnerGender } = this.state;
 
     return (
       <div>
@@ -202,75 +203,82 @@ class Ready extends Component {
             </div>
             <br />
             <div>
+              <PageTitle title="상대방 성별" noMargin />
+              <ButtonSelector
+                items={[
+                  {
+                    id: 'all',
+                    label: '상관없음'
+                  },
+                  {
+                    id: 'same',
+                    label: '동성'
+                  },
+                  {
+                    id: 'different',
+                    label: '이성'
+                  }
+                ]}
+                defaultItemId={'all'}
+                onUpdate={selectedId => {
+                  this.setState({
+                    ...this.state,
+                    partnerGender: selectedId
+                  });
+                }}
+              />
+            </div>
+            <br />
+            <div>
               <PageTitle title={'목표'} noMargin />
-              <ButtonGroup>
-                <Button
-                  color={'danger'}
-                  outline={goal !== 'win'}
-                  onClick={() => {
-                    this.setState({
-                      ...this.state,
-                      goal: 'win'
-                    });
-                  }}
-                >
-                  빡겜
-                </Button>
-                <Button
-                  color={'primary'}
-                  outline={goal !== 'fun'}
-                  onClick={() => {
-                    this.setState({
-                      ...this.state,
-                      goal: 'fun'
-                    });
-                  }}
-                >
-                  즐겜
-                </Button>
-              </ButtonGroup>
+              <ButtonSelector
+                items={[
+                  {
+                    id: 'win',
+                    label: '빡겜',
+                    color: 'danger'
+                  },
+                  {
+                    id: 'fun',
+                    label: '즐겜'
+                  }
+                ]}
+                defaultItemId={'win'}
+                onUpdate={selectedId => {
+                  this.setState({
+                    ...this.state,
+                    goal: selectedId
+                  });
+                }}
+              />
             </div>
             <br />
             <div>
               <PageTitle title={'게임 모드'} noMargin />
-              <ButtonGroup>
-                <Button
-                  color={'primary'}
-                  outline={mode !== 'rank'}
-                  onClick={() => {
-                    this.setState({
-                      ...this.state,
-                      mode: 'rank'
-                    });
-                  }}
-                >
-                  랭크
-                </Button>
-                <Button
-                  color={'primary'}
-                  outline={mode !== 'freerank'}
-                  onClick={() => {
-                    this.setState({
-                      ...this.state,
-                      mode: 'freerank'
-                    });
-                  }}
-                >
-                  자유 랭크
-                </Button>
-                <Button
-                  color={'primary'}
-                  outline={mode !== 'normal'}
-                  onClick={() => {
-                    this.setState({
-                      ...this.state,
-                      mode: 'normal'
-                    });
-                  }}
-                >
-                  일반
-                </Button>
-              </ButtonGroup>
+              <ButtonSelector
+                items={[
+                  {
+                    id: 'rank',
+                    label: '랭크',
+                    color: 'danger'
+                  },
+                  {
+                    id: 'freerank',
+                    label: '자유랭크'
+                  },
+                  {
+                    id: 'normal',
+                    label: '일반'
+                  }
+                ]}
+                defaultItemId={'rank'}
+                onUpdate={selectedId => {
+                  this.setState({
+                    ...this.state,
+                    mode: selectedId
+                  });
+                }}
+              />
             </div>
             <br />
             <div>

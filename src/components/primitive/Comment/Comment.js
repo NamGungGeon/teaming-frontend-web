@@ -12,7 +12,6 @@ import ReportIcon from '@material-ui/icons/Report';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
-import QuickComplain from '../../containers/QuickComplain/QuickComplain';
 
 class Comment extends Component {
   state = {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
 import { getPath } from '../../../../utils/url';
+import { Route } from 'react-router-dom';
 import Ready from './Ready';
 import Start from './Start';
 
-const Lol = () => {
+const Cyphers = () => {
   const [playerInfo, setPlayerInfo] = useState({
     tier: '',
     champions: [],
@@ -17,12 +17,11 @@ const Lol = () => {
     mode: 'rank',
     goal: 'win'
   });
-
   return (
     <>
       <Route
         exact
-        path={getPath(`/match/lol/`)}
+        path={getPath(`/match/cyphers/`)}
         render={props => (
           <Ready
             {...props}
@@ -33,11 +32,11 @@ const Lol = () => {
       />
       <Route
         exact
-        path={getPath(`/match/lol/start`)}
+        path={getPath(`/match/cyphers/start`)}
         render={props => <Start {...props} playerInfo={playerInfo} />}
       />
     </>
   );
 };
 
-export default Lol;
+export default Cyphers;

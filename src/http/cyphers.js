@@ -11,10 +11,10 @@ export const getCharacter = nameEN => {
   });
 };
 
-export const myRes = {
+export const CyphersResource = {
   url: 'https://res.cpsp.kr',
   getClearThumbnail: nameEN => {
-    return `${myRes.url}/thumbnail/text/${nameEN}.jpg`;
+    return `${CyphersResource.url}/thumbnail/text/${nameEN}.jpg`;
   },
   getPositionIcon: position => {
     let name = position;
@@ -35,7 +35,7 @@ export const myRes = {
         break;
     }
 
-    return `${myRes.url}/position/${name}.png`;
+    return `${CyphersResource.url}/position/${name}.png`;
   }
 };
 export const openApiRes = {

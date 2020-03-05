@@ -6,7 +6,7 @@ import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import ReportIcon from '@material-ui/icons/Report';
 import { delay } from '../../../utils/utils';
 
-const QuickComplain = ({ type, id, onFinished, auth, uiKit }) => {
+const QuickComplain = ({ endpoint, onFinished, auth, uiKit }) => {
   const [body, setBody] = useState('');
   const submitComplain = async () => {
     uiKit.loading.start();

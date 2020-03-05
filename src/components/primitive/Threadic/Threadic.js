@@ -343,6 +343,7 @@ class Threadic extends Component {
             onClick={() => {
               uiKit.popup.make(
                 <QuickComplain
+                  endpoint={`/feelings/${id}`}
                   onFinished={() => {
                     uiKit.toaster.cooking('신고가 완료되었습니다');
                     uiKit.popup.destroy();
@@ -402,6 +403,7 @@ class Threadic extends Component {
                   reportComment={() => {
                     uiKit.popup.make(
                       <QuickComplain
+                        endpoint={`/feelings/${id}/replies/${comment.id}`}
                         onFinished={() => {
                           uiKit.toaster.cooking('신고가 완료되었습니다');
                           uiKit.popup.destroy();

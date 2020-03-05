@@ -13,8 +13,8 @@
   text-align: center;
 }
 .group > div img {
-  width: 48px;
-  height: 48px;
+  max-width: 64px;
+  height: 64px;
   filter: grayscale(100%);
 
   transition-duration: 0.3s;

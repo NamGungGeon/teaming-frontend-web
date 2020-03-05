@@ -112,7 +112,6 @@ class Complains extends Component {
           explain={`${count}개의 문의가 있습니다`}
         />
         <br />
-
         <FormControl
           style={{
             width: '100%',

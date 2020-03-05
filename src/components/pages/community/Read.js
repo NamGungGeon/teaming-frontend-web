@@ -365,7 +365,7 @@ class Read extends Component {
     const update = async () => {
       const { commentPw } = this.state;
       uiKit.loading.start();
-      await updatePostComment(auth, postId, commentId, text, update, commentPw)
+      await updatePostComment(auth, postId, commentId, text, commentPw)
         .then(response => {
           //ok updated!
           this.loadComments(postId);
@@ -525,6 +525,7 @@ class Read extends Component {
                       onClick={() => {
                         uiKit.popup.make(
                           <QuickComplain
+                            endpoint={`/boards/${content.id}`}
                             onFinished={() => {
                               uiKit.toaster.cooking('신고가 완료되었습니다');
                               uiKit.popup.destroy();
@@ -611,6 +612,7 @@ class Read extends Component {
                 reportComment={() => {
                   uiKit.popup.make(
                     <QuickComplain
+                      endpoint={`/boards/${content.id}/comments/${comment.id}`}
                       onFinished={() => {
                         uiKit.toaster.cooking('신고가 완료되었습니다');
                         uiKit.popup.destroy();

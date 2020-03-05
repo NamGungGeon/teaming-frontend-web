@@ -7,6 +7,7 @@ import Complains from './Complains';
 import { Route } from 'react-router-dom';
 import Lab from './Lab';
 import Creating from './Creating';
+import Reports from './Reports';
 
 class Admin extends Component {
   state = {
@@ -37,6 +38,12 @@ class Admin extends Component {
                   label: '문의내역',
                   onClick: () => {
                     history.push(getPath(`/admin/complains`));
+                  }
+                },
+                {
+                  label: '컨텐츠 신고 내역',
+                  onClick: () => {
+                    history.push(getPath(`/admin/reports`));
                   }
                 }
               ],
@@ -93,6 +100,7 @@ class Admin extends Component {
               path={getPath('/admin/creating')}
               component={Creating}
             />
+            <Route exact path={getPath('/admin/reports')} component={Reports} />
           </div>
         )}
       </div>
