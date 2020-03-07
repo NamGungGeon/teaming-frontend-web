@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PageTitle from '../../../primitive/PageTitle/PageTitle';
 import ImageView from '../../../primitive/ImageView/ImageView';
-import Section from '../../../primitive/Section/Section';
 import { Button } from '@material-ui/core';
 import {
   getMyProfile,
@@ -9,11 +8,9 @@ import {
   uploadProfileImage
 } from '../../../../http/tming';
 import { quickConnect } from '../../../../redux/quick';
-import Form from 'reactstrap/es/Form';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import { errMsg } from '../../../../http/util';
 import ImageIcon from '@material-ui/icons/Image';
-import { Col, FormGroup } from 'reactstrap';
 import moment from 'moment';
 import Window from '../../../primitive/Window/Window';
 import HashTable from '../../../primitive/HashTable/HashTable';
@@ -223,7 +220,7 @@ class MyInfo extends Component {
                 </AlignLayout>
               </div>
 
-              <Form
+              <div
                 style={{
                   display: 'none'
                 }}
@@ -236,7 +233,7 @@ class MyInfo extends Component {
                     this.inputFile = ref;
                   }}
                 />
-              </Form>
+              </div>
             </Window>
             <Window title={'내 정보'}>
               <div>

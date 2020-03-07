@@ -4,7 +4,7 @@ import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Section = ({ children, divideStyle, className, style }) => {
+const Section = ({ children, divideStyle, className, style, paperColor }) => {
   return (
     <AlignLayout
       style={{
@@ -15,7 +15,8 @@ const Section = ({ children, divideStyle, className, style }) => {
     >
       <div
         style={{
-          ...style
+          ...style,
+          backgroundColor: paperColor
         }}
         className={classNames(styles.wrapper, styles[divideStyle], className)}
       >
@@ -28,12 +29,14 @@ const Section = ({ children, divideStyle, className, style }) => {
 Section.defaultProps = {
   divideStyle: '',
   className: '',
-  style: {}
+  style: {},
+  paperColor: 'white'
 };
 Section.propTypes = {
   // divideStyle: PropTypes.oneOf(['', 'none']),
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  paperColor: PropTypes.string
 };
 
 export default Section;

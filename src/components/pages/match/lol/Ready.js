@@ -7,14 +7,14 @@ import ImageViewGroup from '../../../containers/ImageViewGroup/ImageViewGroup';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import ChampionSelect from '../../../containers/ChampionSelect/ChampionSelect';
 import { getPath, resPath } from '../../../../utils/url';
-import { Button } from 'reactstrap';
-import Input from 'reactstrap/es/Input';
-import Collapse from 'reactstrap/es/Collapse';
-import ButtonGroup from 'reactstrap/es/ButtonGroup';
+
 import { championSquareImage } from '../../../../http/lol';
 import AddIcon from '@material-ui/icons/Add';
 import { quickConnect } from '../../../../redux/quick';
 import ButtonSelector from '../../../primitive/ButtonSelector/ButtonSelector';
+import Button from '@material-ui/core/Button';
+import Blinder from '../../../primitive/Blinder/Blinder';
+import { TextField } from '@material-ui/core';
 
 const lines = [
   {
@@ -182,24 +182,17 @@ class Ready extends Component {
         <Section>
           <div style={{ textAlign: 'left' }}>
             <div>
-              <div
+              <PageTitle title={'닉네임'} explain={''} noMargin />
+              <TextField
                 style={{
-                  display: 'inline-block',
-                  maxWidth: '350px',
-                  width: '100%'
+                  width: '400px'
                 }}
-              >
-                <PageTitle title={'닉네임'} explain={''} noMargin />
-                <Input
-                  className={'transparent'}
-                  width={'400px'}
-                  type="text"
-                  placeholder="게임 내에서 사용중인 닉네임을 입력하세요"
-                  onChange={e => {
-                    this.setState({ ...this.state, nickname: e.target.value });
-                  }}
-                />
-              </div>
+                type="text"
+                placeholder="게임 내에서 사용중인 닉네임을 입력하세요"
+                onChange={e => {
+                  this.setState({ ...this.state, nickname: e.target.value });
+                }}
+              />
             </div>
             <br />
             <div>
@@ -236,7 +229,7 @@ class Ready extends Component {
                   {
                     id: 'win',
                     label: '빡겜',
-                    color: 'danger'
+                    color: 'secondary'
                   },
                   {
                     id: 'fun',
@@ -260,7 +253,7 @@ class Ready extends Component {
                   {
                     id: 'rank',
                     label: '랭크',
-                    color: 'danger'
+                    color: 'secondary'
                   },
                   {
                     id: 'freerank',
@@ -282,7 +275,7 @@ class Ready extends Component {
             </div>
             <br />
             <div>
-              <Collapse isOpen={mode !== 'normal'}>
+              <Blinder isBlind={mode === 'normal'}>
                 <div>
                   <PageTitle title={'티어'} explain={''} noMargin />
                   <ImageSelect
@@ -292,9 +285,9 @@ class Ready extends Component {
                       this.setState({ ...this.state, tier: selection });
                     }}
                   />
+                  <br />
                 </div>
-                <br />
-              </Collapse>
+              </Blinder>
             </div>
             <div>
               <PageTitle title={'메인 라인'} explain={''} noMargin />
@@ -416,10 +409,10 @@ class Ready extends Component {
             <br />
             <AlignLayout align={'right'}>
               <Button
-                block
+                fullWidth
+                variant={'contained'}
                 color={'primary'}
                 onClick={this.requestStart}
-                size={'large'}
               >
                 시작 &gt;
               </Button>

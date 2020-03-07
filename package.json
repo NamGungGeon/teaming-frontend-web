@@ -11,7 +11,6 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.40",
     "axios": "^0.19.0",
-    "bootstrap": "^4.3.1",
     "class-validator": "^0.11.0",
     "classnames": "^2.2.6",
     "cookie": "^0.4.0",
@@ -30,10 +29,8 @@
     "react-swipeable-views": "^0.13.3",
     "react-swipeable-views-utils": "^0.13.3",
     "react-vis": "^1.11.7",
-    "reactstrap": "^8.0.1",
     "redux": "^4.0.4",
     "redux-actions": "^2.6.5",
-    "sendbird": "^3.0.111",
     "socket.io-client": "^2.3.0",
     "universal": "^0.1.1",
     "universal-cookie": "^4.0.2"

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
-import Input from 'reactstrap/es/Input';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { quickConnect } from '../../../redux/quick';
 import { urlQuery } from '../../../utils/url';
@@ -10,6 +9,7 @@ import { errMsg } from '../../../http/util';
 import Optional from '../../primitive/Optional/Optional';
 import Wysiwyg from '../../primitive/WYSIWYG/WYSIWYG';
 import { authorized } from '../../../utils/utils';
+import { TextField } from '@material-ui/core';
 
 class Write extends Component {
   constructor(props) {
@@ -104,7 +104,10 @@ class Write extends Component {
         <PageTitle title={'글 작성'} explain={'커뮤니티에 글을 작성합니다'} />
         <br />
         <Optional visible={category === 'anonymous'}>
-          <Input
+          <TextField
+            variant={'outlined'}
+            size={'small'}
+            fullWidth
             type="password"
             placeholder="삭제/수정에 사용할 비밀번호를 입력하세요"
             onChange={e => {
@@ -115,8 +118,12 @@ class Write extends Component {
             }}
           />
           <br />
+          <br />
         </Optional>
-        <Input
+        <TextField
+          variant={'outlined'}
+          size={'small'}
+          fullWidth
           type="text"
           placeholder="글 제목을 입력하세요"
           onChange={e => {
@@ -126,6 +133,7 @@ class Write extends Component {
             });
           }}
         />
+        <br />
         <br />
         <Wysiwyg ref={ref => (this.wysiwyg = ref)} />
         <br />

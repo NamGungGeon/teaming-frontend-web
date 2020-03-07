@@ -1,67 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import { quickConnect } from '../../../redux/quick';
-import Button from 'reactstrap/es/Button';
 import { MdSend } from 'react-icons/md';
+import SearchBox from '../SearchBox/SearchBox';
 
-class ChatInputBox extends Component {
-  static propTypes = {
-    hint: PropTypes.string,
-    type: PropTypes.string,
-    sendMessage: PropTypes.func.isRequired
-  };
+const ChatInputBox = () => {
+  const { hint, type, sendMessage } = this.props;
+  return (
+    <SearchBox
+      className={'chat-submission-form'}
+      hint={'채팅 내용을 입력하세요'}
+      submit={text => {
+        sendMessage(text);
+        return true;
+      }}
+      buttonContent={<MdSend style={{ fontSize: '1rem' }} />}
+    />
+  );
+};
 
-  static defaultProps = {
-    hint: '',
-    type: 'text'
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ''
-    };
-  }
-
-  handleChange = event => {
-    event.preventDefault();
-    this.setState({ value: event.target.value });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    const { sendMessage } = this.props;
-    const { value } = this.state;
-    sendMessage(value);
-    this.setState({ value: '' });
-  };
-
-  render() {
-    const { hint, type } = this.props;
-    return (
-      <Form className="chat-submission-form" onSubmit={this.handleSubmit}>
-        <InputGroup>
-          <Input
-            style={{
-              backgroundColor: 'white!important'
-            }}
-            className={'transparent'}
-            type={type}
-            value={this.state.value}
-            innerRef={ref => (this.inputBox = ref)}
-            placeholder={hint}
-            onChange={this.handleChange}
-          />
-          <InputGroupAddon addonType="append">
-            <Button type="submit" color={'danger'}>
-              <MdSend style={{ fontSize: '1rem' }} />
-            </Button>
-          </InputGroupAddon>
-        </InputGroup>
-      </Form>
-    );
-  }
-}
+ChatInputBox.propTypes = {
+  sendMessage: PropTypes.func.isRequired
+};
 
 export default quickConnect(ChatInputBox);

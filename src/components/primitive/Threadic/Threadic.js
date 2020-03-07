@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Threadic.module.css';
-import Collapse from 'reactstrap/es/Collapse';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-import { InputGroupAddon } from 'reactstrap';
-import Input from 'reactstrap/es/Input';
-import InputGroup from 'reactstrap/es/InputGroup';
+
 import { quickConnect } from '../../../redux/quick';
 import {
   createTrashComment,
@@ -22,6 +19,9 @@ import CommentIcon from '@material-ui/icons/Comment';
 import ReportIcon from '@material-ui/icons/Report';
 import DeleteIcon from '@material-ui/icons/Delete';
 import QuickComplain from '../../containers/QuickComplain/QuickComplain';
+import Blinder from '../Blinder/Blinder';
+import SearchBox from '../SearchBox/SearchBox';
+import { TextField } from '@material-ui/core';
 
 class Threadic extends Component {
   state = {
@@ -67,13 +67,18 @@ class Threadic extends Component {
 
   createComment = () => {
     const { uiKit, id } = this.props;
+    if (!this.state.myComment) {
+      uiKit.toaster.cooking('댓글을 입력하세요');
+      return false;
+    }
 
     uiKit.popup.make(
       <div>
         <h5>댓글 수정/삭제에 사용할 비밀번호를 입력하세요</h5>
         <br />
-        <Input
-          className={'transparent'}
+        <TextField
+          fullWidth
+          size={'small'}
           type={'password'}
           onChange={e => {
             this.setState({
@@ -125,6 +130,8 @@ class Threadic extends Component {
         </AlignLayout>
       </div>
     );
+
+    return true;
   };
 
   removeComment = replyId => {
@@ -136,8 +143,9 @@ class Threadic extends Component {
       <div>
         <h5>정말 이 댓글을 삭제하시겠습니까?</h5>
         <br />
-        <Input
-          className={'transparent'}
+        <TextField
+          size={'small'}
+          fullWidth
           type={'password'}
           onChange={e => {
             console.log('changed', e.target.value);
@@ -149,6 +157,7 @@ class Threadic extends Component {
           }}
           placeholder={'작성 시 입력한 비밀번호를 입력하세요'}
         />
+        <br />
         <br />
         <Button
           onClick={async () => {
@@ -194,8 +203,9 @@ class Threadic extends Component {
       <div>
         <h5>댓글 수정</h5>
         <br />
-        <Input
-          className={'transparent'}
+        <TextField
+          fullWidth
+          size={'small'}
           type={'password'}
           onChange={e => {
             console.log('changed', e.target.value);
@@ -254,8 +264,9 @@ class Threadic extends Component {
       <div>
         <h5>글 삭제</h5>
         <br />
-        <Input
-          className={'transparent'}
+        <TextField
+          fullWidth
+          size={'small'}
           type={'password'}
           onChange={e => {
             this.setState({
@@ -265,6 +276,7 @@ class Threadic extends Component {
           }}
           placeholder={'작성 시 입력한 비밀번호를 입력하세요'}
         />
+        <br />
         <br />
         <Button
           startIcon={<DeleteIcon />}
@@ -363,39 +375,20 @@ class Threadic extends Component {
         </AlignLayout>
         {comments && (
           <div className={styles.comments}>
-            <Collapse isOpen={openComment}>
+            <Blinder isBlind={!openComment}>
               <br />
               <div className={styles.create}>
-                <InputGroup>
-                  <Input
-                    ref={r => (this.input = r)}
-                    className={'transparent'}
-                    type="text"
-                    placeholder="댓글을 작성해보세요"
-                    onKeyDown={e => {
-                      if (e.key === 'Enter') {
-                        this.createComment();
-                        e.preventDefault();
-                      }
-                    }}
-                    onChange={e => {
-                      this.setState({
-                        ...this.state,
-                        myComment: e.target.value
-                      });
-                    }}
-                  />
-                  <InputGroupAddon addonType="append">
-                    <Button
-                      onClick={this.createComment}
-                      size={'small'}
-                      variant={'contained'}
-                      color={'primary'}
-                    >
-                      작성
-                    </Button>
-                  </InputGroupAddon>
-                </InputGroup>
+                <SearchBox
+                  submit={() => this.createComment()}
+                  onChange={text => {
+                    this.setState({
+                      ...this.state,
+                      myComment: text
+                    });
+                  }}
+                  hint={'댓글을 작성해보세요'}
+                  buttonContent={'작성'}
+                />
               </div>
               <br />
               {comments.map(comment => (
@@ -421,7 +414,7 @@ class Threadic extends Component {
                   createdAt={'3일 전'}
                 />
               ))}
-            </Collapse>
+            </Blinder>
           </div>
         )}
       </Section>

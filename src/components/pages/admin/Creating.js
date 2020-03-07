@@ -3,12 +3,12 @@ import Section from '../../primitive/Section/Section';
 import { quickConnect } from '../../../redux/quick';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
-import Input from 'reactstrap/es/Input';
-import FormGroup from 'reactstrap/es/FormGroup';
-import Col from 'reactstrap/es/Col';
+
 import { createEvent, createNotice } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import { getPath } from '../../../utils/url';
+import { TextField } from '@material-ui/core';
+import HashTable from '../../primitive/HashTable/HashTable';
 
 class Creating extends Component {
   state = {};
@@ -19,8 +19,9 @@ class Creating extends Component {
       <div>
         <h3>새로운 이벤트 등록</h3>
         <br />
-        <Input
-          className={'transparent'}
+        <TextField
+          variant={'outlined'}
+          fullWidth
           type={'text'}
           onChange={e => {
             this.setState({
@@ -31,10 +32,13 @@ class Creating extends Component {
           placeholder={'제목을 입력하세요'}
         />
         <br />
-        <Input
-          className={'transparent'}
+        <br />
+        <TextField
+          fullWidth
+          multiline
+          rows={'10'}
+          variant={'outlined'}
           type={'textarea'}
-          style={{ height: '300px' }}
           onChange={e => {
             this.setState({
               ...this.state,
@@ -44,74 +48,76 @@ class Creating extends Component {
           placeholder={'내용을 입력하세요'}
         />
         <br />
-        <FormGroup row>
-          <Col sm={3}>
-            <b>베너 이미지</b>
-          </Col>
-          <Col sm={9}>
-            <input
-              accept="image/*"
-              type={'file'}
-              onChange={async () => {
-                const { uiKit } = this.props;
+        <br />
+        <HashTable
+          keyWidth={'128px'}
+          table={[
+            {
+              key: '배너 이미지',
+              value: (
+                <input
+                  accept="image/*"
+                  type={'file'}
+                  onChange={async () => {
+                    const { uiKit } = this.props;
 
-                //input file is changed
-                const file = this.bannerFile.files[0];
-                const url = window.URL.createObjectURL(file);
-                console.log(url);
-                console.log(file);
-                if (file) {
-                  const mb = file.size / (1024 * 1024);
-                  if (mb >= 1) {
-                    uiKit.toaster.cooking('1MB이하의 사진만 업로드 가능합니다');
-                    return;
-                  }
+                    //input file is changed
+                    const file = this.bannerFile.files[0];
+                    const url = window.URL.createObjectURL(file);
+                    console.log(url);
+                    console.log(file);
+                    if (file) {
+                      const mb = file.size / (1024 * 1024);
+                      if (mb >= 1) {
+                        uiKit.toaster.cooking(
+                          '1MB이하의 사진만 업로드 가능합니다'
+                        );
+                        return;
+                      }
 
-                  //save file info
-                  this.setState({
-                    ...this.state,
-                    bannerFile: file
-                  });
-                }
-              }}
-              ref={ref => {
-                this.bannerFile = ref;
-              }}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Col sm={3}>
-            <b>시작일</b>
-          </Col>
-          <Col sm={9}>
-            <Input
-              type={'datetime-local'}
-              onChange={e => {
-                this.setState({
-                  ...this.state,
-                  startDate: e.target.value + ':00'
-                });
-              }}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Col sm={3}>
-            <b>종료일</b>
-          </Col>
-          <Col sm={9}>
-            <Input
-              type={'datetime-local'}
-              onChange={e => {
-                this.setState({
-                  ...this.state,
-                  endDate: e.target.value + ':00'
-                });
-              }}
-            />
-          </Col>
-        </FormGroup>
+                      //save file info
+                      this.setState({
+                        ...this.state,
+                        bannerFile: file
+                      });
+                    }
+                  }}
+                  ref={ref => {
+                    this.bannerFile = ref;
+                  }}
+                />
+              )
+            },
+            {
+              key: '시작일',
+              value: (
+                <input
+                  type={'datetime-local'}
+                  onChange={e => {
+                    this.setState({
+                      ...this.state,
+                      startDate: e.target.value + ':00'
+                    });
+                  }}
+                />
+              )
+            },
+            {
+              key: '종료일',
+              value: (
+                <input
+                  type={'datetime-local'}
+                  onChange={e => {
+                    this.setState({
+                      ...this.state,
+                      endDate: e.target.value + ':00'
+                    });
+                  }}
+                />
+              )
+            }
+          ]}
+        />
         <br />
         <br />
 
@@ -184,8 +190,9 @@ class Creating extends Component {
       <div>
         <h3>새로운 공지사항 등록</h3>
         <br />
-        <Input
-          className={'transparent'}
+        <TextField
+          fullWidth
+          variant={'outlined'}
           type={'text'}
           onChange={e => {
             this.setState({
@@ -196,10 +203,13 @@ class Creating extends Component {
           placeholder={'제목을 입력하세요'}
         />
         <br />
-        <Input
-          className={'transparent'}
+        <br />
+        <TextField
           type={'textarea'}
-          style={{ height: '300px' }}
+          fullWidth
+          multiline
+          rows={'10'}
+          variant={'outlined'}
           onChange={e => {
             this.setState({
               ...this.state,
@@ -210,7 +220,6 @@ class Creating extends Component {
         />
         <br />
         <br />
-
         <AlignLayout align={'right'}>
           <Button
             variant="contained"

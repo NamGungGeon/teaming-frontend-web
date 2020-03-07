@@ -3,10 +3,9 @@ import { beautifyDate } from '../../../utils/utils';
 import styles from './Notices.module.css';
 import { getPath } from '../../../utils/url';
 import { getNotices } from '../../../http/tming';
-import Spinner from 'reactstrap/es/Spinner';
-import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import SimpleRow from '../../primitive/SimpleRow/SimpleRow';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Notices extends Component {
   state = {
@@ -68,7 +67,7 @@ class Notices extends Component {
               padding: '32px'
             }}
           >
-            <Spinner />
+            <CircularProgress />
           </div>
         )}
       </MenuList>

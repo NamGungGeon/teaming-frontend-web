@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Route } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
 import { ReactRouterGlobalHistory } from 'react-router-global-history';
 import firebase from 'firebase/app';
 import 'firebase/auth';

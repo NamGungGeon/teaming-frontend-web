@@ -7,7 +7,6 @@ import {
   fuckHTML,
   pageDescription
 } from '../../../utils/utils';
-import { Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import IconButton from '@material-ui/core/IconButton';
@@ -36,6 +35,7 @@ import PageTitle from '../../primitive/PageTitle/PageTitle';
 import Section from '../../primitive/Section/Section';
 import QuickComplain from '../../containers/QuickComplain/QuickComplain';
 import { TextField } from '@material-ui/core';
+import SearchBox from '../../primitive/SearchBox/SearchBox';
 
 class Read extends Component {
   state = {
@@ -303,6 +303,10 @@ class Read extends Component {
 
   createComment = async () => {
     const { uiKit, auth, match } = this.props;
+    if (!this.state.myComment) {
+      uiKit.toaster.cooking('댓글은 빈 칸일 수 없습니다');
+      return false;
+    }
 
     const id = match.params.id;
     const create = async () => {
@@ -356,6 +360,8 @@ class Read extends Component {
     } else {
       await create();
     }
+
+    return true;
   };
 
   updateComment = async (postId, commentId, text) => {
@@ -571,35 +577,17 @@ class Read extends Component {
           <Section>
             <p className={'explain'}>{comments.length}개의 댓글이 있습니다</p>
             {authorized(auth) || this.isAnonymous() ? (
-              <InputGroup>
-                <Input
-                  value={this.state.myComment}
-                  className={'transparent'}
-                  type="text"
-                  placeholder="댓글을 작성해보세요"
-                  onKeyDown={e => {
-                    if (e.key === 'Enter') {
-                      this.createComment();
-                      e.preventDefault();
-                    }
-                  }}
-                  onChange={e => {
-                    this.setState({
-                      ...this.state,
-                      myComment: e.target.value
-                    });
-                  }}
-                />
-                <InputGroupAddon addonType="append">
-                  <Button
-                    onClick={this.createComment}
-                    variant="contained"
-                    color="primary"
-                  >
-                    작성
-                  </Button>
-                </InputGroupAddon>
-              </InputGroup>
+              <SearchBox
+                hint={'댓글을 작성해보세요'}
+                submit={this.createComment}
+                onChange={text => {
+                  this.setState({
+                    ...this.state,
+                    myComment: text
+                  });
+                }}
+                buttonContent={'작성'}
+              />
             ) : (
               <p>댓글 작성을 위해서는 로그인이 필요합니다</p>
             )}

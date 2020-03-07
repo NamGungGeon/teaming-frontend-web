@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import ButtonGroup from 'reactstrap/es/ButtonGroup';
-import { Button } from 'reactstrap';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from '@material-ui/core/Button';
 
 const ButtonSelector = ({ onUpdate, defaultItemId, items }) => {
   const [selectedItemId, setSelectedItemId] = useState(defaultItemId);
@@ -13,7 +12,7 @@ const ButtonSelector = ({ onUpdate, defaultItemId, items }) => {
           <Button
             key={item.id}
             color={item.color ? item.color : 'primary'}
-            outline={selectedItemId !== item.id}
+            variant={selectedItemId !== item.id ? 'outlined' : 'contained'}
             onClick={() => {
               setSelectedItemId(item.id);
               onUpdate(item.id);

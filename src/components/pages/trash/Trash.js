@@ -3,13 +3,14 @@ import Threadic from '../../primitive/Threadic/Threadic';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import { quickConnect } from '../../../redux/quick';
-import Input from 'reactstrap/es/Input';
+
 import { createTrash, getTrashes } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import Button from '@material-ui/core/Button';
 import { FaToiletPaper } from 'react-icons/fa';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { pageDescription } from '../../../utils/utils';
+import { TextField } from '@material-ui/core';
 
 class Trash extends Component {
   state = {
@@ -72,8 +73,10 @@ class Trash extends Component {
       <div>
         <h4>배설</h4>
         <br />
-        <Input
-          className={'transparent'}
+        <TextField
+          fullWidth
+          variant={'outlined'}
+          size={'small'}
           type={'password'}
           onChange={e => {
             this.setState({
@@ -84,10 +87,13 @@ class Trash extends Component {
           placeholder={'수정/삭제에 사용할 비밀번호를 입력하세요'}
         />
         <br />
-        <Input
-          className={'transparent'}
+        <br />
+        <TextField
+          fullWidth
+          variant={'outlined'}
+          multiline
+          rows={'10'}
           type={'textarea'}
-          style={{ height: '300px' }}
           onChange={e => {
             this.setState({
               ...this.state,
@@ -96,6 +102,7 @@ class Trash extends Component {
           }}
           placeholder={'내용을 입력하세요'}
         />
+        <br />
         <br />
         <AlignLayout align={'right'}>
           <Button

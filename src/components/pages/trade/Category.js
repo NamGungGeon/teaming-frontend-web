@@ -3,10 +3,8 @@ import SquareButton from '../../primitive/SquareButton/SquareButton';
 import { getPath } from '../../../utils/url';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { randStr } from '../../../utils/utils';
-import FormGroup from 'reactstrap/es/FormGroup';
-import Col from 'reactstrap/es/Col';
-import { Input } from 'reactstrap';
 import CardWrapper from '../../primitive/CardWrapper/CardWrapper';
+import { TextField } from '@material-ui/core';
 
 class Category extends Component {
   componentDidMount() {
@@ -52,22 +50,19 @@ class Category extends Component {
           explain={'아이템을 거래할 게임을 선택하세요'}
           align={'left'}
         />
-        <FormGroup row>
-          <Col sm={4}>
-            <Input
-              className={'transparent'}
-              onChange={e => {
-                this.setState({
-                  ...this.state,
-                  filter: e.target.value
-                });
-              }}
-              placeholder="게임 검색"
-            />
-          </Col>
-          <Col sm={8} />
-        </FormGroup>
+        <TextField
+          fullWidth
+          type={'text'}
+          onChange={e => {
+            this.setState({
+              ...this.state,
+              filter: e.target.value
+            });
+          }}
+          placeholder="게임 검색"
+        />
 
+        <br />
         <br />
         <CardWrapper>
           {gameList.map((game, idx) => {

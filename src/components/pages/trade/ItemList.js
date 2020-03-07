@@ -3,10 +3,10 @@ import HorizontalSlicedLayout from '../../layouts/HorizontalSlicedLayout/Horizon
 import Window from '../../primitive/Window/Window';
 import ItemSearchFilter from '../../containers/ItemSearchFilter/ItemSearchFilter';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
-import { Button } from 'reactstrap';
 import { formatToMoney, randStr } from '../../../utils/utils';
 import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
 import icon from '../../resource/icon.png';
+import Button from "@material-ui/core/Button";
 
 class ItemList extends Component {
   state = {

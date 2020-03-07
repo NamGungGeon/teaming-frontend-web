@@ -1,15 +1,15 @@
 import React from 'react';
 import PageTitle from '../../../primitive/PageTitle/PageTitle';
 import Section from '../../../primitive/Section/Section';
-import Input from 'reactstrap/es/Input';
-import { Button } from 'reactstrap';
-import Collapse from 'reactstrap/es/Collapse';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import ButtonSelector from '../../../primitive/ButtonSelector/ButtonSelector';
 import ImageSelect from '../../../primitive/ImageSelect/ImageSelect';
 
 import { battlegroundResource } from '../../../../http/battleground';
 import { quickConnect } from '../../../../redux/quick';
+import Blinder from '../../../primitive/Blinder/Blinder';
+import { TextField } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 const tierIcons = [
   {
@@ -86,24 +86,15 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
       <br />
       <Section style={{ textAlign: 'left' }}>
         <div>
-          <div
+          <PageTitle title={'닉네임'} explain={''} noMargin />
+          <TextField
             style={{
-              display: 'inline-block',
-              maxWidth: '350px',
-              width: '100%'
+              width: '400px'
             }}
-          >
-            <PageTitle title={'닉네임'} explain={''} noMargin />
-            <Input
-              className={'transparent'}
-              width={'400px'}
-              value={nickname}
-              name={'nickname'}
-              type="text"
-              placeholder="게임 내에서 사용중인 닉네임을 입력하세요"
-              onChange={handleChange}
-            />
-          </div>
+            type={'text'}
+            placeholder="게임 내에서 사용중인 닉네임을 입력하세요"
+            onChange={handleChange}
+          />
         </div>
         <br />
         <div>
@@ -140,7 +131,7 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
               {
                 id: 'win',
                 label: '빡겜',
-                color: 'danger'
+                color: 'secondary'
               },
               {
                 id: 'fun',
@@ -164,7 +155,7 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
               {
                 id: 'rank',
                 label: '랭크',
-                color: 'danger'
+                color: 'secondary'
               },
               {
                 id: 'normal',
@@ -181,7 +172,7 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
           />
         </div>
         <br />
-        <Collapse isOpen={mode !== 'normal'}>
+        <Blinder isBlind={mode === 'normal'}>
           <div>
             <PageTitle title={'내 티어'} explain={''} noMargin />
             <ImageSelect
@@ -196,13 +187,13 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
             />
           </div>
           <br />
-        </Collapse>
+        </Blinder>
         <AlignLayout align={'right'}>
           <Button
             onClick={requestMatching}
-            block
+            fullWidth
+            variant={'contained'}
             color={'primary'}
-            size={'large'}
           >
             시작 &gt;
           </Button>

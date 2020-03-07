@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import Wysiwyg from '../../primitive/WYSIWYG/WYSIWYG';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { createCase } from '../../../http/tming';
 import Optional from '../../primitive/Optional/Optional';
-import Input from 'reactstrap/es/Input';
 import { authorized } from '../../../utils/utils';
 import { Validator } from 'class-validator';
 import { errMsg } from '../../../http/util';
@@ -70,8 +69,10 @@ class CreateCase extends Component {
         />
         <br />
         <Optional visible={!authorized(auth)}>
-          <Input
+          <TextField
+            variant={'outlined'}
             type="email"
+            size={'small'}
             placeholder="답장을 받을 이메일 주소를 입력하세요"
             onChange={e => {
               this.setState({
@@ -81,8 +82,12 @@ class CreateCase extends Component {
             }}
           />
           <br />
+          <br />
         </Optional>
-        <Input
+        <TextField
+          variant={'outlined'}
+          fullWidth
+          size={'small'}
           type="text"
           placeholder="문의 제목을 입력하세요"
           onChange={e => {
@@ -92,6 +97,7 @@ class CreateCase extends Component {
             });
           }}
         />
+        <br />
         <br />
         <Wysiwyg ref={ref => (this.editor = ref)} />
         <br />

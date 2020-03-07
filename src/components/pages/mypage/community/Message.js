@@ -23,9 +23,9 @@ import {
   getMessages
 } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
-import Input from 'reactstrap/es/Input';
 import CloseIcon from '@material-ui/icons/Close';
 import { urlQuery } from '../../../../utils/url';
+import { TextField } from '@material-ui/core';
 
 class Message extends Component {
   state = {
@@ -156,25 +156,25 @@ class Message extends Component {
 
     uiKit.spopup.make(
       <div>
-        <h5>
-          쪽지
-          <p className={'explain'}>{username}</p>
-          <Input
-            maxlength={300}
-            className={'transparent'}
-            type={'textarea'}
-            style={{ height: '300px' }}
-            onChange={e => {
-              const msg = e.target.value;
-              console.log(msg);
-              this.setState({
-                ...this.state,
-                newMsg: msg
-              });
-            }}
-            placeholder={'내용을 입력하세요'}
-          />
-        </h5>
+        <h5>쪽지</h5>
+        <p className={'explain'}>{username}</p>
+        <TextField
+          fullWidth
+          rows={'10'}
+          multiline
+          maxlength={300}
+          type={'textarea'}
+          onChange={e => {
+            const msg = e.target.value;
+            console.log(msg);
+            this.setState({
+              ...this.state,
+              newMsg: msg
+            });
+          }}
+          placeholder={'내용을 입력하세요'}
+        />
+        <br />
         <br />
         <AlignLayout align={'right'}>
           <Button

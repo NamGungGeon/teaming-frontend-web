@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import FormGroup from 'reactstrap/es/FormGroup';
 import styles from './Login.module.css';
 import { quickConnect } from '../../../redux/quick';
 import { getPath } from '../../../utils/url';
@@ -10,7 +9,6 @@ import { errMsg } from '../../../http/util';
 import Button from '@material-ui/core/Button';
 import getHistory from 'react-router-global-history';
 import TextField from '@material-ui/core/TextField';
-import Form from 'reactstrap/es/Form';
 
 class Login extends Component {
   state = {
@@ -83,7 +81,7 @@ class Login extends Component {
           <h3>로그인</h3>
           <br />
           <div className={styles.form}>
-            <Form>
+            <div>
               <TextField
                 fullWidth
                 size={'small'}
@@ -115,10 +113,10 @@ class Login extends Component {
                   if (e.key === 'Enter') this.login();
                 }}
               />
-            </Form>
+            </div>
             <br />
             <br />
-            <FormGroup className={styles.buttons}>
+            <div className={styles.buttons}>
               <Button
                 variant={'contained'}
                 color={'primary'}
@@ -137,7 +135,7 @@ class Login extends Component {
               >
                 회원가입
               </Button>
-            </FormGroup>
+            </div>
             <Button
               style={{
                 marginBottom: '8px'

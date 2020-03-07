@@ -5,13 +5,13 @@ import IconButton from '@material-ui/core/IconButton';
 import { beautifyDate } from '../../../utils/utils';
 import { Button } from '@material-ui/core';
 import Optional from '../Optional/Optional';
-import { Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import { IoIosPerson } from 'react-icons/io';
 
 import ReportIcon from '@material-ui/icons/Report';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
+import SearchBox from '../SearchBox/SearchBox';
 
 class Comment extends Component {
   state = {
@@ -65,41 +65,18 @@ class Comment extends Component {
         </div>
         <div className={styles.contents}>
           {updateMode ? (
-            <InputGroup>
-              <Input
-                value={this.state.newText}
-                className={'transparent'}
-                type="text"
-                placeholder="댓글을 수정해보세요"
-                onKeyDown={e => {
-                  if (e.key === 'Enter') {
-                    updateComment(newText);
-                    e.preventDefault();
-                  }
-                }}
-                onChange={e => {
-                  this.setState({
-                    ...this.state,
-                    newText: e.target.value
-                  });
-                }}
-              />
-              <InputGroupAddon addonType="append">
-                <Button
-                  onClick={async () => {
-                    await updateComment(newText);
-                    this.setState({
-                      ...this.state,
-                      updateMode: false
-                    });
-                  }}
-                  variant="contained"
-                  color="primary"
-                >
-                  수정
-                </Button>
-              </InputGroupAddon>
-            </InputGroup>
+            <SearchBox
+              initValue={text}
+              hint={'댓글을 수정해보세요'}
+              submit={newComment => {
+                updateComment(newComment);
+                this.setState({
+                  ...this.state,
+                  updateMode: false
+                });
+              }}
+              buttonContent={'수정'}
+            />
           ) : (
             <div>{text}</div>
           )}

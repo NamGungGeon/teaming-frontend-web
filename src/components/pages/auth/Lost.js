@@ -1,84 +1,86 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Section from '../../primitive/Section/Section';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
-import { Alert, Col, FormGroup, InputGroupAddon, Label } from 'reactstrap';
-import InputGroup from 'reactstrap/es/InputGroup';
-import Input from 'reactstrap/es/Input';
-import Button from 'reactstrap/es/Button';
+
 import { Validator } from 'class-validator';
+import { quickConnect } from '../../../redux/quick';
+import HashTable from '../../primitive/HashTable/HashTable';
+import { Button, TextField } from '@material-ui/core';
+import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
+import { delay } from '../../../utils/utils';
 
-class Lost extends Component {
-  state = {
-    email: '',
-    success: false,
-    msg: ''
-  };
+const Lost = ({ uiKit, history }) => {
+  const [email, setEmail] = useState('');
+  const validator = new Validator();
 
-  validator = new Validator();
+  const submit = async () => {
+    if (!email) {
+      uiKit.toaster.cooking('이메일을 입력하세요');
+      return;
+    }
+    if (validator.isEmail(email)) {
+      uiKit.toaster.cooking('올바른 이메일 형식이 아닙니다');
+      return;
+    }
 
-  render() {
-    const { msg, success, email } = this.state;
-    return (
+    uiKit.loading.start();
+    await delay(1000);
+    uiKit.loading.end();
+
+    uiKit.popup.make(
       <div>
-        <PageTitle
-          title={'PW찾기'}
-          explain={'이메일 찾기는 지원되지 않습니다'}
-          align={'center'}
-        />
-        <Section>
-          {msg && (
-            <div>
-              <Alert color={success ? 'success' : 'danger'}>{msg}</Alert>
-            </div>
-          )}
-          <div>
-            <FormGroup row>
-              <Label for="exampleEmail" sm={2}>
-                이메일
-              </Label>
-              <Col sm={10}>
-                <InputGroup>
-                  <Input
-                    className={'transparent'}
-                    type="email"
-                    placeholder="가입당시에 입력했던 이메일을 입력하세요"
-                    onChange={e => {
-                      this.setState({
-                        ...this.state,
-                        email: e.target.value
-                      });
-                    }}
-                  />
-                  <InputGroupAddon addonType="append">
-                    <Button
-                      onClick={() => {
-                        if (this.validator.isEmail(email))
-                          this.setState({
-                            ...this.state,
-                            success: true,
-                            msg:
-                              '가입하신 이메일로 비밀번호 초기화 메일이 발송되었습니다'
-                          });
-                        else
-                          this.setState({
-                            ...this.state,
-                            success: false,
-                            msg: '올바른 이메일 형식이 아닙니다'
-                          });
-                      }}
-                      color={'primary'}
-                    >
-                      찾기
-                    </Button>
-                  </InputGroupAddon>
-                </InputGroup>
-              </Col>
-            </FormGroup>
-          </div>
-        </Section>
+        <h4>이메일 전송 완료</h4>
+        <p>입력하신 메일로 비밀번호 초기화 메일이 발송되었습니다</p>
+        <br />
+        <AlignLayout align={'right'}>
+          <Button
+            onClick={() => {
+              uiKit.popup.destroy();
+            }}
+            variant={'contained'}
+            color={'primary'}
+          >
+            닫기
+          </Button>
+        </AlignLayout>
       </div>
     );
-  }
-}
+  };
 
-export default Lost;
+  return (
+    <div>
+      <PageTitle
+        title={'PW찾기'}
+        explain={'이메일 찾기는 지원되지 않습니다'}
+        align={'center'}
+      />
+      <Section>
+        <HashTable
+          table={[
+            {
+              key: '이메일',
+              value: (
+                <TextField
+                  type={'email'}
+                  fullWidth
+                  placeholder={'가입 시 사용한 이메일을 입력하세요'}
+                  onChange={e => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              )
+            }
+          ]}
+        />
+        <br />
+        <AlignLayout align={'right'}>
+          <Button onClick={submit} color={'primary'} variant={'contained'}>
+            찾기
+          </Button>
+        </AlignLayout>
+      </Section>
+    </div>
+  );
+};
+
+export default quickConnect(Lost);

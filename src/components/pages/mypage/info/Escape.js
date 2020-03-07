@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import Alert from 'reactstrap/es/Alert';
-import Collapse from 'reactstrap/es/Collapse';
 import PageTitle from '../../../primitive/PageTitle/PageTitle';
-import InputGroup from 'reactstrap/es/InputGroup';
-import Input from 'reactstrap/es/Input';
-import { InputGroupAddon } from 'reactstrap';
+
 import { quickConnect } from '../../../../redux/quick';
 import Button from '@material-ui/core/Button';
 import { disableProfile } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
+import Blinder from '../../../primitive/Blinder/Blinder';
+import Section from '../../../primitive/Section/Section';
+import { TextField } from '@material-ui/core';
 
 class Escape extends Component {
   state = {
@@ -34,10 +33,10 @@ class Escape extends Component {
             <p>
               회원탈퇴가 완료되었습니다
               <p className={'explain'}>
-                탈퇴를 취소하고 싶을 경우, 30일 내로 고객선터로 문의해 주세
+                탈퇴를 취소하고 싶을 경우, 30일 내로 고객선터로 문의해 주세요
               </p>
             </p>
-            <br />요
+            <br />
             <Button
               variant={'contained'}
               color={'primary'}
@@ -63,8 +62,8 @@ class Escape extends Component {
 
     return (
       <div>
-        <Collapse isOpen={!ok}>
-          <Alert color={'danger'}>
+        <Blinder isBlind={ok}>
+          <Section paperColor={'#f8d7da'}>
             회원탈퇴 신청 후, 계정이 비활성화됩니다
             <br />
             비활성화된 계정은 30일 후 서버에서 완전히 삭제됩니다
@@ -83,18 +82,28 @@ class Escape extends Component {
             >
               알겠습니다. 계속 진행해 주십시오.
             </Button>
-          </Alert>
-        </Collapse>
-        <Collapse isOpen={ok}>
-          <Alert color={'danger'}>
+          </Section>
+        </Blinder>
+        <Blinder isBlind={!ok}>
+          <Section paperColor={'#f8d7da'}>
             <PageTitle
               title={'계정의 패스워드를 입력해 주십시오'}
               explain={'본인 확인이 완료되면 탈퇴가 승인됩니다'}
               titleColor={'#721c24'}
             />
             <br />
-            <InputGroup>
-              <Input
+            <div
+              style={{
+                display: 'flex'
+              }}
+            >
+              <TextField
+                style={{
+                  flex: '1'
+                }}
+                color={'secondary'}
+                size={'small'}
+                variant={'outlined'}
                 type="password"
                 placeholder="로그인에 사용한 비밀번호를 입력하세요"
                 onChange={e => {
@@ -104,18 +113,16 @@ class Escape extends Component {
                   });
                 }}
               />
-              <InputGroupAddon addonType="append">
-                <Button
-                  onClick={this.disableAccount}
-                  variant={'contained'}
-                  color={'secondary'}
-                >
-                  탈퇴
-                </Button>
-              </InputGroupAddon>
-            </InputGroup>
-          </Alert>
-        </Collapse>
+              <Button
+                onClick={this.disableAccount}
+                variant={'contained'}
+                color={'secondary'}
+              >
+                탈퇴신청
+              </Button>
+            </div>
+          </Section>
+        </Blinder>
       </div>
     );
   }

@@ -2,19 +2,10 @@ import React, { Component } from 'react';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { getPath } from '../../../utils/url';
 import Section from '../../primitive/Section/Section';
-import ListItem from '@material-ui/core/ListItem';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import ListItemText from '@material-ui/core/ListItemText';
-import List from '@material-ui/core/List';
-import Collapse from 'reactstrap/es/Collapse';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { beautifyDate } from '../../../utils/utils';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Optional from '../../primitive/Optional/Optional';
-import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-import { Button } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 
 const FAQ = ({ history }) => {

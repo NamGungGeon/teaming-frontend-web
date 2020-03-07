@@ -10,7 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import BlockIcon from '@material-ui/icons/Block';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
-import Input from 'reactstrap/es/Input';
+import { TextField } from '@material-ui/core';
 
 class UserInfoViewer extends Component {
   state = {
@@ -57,9 +57,11 @@ class UserInfoViewer extends Component {
         <h5>
           쪽지
           <p className={'explain'}>{username}</p>
-          <Input
+          <TextField
+            fullWidth
+            multiline
+            rows={10}
             maxlength={300}
-            className={'transparent'}
             type={'textarea'}
             style={{ height: '300px' }}
             onChange={e => {

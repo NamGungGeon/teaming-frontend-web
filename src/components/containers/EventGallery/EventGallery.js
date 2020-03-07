@@ -3,13 +3,12 @@ import styles from './EventGallery.module.css';
 import { getPath } from '../../../utils/url';
 
 import { getEvents } from '../../../http/tming';
-import Spinner from 'reactstrap/es/Spinner';
 import { quickConnect } from '../../../redux/quick';
 import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
 import getHistory from 'react-router-global-history';
 import { beautifyDate } from '../../../utils/utils';
 import SimpleRow from '../../primitive/SimpleRow/SimpleRow';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class EventGallery extends Component {
   state = {
@@ -83,7 +82,7 @@ class EventGallery extends Component {
               padding: '32px'
             }}
           >
-            <Spinner />
+            <CircularProgress />
           </div>
         )}
       </MenuList>

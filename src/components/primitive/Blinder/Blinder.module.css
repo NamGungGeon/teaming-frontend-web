@@ -1,0 +1,18 @@
+.blinder {
+  transition: 0.3s all;
+  max-height: 999px;
+}
+.blinded {
+  transform: scaleY(0) translateY(-100%);
+  opacity: 0;
+  max-height: 0;
+}
+
+@keyframes blinding {
+  0% {
+    max-height: 99999px;
+  }
+  100% {
+    max-height: 0;
+  }
+}

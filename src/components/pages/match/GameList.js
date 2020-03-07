@@ -8,10 +8,10 @@ import cyphers from '../../resource/icon/cyphers.png';
 import overwatch from '../../resource/icon/overwatch.png';
 import battleground from '../../resource/icon/battleground.png';
 import { randStr } from '../../../utils/utils';
-import { Input } from 'reactstrap';
-import FormGroup from 'reactstrap/es/FormGroup';
-import Col from 'reactstrap/es/Col';
+
 import ButtonsWrapper from '../../primitive/ButtonsWrapper/ButtonsWrapper';
+import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
+import { TextField } from '@material-ui/core';
 
 class GameList extends Component {
   state = {
@@ -62,21 +62,23 @@ class GameList extends Component {
           explain={'팀 매칭이 필요한 게임을 선택하세요'}
           align={'left'}
         />
-        <FormGroup row>
-          <Col sm={4}>
-            <Input
-              className={'transparent'}
-              onChange={e => {
-                this.setState({
-                  ...this.state,
-                  filter: e.target.value
-                });
-              }}
-              placeholder="게임 검색"
-            />
-          </Col>
-          <Col sm={8} />
-        </FormGroup>
+        <AlignLayout align={'right'}>
+          <TextField
+            onChange={e => {
+              this.setState({
+                ...this.state,
+                filter: e.target.value
+              });
+            }}
+            size={'small'}
+            variant={'outlined'}
+            style={{
+              width: '256px'
+            }}
+            placeholder={'게임 검색'}
+            type={'text'}
+          />
+        </AlignLayout>
 
         <br />
 

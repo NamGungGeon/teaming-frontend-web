@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
-import Input from 'reactstrap/es/Input';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { quickConnect } from '../../../redux/quick';
 import { urlQuery } from '../../../utils/url';
@@ -9,6 +8,7 @@ import { getBoardPost, updateBoardPost } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import Optional from '../../primitive/Optional/Optional';
 import Wysiwyg from '../../primitive/WYSIWYG/WYSIWYG';
+import { TextField } from '@material-ui/core';
 
 class Update extends Component {
   state = {
@@ -101,7 +101,10 @@ class Update extends Component {
         />
         <br />
         <Optional visible={category === 'anonymous'}>
-          <Input
+          <TextField
+            variant={'outlined'}
+            size={'small'}
+            fullWidth
             type="password"
             placeholder="작성 시 입력했던 코드를 입력하세요"
             onChange={e => {
@@ -112,9 +115,12 @@ class Update extends Component {
             }}
           />
           <br />
+          <br />
         </Optional>
-        <Input
-          value={title}
+        <TextField
+          variant={'outlined'}
+          size={'small'}
+          fullWidth
           type="text"
           placeholder="글 제목을 입력하세요"
           onChange={e => {
@@ -124,6 +130,7 @@ class Update extends Component {
             });
           }}
         />
+        <br />
         <br />
         <Wysiwyg body={body} ref={ref => (this.editor = ref)} />
         <br />
