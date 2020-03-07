@@ -1,7 +1,7 @@
 import './App.css';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import TopNavigation from './components/containers/Navigation/TopNavigation';
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { quickConnect } from './redux/quick';
 import { getPath, urlQuery } from './utils/url';
 import {
@@ -14,8 +14,8 @@ import {
   Events,
   Notices,
   Center,
-  Admin,
   Magazine,
+  Admin,
   Youtuber
 } from './components/pages';
 import MyPage from './components/pages/mypage/MyPage';
@@ -38,6 +38,7 @@ import 'firebase/messaging';
 import { registerFCM } from './http/tming';
 import { authorized } from './utils/utils';
 import Contact from './components/pages/Contact';
+import LoadingTopFixed from "./components/primitive/LoadingTopFixed/LoadingTopFixed";
 
 class App extends Component {
   constructor(props) {
@@ -141,31 +142,37 @@ class App extends Component {
                 className={'content'}
               >
                 <div className="ruler">
-                  <Route exact path={getPath('/')} component={Home} />
-                  <Route path={getPath('/match')} component={Match} />
-                  <Route exact path={getPath('/chat')} component={Chat} />
-                  <Route path={getPath('/auth')} component={Auth} />
-                  <Route path={getPath('/trash')} component={Trash} />
-                  <Route path={getPath('/rooms')} component={Rooms} />
-                  <Route path={getPath('/mypage')} component={MyPage} />
-                  <Route path={getPath('/trade')} component={Trade} />
-                  <Route path={getPath('/privacy')} component={Privacy} />
-                  <Route path={getPath('/contact')} component={Contact} />
-                  <Route path={getPath('/community')} component={Community} />
-                  <Route
-                    path={getPath('/important/notices')}
-                    component={Notices}
-                  />
-                  <Route
-                    path={getPath('/important/events')}
-                    component={Events}
-                  />
-                  <Route path={getPath('/center')} component={Center} />
-                  <Route path={getPath('/cyphers')} component={Cyphers} />
-                  <Route path={getPath('/admin')} component={Admin} />
-                  <Route path={getPath('/magazine')} component={Magazine} />
-                  <Route path={getPath('/youtuber')} component={Youtuber} />
-
+                  <Suspense fallback={<LoadingTopFixed/>}>
+                    <Switch>
+                      <Route exact path={getPath('/')} component={Home} />
+                      <Route path={getPath('/match')} component={Match} />
+                      <Route exact path={getPath('/chat')} component={Chat} />
+                      <Route path={getPath('/auth')} component={Auth} />
+                      <Route path={getPath('/trash')} component={Trash} />
+                      <Route path={getPath('/rooms')} component={Rooms} />
+                      <Route path={getPath('/mypage')} component={MyPage} />
+                      <Route path={getPath('/trade')} component={Trade} />
+                      <Route path={getPath('/privacy')} component={Privacy} />
+                      <Route path={getPath('/contact')} component={Contact} />
+                      <Route
+                        path={getPath('/community')}
+                        component={Community}
+                      />
+                      <Route
+                        path={getPath('/important/notices')}
+                        component={Notices}
+                      />
+                      <Route
+                        path={getPath('/important/events')}
+                        component={Events}
+                      />
+                      <Route path={getPath('/center')} component={Center} />
+                      <Route path={getPath('/cyphers')} component={Cyphers} />
+                      <Route path={getPath('/admin')} component={Admin} />
+                      <Route path={getPath('/magazine')} component={Magazine} />
+                      <Route path={getPath('/youtuber')} component={Youtuber} />
+                    </Switch>
+                  </Suspense>
                   <div className={'mobile'}>
                     <Footer logo={logo} />
                   </div>

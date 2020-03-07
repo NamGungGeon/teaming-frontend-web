@@ -20,7 +20,6 @@ const SearchBox = ({
 
   const flush = () => {
     setValue('');
-    onChange('');
   };
 
   return (

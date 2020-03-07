@@ -1,18 +1,22 @@
 .blinder {
-  transition: 0.3s all;
-  max-height: 999px;
+  transition: 0.2s all;
+  height: auto;
 }
 .blinded {
-  transform: scaleY(0) translateY(-100%);
+  transform: scaleY(0.3);
   opacity: 0;
   max-height: 0;
-}
+  float: left;
+  width: 100%;
 
+  animation: blinding 0.3s forwards;
+}
 @keyframes blinding {
   0% {
-    max-height: 99999px;
+    display: block;
   }
   100% {
-    max-height: 0;
+    height: 0;
+    display: none;
   }
 }

@@ -94,6 +94,7 @@ class Threadic extends Component {
           <Button
             onClick={async () => {
               const { myComment, password } = this.state;
+              console.log(this.state);
 
               if (!password) {
                 uiKit.toaster.cooking('비밀번호를 입력하세요');
@@ -381,6 +382,7 @@ class Threadic extends Component {
                 <SearchBox
                   submit={() => this.createComment()}
                   onChange={text => {
+                    console.log(text, this.state);
                     this.setState({
                       ...this.state,
                       myComment: text
