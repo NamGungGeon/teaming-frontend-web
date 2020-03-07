@@ -70,6 +70,7 @@ class CreateCase extends Component {
         <br />
         <Optional visible={!authorized(auth)}>
           <TextField
+            fullWidth
             variant={'outlined'}
             type="email"
             size={'small'}

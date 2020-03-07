@@ -14,10 +14,10 @@ const FAQ = ({ history }) => {
       title: '티밍은 무엇을 하는 곳인가요?',
       body: (
         <div>
-          <h6>
+          <h4>
             티밍은 팀원과의 갈등을 해결하여 즐거운 게이밍 환경을 만들기 위해
             존재합니다
-          </h6>
+          </h4>
           <br />
           <p>
             대부분의 팀 게임은 사용자의 다양한 특성을 비교하지 않고, 비슷한
@@ -47,7 +47,7 @@ const FAQ = ({ history }) => {
       title: '티밍에서는 어떤 정보를 수집하나요?',
       body: (
         <div>
-          <h6>회원가입에서 입력한 정보와 활동내역 수집합니다</h6>
+          <h4>회원가입에서 입력한 정보와 활동내역 수집합니다</h4>
           <br />
           <p>
             회원가입 시 입력한 이메일, 비밀번호, 성별, 닉네임은 자사의
@@ -82,10 +82,10 @@ const FAQ = ({ history }) => {
       title: '티밍 이용수칙 및 제재사유',
       body: (
         <div>
-          <h6>
+          <h4>
             타인의 서비스 이용을 방해하거나 사회적 통념에 어긋나는 행위 등은
             제재 대상입니다
-          </h6>
+          </h4>
           <br />
           <p>
             타인의 이용을 방해하는 행위(사이버 스토킹 등)나
@@ -133,13 +133,13 @@ const FAQ = ({ history }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
               >
-                <h6
+                <h4
                   style={{
                     color: '#e71469'
                   }}
                 >
                   Q. {faq.title}
-                </h6>
+                </h4>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails
                 style={{
@@ -163,7 +163,7 @@ const FAQ = ({ history }) => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
           >
-            <h6>여기에서 해답을 찾을 수 없습니다</h6>
+            <h4>여기에서 해답을 찾을 수 없습니다</h4>
           </ExpansionPanelSummary>
         </ExpansionPanel>
       </Section>

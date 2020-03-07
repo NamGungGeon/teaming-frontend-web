@@ -1,8 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import { quickConnect } from '../../../redux/quick';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
-import { delay } from '../../../utils/utils';
-import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -14,10 +12,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import HashTable from '../../primitive/HashTable/HashTable';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
+import { errMsg } from '../../../http/util';
+import { agreeReport, disagreeReport, getReports } from '../../../http/tming';
+import axios from 'axios';
 
 const evalObject = object => {
   return (
     <HashTable
+      keyWidth={'128px'}
       table={Object.keys(object).map(key => {
         return {
           key: key,
@@ -27,55 +29,78 @@ const evalObject = object => {
     />
   );
 };
-
 const Reports = ({ auth, uiKit, history }) => {
+  const [content, setContent] = useState(null);
   const [reports, setReports] = useState(null);
   const loadReports = async () => {
     console.log('load reports');
     uiKit.loading.start();
-    await delay(1000);
-    setReports([
-      {
-        isSolved: false,
-        text: '태스트 신고',
-        id: 1,
-        endpoint: '/'
-      },
-      {
-        isSolved: false,
-        text: '태스트 신고',
-        id: 1,
-        endpoint: '/'
-      },
-      {
-        isSolved: false,
-        text: '태스트 신고',
-        id: 1,
-        endpoint: '/'
-      },
-      {
-        isSolved: false,
-        text: '태스트 신고',
-        id: 1,
-        endpoint: '/'
-      }
-    ]);
+    await getReports(auth)
+      .then(response => {
+        console.log(response.data.data);
+        setReports(
+          response.data.data.map(report => {
+            return {
+              id: report.id,
+              username: report.author.username,
+              endpoint: report.ref,
+              text: report.detail,
+              isSolved: report.status !== 'IN_PROGRESS',
+              status: report.status
+            };
+          })
+        );
+      })
+      .catch(e => {
+        uiKit.toaster.cooking(errMsg(e));
+      });
     uiKit.loading.end();
   };
-  const blindContent = (reportId, endPoint) => {
-    loadReports();
-  };
-  const removeReport = reportId => {
-    loadReports();
-  };
-  const showContent = async endPoint => {
+  const blindContent = async (reportId, endPoint) => {
+    await agreeReport(auth, reportId).catch(e => {
+      uiKit.toaster.cooking(errMsg(e));
+    });
     uiKit.loading.start();
-    await delay(1000);
+    await loadReports();
+    uiKit.loading.end();
+  };
+  const removeReport = async reportId => {
+    await disagreeReport(auth, reportId).catch(e => {
+      uiKit.toaster.cooking(errMsg(e));
+    });
+    uiKit.loading.start();
+    await loadReports();
+    uiKit.loading.end();
+  };
+  const showContent = async endpoint => {
+    uiKit.loading.start();
+    await axios
+      .request({
+        method: 'GET',
+        url: `https://api.tming.kr/v0.1${endpoint}`,
+        headers: {
+          Authorization: `Bearer ${auth.token}`
+        }
+      })
+      .then(response => {
+        const { data } = response;
+        const evaluated = evalObject(data);
+        setContent(evaluated);
+        console.log('evaluated', evaluated);
+        console.log('showContent', content);
+        console.log('load successfully');
+      })
+      .catch(e => {
+        console.log('load fail');
+        setContent('');
+        uiKit.toaster.cooking(errMsg(e));
+      });
+    console.log(content);
     uiKit.popup.make(
       <div>
         <h3>컨텐츠 내용</h3>
         <br />
-        <p>이 곳에 컨텐츠 내용이 표시됩니다</p>
+        {content}
       </div>
     );
     uiKit.loading.end();
@@ -98,12 +123,12 @@ const Reports = ({ auth, uiKit, history }) => {
             <ExpansionPanel key={`${report.text}_${idx}`}>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <div>
-                  {report.isSolved ? '(처리됨)' : '(처리되지 않음)'}
-                  &nbsp;
+                  {report.isSolved ? '(처리됨' : '(처리되지 않음'}
+                  &nbsp; :: {report.status}) &nbsp;
                   {report.text.length > 20
                     ? report.text.length.slice(0, 20)
                     : report.text}
-                  <div className="explain">접수시간</div>
+                  <div className="explain">{report.endpoint}</div>
                 </div>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
@@ -116,7 +141,7 @@ const Reports = ({ auth, uiKit, history }) => {
                   <AlignLayout align={'right'}>
                     <Button
                       onClick={() => {
-                        showContent(report.endPoint);
+                        showContent(report.endpoint);
                       }}
                       variant="contained"
                     >
@@ -125,7 +150,7 @@ const Reports = ({ auth, uiKit, history }) => {
                     &nbsp;
                     <Button
                       onClick={() => {
-                        blindContent(report.id, report.endPoint);
+                        blindContent(report.id, report.endpoint);
                       }}
                       startIcon={<DoneIcon />}
                       color="secondary"

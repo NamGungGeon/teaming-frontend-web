@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import styles from './HashTable.module.css';
 
 const HashTable = ({ table, hasHeader, keyWidth }) => {
+  console.log('table', table);
   return (
     <div className={styles.wrapper}>
       {table &&
@@ -24,10 +25,17 @@ const HashTable = ({ table, hasHeader, keyWidth }) => {
                 style={{
                   width: keyWidth
                 }}
-                className={styles.key}>
+                className={styles.key}
+              >
                 {row.key}
               </div>
-              {row.value && <div className={styles.value}>{row.value}</div>}
+              {row.value && (
+                <div className={styles.value}>
+                  {typeof row.value === 'object'
+                    ? row.value.toString()
+                    : row.value}
+                </div>
+              )}
             </div>
           );
         })}
@@ -38,7 +46,7 @@ const HashTable = ({ table, hasHeader, keyWidth }) => {
 HashTable.defaultProps = {
   table: [],
   hasHeader: false,
-  keyWidth: '256px',
+  keyWidth: '256px'
 };
 
 export default HashTable;

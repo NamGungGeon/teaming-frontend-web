@@ -752,6 +752,15 @@ export const createChatRating = (auth, opponent, rating, detail) => {
   });
 };
 
+export const getReports = auth => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/reports`,
+    headers: {
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
+  });
+};
 export const createReport = (auth, ref, detail) => {
   return axios.request({
     method: 'POST',
@@ -762,6 +771,24 @@ export const createReport = (auth, ref, detail) => {
     data: {
       ref,
       detail
+    }
+  });
+};
+export const agreeReport = (auth, reportId) => {
+  return axios.request({
+    method: 'POST',
+    url: `${url}/reports/${reportId}`,
+    headers: {
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
+  });
+};
+export const disagreeReport = (auth, reportId) => {
+  return axios.request({
+    method: 'DELETE',
+    url: `${url}/reports/${reportId}`,
+    headers: {
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
     }
   });
 };
