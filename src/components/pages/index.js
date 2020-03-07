@@ -1,6 +1,6 @@
-import Home from './Home';
 import * as React from 'react';
 
+const Home = React.lazy(() => import('./Home'));
 const Chat = React.lazy(() => import('./Chat'));
 const Match = React.lazy(() => import('./match/Match'));
 const Auth = React.lazy(() => import('./auth/Auth'));
@@ -13,6 +13,11 @@ const Rooms = React.lazy(() => import('./rooms/Rooms'));
 const Cyphers = React.lazy(() => import('./cyphers/Cyphers'));
 const Youtuber = React.lazy(() => import('./youtuber/Youtuber'));
 const Admin = React.lazy(() => import('./admin/Admin'));
+const MyPage = React.lazy(() => import('./mypage/MyPage'));
+const Trade = React.lazy(() => import('./trade/Trade'));
+const Privacy = React.lazy(() => import('./Privacy'));
+const Community = React.lazy(() => import('./community/Community'));
+const Contact = React.lazy(() => import('./Contact'));
 
 export {
   Home,
@@ -27,5 +32,10 @@ export {
   Cyphers,
   Admin,
   Magazine,
-  Youtuber
+  Youtuber,
+  MyPage,
+  Trade,
+  Privacy,
+  Community,
+  Contact
 };

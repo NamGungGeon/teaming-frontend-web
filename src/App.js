@@ -16,16 +16,18 @@ import {
   Center,
   Magazine,
   Admin,
-  Youtuber
+  Cyphers,
+  Youtuber,
+  MyPage,
+  Trade,
+  Privacy,
+  Community,
+  Contact
 } from './components/pages';
-import MyPage from './components/pages/mypage/MyPage';
-import Trade from './components/pages/trade/Trade';
-import Privacy from './components/pages/Privacy';
-import Community from './components/pages/community/Community';
+
 import SideNavigation from './components/containers/Navigation/SideNavigation';
 import MobileSideNavigation from './components/containers/Navigation/MobileSideNavigation';
 import Footer from './components/containers/Footer/Footer';
-import Cyphers from './components/pages/cyphers/Cyphers';
 import logo from './components/resource/tming_txt.png';
 import MusicPlayer from './components/containers/MusicPlayer/MusicPlayer';
 import Advertise from './components/containers/Advertise/Advertise';
@@ -37,8 +39,7 @@ import firebase from 'firebase/app';
 import 'firebase/messaging';
 import { registerFCM } from './http/tming';
 import { authorized } from './utils/utils';
-import Contact from './components/pages/Contact';
-import LoadingTopFixed from "./components/primitive/LoadingTopFixed/LoadingTopFixed";
+import LoadingTopFixed from './components/primitive/LoadingTopFixed/LoadingTopFixed';
 
 class App extends Component {
   constructor(props) {
@@ -142,7 +143,7 @@ class App extends Component {
                 className={'content'}
               >
                 <div className="ruler">
-                  <Suspense fallback={<LoadingTopFixed/>}>
+                  <Suspense fallback={<LoadingTopFixed />}>
                     <Switch>
                       <Route exact path={getPath('/')} component={Home} />
                       <Route path={getPath('/match')} component={Match} />
