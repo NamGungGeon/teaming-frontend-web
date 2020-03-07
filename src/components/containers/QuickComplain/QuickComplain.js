@@ -5,12 +5,20 @@ import { Button, TextField } from '@material-ui/core';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import ReportIcon from '@material-ui/icons/Report';
 import { delay } from '../../../utils/utils';
+import { createReport } from '../../../http/tming';
+import { errMsg } from '../../../http/util';
 
 const QuickComplain = ({ endpoint, onFinished, auth, uiKit }) => {
   const [body, setBody] = useState('');
   const submitComplain = async () => {
     uiKit.loading.start();
-    await delay(1200);
+    await createReport(auth, endpoint, body)
+      .then(response => {
+        onFinished();
+      })
+      .catch(e => {
+        uiKit.toaster.cooking(errMsg(e));
+      });
     uiKit.loading.end();
   };
 
@@ -34,9 +42,8 @@ const QuickComplain = ({ endpoint, onFinished, auth, uiKit }) => {
       <br />
       <AlignLayout align={'right'}>
         <Button
-          onClick={async () => {
-            await submitComplain();
-            onFinished(true);
+          onClick={() => {
+            submitComplain();
           }}
           startIcon={<ReportIcon />}
           variant={'contained'}

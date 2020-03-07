@@ -751,3 +751,17 @@ export const createChatRating = (auth, opponent, rating, detail) => {
     }
   });
 };
+
+export const createReport = (auth, ref, detail) => {
+  return axios.request({
+    method: 'POST',
+    url: `${url}/reports`,
+    headers: {
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    },
+    data: {
+      ref,
+      detail
+    }
+  });
+};
