@@ -16,6 +16,7 @@
 }
 .group > div img {
   max-width: 64px;
+  margin: 8px 0;
   height: auto;
 }
 .group > div .label {

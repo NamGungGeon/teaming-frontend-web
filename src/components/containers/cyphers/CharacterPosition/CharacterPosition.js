@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import ImageView from '../../../primitive/ImageView/ImageView';
-import { CyphersResource, openApiRes } from '../../../../http/cyphers';
+import { cyphersResource, openApiRes } from '../../../../http/cyphers';
 import CardContent from '@material-ui/core/CardContent';
 import styles from './CharacterPosition.module.css';
 
@@ -33,7 +33,7 @@ const CharacterPosition = ({ position }) => {
                     avatar={
                       <Avatar aria-label="recipe">
                         <ImageView
-                          img={CyphersResource.getPositionIcon(position.position)}
+                          img={cyphersResource.getPositionIcon(position.position)}
                         />
                       </Avatar>
                     }

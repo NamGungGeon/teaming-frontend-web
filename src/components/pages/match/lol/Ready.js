@@ -296,125 +296,123 @@ class Ready extends Component {
                 <br />
               </Collapse>
             </div>
-            <Collapse isOpen={mode !== 'chess'}>
-              <div>
-                <PageTitle title={'메인 라인'} explain={''} noMargin />
-                <ImageSelect
-                  icons={lines}
-                  style={{ justifyContent: 'left' }}
-                  selections={selection => {
-                    this.setState({ ...this.state, mainPos: selection });
-                  }}
-                />
-              </div>
-              <br />
-              <div>
-                <PageTitle title={'파트너 라인'} explain={''} noMargin />
-                <ImageSelect
-                  icons={lines}
-                  style={{ justifyContent: 'left' }}
-                  selections={selection => {
-                    this.setState({ ...this.state, partnerPos: selection });
-                  }}
-                />
-              </div>
-              <br />
-              <div>
-                <PageTitle
-                  title={'챔피언'}
-                  explain={'플레이할 챔피언을 선택해주세요 (1개 이상)'}
-                  noMargin
-                />
-                <ImageViewGroup
-                  icons={[
-                    ...champions.map(select => {
-                      return {
-                        img: championSquareImage(select),
-                        style: {
-                          width: '48px'
-                        }
-                      };
-                    }),
-                    {
-                      img: <AddIcon style={{ fontSize: '48px' }} />,
-                      onClick: () => {
-                        this.openChampions(champions, selections => {
-                          this.setState({
-                            ...this.state,
-                            champions: selections
-                          });
-                        });
+            <div>
+              <PageTitle title={'메인 라인'} explain={''} noMargin />
+              <ImageSelect
+                icons={lines}
+                style={{ justifyContent: 'left' }}
+                selections={selection => {
+                  this.setState({ ...this.state, mainPos: selection });
+                }}
+              />
+            </div>
+            <br />
+            <div>
+              <PageTitle title={'파트너 라인'} explain={''} noMargin />
+              <ImageSelect
+                icons={lines}
+                style={{ justifyContent: 'left' }}
+                selections={selection => {
+                  this.setState({ ...this.state, partnerPos: selection });
+                }}
+              />
+            </div>
+            <br />
+            <div>
+              <PageTitle
+                title={'챔피언'}
+                explain={'플레이할 챔피언을 선택해주세요 (1개 이상)'}
+                noMargin
+              />
+              <ImageViewGroup
+                icons={[
+                  ...champions.map(select => {
+                    return {
+                      img: championSquareImage(select),
+                      style: {
+                        width: '48px'
                       }
-                    }
-                  ]}
-                  style={{ justifyContent: 'left' }}
-                />
-              </div>
-              <br />
-              <div>
-                <PageTitle
-                  title={'파트너 선호 챔피언'}
-                  explain={'이 챔피언을 선택한 유저와 우선적으로 매칭됩니다'}
-                  noMargin
-                />
-                <ImageViewGroup
-                  icons={[
-                    ...likes.map(select => {
-                      return {
-                        img: championSquareImage(select),
-                        style: {
-                          width: '48px'
-                        }
-                      };
-                    }),
-                    {
-                      img: <AddIcon style={{ fontSize: '48px' }} />,
-                      onClick: event => {
-                        this.openChampions(likes, selections => {
-                          this.setState({
-                            ...this.state,
-                            likes: selections
-                          });
+                    };
+                  }),
+                  {
+                    img: <AddIcon style={{ fontSize: '48px' }} />,
+                    onClick: () => {
+                      this.openChampions(champions, selections => {
+                        this.setState({
+                          ...this.state,
+                          champions: selections
                         });
-                      }
+                      });
                     }
-                  ]}
-                  style={{ justifyContent: 'left' }}
-                />
-              </div>
-              <br />
-              <div>
-                <PageTitle
-                  title={'파트너 금지 챔피언'}
-                  explain={'이 챔피언을 선택한 유저와는 매칭되지 않습니다'}
-                  noMargin
-                />
-                <ImageViewGroup
-                  icons={[
-                    ...ban.map(select => {
-                      return {
-                        img: championSquareImage(select),
-                        style: {
-                          width: '48px'
-                        }
-                      };
-                    }),
-                    {
-                      img: <AddIcon style={{ fontSize: '48px' }} />,
-                      onClick: () => {
-                        this.openChampions(ban, selections => {
-                          this.setState({
-                            ...this.state,
-                            ban: selections
-                          });
+                  }
+                ]}
+                style={{ justifyContent: 'left' }}
+              />
+            </div>
+            <br />
+            <div>
+              <PageTitle
+                title={'파트너 선호 챔피언'}
+                explain={'이 챔피언을 선택한 유저와 우선적으로 매칭됩니다'}
+                noMargin
+              />
+              <ImageViewGroup
+                icons={[
+                  ...likes.map(select => {
+                    return {
+                      img: championSquareImage(select),
+                      style: {
+                        width: '48px'
+                      }
+                    };
+                  }),
+                  {
+                    img: <AddIcon style={{ fontSize: '48px' }} />,
+                    onClick: event => {
+                      this.openChampions(likes, selections => {
+                        this.setState({
+                          ...this.state,
+                          likes: selections
                         });
-                      }
+                      });
                     }
-                  ]}
-                  style={{ justifyContent: 'left' }}
-                />
-              </div>
-            </Collapse>
+                  }
+                ]}
+                style={{ justifyContent: 'left' }}
+              />
+            </div>
+            <br />
+            <div>
+              <PageTitle
+                title={'파트너 금지 챔피언'}
+                explain={'이 챔피언을 선택한 유저와는 매칭되지 않습니다'}
+                noMargin
+              />
+              <ImageViewGroup
+                icons={[
+                  ...ban.map(select => {
+                    return {
+                      img: championSquareImage(select),
+                      style: {
+                        width: '48px'
+                      }
+                    };
+                  }),
+                  {
+                    img: <AddIcon style={{ fontSize: '48px' }} />,
+                    onClick: () => {
+                      this.openChampions(ban, selections => {
+                        this.setState({
+                          ...this.state,
+                          ban: selections
+                        });
+                      });
+                    }
+                  }
+                ]}
+                style={{ justifyContent: 'left' }}
+              />
+            </div>
             <br />
             <AlignLayout align={'right'}>
               <Button

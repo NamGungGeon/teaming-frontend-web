@@ -67,7 +67,12 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
       return;
     }
 
-    history.push('/match/battleground/start/');
+    uiKit.popup.make(
+      <div>
+        <h5>아직 개발중이에용~!</h5>
+      </div>
+    );
+    // history.push('/match/battleground/start/');
   };
 
   const { tier, partnerGender, mode, goal, nickname } = playerInfo;

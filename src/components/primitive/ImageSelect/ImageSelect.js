@@ -51,7 +51,7 @@ class ImageSelect extends Component {
     return (
       <div className={styles.group} style={style}>
         {icons.map(icon => {
-          const { img, label, id, shape, height } = icon;
+          const { img, label, id, shape, height, style } = icon;
           return (
             <div
               key={randStr(5)}
@@ -60,6 +60,7 @@ class ImageSelect extends Component {
               }}
             >
               <ImageView
+                style={style}
                 img={img}
                 shape={shape}
                 height={height}

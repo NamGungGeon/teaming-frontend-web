@@ -2,19 +2,20 @@
   display: flex;
   justify-content: center;
   align-content: space-around;
+  align-items: flex-end;
   flex-wrap: wrap;
   flex-direction: row;
   width: 100%;
 }
 .group > div {
   cursor: pointer;
-  margin-right: 8px;
+  margin: 4px;
 
   text-align: center;
 }
 .group > div img {
   max-width: 64px;
-  height: 64px;
+  max-height: 64px;
   filter: grayscale(100%);
 
   transition-duration: 0.3s;
@@ -24,7 +25,6 @@
   filter: none;
 }
 .group > div img.selected {
-  transform: scale(1.2);
   filter: none;
   animation: coloring 0.3s;
 }
@@ -37,10 +37,8 @@
 @keyframes coloring {
   0% {
     filter: grayscale(100%);
-    transform: scale(1);
   }
   100% {
     filter: none;
-    transform: scale(1.2);
   }
 }

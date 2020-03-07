@@ -11,10 +11,10 @@ export const getCharacter = nameEN => {
   });
 };
 
-export const CyphersResource = {
+export const cyphersResource = {
   url: 'https://res.cpsp.kr',
   getClearThumbnail: nameEN => {
-    return `${CyphersResource.url}/thumbnail/text/${nameEN}.jpg`;
+    return `${cyphersResource.url}/thumbnail/text/${nameEN}.jpg`;
   },
   getPositionIcon: position => {
     let name = position;
@@ -34,8 +34,12 @@ export const CyphersResource = {
       default:
         break;
     }
+    return `${cyphersResource.url}/position/${name}.png`;
+  },
+  getTierIcon: tierName => {
+    if (!tierName) return `${cyphersResource.url}/tier/unrank.png`;
 
-    return `${CyphersResource.url}/position/${name}.png`;
+    return `${cyphersResource.url}/tier/${tierName}.png`;
   }
 };
 export const openApiRes = {

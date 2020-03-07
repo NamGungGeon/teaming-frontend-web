@@ -3,7 +3,7 @@ import { quickConnect } from '../../../redux/quick';
 import {
   getCharacter,
   getCharacterPosition,
-  CyphersResource
+  cyphersResource
 } from '../../../http/cyphers';
 import { errMsg } from '../../../http/util';
 import ImageViewGroup from '../../containers/ImageViewGroup/ImageViewGroup';
@@ -103,7 +103,7 @@ class Characters extends Component {
                 }}
                 icons={characters.map(character => {
                   return {
-                    img: CyphersResource.getClearThumbnail(character.nameEN),
+                    img: cyphersResource.getClearThumbnail(character.nameEN),
                     onClick: () => {
                       this.loadCharacterDetail(
                         character.nameEN,
