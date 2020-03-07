@@ -27,6 +27,10 @@ nav.vertical * {
   height: 32px;
 }
 
+.left {
+  display: flex;
+  align-items: center;
+}
 .right {
   color: white;
 }

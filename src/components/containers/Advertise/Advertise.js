@@ -12,7 +12,8 @@ class Advertise extends Component {
   render() {
     return (
       <Section divideStyle={'fill'}>
-        <h6>광고</h6>
+        <h4>광고</h4>
+        <br />
         <div
           style={{
             display: 'flex',

@@ -14,3 +14,7 @@
 .portal:hover {
   opacity: 1;
 }
+.portal > span {
+  display: flex;
+  align-items: center;
+}
