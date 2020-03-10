@@ -35,7 +35,7 @@ class HelpAppInstall extends Component {
             color={'primary'}
             variant={'outlined'}
             onClick={() => {
-              window.open('https://tming.kr');
+              window.open('https://play.google.com/store/apps/details?id=kr.tming');
             }}
           >
             <AndroidIcon />

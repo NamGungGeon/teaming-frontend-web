@@ -29,13 +29,7 @@ const HashTable = ({ table, hasHeader, keyWidth }) => {
               >
                 {row.key}
               </div>
-              {row.value && (
-                <div className={styles.value}>
-                  {typeof row.value === 'object'
-                    ? row.value.toString()
-                    : row.value}
-                </div>
-              )}
+              {row.value && <div className={styles.value}>{row.value}</div>}
             </div>
           );
         })}

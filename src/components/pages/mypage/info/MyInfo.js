@@ -122,7 +122,8 @@ class MyInfo extends Component {
           fullWidth
           type={'text'}
           name={'nickname'}
-          placeholder={'새로 사용할 닉네임을 입력하세요'}
+          maxlength={'12'}
+          placeholder={'새로 사용할 닉네임을 입력하세요 (최대 12자)'}
           onChange={e => {
             this.setState({
               ...this.state,
@@ -138,6 +139,10 @@ class MyInfo extends Component {
               const { newNickname } = this.state;
               if (!newNickname) {
                 uiKit.toaster.cooking('새로 사용할 닉네임을 입력하세요');
+                return;
+              }
+              if (newNickname.length > 12) {
+                uiKit.toaster.cooking('최대 12자까지 사용 가능합니다');
                 return;
               }
 

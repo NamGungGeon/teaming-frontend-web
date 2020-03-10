@@ -66,8 +66,8 @@ class SignUp extends Component {
       uiKit.toaster.cooking('비밀번호와 비밀번호 확인이 일치하지 않습니다');
       return;
     }
-    if (!nickname || nickname.length > 32) {
-      uiKit.toaster.cooking('닉네임은 32자 이하로 작성해주세요');
+    if (!nickname || nickname.length > 12) {
+      uiKit.toaster.cooking('닉네임은 12자 이하로 작성해주세요');
       return;
     }
     if (!agreePrivacy) {
@@ -131,7 +131,7 @@ class SignUp extends Component {
   };
 
   render() {
-    const { config } = this.props;
+    const { config, uiKit } = this.props;
     const { gender, agreePrivacy, agreeContact } = this.state;
     return (
       <div>
