@@ -1,6 +1,9 @@
 import axios from 'axios';
+import { getFormData } from './util';
 
 const url = 'https://dev.cpsp.kr';
+const openapi = 'https://api.neople.co.kr';
+
 export const getCharacter = nameEN => {
   return axios.request({
     method: 'GET',
@@ -40,6 +43,15 @@ export const cyphersResource = {
     if (!tierName) return `${cyphersResource.url}/tier/unrank.png`;
 
     return `${cyphersResource.url}/tier/${tierName}.png`;
+  },
+  getLegacyItemIcon: icoName => {
+    if (icoName) {
+      return (
+        'http://static.cyphers.co.kr/img/item_box/icon_thum/' + icoName + '.png'
+      );
+    } else {
+      return 'http://static.cyphers.co.kr/img/league/icon_nil.jpg';
+    }
   }
 };
 export const openApiRes = {
@@ -55,5 +67,55 @@ export const getCharacterPosition = nameKR => {
     params: {
       nameKR
     }
+  });
+};
+
+const proxy = (target, params) => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/proxy/`,
+    headers: {
+      target,
+      params
+    }
+  });
+};
+
+export const getPositionDetail = positionId => {
+  return proxy(`${openapi}/cy/position-attributes/${positionId}`, '');
+};
+
+export const getCypherComments = (nameEN, limit) => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/characters/comments.php`,
+    params: {
+      nameEN,
+      limit
+    }
+  });
+};
+export const getRecommendItems = (nameEN, tier) => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/statistics/items.php`,
+    params: {
+      nameEN,
+      tier
+    }
+  });
+};
+export const getCypherRanker = characterId => {
+  return proxy(
+    `${openapi}/cy/ranking/characters/${characterId}/winCount`,
+    'limit=5'
+  );
+};
+export const createComment = (nameEN, comment) => {
+  const formdata = getFormData({ nameEN, comment });
+  return axios.request({
+    method: 'POST',
+    url: `${url}/characters/comments.php`,
+    data: formdata
   });
 };

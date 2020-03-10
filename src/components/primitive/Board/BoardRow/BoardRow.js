@@ -16,9 +16,13 @@ const BoardRow = ({ title, explains, exp_l, exp_r, thumbnail, onClick }) => {
           })}
         </div>
       </div>
-      <div className={styles.imgWrap}>
-        <img src={thumbnail} alt="" />
-      </div>
+      {
+        thumbnail!== null && (
+          <div className={styles.imgWrap}>
+            <img src={thumbnail} alt="" />
+          </div>
+        )
+      }
     </div>
   );
 };

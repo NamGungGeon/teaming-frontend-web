@@ -338,6 +338,24 @@ class Contents extends Component {
             </AlignLayout>
           </div>
         </Section>
+        {this.getCategory() === 'cyphers' && (
+          <div>
+            <br />
+            <Section>
+              <AlignLayout align={'right'}>
+                <Button
+                  onClick={() => {
+                    history.push(getPath('/cyphers'));
+                  }}
+                  variant={'outlined'}
+                  color={'primary'}
+                >
+                  사이퍼즈 서포터 (웹)
+                </Button>
+              </AlignLayout>
+            </Section>
+          </div>
+        )}
         <br />
         <Tabs
           initActive={'전체'}

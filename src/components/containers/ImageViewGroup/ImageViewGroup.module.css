@@ -9,14 +9,11 @@
 }
 .group > div {
   max-width: 30%;
-  margin-right: 8px;
-  margin-bottom: 8px;
-
   text-align: center;
 }
 .group > div img {
   max-width: 64px;
-  margin: 8px 0;
+  margin: 4px 4px 0 4px;
   height: auto;
 }
 .group > div .label {

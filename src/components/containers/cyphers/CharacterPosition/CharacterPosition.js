@@ -6,19 +6,23 @@ import ImageView from '../../../primitive/ImageView/ImageView';
 import { cyphersResource, openApiRes } from '../../../../http/cyphers';
 import CardContent from '@material-ui/core/CardContent';
 import styles from './CharacterPosition.module.css';
+import { quickConnect } from '../../../../redux/quick';
+import PositionDetail from '../PositionDetail/PositionDetail';
 
-const CharacterPosition = ({ position }) => {
+const CharacterPosition = ({ position, uiKit }) => {
+  const openDetailPopup = positionId => {
+    uiKit.popup.make(<PositionDetail positionId={positionId} />);
+  };
+
   return (
     <div>
       {position && (
         <div>
-          <h6>포지션 통계</h6>
+          <h3>포지션 통계</h3>
           <p className={'explain'}>{position.analyzedDate}</p>
+          <br />
           <div className={styles.wrapper}>
-            {position.result.map((position, idx) => {
-              if (idx >= 3) {
-                return <div />;
-              }
+            {position.result.slice(0, 3).map((position, idx) => {
               return (
                 <Card
                   style={{
@@ -33,7 +37,9 @@ const CharacterPosition = ({ position }) => {
                     avatar={
                       <Avatar aria-label="recipe">
                         <ImageView
-                          img={cyphersResource.getPositionIcon(position.position)}
+                          img={cyphersResource.getPositionIcon(
+                            position.position
+                          )}
                         />
                       </Avatar>
                     }
@@ -49,14 +55,23 @@ const CharacterPosition = ({ position }) => {
                   >
                     <div>
                       <ImageView
+                        onClick={() => {
+                          openDetailPopup(position.lv1);
+                        }}
                         img={openApiRes.getPositionIcon(position.lv1)}
                       />
-                      &nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <ImageView
+                        onClick={() => {
+                          openDetailPopup(position.lv2);
+                        }}
                         img={openApiRes.getPositionIcon(position.lv2)}
                       />
-                      &nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <ImageView
+                        onClick={() => {
+                          openDetailPopup(position.lv3);
+                        }}
                         img={openApiRes.getPositionIcon(position.lv3)}
                       />
                     </div>
@@ -71,4 +86,4 @@ const CharacterPosition = ({ position }) => {
   );
 };
 
-export default CharacterPosition;
+export default quickConnect(CharacterPosition);

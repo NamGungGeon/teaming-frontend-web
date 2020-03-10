@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getCypherComments } from '../../../http/cyphers';
-import BoardRow from '../../primitive/Board/BoardRow/BoardRow';
+import { getCypherComments } from '../../../../http/cyphers';
+import BoardRow from '../../../primitive/Board/BoardRow/BoardRow';
 
-const CypherComment = ({ nameEN, limit }) => {
+const CypherComment = ({ nameEN, limit, tick }) => {
   const [comments, setComments] = useState(null);
   useEffect(() => {
     console.log(nameEN);
@@ -13,7 +13,7 @@ const CypherComment = ({ nameEN, limit }) => {
       .catch(e => {
         console.log(e);
       });
-  }, [nameEN]);
+  }, [nameEN, tick]);
 
   if (comments) {
     return (
