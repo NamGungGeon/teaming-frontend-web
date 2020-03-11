@@ -42,7 +42,7 @@ const Reports = ({ auth, uiKit, history }) => {
           response.data.data.map(report => {
             return {
               id: report.id,
-              username: report.author.username,
+              username: report.author ? report.author.username : '익명',
               endpoint: report.ref,
               text: report.detail,
               isSolved: report.status !== 'IN_PROGRESS',
@@ -52,22 +52,31 @@ const Reports = ({ auth, uiKit, history }) => {
         );
       })
       .catch(e => {
+        console.log(e);
         uiKit.toaster.cooking(errMsg(e));
       });
     uiKit.loading.end();
   };
   const blindContent = async (reportId, endPoint) => {
-    await agreeReport(auth, reportId).catch(e => {
-      uiKit.toaster.cooking(errMsg(e));
-    });
+    await agreeReport(auth, reportId)
+      .then(response => {
+        uiKit.toaster.cooking('처리되었습니다 (ACCEPTED)');
+      })
+      .catch(e => {
+        uiKit.toaster.cooking(errMsg(e));
+      });
     uiKit.loading.start();
     await loadReports();
     uiKit.loading.end();
   };
   const removeReport = async reportId => {
-    await disagreeReport(auth, reportId).catch(e => {
-      uiKit.toaster.cooking(errMsg(e));
-    });
+    await disagreeReport(auth, reportId)
+      .then(response => {
+        uiKit.toaster.cooking('처리되었습니다 (REJECTED)');
+      })
+      .catch(e => {
+        uiKit.toaster.cooking(errMsg(e));
+      });
     uiKit.loading.start();
     await loadReports();
     uiKit.loading.end();

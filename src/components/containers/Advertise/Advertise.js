@@ -7,14 +7,12 @@ class Advertise extends Component {
   adsbygoogle = [];
 
   componentDidMount() {
-    (this.adsbygoogle = window.adsbygoogle || []).push({});
+    // (this.adsbygoogle = window.adsbygoogle || []).push({});
   }
 
   render() {
     return (
       <Section divideStyle={'fill'}>
-        <h4>광고</h4>
-        <br />
         <div className={`ad-coupang ${styles.coupang}`}>
           <a href="https://coupa.ng/bqancq" target="_blank">
             <img
