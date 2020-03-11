@@ -17,7 +17,7 @@ class ImageViewGroup extends Component {
     return (
       <div className={styles.group} style={style}>
         {icons.map((icon, idx) => {
-          const { img, label, onClick, shape } = icon;
+          const { img, label, onClick, shape, tooltip } = icon;
           return (
             <div
               key={`${icon.toString()}_${idx}`}
@@ -25,6 +25,7 @@ class ImageViewGroup extends Component {
               onClick={onClick ? onClick : () => {}}
             >
               <ImageView
+                tooltip={tooltip}
                 key={`${icon.toString()}_${idx}`}
                 img={img}
                 shape={shape}

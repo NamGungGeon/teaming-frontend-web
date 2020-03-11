@@ -162,7 +162,7 @@ class Contents extends Component {
     }
   };
   render() {
-    const { location, history } = this.props;
+    const { location, history, config } = this.props;
     const { count, offset, openSearchPanel } = this.state;
 
     const query = urlQuery(location);
@@ -338,7 +338,7 @@ class Contents extends Component {
             </AlignLayout>
           </div>
         </Section>
-        {this.getCategory() === 'cyphers' && (
+        {this.getCategory() === 'cyphers' && !config.imapp && (
           <div>
             <br />
             <Section>

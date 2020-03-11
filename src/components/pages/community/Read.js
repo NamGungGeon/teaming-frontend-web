@@ -176,7 +176,6 @@ class Read extends Component {
 
   deletePost = () => {
     const { history, location, match, uiKit, auth } = this.props;
-    const { postPw } = this.state;
     const query = urlQuery(location);
 
     uiKit.popup.make(
@@ -204,6 +203,14 @@ class Read extends Component {
         <AlignLayout align={'right'}>
           <Button
             onClick={async () => {
+              const { postPw } = this.state;
+              if (!postPw) {
+                uiKit.toaster.cooking(
+                  '글 작성 시 입력했던 비밀번호를 입력하세요'
+                );
+                return;
+              }
+
               uiKit.loading.start();
               await deleteBoardPost(auth, match.params.id, postPw)
                 .then(response => {

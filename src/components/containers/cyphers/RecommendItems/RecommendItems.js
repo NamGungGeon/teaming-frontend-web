@@ -179,7 +179,7 @@ const RecommendItems = ({ nameEN, uiKit }) => {
             marginBottom: '4px'
           }}
         >
-          추천 아이템 ({tier})
+          추천 아이템 ({tiers.find(value => value.id === tier).label})
           <div>
             <Tooltip title={'기준 티어 변경'}>
               <IconButton onClick={openTierSetter}>
@@ -198,6 +198,7 @@ const RecommendItems = ({ nameEN, uiKit }) => {
                     width: '64px',
                     margin: '4px'
                   },
+                  tooltip: item.itemName,
                   img: cyphersResource.getLegacyItemIcon(
                     item ? item.icoName : ''
                   ),
@@ -218,6 +219,7 @@ const RecommendItems = ({ nameEN, uiKit }) => {
                     width: '64px',
                     margin: '4px'
                   },
+                  tooltip: item.itemName,
                   img: cyphersResource.getLegacyItemIcon(
                     item ? item.icoName : ''
                   ),

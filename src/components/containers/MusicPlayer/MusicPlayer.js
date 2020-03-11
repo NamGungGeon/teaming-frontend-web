@@ -30,6 +30,7 @@ const MusicPlayer = () => {
     ]);
   }, []);
 
+  return <div></div>;
   return (
     <Section>
       <b>승률이 올라가는 브금</b>

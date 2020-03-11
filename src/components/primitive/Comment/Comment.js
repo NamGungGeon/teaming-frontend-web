@@ -61,7 +61,6 @@ class Comment extends Component {
               profile
             )}
           </span>
-          <span>{author ? author.username : '익명'}</span>
         </div>
         <div className={styles.contents}>
           {updateMode ? (
@@ -81,7 +80,11 @@ class Comment extends Component {
             <div>{text}</div>
           )}
           <div className={styles.options}>
-            <span className={'explain'}>{createdAt}</span>
+            <span className={'explain'}>
+              {author ? author.username : '익명'}
+              &nbsp;&nbsp;|&nbsp;&nbsp;
+              {createdAt}
+            </span>
             <div>
               <Optional visible={!auth || !author || auth.id === author.id}>
                 <Tooltip title={'수정'}>

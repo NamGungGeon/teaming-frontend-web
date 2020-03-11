@@ -1,0 +1,13 @@
+.coupang {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.coupang > * {
+  width: 50%;
+}
+.coupang img {
+  width: 100%;
+  height: auto;
+}

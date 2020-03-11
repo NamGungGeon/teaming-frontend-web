@@ -3,6 +3,7 @@ import { quickConnect } from '../../../../redux/quick';
 import { getPositionDetail, openApiRes } from '../../../../http/cyphers';
 import ImageView from '../../../primitive/ImageView/ImageView';
 import styles from './PositionDetail.module.css';
+import Loading from '../../../primitive/Loading/Loading';
 
 const PositionDetail = ({ positionId, uiKit }) => {
   const [positionDetail, setPositionDetail] = useState(null);
@@ -36,7 +37,7 @@ const PositionDetail = ({ positionId, uiKit }) => {
         <div>{explain}</div>
       </div>
     );
-  } else return <div />;
+  } else return <div></div>;
 };
 
 export default quickConnect(PositionDetail);
