@@ -792,3 +792,13 @@ export const disagreeReport = (auth, reportId) => {
     }
   });
 };
+
+export const getUserProfile = (auth, profile_id) => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/profiles/${profile_id}`,
+    headers: {
+      Authorization: `${authorized(auth) ? `Bearer ${auth.token}` : ''}`
+    }
+  });
+};

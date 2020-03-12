@@ -170,6 +170,8 @@ class Read extends Component {
   };
 
   showUserInfo = (id, username) => {
+    if (!id || !username) return;
+
     const { uiKit } = this.props;
     uiKit.popup.make(<UserInfoViewer username={username} id={id} />);
   };
@@ -494,8 +496,8 @@ class Read extends Component {
                     }}
                     onClick={() => {
                       this.showUserInfo(
-                        content.author.id,
-                        content.author.username
+                        content.author ? content.author.id : '',
+                        content.author ? content.author.username : ''
                       );
                     }}
                   >
