@@ -54,7 +54,7 @@ class UserInfoViewer extends Component {
 
     uiKit.spopup.make(
       <div>
-        <h5>
+        <h3>
           쪽지
           <p className={'explain'}>{username}</p>
           <TextField
@@ -74,7 +74,7 @@ class UserInfoViewer extends Component {
             }}
             placeholder={'내용을 입력하세요'}
           />
-        </h5>
+        </h3>
         <br />
         <AlignLayout align={'right'}>
           <Button
@@ -117,7 +117,7 @@ class UserInfoViewer extends Component {
     const { username, auth, id } = this.props;
     return (
       <div>
-        <h5>{username}</h5>
+        <h3>{username}</h3>
         <Optional visible={authorized(auth)}>
           <br />
           <AlignLayout align={'right'}>

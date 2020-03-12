@@ -178,9 +178,28 @@ class Read extends Component {
     const { history, location, match, uiKit, auth } = this.props;
     const query = urlQuery(location);
 
+    const deletePost = async pw => {
+      uiKit.loading.start();
+      await deleteBoardPost(auth, match.params.id, pw)
+        .then(response => {
+          //ok, deleted!
+          uiKit.toaster.cooking('삭제되었습니다');
+          uiKit.popup.destroy();
+          history.push(
+            getPath(
+              `/community?category=${query.category ? query.category : ''}`
+            )
+          );
+        })
+        .catch(e => {
+          uiKit.toaster.cooking(errMsg(e));
+        });
+      uiKit.loading.end();
+    };
+
     uiKit.popup.make(
       <div>
-        <h5>이 포스트를 삭제하시겠습니까?</h5>
+        <h3>이 포스트를 삭제하시겠습니까?</h3>
         <br />
         {this.isAnonymous() && (
           <div>
@@ -204,30 +223,13 @@ class Read extends Component {
           <Button
             onClick={async () => {
               const { postPw } = this.state;
-              if (!postPw) {
+              if (!postPw && this.isAnonymous()) {
                 uiKit.toaster.cooking(
                   '글 작성 시 입력했던 비밀번호를 입력하세요'
                 );
                 return;
               }
-
-              uiKit.loading.start();
-              await deleteBoardPost(auth, match.params.id, postPw)
-                .then(response => {
-                  //ok, deleted!
-                  uiKit.toaster.cooking('삭제되었습니다');
-                  uiKit.popup.destroy();
-                  history.push(
-                    getPath(
-                      `/community?category=${
-                        query.category ? query.category : ''
-                      }`
-                    )
-                  );
-                })
-                .catch(e => {
-                  uiKit.toaster.cooking(errMsg(e));
-                });
+              await deletePost(postPw);
             }}
             variant={'contained'}
             color={'primary'}
@@ -619,7 +621,7 @@ class Read extends Component {
                 deleteComment={() => {
                   uiKit.popup.make(
                     <div>
-                      <h5>댓글을 삭제하시겠습니까?</h5>
+                      <h3>댓글을 삭제하시겠습니까?</h3>
                       <br />
                       <AlignLayout align={'right'}>
                         <Button

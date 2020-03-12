@@ -30,7 +30,7 @@ class MagazineList extends Component {
         <br />
         <Optional onlyAdmin={true}>
           <Section>
-            <h6>관리자 메뉴</h6>
+            <h4>관리자 메뉴</h4>
             <br />
             <AlignLayout align={'right'}>
               <Button

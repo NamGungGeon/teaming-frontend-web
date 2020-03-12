@@ -15,6 +15,9 @@ import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import { errMsg } from '../../../http/util';
 import { agreeReport, disagreeReport, getReports } from '../../../http/tming';
 import axios from 'axios';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const evalObject = object => {
   return (
@@ -23,7 +26,10 @@ const evalObject = object => {
       table={Object.keys(object).map(key => {
         return {
           key: key,
-          value: object[key]
+          value:
+            typeof object[key] === 'object' && object[key]
+              ? object[key].toString()
+              : object[key]
         };
       })}
     />
@@ -32,6 +38,8 @@ const evalObject = object => {
 const Reports = ({ auth, uiKit, history }) => {
   const [content, setContent] = useState(null);
   const [reports, setReports] = useState(null);
+  const [filter, setFilter] = useState('ALL');
+
   const loadReports = async () => {
     console.log('load reports');
     uiKit.loading.start();
@@ -57,27 +65,36 @@ const Reports = ({ auth, uiKit, history }) => {
       });
     uiKit.loading.end();
   };
-  const blindContent = async (reportId, endPoint) => {
-    await agreeReport(auth, reportId)
-      .then(response => {
-        uiKit.toaster.cooking('처리되었습니다 (ACCEPTED)');
-      })
-      .catch(e => {
-        uiKit.toaster.cooking(errMsg(e));
-      });
+  const blindContent = async (reportId, endpoint) => {
+    const reportSet = reports.filter(report => report.endpoint === endpoint);
     uiKit.loading.start();
+    for (let l = 0; l < reportSet.length; l++) {
+      const report = reportSet[l];
+      await agreeReport(auth, report.id)
+        .then(response => {
+          uiKit.toaster.cooking('처리되었습니다 (ACCEPTED)');
+        })
+        .catch(e => {
+          uiKit.toaster.cooking(errMsg(e));
+        });
+    }
     await loadReports();
     uiKit.loading.end();
   };
-  const removeReport = async reportId => {
-    await disagreeReport(auth, reportId)
-      .then(response => {
-        uiKit.toaster.cooking('처리되었습니다 (REJECTED)');
-      })
-      .catch(e => {
-        uiKit.toaster.cooking(errMsg(e));
-      });
+  const removeReport = async (reportId, endpoint) => {
+    const reportSet = reports.filter(report => report.endpoint === endpoint);
+
     uiKit.loading.start();
+    for (let l = 0; l < reportSet.length; l++) {
+      const report = reportSet[l];
+      await disagreeReport(auth, report.id)
+        .then(response => {
+          uiKit.toaster.cooking('처리되었습니다 (REJECTED)');
+        })
+        .catch(e => {
+          uiKit.toaster.cooking(errMsg(e));
+        });
+    }
     await loadReports();
     uiKit.loading.end();
   };
@@ -91,27 +108,18 @@ const Reports = ({ auth, uiKit, history }) => {
           Authorization: `Bearer ${auth.token}`
         }
       })
-      .then(response => {
+      .then(async response => {
         const { data } = response;
         const evaluated = evalObject(data);
-        setContent(evaluated);
+        await setContent(evaluated);
         console.log('evaluated', evaluated);
         console.log('showContent', content);
         console.log('load successfully');
       })
       .catch(e => {
-        console.log('load fail');
-        setContent('');
+        console.log('load fail', e);
         uiKit.toaster.cooking(errMsg(e));
       });
-    console.log(content);
-    uiKit.popup.make(
-      <div>
-        <h3>컨텐츠 내용</h3>
-        <br />
-        {content}
-      </div>
-    );
     uiKit.loading.end();
   };
 
@@ -121,69 +129,98 @@ const Reports = ({ auth, uiKit, history }) => {
       uiKit.destroyAll();
     };
   }, []);
+  useEffect(() => {
+    if (content)
+      uiKit.popup.make(
+        <div>
+          <h3>컨텐츠 내용</h3>
+          <br />
+          {content}
+        </div>
+      );
+  }, [content]);
 
   return (
     <div>
       <PageTitle title={'컨텐츠 신고 목록'} explain={`신고목록`} />
       <br />
+
+      <FormControl fullWidth size={'small'} variant={'outlined'}>
+        <Select
+          value={filter}
+          displayEmpty
+          onChange={e => {
+            setFilter(e.target.value);
+          }}
+        >
+          <MenuItem value={'ALL'}>전체보기</MenuItem>
+          <MenuItem value={'IN_PROGRESS'}>대기중</MenuItem>
+          <MenuItem value={'ACCEPTED'}>블라인드 처리됨</MenuItem>
+          <MenuItem value={'REJECTED'}>거절됨</MenuItem>
+        </Select>
+      </FormControl>
+      <br />
+      <br />
       {reports &&
-        reports.map((report, idx) => {
-          return (
-            <ExpansionPanel key={`${report.text}_${idx}`}>
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <div>
-                  {report.isSolved ? '(처리됨' : '(처리되지 않음'}
-                  &nbsp; :: {report.status}) &nbsp;
-                  {report.text.length > 20
-                    ? report.text.length.slice(0, 20)
-                    : report.text}
-                  <div className="explain">{report.endpoint}</div>
-                </div>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <div
-                  style={{
-                    width: '100%'
-                  }}
-                >
-                  <p>{report.text}</p>
-                  <AlignLayout align={'right'}>
-                    <Button
-                      onClick={() => {
-                        showContent(report.endpoint);
-                      }}
-                      variant="contained"
-                    >
-                      컨텐츠 내용 보기
-                    </Button>
-                    &nbsp;
-                    <Button
-                      onClick={() => {
-                        blindContent(report.id, report.endpoint);
-                      }}
-                      startIcon={<DoneIcon />}
-                      color="secondary"
-                      variant="contained"
-                    >
-                      블라인드
-                    </Button>
-                    &nbsp;
-                    <Button
-                      onClick={() => {
-                        removeReport(report.id);
-                      }}
-                      startIcon={<DeleteIcon />}
-                      color="primary"
-                      variant="contained"
-                    >
-                      기각
-                    </Button>
-                  </AlignLayout>
-                </div>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          );
-        })}
+        reports
+          .filter(report => filter === 'ALL' || filter === report.status)
+          .map((report, idx) => {
+            return (
+              <ExpansionPanel key={`${report.text}_${idx}`}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <div>
+                    {report.isSolved ? '(처리됨' : '(처리되지 않음'}
+                    &nbsp; :: {report.status}) &nbsp;
+                    {report.text.length > 20
+                      ? report.text.length.slice(0, 20)
+                      : report.text}
+                    <div className="explain">{report.endpoint}</div>
+                  </div>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <div
+                    style={{
+                      width: '100%'
+                    }}
+                  >
+                    <p>{report.text}</p>
+                    <AlignLayout align={'right'}>
+                      <Button
+                        onClick={() => {
+                          showContent(report.endpoint);
+                        }}
+                        variant="contained"
+                      >
+                        컨텐츠 내용 보기
+                      </Button>
+                      &nbsp;
+                      <Button
+                        onClick={() => {
+                          blindContent(report.id, report.endpoint);
+                        }}
+                        startIcon={<DoneIcon />}
+                        color="secondary"
+                        variant="contained"
+                      >
+                        블라인드
+                      </Button>
+                      &nbsp;
+                      <Button
+                        onClick={() => {
+                          removeReport(report.id, report.endpoint);
+                        }}
+                        startIcon={<DeleteIcon />}
+                        color="primary"
+                        variant="contained"
+                      >
+                        기각
+                      </Button>
+                    </AlignLayout>
+                  </div>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            );
+          })}
     </div>
   );
 };

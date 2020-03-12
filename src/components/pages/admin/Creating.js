@@ -3,7 +3,6 @@ import Section from '../../primitive/Section/Section';
 import { quickConnect } from '../../../redux/quick';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
-
 import { createEvent, createNotice } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import { getPath } from '../../../utils/url';
@@ -266,7 +265,7 @@ class Creating extends Component {
     return (
       <div>
         <Section divideStyle={'fill'}>
-          <h5>새로운 공지사항 등록</h5>
+          <h3>새로운 공지사항 등록</h3>
           <AlignLayout align={'right'}>
             <Button
               variant="contained"
@@ -281,7 +280,7 @@ class Creating extends Component {
         </Section>
         <br />
         <Section divideStyle={'fill'}>
-          <h5>새로운 이벤트 등록</h5>
+          <h3>새로운 이벤트 등록</h3>
           <AlignLayout align={'right'}>
             <Button
               variant="contained"
@@ -296,7 +295,7 @@ class Creating extends Component {
         </Section>
         <br />
         <Section>
-          <h5>새로운 매거진 등록</h5>
+          <h3>새로운 매거진 등록</h3>
           <AlignLayout align={'right'}>
             <Button
               variant="contained"
