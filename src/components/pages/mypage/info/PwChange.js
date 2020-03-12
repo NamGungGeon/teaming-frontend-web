@@ -29,35 +29,6 @@ class PwChange extends Component {
     });
   };
 
-  submit = async () => {
-    const { uiKit, AuthDispatcher } = this.props;
-    uiKit.loading.start();
-    await delay(100);
-    uiKit.loading.end();
-
-    uiKit.popup.make(
-      <AlignLayout align={'center'}>
-        <PageTitle
-          title={'변경이 완료되었습니다'}
-          explain={'재 로그인이 필요합니다'}
-          noMargin
-        />
-        <br />
-        <Button
-          block
-          color={'success'}
-          onClick={() => {
-            AuthDispatcher.logout();
-            getHistory().push(getPath(`/auth/signin`));
-          }}
-        >
-          로그인 페이지로 이동
-        </Button>
-      </AlignLayout>,
-      true
-    );
-  };
-
   componentWillUnmount() {
     this.props.uiKit.popup.destroy();
   }
@@ -70,7 +41,7 @@ class PwChange extends Component {
   };
 
   submit = async () => {
-    const { uiKit, auth } = this.props;
+    const { uiKit, auth, AuthDispatcher } = this.props;
     const { oldPassword, newPassword, newPasswordCheck } = this.state;
 
     if (newPassword !== newPasswordCheck) {
@@ -82,6 +53,8 @@ class PwChange extends Component {
     await updateMyPassword(auth, oldPassword, newPassword)
       .then(response => {
         //success
+        AuthDispatcher.logout();
+        getHistory().push(getPath('/'));
         uiKit.popup.make(
           <div>
             <h5>비밀번호 변경이 완료되었습니다</h5>
@@ -90,7 +63,7 @@ class PwChange extends Component {
             <AlignLayout align={'right'}>
               <Button
                 onClick={() => {
-                  getHistory().push(getPath('/'));
+                  uiKit.popup.destroy();
                 }}
                 variant={'contained'}
                 color={'primary'}
@@ -98,7 +71,8 @@ class PwChange extends Component {
                 확인
               </Button>
             </AlignLayout>
-          </div>
+          </div>,
+          true
         );
       })
       .catch(e => {

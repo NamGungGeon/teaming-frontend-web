@@ -23,32 +23,7 @@ class Illegal extends Component {
 
     this.setState({
       ...this.state,
-      illegals: [
-        {
-          id: randNum(1000),
-          title: randStr(10),
-          createdAt: '2020-01-01 12:00',
-          text: '이녀석 완전 악질이야!'
-        },
-        {
-          id: randNum(1000),
-          title: randStr(10),
-          createdAt: '2020-01-01 12:00',
-          text: '이녀석 완전 악질이야!'
-        },
-        {
-          id: randNum(1000),
-          title: randStr(10),
-          createdAt: '2020-01-01 12:00',
-          text: '이녀석 완전 악질이야!'
-        },
-        {
-          id: randNum(1000),
-          title: randStr(10),
-          createdAt: '2020-01-01 12:00',
-          text: '이녀석 완전 악질이야!'
-        }
-      ]
+      illegals: []
     });
   }
 
@@ -60,6 +35,7 @@ class Illegal extends Component {
         <PageTitle title={'제재내역'} explain={'내 제재내역 목록입니다'} />
         {illegals && (
           <div>
+            {illegals.length === 0 && <p>제재내역이 없습니다</p>}
             {illegals.map(illegal => {
               return (
                 <ExpansionPanel expanded={illegal.id === open}>
