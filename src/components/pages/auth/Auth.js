@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import SignUp from './SignUp';
 import Lost from './Lost';
 import SignOut from './SignOut';
-import Signin from "./Signin";
+import Signin from './Signin';
 
 class Auth extends Component {
   render() {

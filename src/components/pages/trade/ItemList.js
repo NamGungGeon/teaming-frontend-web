@@ -6,7 +6,7 @@ import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { formatToMoney, randStr } from '../../../utils/utils';
 import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
 import icon from '../../resource/icon.png';
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
 
 class ItemList extends Component {
   state = {

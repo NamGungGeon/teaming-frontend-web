@@ -1,7 +1,6 @@
-
-export const battlegroundResource= {
+export const battlegroundResource = {
   url: 'https://res.tming.kr/battleground',
-  tierImage: (tier)=>{
+  tierImage: tier => {
     return `${battlegroundResource.url}/tier/${tier}.png`;
   }
 };

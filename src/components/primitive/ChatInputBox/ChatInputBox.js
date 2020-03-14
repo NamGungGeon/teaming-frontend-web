@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { quickConnect } from '../../../redux/quick';
 import { MdSend } from 'react-icons/md';
 import SearchBox from '../SearchBox/SearchBox';
 
-const ChatInputBox = () => {
-  const { hint, type, sendMessage } = this.props;
+const ChatInputBox = ({ sendMessage }) => {
   return (
     <SearchBox
       className={'chat-submission-form'}

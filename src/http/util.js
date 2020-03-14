@@ -15,11 +15,11 @@ export const errMsg = e => {
   }
 };
 
-export const getFormData= (object)=>{
-  let formdata= new FormData();
-  Object.keys(object).map(key=>{
+export const getFormData = object => {
+  let formdata = new FormData();
+  Object.keys(object).map(key => {
     formdata.append(key, object[key]);
   });
 
   return formdata;
-}
+};

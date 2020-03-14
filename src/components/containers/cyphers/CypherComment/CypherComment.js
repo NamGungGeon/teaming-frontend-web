@@ -13,7 +13,7 @@ const CypherComment = ({ nameEN, limit, tick }) => {
       .catch(e => {
         console.log(e);
       });
-  }, [nameEN, tick]);
+  }, [nameEN, tick, limit]);
 
   if (comments) {
     return (
