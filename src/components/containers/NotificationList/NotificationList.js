@@ -1,5 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
-import styles from './NotificationList.css';
+import React, { useEffect, useState } from 'react';
 import { quickConnect } from '../../../redux/quick';
 import {
   agreeFriend,
@@ -11,8 +10,7 @@ import { errMsg } from '../../../http/util';
 import { randStr } from '../../../utils/utils';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Button, Menu, MenuItem } from '@material-ui/core';
-import axios from 'axios';
+import { Button, MenuItem } from '@material-ui/core';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import getHistory from 'react-router-global-history';
 import { getPath } from '../../../utils/url';

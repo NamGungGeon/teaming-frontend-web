@@ -1,10 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { quickConnect } from '../../../redux/quick';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { Button, TextField } from '@material-ui/core';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import ReportIcon from '@material-ui/icons/Report';
-import { delay } from '../../../utils/utils';
 import { createReport } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 

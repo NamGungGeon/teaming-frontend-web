@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { quickConnect } from '../../../redux/quick';
 
 const Signin = ({ history, auth }) => {

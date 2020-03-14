@@ -5,7 +5,6 @@ import PageTitle from '../../primitive/PageTitle/PageTitle';
 
 import lol from '../../resource/icon/lol.jpg';
 import cyphers from '../../resource/icon/cyphers.png';
-import overwatch from '../../resource/icon/overwatch.png';
 import battleground from '../../resource/icon/battleground.png';
 import { randStr } from '../../../utils/utils';
 

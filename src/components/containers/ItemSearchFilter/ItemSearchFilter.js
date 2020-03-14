@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { MdSearch } from 'react-icons/md';
 
 class ItemSearchFilter extends Component {
   state = {
@@ -13,7 +12,6 @@ class ItemSearchFilter extends Component {
   }
 
   render() {
-    const { currency } = this.state;
     return <div></div>;
     // return (
     //   <div>

@@ -61,7 +61,7 @@ class EventGallery extends Component {
             console.log('event', event);
             return (
               <div className={styles.event}>
-                <img src={event.banner} />
+                <img src={event.banner} alt="event-banner" />
                 <SimpleRow
                   className={styles.explain}
                   key={event.title}

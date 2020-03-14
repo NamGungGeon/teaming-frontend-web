@@ -7,7 +7,6 @@ import { Tooltip } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { quickConnect } from '../../../../redux/quick';
-import Section from '../../../primitive/Section/Section';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -135,8 +134,8 @@ const RecommendItems = ({ nameEN, uiKit }) => {
 
   if (recommends) {
     //split items as tier
-    Object.keys(itemsAsTier).map(key => {
-      recommends.map(recommend => {
+    Object.keys(itemsAsTier).forEach(key => {
+      recommends.forEach(recommend => {
         if (key === recommend.tierName) {
           itemsAsTier[key].push(recommend);
         }

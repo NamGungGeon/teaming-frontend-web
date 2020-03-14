@@ -33,8 +33,10 @@ class Start extends Component {
       lastTime: 30
     };
   }
+
   init = () => {
     this.socket = null;
+
     this.setState({
       title: '매칭 서버에 접속 중',
       explain: '잠시만 기다려주세요',
@@ -42,6 +44,10 @@ class Start extends Component {
       roomID: null,
       lastTime: 30
     });
+
+    const { auth } = this.props;
+    const token = auth.hasOwnProperty('token') ? auth.token : null;
+
     this.socket = io(
       `${
         process.env.NODE_ENV === 'development'
@@ -49,7 +55,8 @@ class Start extends Component {
           : 'https://api.tming.kr'
       }/match`,
       {
-        transports: ['websocket']
+        transports: ['websocket'],
+        query: { access: token }
       }
     );
 
@@ -101,6 +108,7 @@ class Start extends Component {
       });
     }, 1000);
   };
+
   componentDidMount() {
     //check props are valid
     const { playerInfo, history } = this.props;
@@ -113,6 +121,7 @@ class Start extends Component {
 
     this.init();
   }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { lastTime, partner } = this.state;
     const { history, uiKit } = this.props;

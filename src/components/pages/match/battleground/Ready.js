@@ -57,7 +57,7 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
     });
   };
   const requestMatching = () => {
-    const { tier, partnerGender, mode, goal, nickname } = playerInfo;
+    const { tier, mode, nickname } = playerInfo;
     if (!nickname) {
       uiKit.toaster.cooking('닉네임을 입력하세요');
       return;
@@ -75,7 +75,7 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
     // history.push('/match/battleground/start/');
   };
 
-  const { tier, partnerGender, mode, goal, nickname } = playerInfo;
+  const { mode } = playerInfo;
   return (
     <div>
       <PageTitle

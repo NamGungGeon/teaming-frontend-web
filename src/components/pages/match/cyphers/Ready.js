@@ -72,9 +72,7 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
 
   const {
     tier,
-    partnerGender,
     mode,
-    goal,
     nickname,
     champions,
     likes,

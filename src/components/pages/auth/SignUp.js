@@ -131,7 +131,7 @@ class SignUp extends Component {
   };
 
   render() {
-    const { config, uiKit } = this.props;
+    const { config } = this.props;
     const { gender, agreePrivacy, agreeContact } = this.state;
     return (
       <div>

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { quickConnect } from '../../../redux/quick';
 import { getPath } from '../../../utils/url';
 
@@ -11,7 +11,7 @@ const SignOut = ({ AuthDispatcher, history, auth }) => {
     window.auth = auth;
   });
 
-  return <div/>;
+  return <div />;
 };
 
 export default quickConnect(SignOut);

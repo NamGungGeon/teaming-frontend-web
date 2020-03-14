@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { getPath } from '../../../utils/url';
 import Section from '../../primitive/Section/Section';

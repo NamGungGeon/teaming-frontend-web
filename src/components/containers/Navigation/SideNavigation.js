@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { quickConnect } from '../../../redux/quick';
 import './SideNavigation.css';
 import Footer from '../Footer/Footer';

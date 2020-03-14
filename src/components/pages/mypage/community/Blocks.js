@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import PageTitle from '../../../primitive/PageTitle/PageTitle';
 import CardWrapper from '../../../primitive/CardWrapper/CardWrapper';
-import { Card } from '@material-ui/core';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import { quickConnect } from '../../../../redux/quick';
-import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 import { getBlocks, removeBlock } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';

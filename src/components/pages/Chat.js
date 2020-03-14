@@ -49,6 +49,9 @@ class Chat extends Component {
   };
 
   startChat = () => {
+    const { auth } = this.props;
+    const token = auth.hasOwnProperty('token') ? auth.token : null;
+
     this.socket = io(
       `${
         process.env.NODE_ENV === 'development'
@@ -56,7 +59,8 @@ class Chat extends Component {
           : 'https://api.tming.kr'
       }/chat`,
       {
-        transports: ['websocket']
+        transports: ['websocket'],
+        query: { access: token }
       }
     );
 

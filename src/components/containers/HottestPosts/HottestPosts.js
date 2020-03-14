@@ -1,6 +1,6 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { quickConnect } from '../../../redux/quick';
-import { delay, getImageSrcFromHTML, momenting } from '../../../utils/utils';
+import { getImageSrcFromHTML, momenting } from '../../../utils/utils';
 import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
 import Window from '../../primitive/Window/Window';
 import { getBoardPosts } from '../../../http/tming';

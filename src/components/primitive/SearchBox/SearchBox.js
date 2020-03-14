@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './SearchBox.module.css';
 import PropTypes from 'prop-types';
 import { quickConnect } from '../../../redux/quick';

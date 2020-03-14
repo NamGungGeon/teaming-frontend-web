@@ -168,7 +168,7 @@ class Ready extends Component {
   };
 
   render() {
-    const { mode, goal, champions, likes, ban, partnerGender } = this.state;
+    const { mode, champions, likes, ban } = this.state;
 
     return (
       <div>

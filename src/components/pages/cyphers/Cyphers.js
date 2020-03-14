@@ -21,7 +21,7 @@ class Cyphers extends Component {
           onClick: () => {
             alert('개발중입니다');
             return;
-            history.push('/cyphers/search');
+            // history.push('/cyphers/search');
           }
         },
         {
@@ -29,7 +29,7 @@ class Cyphers extends Component {
           onClick: () => {
             alert('개발중입니다');
             return;
-            history.push('/cyphers/ranking');
+            // history.push('/cyphers/ranking');
           }
         }
       ],

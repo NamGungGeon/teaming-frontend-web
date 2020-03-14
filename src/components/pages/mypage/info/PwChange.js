@@ -82,10 +82,12 @@ class PwChange extends Component {
   };
 
   render() {
-    const inputWrapperStyle = {
+    /*
+      const inputWrapperStyle = {
       display: 'inline-block',
       width: '100%'
-    };
+      };
+     */
 
     return (
       <div>
