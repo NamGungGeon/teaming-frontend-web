@@ -232,10 +232,10 @@ table.noHead tr > td:nth-child(1) {
 }
 @media (min-width: 1300px) {
   .content > .sideContent {
-    display: block;
-    flex: 1;
+    display: inline-block;
+    margin: 0 16px;
+    width: 256px;
     min-width: 256px;
-    max-width: 300px;
   }
 }
 

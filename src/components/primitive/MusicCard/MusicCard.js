@@ -10,7 +10,7 @@ const MusicCard = ({ thumbnail, title, tags, link }) => {
       className={styles.wrapper}
     >
       <div className={styles.content}>
-        <h6>{title}</h6>
+        <h4>{title}</h4>
         <div className={'explain'}>
           {tags.map(tag => {
             return `#${tag} `;

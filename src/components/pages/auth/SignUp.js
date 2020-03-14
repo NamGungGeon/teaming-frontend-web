@@ -234,7 +234,7 @@ class SignUp extends Component {
           <h4>필수동의약관</h4>
           <br />
           <div>
-            <h6>개인정보처리방침</h6>
+            <h4>개인정보처리방침</h4>
             <div
               style={{
                 overflowY: 'scroll',
@@ -256,7 +256,7 @@ class SignUp extends Component {
           </div>
           <br />
           <div>
-            <h6>이용약관</h6>
+            <h4>이용약관</h4>
             <div
               style={{
                 overflowY: 'scroll',

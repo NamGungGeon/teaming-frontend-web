@@ -62,14 +62,6 @@ const sideNav = {
       {
         label: (
           <span>
-            <IoIosHeart style={{ fontSize: '24px' }} />
-            &nbsp;&nbsp;커플매칭
-          </span>
-        )
-      },
-      {
-        label: (
-          <span>
             <MdBusinessCenter style={{ fontSize: '24px' }} />
             &nbsp;&nbsp;고객센터
           </span>

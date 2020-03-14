@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { quickConnect } from '../../../redux/quick';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
-import { createBlock, createMessage, requestFriend } from '../../../http/tming';
+import {
+  createBlock,
+  createMessage,
+  getUserProfile,
+  requestFriend
+} from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import Optional from '../../primitive/Optional/Optional';
 import { authorized } from '../../../utils/utils';
@@ -11,6 +16,8 @@ import BlockIcon from '@material-ui/icons/Block';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 import { TextField } from '@material-ui/core';
+import HashTable from '../../primitive/HashTable/HashTable';
+import ImageView from '../../primitive/ImageView/ImageView';
 
 class UserInfoViewer extends Component {
   state = {
@@ -18,6 +25,26 @@ class UserInfoViewer extends Component {
 
     newMsg: ''
   };
+
+  async componentDidMount() {
+    const { uiKit, auth, id } = this.props;
+    if (!id) return;
+
+    uiKit.loading.start();
+    await getUserProfile(auth, id)
+      .then(response => {
+        const { data } = response;
+        console.log('user profile', data);
+        this.setState({
+          ...this.state,
+          user: data
+        });
+      })
+      .catch(e => {
+        uiKit.toaster.cooking(errMsg(e));
+      });
+    uiKit.loading.end();
+  }
 
   requestFriends = async () => {
     const { uiKit, auth, id } = this.props;
@@ -51,10 +78,9 @@ class UserInfoViewer extends Component {
 
   sendMessage = () => {
     const { uiKit, auth, id, username } = this.props;
-
     uiKit.spopup.make(
       <div>
-        <h5>
+        <h3>
           쪽지
           <p className={'explain'}>{username}</p>
           <TextField
@@ -74,7 +100,7 @@ class UserInfoViewer extends Component {
             }}
             placeholder={'내용을 입력하세요'}
           />
-        </h5>
+        </h3>
         <br />
         <AlignLayout align={'right'}>
           <Button
@@ -115,9 +141,30 @@ class UserInfoViewer extends Component {
 
   render() {
     const { username, auth, id } = this.props;
+    const { user } = this.state;
     return (
       <div>
-        <h5>{username}</h5>
+        {user ? (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            <ImageView
+              style={{
+                maxWidth: '64px',
+                maxHeight: '64px',
+                width: 'auto'
+              }}
+              img={user.profilePicture}
+            />
+            &nbsp;&nbsp;
+            <h3>{username}</h3>
+          </div>
+        ) : (
+          <h3>{username}</h3>
+        )}
         <Optional visible={authorized(auth)}>
           <br />
           <AlignLayout align={'right'}>
@@ -151,6 +198,11 @@ class UserInfoViewer extends Component {
         </Optional>
       </div>
     );
+  }
+
+  componentWillMount() {
+    const { uiKit } = this.props;
+    uiKit.destroyAll();
   }
 }
 

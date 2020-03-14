@@ -103,7 +103,7 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
     <div>
       <PageTitle
         title={'팀 매칭 사전준비'}
-        explain={'배틀그라운드 팀 매칭을 위한 사전 정보 입력'}
+        explain={'사이퍼즈 팀 매칭을 위한 사전 정보 입력'}
         align={'left'}
       />
       <br />
@@ -114,6 +114,7 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
             style={{
               width: '400px'
             }}
+            name={'nickname'}
             type={'text'}
             placeholder="게임 내에서 사용중인 닉네임을 입력하세요"
             onChange={handleChange}

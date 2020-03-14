@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import empty from '../../resource/icon.png';
 import styles from './ImageView.module.css';
 import classNames from 'classnames';
+import { Tooltip } from '@material-ui/core';
 
 class ImageView extends Component {
   static defaultProps = {
@@ -34,11 +35,11 @@ class ImageView extends Component {
       shadow,
       style,
       onClick,
-      className
+      className,
+      tooltip
     } = this.props;
-
-    if (typeof img === 'string')
-      return (
+    const wrapping = () => {
+      const imageElement = (
         <img
           src={img ? img : empty}
           alt={'ImageView'}
@@ -58,6 +59,14 @@ class ImageView extends Component {
           onClick={onClick ? onClick : () => {}}
         />
       );
+
+      return tooltip ? (
+        <Tooltip title={tooltip}>{imageElement}</Tooltip>
+      ) : (
+        imageElement
+      );
+    };
+    if (typeof img === 'string') return wrapping();
     else return img;
   }
 }

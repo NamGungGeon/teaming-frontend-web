@@ -91,6 +91,7 @@ const Ready = ({ playerInfo, setPlayerInfo, uiKit, history }) => {
             style={{
               width: '400px'
             }}
+            name={'nickname'}
             type={'text'}
             placeholder="게임 내에서 사용중인 닉네임을 입력하세요"
             onChange={handleChange}

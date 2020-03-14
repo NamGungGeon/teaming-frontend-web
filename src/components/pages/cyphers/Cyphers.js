@@ -43,7 +43,7 @@ class Cyphers extends Component {
       ],
       다운로드: [
         {
-          label: '사이퍼즈 서포터 (안드로이드)',
+          label: '사이퍼즈 서포터',
           onClick: () => {
             window.open(
               'https://play.google.com/store/apps/details?id=kr.co.dothome.whenever.cyphersapp&hl=ko'
