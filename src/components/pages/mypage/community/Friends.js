@@ -11,6 +11,7 @@ import { errMsg } from '../../../../http/util';
 import Address from '../../../primitive/Address/Address';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
+import UserProfileViewer from '../../../containers/UserProfileViewer/UserProfileViewer';
 
 class Friends extends Component {
   state = {
@@ -27,6 +28,7 @@ class Friends extends Component {
     uiKit.loading.start();
     await getFriends(auth)
       .then(response => {
+        console.log('friends list', response.data.data);
         this.setState({
           ...this.state,
           friends: response.data.data
@@ -77,6 +79,10 @@ class Friends extends Component {
       </div>
     );
   };
+  viewUserInfo = userId => {
+    const { uiKit } = this.props;
+    uiKit.popup.make(<UserProfileViewer id={userId} />);
+  };
 
   render() {
     const { friends } = this.state;
@@ -92,6 +98,9 @@ class Friends extends Component {
               const friend = _friend.friend;
               return (
                 <Address
+                  onClick={() => {
+                    this.viewUserInfo(friend.id);
+                  }}
                   picture={friend.profilePicture}
                   name={friend.username}
                   explain={

@@ -13,7 +13,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import CharacterPosition from '../../containers/cyphers/CharacterPosition/CharacterPosition';
+import CharacterPosition from '../../containers/cyphers/RecommendPositions/RecommendPositions';
 import CypherComment from '../../containers/cyphers/CypherComment/CypherComment';
 import ImageView from '../../primitive/ImageView/ImageView';
 import Divider from '@material-ui/core/Divider';
@@ -23,6 +23,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { Tooltip } from '@material-ui/core';
 import RecommendItems from '../../containers/cyphers/RecommendItems/RecommendItems';
 import CreateCypherComment from '../../containers/cyphers/CreateCypherComment/CreateCypherComment';
+import Spinner from '../../primitive/Spinner/Spinner';
+import { urlQuery } from '../../../utils/url';
 
 class Characters extends Component {
   state = {
@@ -35,62 +37,64 @@ class Characters extends Component {
   };
 
   async componentDidMount() {
-    const { uiKit } = this.props;
-    uiKit.loading.start();
-    await getCharacter()
-      .then(response => {
-        console.log(response);
-        this.setState({
-          ...this.state,
-          characters: response.data.characters
+    window.scrollTo(0, 0);
+
+    const { uiKit, location } = this.props;
+    const { characters } = this.state;
+    if (!characters) {
+      uiKit.loading.start();
+      await getCharacter()
+        .then(response => {
+          console.log('characters', response.data.characters);
+          this.setState({
+            ...this.state,
+            characters: response.data.characters
+          });
+        })
+        .catch(e => {
+          uiKit.toaster.cooking(errMsg(e));
         });
-      })
-      .catch(e => {
-        uiKit.toaster.cooking(errMsg(e));
-      });
-    uiKit.loading.end();
+      uiKit.loading.end();
+    }
+
+    const nameKR = urlQuery(location).nameKR;
+    this.selectCharacter(nameKR);
   }
-
-  loadCharacterDetail = async (nameEN, nameKR) => {
-    const { uiKit } = this.props;
-
-    uiKit.loading.start();
-    await getCharacter(nameEN)
-      .then(response => {
-        console.log(response);
-        this.setState({
-          ...this.state,
-          character: response.data.characters[0]
-        });
-      })
-      .catch(e => {
-        uiKit.toaster.cooking(errMsg(e));
+  selectCharacter = nameKR => {
+    if (!nameKR) {
+      this.setState({
+        ...this.state,
+        character: null,
+        openCharacterList: true
       });
-    await getCharacterPosition(nameKR)
-      .then(response => {
-        console.log(response.data);
-        this.setState({
-          ...this.state,
-          characterPosition: response.data
-        });
-      })
-      .catch(e => {
-        console.log(e);
+    } else {
+      const { characters } = this.state;
+      const character = characters.find(
+        character => character.nameKR === nameKR
+      );
+      console.log('find', character);
+      this.setState({
+        ...this.state,
+        character: character,
+        openCharacterList: false
       });
-    uiKit.loading.end();
+    }
   };
 
-  render() {
-    const {
-      characters,
-      character,
-      openCharacterList,
-      characterPosition
-    } = this.state;
-    const { uiKit } = this.props;
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('updated', this.state);
+    const { location } = this.props;
+    const { location: prevLocation } = prevProps;
+    if (urlQuery(prevLocation).nameKR !== urlQuery(location).nameKR) {
+      this.componentDidMount();
+    }
+  }
 
-    console.log(characterPosition);
-    if (!characters) return <div />;
+  render() {
+    const { characters, character, openCharacterList } = this.state;
+    const { uiKit, history } = this.props;
+
+    if (!characters) return <Spinner />;
 
     return (
       <div>
@@ -122,14 +126,9 @@ class Characters extends Component {
                   return {
                     img: cyphersResource.getClearThumbnail(character.nameEN),
                     onClick: () => {
-                      this.loadCharacterDetail(
-                        character.nameEN,
-                        character.nameKR
+                      history.push(
+                        `/cyphers/characters?nameKR=${character.nameKR}`
                       );
-                      this.setState({
-                        ...this.state,
-                        openCharacterList: false
-                      });
                     }
                   };
                 })}
@@ -156,7 +155,7 @@ class Characters extends Component {
             <br />
             <Divider />
             <br />
-            <CharacterPosition position={characterPosition} />
+            <CharacterPosition nameKR={character.nameKR} />
             <br />
             <Divider />
             <RecommendItems nameEN={character.nameEN} />

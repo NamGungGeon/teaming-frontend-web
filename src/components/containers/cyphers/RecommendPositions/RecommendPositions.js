@@ -1,24 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import ImageView from '../../../primitive/ImageView/ImageView';
-import { cyphersResource, openApiRes } from '../../../../http/cyphers';
+import {
+  cyphersResource,
+  getCharacterPosition,
+  openApiRes
+} from '../../../../http/cyphers';
 import CardContent from '@material-ui/core/CardContent';
-import styles from './CharacterPosition.module.css';
+import styles from './RecommendPositions.module.css';
 import { quickConnect } from '../../../../redux/quick';
 import PositionDetail from '../PositionDetail/PositionDetail';
+import Spinner from '../../../primitive/Spinner/Spinner';
 
-const CharacterPosition = ({ position, uiKit }) => {
+const RecommendPositions = ({ nameKR, uiKit }) => {
+  const [position, setPosition] = useState();
+  useEffect(() => {
+    setPosition(null);
+    getCharacterPosition(nameKR)
+      .then(response => {
+        setPosition(response.data);
+      })
+      .catch(e => {
+        uiKit.toaster.cooking(e);
+      });
+  }, [nameKR]);
   const openDetailPopup = positionId => {
     uiKit.popup.make(<PositionDetail positionId={positionId} />);
   };
 
   return (
     <div>
-      {position && (
+      <h3>포지션 통계</h3>
+      {position ? (
         <div>
-          <h3>포지션 통계</h3>
           <p className={'explain'}>{position.analyzedDate}</p>
           <br />
           <div className={styles.wrapper}>
@@ -81,9 +97,11 @@ const CharacterPosition = ({ position, uiKit }) => {
             })}
           </div>
         </div>
+      ) : (
+        <Spinner />
       )}
     </div>
   );
 };
 
-export default quickConnect(CharacterPosition);
+export default quickConnect(RecommendPositions);

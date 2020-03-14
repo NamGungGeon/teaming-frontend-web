@@ -4,16 +4,25 @@ import { getPath } from '../../../utils/url';
 import { Route } from 'react-router-dom';
 import Characters from './Characters';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
+import { pageDescription } from '../../../utils/utils';
+import Attributes from './Attributes';
 
 class Cyphers extends Component {
   componentDidMount() {
     const { history } = this.props;
+    pageDescription('티밍:: 사이퍼즈 서포터', '티밍 X 사이퍼즈 서포터');
     const nav = {
       '공략 및 분석': [
         {
           label: '캐릭터',
           onClick: () => {
             history.push('/cyphers/characters');
+          }
+        },
+        {
+          label: '특성',
+          onClick: () => {
+            history.push('/cyphers/attributes');
           }
         },
         {
@@ -56,6 +65,7 @@ class Cyphers extends Component {
   }
 
   componentWillUnmount() {
+    pageDescription();
     this.props.SideNavDispatcher.remove();
   }
 
@@ -86,6 +96,11 @@ class Cyphers extends Component {
           exact
           path={getPath('/cyphers/characters')}
           component={Characters}
+        />
+        <Route
+          exact
+          path={getPath('/cyphers/attributes')}
+          component={Attributes}
         />
       </div>
     );

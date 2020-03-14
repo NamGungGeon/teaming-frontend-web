@@ -15,11 +15,12 @@ class ImageViewGroup extends Component {
   render() {
     const { icons, style } = this.props;
     return (
-      <div className={styles.group} style={style}>
+      <div className={styles.group}>
         {icons.map((icon, idx) => {
           const { img, label, onClick, shape, tooltip } = icon;
           return (
             <div
+              style={style}
               key={`${icon.toString()}_${idx}`}
               className={classNames({ clickable: onClick })}
               onClick={onClick ? onClick : () => {}}

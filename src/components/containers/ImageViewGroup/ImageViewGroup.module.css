@@ -8,6 +8,7 @@
   width: 100%;
 }
 .group > div {
+  box-sizing: border-box;
   max-width: 30%;
   text-align: center;
 }

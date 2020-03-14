@@ -119,3 +119,10 @@ export const createComment = (nameEN, comment) => {
     data: formdata
   });
 };
+
+export const getAttributes = () => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/positions/`
+  });
+};

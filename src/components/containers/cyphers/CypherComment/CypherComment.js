@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getCypherComments } from '../../../../http/cyphers';
 import BoardRow from '../../../primitive/Board/BoardRow/BoardRow';
+import Spinner from '../../../primitive/Spinner/Spinner';
 
 const CypherComment = ({ nameEN, limit, tick }) => {
   const [comments, setComments] = useState(null);
   useEffect(() => {
-    console.log(nameEN);
+    setComments(null);
     getCypherComments(nameEN, limit)
       .then(response => {
         setComments(response.data.comments);
@@ -30,7 +31,7 @@ const CypherComment = ({ nameEN, limit, tick }) => {
       </div>
     );
   } else {
-    return <div></div>;
+    return <Spinner />;
   }
 };
 

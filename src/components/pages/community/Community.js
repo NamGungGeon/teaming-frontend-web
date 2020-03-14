@@ -26,6 +26,12 @@ class Community extends Component {
           onClick: () => {
             this.go(getPath(`/community?category=anonymous`));
           }
+        },
+        {
+          label: '화장실',
+          onClick: () => {
+            this.go(getPath(`/trash`));
+          }
         }
       ],
       게임: [

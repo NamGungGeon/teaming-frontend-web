@@ -10,6 +10,7 @@ import { quickConnect } from '../../../../redux/quick';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Spinner from '../../../primitive/Spinner/Spinner';
 
 const slotOrder = [
   'HAND',
@@ -94,6 +95,7 @@ const RecommendItems = ({ nameEN, uiKit }) => {
     BRONZE: []
   };
   useEffect(() => {
+    setRecommends(null);
     getRecommendItems(nameEN, tier)
       .then(response => {
         const { items } = response.data;
@@ -189,15 +191,19 @@ const RecommendItems = ({ nameEN, uiKit }) => {
         </h3>
         <div className={styles.itemWrapper}>
           <ImageViewGroup
+            style={{
+              maxWidth: 'calc( 95% / 8 )'
+            }}
             icons={itemCombination
               .slice(0, itemCombination.length / 2)
               .map(item => {
                 return {
                   style: {
+                    maxWidth: '100%',
                     width: '64px',
                     margin: '4px'
                   },
-                  tooltip: item.itemName,
+                  tooltip: item ? item.itemName : '',
                   img: cyphersResource.getLegacyItemIcon(
                     item ? item.icoName : ''
                   ),
@@ -210,15 +216,19 @@ const RecommendItems = ({ nameEN, uiKit }) => {
         </div>
         <div className={styles.itemWrapper}>
           <ImageViewGroup
+            style={{
+              maxWidth: 'calc( 95% / 8 )'
+            }}
             icons={itemCombination
               .slice(itemCombination.length / 2, itemCombination.length)
               .map(item => {
                 return {
                   style: {
+                    maxWidth: '100%',
                     width: '64px',
                     margin: '4px'
                   },
-                  tooltip: item.itemName,
+                  tooltip: item ? item.itemName : '',
                   img: cyphersResource.getLegacyItemIcon(
                     item ? item.icoName : ''
                   ),
@@ -232,7 +242,7 @@ const RecommendItems = ({ nameEN, uiKit }) => {
       </div>
     );
   } else {
-    return <div></div>;
+    return <Spinner />;
   }
 };
 

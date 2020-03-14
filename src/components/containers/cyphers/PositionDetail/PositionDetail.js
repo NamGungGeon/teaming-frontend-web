@@ -3,12 +3,12 @@ import { quickConnect } from '../../../../redux/quick';
 import { getPositionDetail, openApiRes } from '../../../../http/cyphers';
 import ImageView from '../../../primitive/ImageView/ImageView';
 import styles from './PositionDetail.module.css';
+import Spinner from '../../../primitive/Spinner/Spinner';
 
 const PositionDetail = ({ positionId, uiKit }) => {
   const [positionDetail, setPositionDetail] = useState(null);
   useEffect(() => {
     (async () => {
-      uiKit.loading.start();
       await getPositionDetail(positionId)
         .then(response => {
           const { data } = response;
@@ -19,7 +19,6 @@ const PositionDetail = ({ positionId, uiKit }) => {
           console.log(e.response.data);
           uiKit.toaster.cooking(e);
         });
-      uiKit.loading.end();
     })();
   }, []);
 
@@ -36,7 +35,7 @@ const PositionDetail = ({ positionId, uiKit }) => {
         <div>{explain}</div>
       </div>
     );
-  } else return <div></div>;
+  } else return <Spinner />;
 };
 
 export default quickConnect(PositionDetail);

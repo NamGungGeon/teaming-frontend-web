@@ -4,9 +4,8 @@ import moment from 'moment';
 
 //base
 const baseURL = `${
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:4000'
-    : 'https://api.tming.kr'
+  // process.env.NODE_ENV === 'development'
+  false ? 'http://localhost:4000' : 'https://api.tming.kr'
 }`;
 // const baseURL = `https://api.tming.kr`;
 const version = 'v0.1';

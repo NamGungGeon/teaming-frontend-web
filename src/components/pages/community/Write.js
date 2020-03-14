@@ -121,7 +121,6 @@ class Write extends Component {
           <br />
         </Optional>
         <TextField
-          variant={'outlined'}
           size={'small'}
           fullWidth
           type="text"

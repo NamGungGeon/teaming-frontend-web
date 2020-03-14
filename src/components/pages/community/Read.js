@@ -30,12 +30,12 @@ import { errMsg } from '../../../http/util';
 import { getPath, urlQuery } from '../../../utils/url';
 
 import DeleteIcon from '@material-ui/icons/Delete';
-import UserInfoViewer from '../../containers/UserInfoViewer/UserInfoViewer';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import Section from '../../primitive/Section/Section';
 import QuickComplain from '../../containers/QuickComplain/QuickComplain';
 import { TextField } from '@material-ui/core';
 import SearchBox from '../../primitive/SearchBox/SearchBox';
+import UserProfileViewer from '../../containers/UserProfileViewer/UserProfileViewer';
 
 class Read extends Component {
   state = {
@@ -173,7 +173,7 @@ class Read extends Component {
     if (!id || !username) return;
 
     const { uiKit } = this.props;
-    uiKit.popup.make(<UserInfoViewer username={username} id={id} />);
+    uiKit.popup.make(<UserProfileViewer username={username} id={id} />);
   };
 
   deletePost = () => {

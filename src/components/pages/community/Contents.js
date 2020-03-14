@@ -327,7 +327,12 @@ class Contents extends Component {
               </Tooltip>
               &nbsp;
               <Tooltip title={'새로고침'}>
-                <IconButton onClick={this.loadContents} variant="contained">
+                <IconButton
+                  onClick={() => {
+                    this.loadContents(offset ? offset : 0);
+                  }}
+                  variant="contained"
+                >
                   <RefreshIcon />
                 </IconButton>
               </Tooltip>

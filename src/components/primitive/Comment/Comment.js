@@ -81,7 +81,7 @@ class Comment extends Component {
           <div className={styles.options}>
             <span className={'explain'}>
               {author ? author.username : '익명'}
-              &nbsp;&nbsp;|&nbsp;&nbsp;
+              <br />
               {createdAt}
             </span>
             <div>

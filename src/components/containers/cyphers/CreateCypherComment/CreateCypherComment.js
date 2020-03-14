@@ -44,7 +44,6 @@ const CreateCypherComment = ({ nameEN, nameKR, onSubmit, uiKit }) => {
         multiline
         rows={7}
         type={'text'}
-        variant={'outlined'}
       />
       <br />
       <br />
