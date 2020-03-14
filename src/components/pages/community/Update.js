@@ -88,7 +88,7 @@ class Update extends Component {
 
   render() {
     const { location } = this.props;
-    const { title, body, ready } = this.state;
+    const { body, ready } = this.state;
     const { category } = urlQuery(location);
 
     if (!ready) return <div />;

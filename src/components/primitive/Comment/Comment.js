@@ -3,7 +3,6 @@ import styles from './Comment.module.css';
 import logo from '../../resource/icon.png';
 import IconButton from '@material-ui/core/IconButton';
 import { beautifyDate } from '../../../utils/utils';
-import { Button } from '@material-ui/core';
 import Optional from '../Optional/Optional';
 import { IoIosPerson } from 'react-icons/io';
 
@@ -40,7 +39,7 @@ class Comment extends Component {
       reportComment,
       showUserInfo
     } = this.props;
-    const { updateMode, newText } = this.state;
+    const { updateMode } = this.state;
 
     return (
       <div className={styles.wrapper}>

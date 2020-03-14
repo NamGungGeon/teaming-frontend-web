@@ -3,11 +3,6 @@ import PageTitle from '../../../primitive/PageTitle/PageTitle';
 import { getNotifications, removeNotification } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
 import { quickConnect } from '../../../../redux/quick';
-import MenuItem from '@material-ui/core/MenuItem';
-import { randStr } from '../../../../utils/utils';
-import Typography from '@material-ui/core/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Section from '../../../primitive/Section/Section';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import { Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
@@ -18,9 +13,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import EmailIcon from '@material-ui/icons/Email';
 import { urlQuery } from '../../../../utils/url';
-import axios from 'axios';
 import NotificationList from '../../../containers/NotificationList/NotificationList';
-import Menu from '@material-ui/core/Menu';
 
 class Notifications extends Component {
   constructor(props, context, state) {

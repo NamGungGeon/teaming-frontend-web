@@ -17,7 +17,7 @@ export const errMsg = e => {
 
 export const getFormData = object => {
   let formdata = new FormData();
-  Object.keys(object).map(key => {
+  Object.keys(object).forEach(key => {
     formdata.append(key, object[key]);
   });
 

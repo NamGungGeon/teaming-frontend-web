@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './Address.module.css';
 
 const Address = ({ picture, name, explain, options, onClick }) => {

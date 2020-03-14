@@ -1,5 +1,4 @@
-import React, { Component, useState } from 'react';
-import classNames from 'classnames';
+import React, { useState } from 'react';
 import styles from './Tabs.module.css';
 import Tab from '../Tab/Tab';
 import Section from '../../Section/Section';

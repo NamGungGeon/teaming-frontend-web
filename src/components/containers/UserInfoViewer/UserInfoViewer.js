@@ -16,7 +16,6 @@ import BlockIcon from '@material-ui/icons/Block';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 import { TextField } from '@material-ui/core';
-import HashTable from '../../primitive/HashTable/HashTable';
 import ImageView from '../../primitive/ImageView/ImageView';
 
 class UserInfoViewer extends Component {

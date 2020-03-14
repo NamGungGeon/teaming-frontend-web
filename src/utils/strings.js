@@ -1,5 +1,4 @@
 import React from 'react';
-import contact1 from '../components/resource/contact/contact1.jpg';
 
 export const privacy = (
   <div className="panel panel_white" style={{ fontSize: '0.8rem' }}>

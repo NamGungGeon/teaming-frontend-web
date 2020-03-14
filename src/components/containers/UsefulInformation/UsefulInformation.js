@@ -5,7 +5,6 @@ import Notices from '../Notices/Notices';
 import Section from '../../primitive/Section/Section';
 import { getPath } from '../../../utils/url';
 import getHistory from 'react-router-global-history';
-import { scrollToBottom } from '../../../utils/utils';
 
 const UsefulInformation = () => {
   const history = getHistory();
