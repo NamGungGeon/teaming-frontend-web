@@ -158,8 +158,8 @@ class Contents extends Component {
     }
   };
   render() {
-    const { location, history, config } = this.props;
-    const { count, offset, openSearchPanel } = this.state;
+    const { location, history, config, contentFilter } = this.props;
+    const { count, offset, openSearchPanel, contents } = this.state;
 
     const query = urlQuery(location);
     const searching = () => {
@@ -177,26 +177,30 @@ class Contents extends Component {
     };
     const boardWrapper = (
       <BoardWrapper
-        boards={this.state.contents.map(content => {
-          return {
-            title: `${content.title}`,
-            explains: [
-              `닉네임: ${content.nickname}`,
-              `| ${momenting(content.createDate).fromNow()}`,
-              `| 조회수 ${content.views}회`
-            ],
-            thumbnail: content.thumbnail,
-            onClick: () => {
-              history.push(
-                getPath(
-                  `/community/read/${content.id}?category=${
-                    query.category ? query.category : ''
-                  }`
-                )
-              );
-            }
-          };
-        })}
+        boards={contents
+          .filter(content => {
+            return !contentFilter.board.find(boardId => boardId === content.id);
+          })
+          .map(content => {
+            return {
+              title: `${content.title}`,
+              explains: [
+                `닉네임: ${content.nickname}`,
+                `| ${momenting(content.createDate).fromNow()}`,
+                `| 조회수 ${content.views}회`
+              ],
+              thumbnail: content.thumbnail,
+              onClick: () => {
+                history.push(
+                  getPath(
+                    `/community/read/${content.id}?category=${
+                      query.category ? query.category : ''
+                    }`
+                  )
+                );
+              }
+            };
+          })}
       />
     );
     return (

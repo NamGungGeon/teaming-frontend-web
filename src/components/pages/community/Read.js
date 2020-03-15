@@ -475,7 +475,15 @@ class Read extends Component {
   };
 
   render() {
-    const { history, location, match, uiKit, auth } = this.props;
+    const {
+      history,
+      location,
+      match,
+      uiKit,
+      auth,
+      contentFilter,
+      ContentFilterDispatcher
+    } = this.props;
     const { content, comments, imAuthor } = this.state;
     const query = urlQuery(location);
 
@@ -544,8 +552,15 @@ class Read extends Component {
                           <QuickComplain
                             endpoint={`/boards/${content.id}`}
                             onFinished={() => {
+                              ContentFilterDispatcher.hideBoard(content.id);
                               uiKit.toaster.cooking('신고가 완료되었습니다');
                               uiKit.popup.destroy();
+
+                              history.push(
+                                `/community?category=${
+                                  query.category ? query.category : 'general'
+                                }`
+                              );
                             }}
                           />
                         );
@@ -603,62 +618,69 @@ class Read extends Component {
               <p>댓글 작성을 위해서는 로그인이 필요합니다</p>
             )}
             <br />
-            {comments.map(comment => (
-              <Comment
-                updateComment={text => {
-                  this.updateComment(match.params.id, comment.id, text);
-                }}
-                reportComment={() => {
-                  uiKit.popup.make(
-                    <QuickComplain
-                      endpoint={`/boards/${content.id}/comments/${comment.id}`}
-                      onFinished={() => {
-                        uiKit.toaster.cooking('신고가 완료되었습니다');
-                        uiKit.popup.destroy();
-                      }}
-                    />
-                  );
-                }}
-                showUserInfo={this.showUserInfo}
-                deleteComment={() => {
-                  uiKit.popup.make(
-                    <div>
-                      <h3>댓글을 삭제하시겠습니까?</h3>
-                      <br />
-                      <AlignLayout align={'right'}>
-                        <Button
-                          onClick={async () => {
-                            await this.deleteComment(
-                              match.params.id,
-                              comment.id
-                            );
-                          }}
-                          variant={'contained'}
-                          color={'primary'}
-                        >
-                          삭제
-                        </Button>
-                        &nbsp;&nbsp;
-                        <Button
-                          onClick={() => {
-                            uiKit.popup.destroy();
-                          }}
-                          variant={'contained'}
-                          color={'secondary'}
-                        >
-                          닫기
-                        </Button>
-                      </AlignLayout>
-                    </div>
-                  );
-                }}
-                auth={auth}
-                profile={comment.picture}
-                author={comment.author}
-                text={comment.text}
-                createdAt={beautifyDate(comment.createdAt)}
-              />
-            ))}
+            {comments
+              .filter(comment => {
+                return !contentFilter.boardComment.find(
+                  commentId => commentId === comment.id
+                );
+              })
+              .map(comment => (
+                <Comment
+                  updateComment={text => {
+                    this.updateComment(match.params.id, comment.id, text);
+                  }}
+                  reportComment={() => {
+                    uiKit.popup.make(
+                      <QuickComplain
+                        endpoint={`/boards/${content.id}/comments/${comment.id}`}
+                        onFinished={() => {
+                          ContentFilterDispatcher.hideBoardComment(comment.id);
+                          uiKit.toaster.cooking('신고가 완료되었습니다');
+                          uiKit.popup.destroy();
+                        }}
+                      />
+                    );
+                  }}
+                  showUserInfo={this.showUserInfo}
+                  deleteComment={() => {
+                    uiKit.popup.make(
+                      <div>
+                        <h3>댓글을 삭제하시겠습니까?</h3>
+                        <br />
+                        <AlignLayout align={'right'}>
+                          <Button
+                            onClick={async () => {
+                              await this.deleteComment(
+                                match.params.id,
+                                comment.id
+                              );
+                            }}
+                            variant={'contained'}
+                            color={'primary'}
+                          >
+                            삭제
+                          </Button>
+                          &nbsp;&nbsp;
+                          <Button
+                            onClick={() => {
+                              uiKit.popup.destroy();
+                            }}
+                            variant={'contained'}
+                            color={'secondary'}
+                          >
+                            닫기
+                          </Button>
+                        </AlignLayout>
+                      </div>
+                    );
+                  }}
+                  auth={auth}
+                  profile={comment.picture}
+                  author={comment.author}
+                  text={comment.text}
+                  createdAt={beautifyDate(comment.createdAt)}
+                />
+              ))}
           </Section>
         )}
       </div>

@@ -4,6 +4,7 @@ import uiKit, * as UIKit from './uikit';
 import auth, * as Auth from './auth';
 import config, * as Config from './config';
 import sideNav, * as SideNav from './sidenav';
+import contentFilter, * as ContentFilter from './contentFilter';
 
 import { connect } from 'react-redux';
 
@@ -11,7 +12,8 @@ export default combineReducers({
   uiKit,
   auth,
   config,
-  sideNav
+  sideNav,
+  contentFilter
 });
 
 export const quickConnect = component => {
@@ -27,7 +29,8 @@ export const quickConnect = component => {
         uiKit: state.uiKit,
         auth: state.auth,
         config: state.config,
-        sideNav: state.sideNav
+        sideNav: state.sideNav,
+        contentFilter: state.contentFilter
       };
     },
     dispatch => {
@@ -35,7 +38,8 @@ export const quickConnect = component => {
         UIKitDispatcher: bindActionCreators(UIKit, dispatch),
         AuthDispatcher: bindActionCreators(Auth, dispatch),
         ConfigDispatcher: bindActionCreators(Config, dispatch),
-        SideNavDispatcher: bindActionCreators(SideNav, dispatch)
+        SideNavDispatcher: bindActionCreators(SideNav, dispatch),
+        ContentFilterDispatcher: bindActionCreators(ContentFilter, dispatch)
       };
     },
     null,

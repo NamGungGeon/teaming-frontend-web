@@ -29,6 +29,7 @@ class Comment extends Component {
 
   render() {
     const {
+      isHide,
       profile,
       author,
       text,
@@ -40,7 +41,7 @@ class Comment extends Component {
       showUserInfo
     } = this.props;
     const { updateMode } = this.state;
-
+    if (isHide) return <div />;
     return (
       <div className={styles.wrapper}>
         <div
