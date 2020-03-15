@@ -321,7 +321,16 @@ class Threadic extends Component {
   };
 
   render() {
-    const { id, user, content, createdAt, uiKit, replies } = this.props;
+    const {
+      id,
+      user,
+      content,
+      createdAt,
+      uiKit,
+      replies,
+      contentFilter,
+      ContentFilterDispatcher
+    } = this.props;
     const { openComment, comments, isVisible } = this.state;
     console.log(content);
 
@@ -358,6 +367,7 @@ class Threadic extends Component {
                 <QuickComplain
                   endpoint={`/feelings/${id}`}
                   onFinished={() => {
+                    ContentFilterDispatcher.hideTrash(id);
                     uiKit.toaster.cooking('신고가 완료되었습니다');
                     uiKit.popup.destroy();
                   }}
@@ -393,29 +403,38 @@ class Threadic extends Component {
                 />
               </div>
               <br />
-              {comments.map(comment => (
-                <Comment
-                  reportComment={() => {
-                    uiKit.popup.make(
-                      <QuickComplain
-                        endpoint={`/feelings/${id}/replies/${comment.id}`}
-                        onFinished={() => {
-                          uiKit.toaster.cooking('신고가 완료되었습니다');
-                          uiKit.popup.destroy();
-                        }}
-                      />
-                    );
-                  }}
-                  deleteComment={() => {
-                    this.removeComment(comment.id);
-                  }}
-                  updateComment={text => {
-                    this.updateComment(comment.id, text);
-                  }}
-                  text={comment.text}
-                  createdAt={'3일 전'}
-                />
-              ))}
+              {comments
+                .filter(comment => {
+                  return !contentFilter.trashComment.find(
+                    commentId => commentId === comment.id
+                  );
+                })
+                .map(comment => (
+                  <Comment
+                    reportComment={() => {
+                      uiKit.popup.make(
+                        <QuickComplain
+                          endpoint={`/feelings/${id}/replies/${comment.id}`}
+                          onFinished={() => {
+                            ContentFilterDispatcher.hideTrashComment(
+                              comment.id
+                            );
+                            uiKit.toaster.cooking('신고가 완료되었습니다');
+                            uiKit.popup.destroy();
+                          }}
+                        />
+                      );
+                    }}
+                    deleteComment={() => {
+                      this.removeComment(comment.id);
+                    }}
+                    updateComment={text => {
+                      this.updateComment(comment.id, text);
+                    }}
+                    text={comment.text}
+                    createdAt={'3일 전'}
+                  />
+                ))}
             </Blinder>
           </div>
         )}

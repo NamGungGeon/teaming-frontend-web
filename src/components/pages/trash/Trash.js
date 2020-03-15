@@ -136,6 +136,9 @@ class Trash extends Component {
   };
 
   render() {
+    const { contentFilter } = this.props;
+    const { trashes } = this.state;
+
     return (
       <div>
         <PageTitle
@@ -165,9 +168,13 @@ class Trash extends Component {
             </Button>
           </AlignLayout>
           <br />
-          {this.state.trashes.map((trash, idx) => {
-            return <Threadic {...trash} key={trash.createdAt} />;
-          })}
+          {trashes
+            .filter(trash => {
+              return !contentFilter.trash.find(trashId => trashId === trash.id);
+            })
+            .map((trash, idx) => {
+              return <Threadic {...trash} key={trash.createdAt} />;
+            })}
         </div>
       </div>
     );
