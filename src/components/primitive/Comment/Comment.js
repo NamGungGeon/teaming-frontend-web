@@ -17,16 +17,6 @@ class Comment extends Component {
     newText: this.props.text
   };
 
-  static defaultProps = {
-    profile: <IoIosPerson style={{ fontSize: '32px' }} />,
-    author: null,
-    text: '',
-    createdAt: beautifyDate(''),
-    deleteComment: () => {},
-    updateComment: text => {},
-    showUserInfo: id => {}
-  };
-
   render() {
     const {
       isHide,
@@ -50,19 +40,30 @@ class Comment extends Component {
           }}
           className={styles.profile}
         >
-          <span className={styles.picture}>
-            {!profile || typeof profile === 'string' ? (
-              profile ? (
-                <img src={profile ? profile : logo} alt="" />
-              ) : (
-                <IoIosPerson style={{ fontSize: '32px' }} />
-              )
+          {!profile || typeof profile === 'string' ? (
+            profile ? (
+              <img
+                src={profile ? profile : logo}
+                alt=""
+              />
             ) : (
-              profile
-            )}
-          </span>
+              <IoIosPerson style={{ fontSize: '32px' }} />
+            )
+          ) : (
+            profile
+          )}
         </div>
         <div className={styles.contents}>
+          <h4
+            onClick={() => {
+              if (author) showUserInfo(author.id, author.username);
+            }}
+            style={{
+              cursor: 'pointer'
+            }}
+          >
+            {author ? author.username : '익명'}
+          </h4>
           {updateMode ? (
             <SearchBox
               initValue={text}
@@ -80,11 +81,7 @@ class Comment extends Component {
             <div>{text}</div>
           )}
           <div className={styles.options}>
-            <span className={'explain'}>
-              {author ? author.username : '익명'}
-              <br />
-              {createdAt}
-            </span>
+            <span className={'explain'}>{createdAt}</span>
             <div>
               <Optional visible={!auth || !author || auth.id === author.id}>
                 <Tooltip title={'수정'}>
@@ -123,5 +120,15 @@ class Comment extends Component {
     );
   }
 }
+
+Comment.defaultProps = {
+  profile: <IoIosPerson style={{ fontSize: '32px' }} />,
+  author: null,
+  text: '',
+  createdAt: beautifyDate(''),
+  deleteComment: () => {},
+  updateComment: text => {},
+  showUserInfo: id => {}
+};
 
 export default Comment;
