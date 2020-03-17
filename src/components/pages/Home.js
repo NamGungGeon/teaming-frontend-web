@@ -3,7 +3,6 @@ import AlignLayout from '../layouts/AlignLayout/AlignLayout';
 import { getPath } from '../../utils/url';
 import UsefulInformation from '../containers/UsefulInformation/UsefulInformation';
 import { quickConnect } from '../../redux/quick';
-import HelpAppInstall from '../containers/HelpAppInstall/HelpAppInstall';
 import Magazine from '../containers/Magazine/Magazine';
 import HottestPosts from '../containers/HottestPosts/HottestPosts';
 import { pageDescription } from '../../utils/utils';
@@ -20,7 +19,6 @@ class Home extends Component {
 
     return (
       <AlignLayout align="left">
-        <HelpAppInstall />
         <UsefulInformation />
         <br />
         <Window

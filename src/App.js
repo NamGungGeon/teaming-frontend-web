@@ -40,6 +40,8 @@ import 'firebase/messaging';
 import { registerFCM } from './http/tming';
 import { authorized } from './utils/utils';
 import LoadingTopFixed from './components/primitive/LoadingTopFixed/LoadingTopFixed';
+import HelpAppInstall from './components/containers/HelpAppInstall/HelpAppInstall';
+import AlignLayout from './components/layouts/AlignLayout/AlignLayout';
 
 class App extends Component {
   constructor(props) {
@@ -127,6 +129,7 @@ class App extends Component {
               location={this.props.location}
             />
             <MobileSideNavigation />
+            <HelpAppInstall />
             <div className="fullSizeDisplay">
               <SideNavigation />
               <div

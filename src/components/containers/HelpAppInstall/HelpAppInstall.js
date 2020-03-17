@@ -48,7 +48,7 @@ class HelpAppInstall extends Component {
             color={'secondary'}
             variant={'outlined'}
             onClick={() => {
-              window.open('https://tming.kr');
+              window.open('https://apps.apple.com/kr/app/tming/id1495991037');
             }}
           >
             <AppleIcon />
