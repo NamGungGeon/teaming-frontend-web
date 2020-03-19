@@ -41,7 +41,6 @@ import { registerFCM } from './http/tming';
 import { authorized } from './utils/utils';
 import LoadingTopFixed from './components/primitive/LoadingTopFixed/LoadingTopFixed';
 import HelpAppInstall from './components/containers/HelpAppInstall/HelpAppInstall';
-import AlignLayout from './components/layouts/AlignLayout/AlignLayout';
 
 class App extends Component {
   constructor(props) {
@@ -96,9 +95,6 @@ class App extends Component {
     if (imapp) {
       await ConfigDispatcher.imapp();
     }
-
-    //uiKit initialize
-
     //auth info is passed as query-string?
     const { id, token, refresh } = query;
     if (id && token && refresh)

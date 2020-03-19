@@ -14,6 +14,7 @@ import { Button, MenuItem } from '@material-ui/core';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import getHistory from 'react-router-global-history';
 import { getPath } from '../../../utils/url';
+import IconButton from '@material-ui/core/IconButton';
 
 const NotificationList = ({ limit, filter, updated, uiKit, auth }) => {
   const [notifications, setNotifications] = useState(null);
@@ -133,15 +134,7 @@ const NotificationList = ({ limit, filter, updated, uiKit, auth }) => {
           if (filter && notification.type !== filter) return '';
 
           return (
-            <MenuItem
-              variant={'inherit'}
-              key={randStr(10)}
-              onClick={async () => {
-                console.log('clicked');
-                await readNotification(auth, notification.id);
-                action()();
-              }}
-            >
+            <MenuItem variant={'inherit'} key={randStr(10)}>
               <div
                 style={{
                   width: '100%',
@@ -156,6 +149,11 @@ const NotificationList = ({ limit, filter, updated, uiKit, auth }) => {
                     flex: '1',
                     overflow: 'hidden'
                   }}
+                  onClick={async () => {
+                    console.log('clicked');
+                    await readNotification(auth, notification.id);
+                    action()();
+                  }}
                 >
                   <div>{notification.title}</div>
                   <Typography noWrap className={'explain'}>
@@ -163,11 +161,13 @@ const NotificationList = ({ limit, filter, updated, uiKit, auth }) => {
                   </Typography>
                 </div>
                 <div>
-                  <DeleteIcon
-                    onClick={() => {
-                      doRemoveNotification(notification.id);
-                    }}
-                  />
+                  <IconButton>
+                    <DeleteIcon
+                      onClick={() => {
+                        doRemoveNotification(notification.id);
+                      }}
+                    />
+                  </IconButton>
                 </div>
               </div>
             </MenuItem>
