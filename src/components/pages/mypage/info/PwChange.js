@@ -3,7 +3,6 @@ import PageTitle from '../../../primitive/PageTitle/PageTitle';
 import { quickConnect } from '../../../../redux/quick';
 import { delay } from '../../../../utils/utils';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
-import { getPath } from '../../../../utils/url';
 import TextField from '@material-ui/core/TextField';
 import { updateMyPassword } from '../../../../http/tming';
 import { errMsg } from '../../../../http/util';
@@ -54,7 +53,7 @@ class PwChange extends Component {
       .then(response => {
         //success
         AuthDispatcher.logout();
-        getHistory().push(getPath('/'));
+        getHistory().push('/');
         uiKit.popup.make(
           <div>
             <h5>비밀번호 변경이 완료되었습니다</h5>

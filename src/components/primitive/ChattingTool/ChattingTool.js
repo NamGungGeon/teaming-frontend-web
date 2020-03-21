@@ -5,7 +5,6 @@ import QuickComplain from '../../containers/QuickComplain/QuickComplain';
 import getHistory from 'react-router-global-history';
 import CloseIcon from '@material-ui/icons/Close';
 import ReportIcon from '@material-ui/icons/Report';
-import { getPath } from '../../../utils/url';
 import Window from '../Window/Window';
 
 const ChattingTool = ({ rematching, uiKit, partnerInfo }) => {
@@ -73,7 +72,7 @@ const ChattingTool = ({ rematching, uiKit, partnerInfo }) => {
           color={'secondary'}
           fullWidth
           onClick={() => {
-            getHistory().push(getPath('/'));
+            getHistory().push('/');
           }}
         >
           나가기

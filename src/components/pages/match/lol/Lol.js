@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
-import { getPath } from '../../../../utils/url';
 import Ready from './Ready';
 import Start from './Start';
 
@@ -22,7 +21,7 @@ const Lol = () => {
     <>
       <Route
         exact
-        path={getPath(`/match/lol/`)}
+        path={`/match/lol/`}
         render={props => (
           <Ready
             {...props}
@@ -33,7 +32,7 @@ const Lol = () => {
       />
       <Route
         exact
-        path={getPath(`/match/lol/start`)}
+        path={`/match/lol/start`}
         render={props => <Start {...props} playerInfo={playerInfo} />}
       />
     </>

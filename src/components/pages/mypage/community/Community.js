@@ -1,7 +1,6 @@
 import Block from './Blocks';
 import Friends from './Friends';
 import React, { Component } from 'react';
-import { getPath } from '../../../../utils/url';
 import { Route } from 'react-router-dom';
 import Message from './Message';
 import Notifications from './Notifications';
@@ -17,25 +16,25 @@ class Community extends Component {
       <div>
         <Route
           exact
-          path={getPath(`/mypage/community/blocks`)}
+          path={`/mypage/community/blocks`}
           component={Block}
         />
         <Route
           exact
-          path={getPath(`/mypage/community/friends`)}
+          path={(`/mypage/community/friends`)}
           component={Friends}
         />
         <Route
           exact
-          path={getPath(`/mypage/community/message`)}
+          path={(`/mypage/community/message`)}
           component={Message}
         />
         <Route
           exact
-          path={getPath(`/mypage/community/notifications`)}
+          path={(`/mypage/community/notifications`)}
           component={Notifications}
         />
-        <Route path={getPath(`/mypage/community/logs`)} component={Logs} />
+        <Route path={(`/mypage/community/logs`)} component={Logs} />
       </div>
     );
   }

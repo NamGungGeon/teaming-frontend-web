@@ -1,6 +1,5 @@
 import React from 'react';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
-import { getPath } from '../../../utils/url';
 import Section from '../../primitive/Section/Section';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -65,7 +64,7 @@ const FAQ = ({ history }) => {
             티밍은 수사기관에 제공 가능한 모든 정보를 제공합니.
             <br />
             <br />
-            <NavLink to={getPath('/privacy')}>
+            <NavLink to={'/privacy'}>
               <span
                 style={{
                   color: '#3f51b5'
@@ -98,7 +97,7 @@ const FAQ = ({ history }) => {
             수사기관에 의뢰를 통해 법적으로도 대응합니다.
             <br />
             <br />
-            <NavLink to={getPath('/contact')}>
+            <NavLink to={'/contact'}>
               <span
                 style={{
                   color: '#3f51b5'
@@ -156,7 +155,7 @@ const FAQ = ({ history }) => {
             boxShadow: 'none'
           }}
           onClick={() => {
-            history.push(getPath('/center/create'));
+            history.push('/center/create');
           }}
         >
           <ExpansionPanelSummary

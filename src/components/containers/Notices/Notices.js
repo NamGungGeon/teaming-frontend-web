@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { beautifyDate } from '../../../utils/utils';
 import styles from './Notices.module.css';
-import { getPath } from '../../../utils/url';
 import { getNotices } from '../../../http/tming';
 import MenuList from '@material-ui/core/MenuList';
 import SimpleRow from '../../primitive/SimpleRow/SimpleRow';
@@ -52,7 +51,7 @@ class Notices extends Component {
               <SimpleRow
                 key={notice.title}
                 onClick={() => {
-                  history.push(getPath(`/important/notices/${notice.id}`));
+                  history.push(`/important/notices/${notice.id}`);
                 }}
                 title={notice.title}
                 desc={beautifyDate(notice.createdAt)}

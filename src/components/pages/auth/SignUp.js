@@ -5,7 +5,6 @@ import { Validator } from 'class-validator';
 import { quickConnect } from '../../../redux/quick';
 import { signup } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
-import { getPath } from '../../../utils/url';
 import { contact, privacy } from '../../../utils/strings';
 import { authorized } from '../../../utils/utils';
 import { Button } from '@material-ui/core';
@@ -36,7 +35,7 @@ class SignUp extends Component {
   componentDidMount() {
     const { auth, history } = this.props;
     if (authorized(auth)) {
-      history.push(getPath(`/`));
+      history.push(`/`);
     }
   }
 
@@ -99,7 +98,7 @@ class SignUp extends Component {
                 variant={'contained'}
                 onClick={() => {
                   uiKit.popup.destroy();
-                  history.push(getPath(`/`));
+                  history.push(`/`);
                 }}
               >
                 홈 화면으로 이동

@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Gallery.module.css';
 import getHistory from 'react-router-global-history';
-import { getPath } from '../../../utils/url';
 
 const Gallery = ({ list, max }) => {
   return (
@@ -11,7 +10,7 @@ const Gallery = ({ list, max }) => {
           <div
             key={index}
             onClick={() => {
-              if (one.link) getHistory().push(getPath(one.link));
+              if (one.link) getHistory().push(one.link);
             }}
             className={styles.frame}
           >

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SquareButton from '../../primitive/SquareButton/SquareButton';
-import { getPath } from '../../../utils/url';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { randStr } from '../../../utils/utils';
 import CardWrapper from '../../primitive/CardWrapper/CardWrapper';
@@ -17,21 +16,21 @@ class Category extends Component {
         label: '사이퍼즈',
         icon: require('../../resource/icon/cyphers.png'),
         onClick: () => {
-          this.go(getPath(`/trade/cyphers`));
+          this.go(`/trade/cyphers`);
         }
       },
       {
         label: '메이플스토리',
         icon: require('../../resource/icon/maplestory.png'),
         onClick: () => {
-          this.go(getPath(`/trade/maple`));
+          this.go(`/trade/maple`);
         }
       },
       {
         label: '던전앤파이터',
         icon: require('../../resource/icon/dnf.png'),
         onClick: () => {
-          this.go(getPath(`/trade/dnf`));
+          this.go(`/trade/dnf`);
         }
       }
     ],

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import { quickConnect } from '../../../../redux/quick';
 import { getEvent, getMyProfile, removeEvent } from '../../../../http/tming';
-import { getPath } from '../../../../utils/url';
 import { errMsg } from '../../../../http/util';
 import ImageView from '../../../primitive/ImageView/ImageView';
 import Section from '../../../primitive/Section/Section';
@@ -65,7 +64,7 @@ class Event extends Component {
                   //ok removed!
                   uiKit.popup.destroy();
                   alert('삭제되었습니다');
-                  history.push(getPath(`/important/events`));
+                  history.push((`/important/events`));
                 })
                 .catch(e => {
                   uiKit.toaster.cooking(errMsg(e));

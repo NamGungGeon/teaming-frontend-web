@@ -4,7 +4,6 @@ import 'firebase/auth';
 import styles from './TopNavigation.module.css';
 import logo from '../../resource/tming_txt.png';
 import { NavLink } from 'react-router-dom';
-import { getPath } from '../../../utils/url';
 import classNames from 'classnames';
 import { quickConnect } from '../../../redux/quick';
 import { authorized, randStr } from '../../../utils/utils';
@@ -51,7 +50,7 @@ const TopNavigation = ({
         </Tooltip>
       ),
       click: () => {
-        history.push(getPath('/auth/signup'));
+        history.push('/auth/signup');
       },
       requireAuth: false
     },
@@ -64,7 +63,7 @@ const TopNavigation = ({
         </Tooltip>
       ),
       click: () => {
-        history.push(getPath(`/mypage/info`));
+        history.push(`/mypage/info`);
       },
       requireAuth: true
     },
@@ -88,7 +87,7 @@ const TopNavigation = ({
       click: async () => {
         await firebase.auth().signOut();
         AuthDispatcher.logout();
-        history.push(getPath(''));
+        history.push('/');
         window.alert('로그아웃 되었습니다');
       },
       requireAuth: true
@@ -115,7 +114,7 @@ const TopNavigation = ({
             </span>
           </span>
           &nbsp;
-          <NavLink to={getPath('/')}>
+          <NavLink to={('/')}>
             <img src={logo} alt="" className={styles.icon} />
           </NavLink>
         </span>

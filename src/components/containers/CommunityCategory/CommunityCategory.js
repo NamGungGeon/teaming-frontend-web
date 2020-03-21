@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { getPath } from '../../../utils/url';
 import lol from '../../resource/icon/lol.jpg';
 import overwatch from '../../resource/icon/overwatch.png';
 import battleground from '../../resource/icon/battleground.png';
 import Window from '../../primitive/Window/Window';
 import HorizontalNavigation from '../Navigation/HorizontalNavigation';
-import HorizontalSlicedLayout from '../../layouts/HorizontalSlicedLayout/HorizontalSlicedLayout';
 
 class CommunityCategory extends Component {
   state = {
@@ -14,19 +12,19 @@ class CommunityCategory extends Component {
         {
           label: '통합게시판',
           onClick: () => {
-            this.go(getPath(`/community`));
+            this.go(`/community`);
           }
         },
         {
           label: '자유게시판',
           onClick: () => {
-            this.go(getPath(`/community?category=free`));
+            this.go(`/community?category=free`);
           }
         },
         {
           label: '익명게시판',
           onClick: () => {
-            this.go(getPath(`/community?category=anonymous`));
+            this.go(`/community?category=anonymous`);
           }
         }
       ],
@@ -35,7 +33,7 @@ class CommunityCategory extends Component {
           label: '리그 오브 레전드',
           icon: lol,
           onClick: () => {
-            this.go(getPath(`/community?category=lol`));
+            this.go(`/community?category=lol`);
           }
         },
         {

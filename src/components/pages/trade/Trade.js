@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getPath } from '../../../utils/url';
 import Category from './Category';
 import { Route } from 'react-router-dom';
 import ItemList from './ItemList';
@@ -10,24 +9,16 @@ class Trade extends Component {
 
     //dev...
     alert('준비중인 기능입니다');
-    this.props.history.replace(getPath('/'));
+    this.props.history.replace('/');
   }
 
   render() {
     return (
       <div>
-        <Route exact path={getPath(`/trade`)} component={Category} />
-        <Route exact path={getPath(`/trade/:game`)} component={ItemList} />
-        <Route
-          exact
-          path={getPath(`/trade/:game/read/:id`)}
-          component={ItemList}
-        />
-        <Route
-          exact
-          path={getPath(`/trade/:game/write`)}
-          component={ItemList}
-        />
+        <Route exact path={`/trade`} component={Category} />
+        <Route exact path={`/trade/:game`} component={ItemList} />
+        <Route exact path={`/trade/:game/read/:id`} component={ItemList} />
+        <Route exact path={`/trade/:game/write`} component={ItemList} />
       </div>
     );
   }

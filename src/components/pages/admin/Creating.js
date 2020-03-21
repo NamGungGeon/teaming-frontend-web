@@ -5,7 +5,6 @@ import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
 import { createEvent, createNotice } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
-import { getPath } from '../../../utils/url';
 import { TextField } from '@material-ui/core';
 import HashTable from '../../primitive/HashTable/HashTable';
 
@@ -155,7 +154,7 @@ class Creating extends Component {
                     uiKit.toaster.cooking('등록 완료!');
                     uiKit.popup.destroy();
 
-                    history.push(getPath('/important/events'));
+                    history.push('/important/events');
                   })
                   .catch(e => {
                     uiKit.toaster.cooking(errMsg(e));
@@ -233,7 +232,7 @@ class Creating extends Component {
                   uiKit.toaster.cooking('등록 완료');
                   uiKit.popup.destroy();
 
-                  history.push(getPath('/important/notices'));
+                  history.push('/important/notices');
                 })
                 .catch(e => {
                   uiKit.toaster.cooking(errMsg(e));

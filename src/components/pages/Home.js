@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AlignLayout from '../layouts/AlignLayout/AlignLayout';
-import { getPath } from '../../utils/url';
 import UsefulInformation from '../containers/UsefulInformation/UsefulInformation';
 import { quickConnect } from '../../redux/quick';
 import Magazine from '../containers/Magazine/Magazine';
@@ -28,7 +27,7 @@ class Home extends Component {
                 cursor: 'pointer'
               }}
               onClick={() => {
-                history.push(getPath('/magazine'));
+                history.push('/magazine');
               }}
             >
               매거진

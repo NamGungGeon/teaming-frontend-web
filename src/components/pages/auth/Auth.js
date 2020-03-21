@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getPath } from '../../../utils/url';
 import { Route } from 'react-router-dom';
 import SignUp from './SignUp';
 import Lost from './Lost';
@@ -10,10 +9,9 @@ class Auth extends Component {
   render() {
     return (
       <div>
-        <Route exact path={getPath('/auth/signin')} component={Signin} />
-        <Route exact path={getPath('/auth/signup')} component={SignUp} />
-        <Route exact path={getPath('/auth/signout')} component={SignOut} />
-        <Route exact path={getPath('/auth/lost')} component={Lost} />
+        <Route exact path={'/auth/signin'} component={Signin} />
+        <Route exact path={'/auth/signout'} component={SignOut} />
+        <Route exact path={'/auth/lost'} component={Lost} />
       </div>
     );
   }

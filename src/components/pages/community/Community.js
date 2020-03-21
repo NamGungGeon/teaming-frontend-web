@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getPath } from '../../../utils/url';
 import { Route } from 'react-router-dom';
 import Contents from './Contents';
 import Content from './Read';
@@ -18,19 +17,19 @@ class Community extends Component {
         {
           label: '자유게시판',
           onClick: () => {
-            this.go(getPath(`/community?category=general`));
+            this.go(`/community?category=general`);
           }
         },
         {
           label: '익명게시판',
           onClick: () => {
-            this.go(getPath(`/community?category=anonymous`));
+            this.go(`/community?category=anonymous`);
           }
         },
         {
           label: '화장실',
           onClick: () => {
-            this.go(getPath(`/trash`));
+            this.go(`/trash`);
           }
         }
       ],
@@ -39,28 +38,28 @@ class Community extends Component {
           label: '리그 오브 레전드',
           icon: lol,
           onClick: () => {
-            this.go(getPath(`/community?category=lol`));
+            this.go(`/community?category=lol`);
           }
         },
         {
           label: '사이퍼즈',
           icon: lol,
           onClick: () => {
-            this.go(getPath(`/community?category=cyphers`));
+            this.go(`/community?category=cyphers`);
           }
         },
         {
           label: '오버워치',
           icon: overwatch,
           onClick: () => {
-            this.go(getPath(`/community?category=overwatch`));
+            this.go(`/community?category=overwatch`);
           }
         },
         {
           label: '배틀그라운드',
           icon: battleground,
           onClick: () => {
-            this.go(getPath(`/community?category=pubg`));
+            this.go(`/community?category=pubg`);
           }
         }
       ]
@@ -79,18 +78,10 @@ class Community extends Component {
     return (
       <div>
         <div>
-          <Route exact path={getPath(`/community/write`)} component={Write} />
-          <Route exact path={getPath(`/community`)} component={Contents} />
-          <Route
-            exact
-            path={getPath(`/community/read/:id`)}
-            component={Content}
-          />
-          <Route
-            exact
-            path={getPath(`/community/update/:id`)}
-            component={Update}
-          />
+          <Route exact path={`/community/write`} component={Write} />
+          <Route exact path={`/community`} component={Contents} />
+          <Route exact path={`/community/read/:id`} component={Content} />
+          <Route exact path={`/community/update/:id`} component={Update} />
         </div>
       </div>
     );

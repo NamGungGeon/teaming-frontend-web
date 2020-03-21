@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { quickConnect } from '../../../redux/quick';
-import { getPath } from '../../../utils/url';
 import { Route } from 'react-router-dom';
 import Characters from './Characters';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { pageDescription } from '../../../utils/utils';
 import Attributes from './Attributes';
+import Players from './Players';
 
 class Cyphers extends Component {
   componentDidMount() {
@@ -28,9 +28,7 @@ class Cyphers extends Component {
         {
           label: '전적검색',
           onClick: () => {
-            alert('개발중입니다');
-            return;
-            // history.push('/cyphers/search');
+            history.push('/cyphers/players');
           }
         },
         {
@@ -74,7 +72,7 @@ class Cyphers extends Component {
       <div>
         <Route
           exact
-          path={getPath('/cyphers')}
+          path={'/cyphers'}
           render={() => {
             return (
               <PageTitle
@@ -92,16 +90,9 @@ class Cyphers extends Component {
             );
           }}
         />
-        <Route
-          exact
-          path={getPath('/cyphers/characters')}
-          component={Characters}
-        />
-        <Route
-          exact
-          path={getPath('/cyphers/attributes')}
-          component={Attributes}
-        />
+        <Route exact path={'/cyphers/characters'} component={Characters} />
+        <Route exact path={'/cyphers/attributes'} component={Attributes} />
+        <Route exact path={'/cyphers/players'} component={Players} />
       </div>
     );
   }

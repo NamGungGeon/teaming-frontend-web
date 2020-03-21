@@ -6,7 +6,7 @@ import ImageSelect from '../../../primitive/ImageSelect/ImageSelect';
 import ImageViewGroup from '../../../containers/ImageViewGroup/ImageViewGroup';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import ChampionSelect from '../../../containers/ChampionSelect/ChampionSelect';
-import { getPath, resPath } from '../../../../utils/url';
+import { resPath } from '../../../../utils/url';
 
 import { championSquareImage } from '../../../../http/lol';
 import AddIcon from '@material-ui/icons/Add';
@@ -164,7 +164,7 @@ class Ready extends Component {
       return;
     }
 
-    history.push(getPath(`/match/lol/start`));
+    history.push(`/match/lol/start`);
   };
 
   render() {

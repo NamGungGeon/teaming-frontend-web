@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getPath } from '../../../../utils/url';
 import Asked from './Asked';
 import { Route } from 'react-router-dom';
 import Illegal from './Illegal';
@@ -13,21 +12,9 @@ class Service extends Component {
   render() {
     return (
       <div>
-        <Route
-          exact
-          path={getPath(`/mypage/service/asked`)}
-          component={Asked}
-        />
-        <Route
-          exact
-          path={getPath(`/mypage/service/asking`)}
-          component={CreateCase}
-        />
-        <Route
-          exact
-          path={getPath(`/mypage/service/illegal`)}
-          component={Illegal}
-        />
+        <Route exact path={`/mypage/service/asked`} component={Asked} />
+        <Route exact path={`/mypage/service/asking`} component={CreateCase} />
+        <Route exact path={`/mypage/service/illegal`} component={Illegal} />
       </div>
     );
   }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { getPath } from '../../../../utils/url';
 import { Route } from 'react-router-dom';
 import Ready from './Ready';
 import Start from './Start';
@@ -21,7 +20,7 @@ const Cyphers = () => {
     <>
       <Route
         exact
-        path={getPath(`/match/cyphers/`)}
+        path={`/match/cyphers/`}
         render={props => (
           <Ready
             {...props}
@@ -32,7 +31,7 @@ const Cyphers = () => {
       />
       <Route
         exact
-        path={getPath(`/match/cyphers/start`)}
+        path={`/match/cyphers/start`}
         render={props => <Start {...props} playerInfo={playerInfo} />}
       />
     </>

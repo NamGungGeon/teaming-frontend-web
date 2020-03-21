@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { quickConnect } from '../../../redux/quick';
 import { authorized, pageDescription } from '../../../utils/utils';
-import { getPath } from '../../../utils/url';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { Route } from 'react-router-dom';
 import Info from './info/Info';
@@ -18,19 +17,19 @@ class MyPage extends Component {
         {
           label: '내 정보',
           onClick: () => {
-            history.push(getPath(`/mypage/info`));
+            history.push(`/mypage/info`);
           }
         },
         {
           label: '비밀번호 변경',
           onClick: () => {
-            history.push(getPath(`/mypage/info/change/pw`));
+            history.push(`/mypage/info/change/pw`);
           }
         },
         {
           label: '회원탈퇴',
           onClick: () => {
-            history.push(getPath(`/mypage/info/escape`));
+            history.push(`/mypage/info/escape`);
           }
         }
       ],
@@ -38,31 +37,31 @@ class MyPage extends Component {
         {
           label: '알림',
           onClick: () => {
-            history.push(getPath(`/mypage/community/notifications`));
+            history.push(`/mypage/community/notifications`);
           }
         },
         {
           label: '활동기록',
           onClick: () => {
-            history.push(getPath(`/mypage/community/logs`));
+            history.push(`/mypage/community/logs`);
           }
         },
         {
           label: '친구목록',
           onClick: () => {
-            history.push(getPath(`/mypage/community/friends`));
+            history.push(`/mypage/community/friends`);
           }
         },
         {
           label: '차단관리',
           onClick: () => {
-            history.push(getPath(`/mypage/community/blocks`));
+            history.push(`/mypage/community/blocks`);
           }
         },
         {
           label: '쪽지함',
           onClick: () => {
-            history.push(getPath(`/mypage/community/message`));
+            history.push(`/mypage/community/message`);
           }
         }
       ],
@@ -70,19 +69,19 @@ class MyPage extends Component {
         {
           label: '내 문의내역',
           onClick: () => {
-            history.push(getPath(`/mypage/service/asked`));
+            history.push(`/mypage/service/asked`);
           }
         },
         {
           label: '1:1 문의',
           onClick: () => {
-            history.push(getPath(`/mypage/service/asking`));
+            history.push(`/mypage/service/asking`);
           }
         },
         {
           label: '제재내역',
           onClick: () => {
-            history.push(getPath(`/mypage/service/illegal`));
+            history.push(`/mypage/service/illegal`);
           }
         }
       ]
@@ -93,7 +92,7 @@ class MyPage extends Component {
     if (!authorized(auth)) {
       //fuck off!
       window.alert('로그인이 필요한 서비스입니다');
-      history.push(getPath(`/`));
+      history.push(`/`);
     }
   }
 
@@ -107,7 +106,7 @@ class MyPage extends Component {
       <div>
         <Route
           exact
-          path={getPath(`/mypage`)}
+          path={`/mypage`}
           component={() => {
             return (
               <PageTitle
@@ -127,9 +126,9 @@ class MyPage extends Component {
             );
           }}
         />
-        <Route path={getPath(`/mypage/info`)} component={Info} />
-        <Route path={getPath(`/mypage/community`)} component={Community} />
-        <Route path={getPath(`/mypage/service`)} component={Service} />
+        <Route path={`/mypage/info`} component={Info} />
+        <Route path={`/mypage/community`} component={Community} />
+        <Route path={`/mypage/service`} component={Service} />
       </div>
     );
   }

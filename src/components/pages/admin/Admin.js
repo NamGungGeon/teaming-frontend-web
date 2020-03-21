@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { authorized } from '../../../utils/utils';
 import { getMyProfile } from '../../../http/tming';
 import { quickConnect } from '../../../redux/quick';
-import { getPath } from '../../../utils/url';
 import Complains from './Complains';
 import { Route } from 'react-router-dom';
 import Lab from './Lab';
@@ -25,7 +24,7 @@ class Admin extends Component {
           const { role } = response.data;
           if (role !== 'ADMIN') {
             uiKit.toaster.cooking('관리자만 사용할 수 있습니다');
-            history.push(getPath('/'));
+            history.push('/');
           } else {
             //ok, you are admin, right?
             this.setState({
@@ -37,13 +36,13 @@ class Admin extends Component {
                 {
                   label: '문의내역',
                   onClick: () => {
-                    history.push(getPath(`/admin/complains`));
+                    history.push(`/admin/complains`);
                   }
                 },
                 {
                   label: '컨텐츠 신고 내역',
                   onClick: () => {
-                    history.push(getPath(`/admin/reports`));
+                    history.push(`/admin/reports`);
                   }
                 }
               ],
@@ -51,7 +50,7 @@ class Admin extends Component {
                 {
                   label: '글 등록',
                   onClick: () => {
-                    history.push(getPath(`/admin/creating`));
+                    history.push(`/admin/creating`);
                   }
                 }
               ],
@@ -59,7 +58,7 @@ class Admin extends Component {
                 {
                   label: '실험실',
                   onClick: () => {
-                    history.push(getPath(`/admin/lab`));
+                    history.push(`/admin/lab`);
                   }
                 }
               ]
@@ -69,12 +68,12 @@ class Admin extends Component {
         .catch(e => {
           uiKit.loading.end();
           uiKit.toaster.cooking('관리자만 사용할 수 있습니다');
-          history.push(getPath('/'));
+          history.push('/');
         });
       uiKit.loading.end();
     } else {
       uiKit.toaster.cooking('관리자만 사용할 수 있습니다');
-      history.push(getPath('/'));
+      history.push('/');
     }
   }
 
@@ -89,18 +88,10 @@ class Admin extends Component {
       <div>
         {admin && (
           <div>
-            <Route
-              exact
-              path={getPath('/admin/complains')}
-              component={Complains}
-            />
-            <Route exact path={getPath('/admin/lab')} component={Lab} />
-            <Route
-              exact
-              path={getPath('/admin/creating')}
-              component={Creating}
-            />
-            <Route exact path={getPath('/admin/reports')} component={Reports} />
+            <Route exact path={'/admin/complains'} component={Complains} />
+            <Route exact path={'/admin/lab'} component={Lab} />
+            <Route exact path={'/admin/creating'} component={Creating} />
+            <Route exact path={'/admin/reports'} component={Reports} />
           </div>
         )}
       </div>

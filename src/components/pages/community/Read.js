@@ -27,7 +27,7 @@ import {
   updatePostComment
 } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
-import { getPath, urlQuery } from '../../../utils/url';
+import { urlQuery } from '../../../utils/url';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
@@ -119,9 +119,7 @@ class Read extends Component {
 
         console.log('loadPost', query.category, data.category);
         if (!query.category) {
-          history.replace(
-            getPath(`/community/read/${id}?category=${data.category}`)
-          );
+          history.replace(`/community/read/${id}?category=${data.category}`);
         }
 
         pageDescription(data.title, fuckHTML(data.body).slice(0, 10));
@@ -193,9 +191,7 @@ class Read extends Component {
           uiKit.toaster.cooking('삭제되었습니다');
           uiKit.popup.destroy();
           history.push(
-            getPath(
-              `/community?category=${query.category ? query.category : ''}`
-            )
+            `/community?category=${query.category ? query.category : ''}`
           );
         })
         .catch(e => {
@@ -580,11 +576,9 @@ class Read extends Component {
                         <IconButton
                           onClick={() => {
                             history.push(
-                              getPath(
-                                `/community/update/${content.id}?category=${
-                                  query.category ? query.category : ''
-                                }`
-                              )
+                              `/community/update/${content.id}?category=${
+                                query.category ? query.category : ''
+                              }`
                             );
                           }}
                         >

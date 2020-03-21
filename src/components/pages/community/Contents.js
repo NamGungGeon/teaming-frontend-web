@@ -7,7 +7,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import CreateIcon from '@material-ui/icons/Create';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import { momenting, pageDescription } from '../../../utils/utils';
-import { getPath, urlQuery } from '../../../utils/url';
+import { urlQuery } from '../../../utils/url';
 import { quickConnect } from '../../../redux/quick';
 import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
@@ -192,11 +192,9 @@ class Contents extends Component {
               thumbnail: content.thumbnail,
               onClick: () => {
                 history.push(
-                  getPath(
-                    `/community/read/${content.id}?category=${
-                      query.category ? query.category : ''
-                    }`
-                  )
+                  `/community/read/${content.id}?category=${
+                    query.category ? query.category : ''
+                  }`
                 );
               }
             };
@@ -317,11 +315,9 @@ class Contents extends Component {
                 <IconButton
                   onClick={() => {
                     history.push(
-                      getPath(
-                        `/community/write?category=${
-                          query.category ? query.category : ''
-                        }`
-                      )
+                      `/community/write?category=${
+                        query.category ? query.category : ''
+                      }`
                     );
                   }}
                   variant="contained"
@@ -350,7 +346,7 @@ class Contents extends Component {
               <AlignLayout align={'right'}>
                 <Button
                   onClick={() => {
-                    history.push(getPath('/cyphers'));
+                    history.push('/cyphers');
                   }}
                   variant={'outlined'}
                   color={'primary'}
@@ -417,11 +413,9 @@ class Contents extends Component {
 
             const { category, search } = urlQuery(location);
             history.push(
-              getPath(
-                `/community?offset=${nextOffset}&category=${
-                  category ? category : ''
-                }&search=${search ? search : ''}`
-              )
+              `/community?offset=${nextOffset}&category=${
+                category ? category : ''
+              }&search=${search ? search : ''}`
             );
           }}
           min={1}

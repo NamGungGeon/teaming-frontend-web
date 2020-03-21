@@ -13,7 +13,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, MenuItem } from '@material-ui/core';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import getHistory from 'react-router-global-history';
-import { getPath } from '../../../utils/url';
 import IconButton from '@material-ui/core/IconButton';
 
 const NotificationList = ({ limit, filter, updated, uiKit, auth }) => {
@@ -110,20 +109,16 @@ const NotificationList = ({ limit, filter, updated, uiKit, auth }) => {
                 };
               case 'comment':
                 return () => {
-                  getHistory().push(
-                    getPath(`/community/read/${notification.ref}`)
-                  );
+                  getHistory().push(`/community/read/${notification.ref}`);
                 };
               case 'complain':
                 return () => {
-                  getHistory().push(getPath(`/mypage/service/asked`));
+                  getHistory().push(`/mypage/service/asked`);
                 };
               case 'message':
                 return () => {
                   getHistory().push(
-                    getPath(
-                      `/mypage/community/message?message=${notification.ref}`
-                    )
+                    `/mypage/community/message?message=${notification.ref}`
                   );
                 };
               default:

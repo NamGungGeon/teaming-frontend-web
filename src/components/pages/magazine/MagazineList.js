@@ -6,7 +6,6 @@ import Optional from '../../primitive/Optional/Optional';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { getPath } from '../../../utils/url';
 import { pageDescription } from '../../../utils/utils';
 
 class MagazineList extends Component {
@@ -36,7 +35,7 @@ class MagazineList extends Component {
               <Button
                 startIcon={<AddIcon />}
                 onClick={() => {
-                  history.push(getPath(`/magazine/write?category=magazine`));
+                  history.push(`/magazine/write?category=magazine`);
                 }}
                 variant={'contained'}
                 color={'primary'}

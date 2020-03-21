@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from './EventGallery.module.css';
-import { getPath } from '../../../utils/url';
 
 import { getEvents } from '../../../http/tming';
 import { quickConnect } from '../../../redux/quick';
@@ -68,7 +67,7 @@ class EventGallery extends Component {
                   title={event.title}
                   desc={beautifyDate(event.endDate)}
                   onClick={() => {
-                    getHistory().push(getPath(`/important/events/${event.id}`));
+                    getHistory().push(`/important/events/${event.id}`);
                   }}
                 />
               </div>

@@ -8,7 +8,6 @@ import { quickConnect } from '../../../redux/quick';
 import styles from './Notifications.module.css';
 import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
 import getHistory from 'react-router-global-history';
-import { getPath } from '../../../utils/url';
 import Tooltip from '@material-ui/core/Tooltip';
 import NotificationList from '../NotificationList/NotificationList';
 
@@ -102,7 +101,7 @@ class Notifications extends Component {
         >
           <MenuItem
             onClick={() => {
-              history.push(getPath('/mypage/community/notifications'));
+              history.push('/mypage/community/notifications');
             }}
             variant={'inherit'}
           >

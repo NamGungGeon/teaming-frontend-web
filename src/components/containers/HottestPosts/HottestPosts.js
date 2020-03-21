@@ -5,7 +5,6 @@ import BoardWrapper from '../../primitive/Board/BoardWrapper/BoardWrapper';
 import Window from '../../primitive/Window/Window';
 import { getBoardPosts } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
-import { getPath } from '../../../utils/url';
 import getHistory from 'react-router-global-history';
 
 const HottestPosts = ({ category, uiKit }) => {
@@ -53,11 +52,9 @@ const HottestPosts = ({ category, uiKit }) => {
               thumbnail: getImageSrcFromHTML(post.content),
               onClick: () => {
                 getHistory().push(
-                  getPath(
-                    `/community/read/${post.id}?category=${
-                      category ? category : ''
-                    }`
-                  )
+                  `/community/read/${post.id}?category=${
+                    category ? category : ''
+                  }`
                 );
               }
             };

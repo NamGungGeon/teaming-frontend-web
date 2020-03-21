@@ -5,7 +5,6 @@ import { errMsg } from '../../../../http/util';
 import Section from '../../../primitive/Section/Section';
 import AlignLayout from '../../../layouts/AlignLayout/AlignLayout';
 import Button from '@material-ui/core/Button';
-import { getPath } from '../../../../utils/url';
 import Optional from '../../../primitive/Optional/Optional';
 
 class Notice extends Component {
@@ -30,7 +29,7 @@ class Notice extends Component {
                   //ok removed!
                   uiKit.popup.destroy();
                   alert('삭제되었습니다');
-                  history.push(getPath(`/important/notices`));
+                  history.push((`/important/notices`));
                 })
                 .catch(e => {
                   uiKit.toaster.cooking(errMsg(e));

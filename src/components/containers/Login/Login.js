@@ -3,7 +3,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import styles from './Login.module.css';
 import { quickConnect } from '../../../redux/quick';
-import { getPath } from '../../../utils/url';
 import { signin, socialSignIn, socialSignUp } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
 import Button from '@material-ui/core/Button';
@@ -130,7 +129,7 @@ class Login extends Component {
                 variant={'outlined'}
                 color={'primary'}
                 onClick={() => {
-                  getHistory().push(getPath(`/auth/signup`));
+                  getHistory().push(`/auth/signup`);
                 }}
               >
                 회원가입
@@ -153,7 +152,7 @@ class Login extends Component {
               variant={'contained'}
               color={'secondary'}
               onClick={e => {
-                getHistory().push(getPath(`/auth/lost`));
+                getHistory().push(`/auth/lost`);
               }}
             >
               ID/PW찾기

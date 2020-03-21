@@ -16,7 +16,7 @@ const SearchBox = ({
   buttonContent,
   initValue
 }) => {
-  const [value, setValue] = useState(initValue);
+  const [value, setValue] = useState(initValue ? initValue : '');
 
   const flush = () => {
     setValue('');

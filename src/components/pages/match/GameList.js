@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SquareButton from '../../primitive/SquareButton/SquareButton';
-import { getPath } from '../../../utils/url';
 import PageTitle from '../../primitive/PageTitle/PageTitle';
 
 import lol from '../../resource/icon/lol.jpg';
@@ -29,7 +28,7 @@ class GameList extends Component {
             label: '리그 오브 레전드',
             icon: lol,
             onClick: () => {
-              this.go(getPath(`/match/lol`));
+              this.go(`/match/lol`);
             }
           }
         ]
@@ -42,21 +41,21 @@ class GameList extends Component {
             label: '리그 오브 레전드',
             icon: lol,
             onClick: () => {
-              this.go(getPath(`/match/lol`));
+              this.go(`/match/lol`);
             }
           },
           {
             label: '배틀그라운드',
             icon: battleground,
             onClick: () => {
-              this.go(getPath(`/match/battleground`));
+              this.go(`/match/battleground`);
             }
           },
           {
             label: '사이퍼즈',
             icon: cyphers,
             onClick: () => {
-              this.go(getPath(`/match/cyphers`));
+              this.go(`/match/cyphers`);
             }
           }
         ]
