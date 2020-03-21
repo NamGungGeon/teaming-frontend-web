@@ -53,15 +53,19 @@ class Read extends Component {
   async componentDidMount() {
     window.scrollTo(0, 0);
 
-    const { uiKit, match } = this.props;
+    const { uiKit, match, history } = this.props;
     const { id } = match.params;
+    if (!id) {
+      history.push('/community');
+      return;
+    }
 
     uiKit.loading.start();
 
     //load post data
-    await this.loadPost(id);
+    await this.loadPost();
     //load post's comment data
-    await this.loadComments(id);
+    await this.loadComments();
 
     uiKit.loading.end();
   }
@@ -72,13 +76,12 @@ class Read extends Component {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       (async () => {
         const { uiKit } = nextProps;
-        const { id } = nextProps.match.params;
         uiKit.loading.start();
 
         //load post data
-        await this.loadPost(id);
+        await this.loadPost();
         //load post's comment data
-        await this.loadComments(id);
+        await this.loadComments();
 
         uiKit.loading.end();
       })();
@@ -102,8 +105,9 @@ class Read extends Component {
     });
   }
 
-  loadPost = async id => {
-    const { uiKit, auth, location, history } = this.props;
+  loadPost = async () => {
+    const { uiKit, auth, location, history, match } = this.props;
+    const { id } = match.params;
     const query = urlQuery(location);
 
     uiKit.loading.start();
@@ -144,8 +148,9 @@ class Read extends Component {
       });
   };
 
-  loadComments = async id => {
-    const { uiKit } = this.props;
+  loadComments = async () => {
+    const { uiKit, match } = this.props;
+    const { id } = match.params;
 
     await getPostComments(id)
       .then(response => {
@@ -333,7 +338,7 @@ class Read extends Component {
             commentPw: ''
           });
           uiKit.popup.destroy();
-          this.componentDidMount();
+          this.loadComments();
         })
         .catch(e => {
           uiKit.toaster.cooking(errMsg(e));
@@ -440,7 +445,7 @@ class Read extends Component {
       .then(response => {
         //ok
         uiKit.toaster.cooking('추천 되었습니다');
-        this.loadPost(id);
+        this.loadPost();
       })
       .catch(e => {
         uiKit.toaster.cooking(errMsg(e));
@@ -461,7 +466,7 @@ class Read extends Component {
       .then(response => {
         //ok
         uiKit.toaster.cooking('비추천 되었습니다');
-        this.loadPost(id);
+        this.loadPost();
       })
       .catch(e => {
         uiKit.toaster.cooking(errMsg(e));

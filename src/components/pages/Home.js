@@ -10,8 +10,8 @@ import Window from '../primitive/Window/Window';
 
 class Home extends Component {
   componentDidMount() {
-    pageDescription();
     window.scrollTo(0, 0);
+    pageDescription();
   }
 
   render() {

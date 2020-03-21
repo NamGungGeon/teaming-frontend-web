@@ -10,16 +10,19 @@ class PageTitle extends Component {
   };
 
   render() {
-    const { title, titleColor, explain } = this.props;
+    const { title, titleColor, explain, align } = this.props;
     return (
       <div className={styles.wrapper}>
-        <h4 className={classNames('title')} style={{ color: titleColor }}>
+        <h4
+          className={classNames('title')}
+          style={{ color: titleColor, textAlign: align }}
+        >
           {title}
         </h4>
         {explain && (
           <p
             className={classNames('explain')}
-            style={{ color: titleColor, opacity: '0.8' }}
+            style={{ color: titleColor, opacity: '0.8', textAlign: align }}
           >
             {explain}
           </p>
