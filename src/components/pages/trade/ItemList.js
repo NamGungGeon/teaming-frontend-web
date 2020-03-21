@@ -125,9 +125,9 @@ class ItemList extends Component {
                 return {
                   title: `${item.title}`,
                   exp_l: `${item.user}    (${item.date})`,
-                  exp_r: `(${
-                    item.type === 'cash' ? '현금' : '게임머니'
-                  }) ${formatToMoney(item.price)}원`,
+                  exp_r: `(${item.type === 'cash' ? '현금' : '게임머니'}) ${
+                    item.price
+                  }원`,
                   thumbnail: icon,
                   onClick: () => {
                     history.push(`${match.url}/read/${item.id}`);

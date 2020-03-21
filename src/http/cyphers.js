@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getFormData } from './util';
+import moment from 'moment';
 
 const url = 'https://dev.cpsp.kr';
 const openapi = 'https://api.neople.co.kr';
@@ -57,6 +58,9 @@ export const cyphersResource = {
 export const openApiRes = {
   getPositionIcon: id => {
     return `https://img-api.neople.co.kr/cy/position-attributes/${id}`;
+  },
+  getCharacterIcon: id => {
+    return `https://img-api.neople.co.kr/cy/characters/${id}`;
   }
 };
 
@@ -125,4 +129,30 @@ export const getAttributes = () => {
     method: 'GET',
     url: `${url}/positions/`
   });
+};
+
+export const getPlayerId = nickname => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/players/`,
+    params: {
+      nickname
+    }
+  });
+};
+export const getPlayerInfo = playerId => {
+  return proxy(`${openapi}/cy/players/${playerId}`, 'limit=5');
+};
+
+export const getPlayerLog = (playerId, gameTypeId) => {
+  const format = 'YYYY-MM-DD';
+  const current = moment().format(format);
+  const ago90days = moment()
+    .add(-90, 'days')
+    .format(format);
+
+  return proxy(
+    `${openapi}/cy/players/${playerId}/matches`,
+    `startDate=${ago90days}&endDate=${current}&limit=100&gameTypeId=${gameTypeId}`
+  );
 };

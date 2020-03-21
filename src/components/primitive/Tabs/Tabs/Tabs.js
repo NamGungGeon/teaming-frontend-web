@@ -8,20 +8,21 @@ const Tabs = ({ initActive, tabs, handleTab }) => {
   return (
     <Section
       style={{
-        padding: '0!important'
+        padding: '4px'
       }}
     >
       <div className={styles.tabs}>
         {tabs.map(tab => {
+          const { startIcon, label } = tab;
           return (
             <Tab
-              startIcon={tab.startIcon}
+              startIcon={startIcon}
               onClick={() => {
-                setActivated(tab.label);
-                handleTab(tab.label);
+                setActivated(label);
+                handleTab(label);
               }}
-              active={tab.label === activated}
-              label={tab.label}
+              active={label === activated}
+              label={label}
             />
           );
         })}
