@@ -156,3 +156,10 @@ export const getPlayerLog = (playerId, gameTypeId) => {
     `startDate=${ago90days}&endDate=${current}&limit=100&gameTypeId=${gameTypeId}`
   );
 };
+
+export const getCharacterRanker = characterId => {
+  return proxy(
+    `${openapi}/cy/ranking/characters/${characterId}/winCount`,
+    'limit=5'
+  );
+};

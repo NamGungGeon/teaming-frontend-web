@@ -4,6 +4,7 @@ import { beautifyDate } from '../../../utils/utils';
 import { quickConnect } from '../../../redux/quick';
 import { getBoardPosts } from '../../../http/tming';
 import { errMsg } from '../../../http/util';
+import Spinner from '../../primitive/Spinner/Spinner';
 
 class Magazine extends Component {
   state = {
@@ -37,7 +38,7 @@ class Magazine extends Component {
     const { data: magazines } = this.state;
     return (
       <>
-        {magazines && (
+        {magazines ? (
           <Gallery
             list={magazines.map(magazine => {
               return {
@@ -48,6 +49,8 @@ class Magazine extends Component {
               };
             })}
           />
+        ) : (
+          <Spinner />
         )}
       </>
     );

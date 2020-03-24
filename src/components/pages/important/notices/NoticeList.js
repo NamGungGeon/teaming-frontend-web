@@ -58,6 +58,7 @@ class NoticeList extends Component {
           explain={'주요 공지사항입니다'}
           align={'left'}
         />
+        <br />
         {notices &&
           (notices.length > 0 ? (
             notices.map(notice => {

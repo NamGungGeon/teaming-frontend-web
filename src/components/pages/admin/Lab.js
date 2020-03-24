@@ -2,8 +2,18 @@ import React, { Component } from 'react';
 
 class Lab extends Component {
   state = {
-    input: ''
+    value: 1
   };
+
+  componentDidMount() {
+    let value = this.state.value;
+    for (let l = 0; l < 100; l++) {
+      value += 1;
+    }
+    this.setState({
+      value
+    });
+  }
 
   render() {
     return (

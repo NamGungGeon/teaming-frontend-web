@@ -43,6 +43,9 @@ label {
 .hide {
   display: none !important;
 }
+text {
+  font-size: 0.9rem !important;
+}
 h1,
 h2,
 h3,
@@ -165,10 +168,6 @@ tbody tr {
   display: none !important;
 }
 
-.mobile {
-  display: none;
-}
-
 .flexBox {
   display: flex;
   flex-direction: row;
@@ -202,12 +201,14 @@ tbody tr {
 table.noHead tr > td:nth-child(1) {
   font-weight: 700;
 }
-@media (max-width: 500px) {
+@media (min-width: 500px) {
   .mobile {
-    display: initial;
+    display: none !important;
   }
+}
+@media (max-width: 500px) {
   .desktop {
-    display: none;
+    display: none !important;
   }
   .fullSizeDisplay {
     min-width: 0;

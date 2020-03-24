@@ -3,9 +3,9 @@ import { randStr } from '../../utils/utils';
 import GamepadIcon from '@material-ui/icons/Gamepad';
 import PeopleIcon from '@material-ui/icons/People';
 import ChatIcon from '@material-ui/icons/Chat';
+import QueueIcon from '@material-ui/icons/Queue';
 import { FaToiletPaper } from 'react-icons/fa';
 import { MdBusinessCenter } from 'react-icons/md';
-import { getPath } from '../../utils/url';
 import React from 'react';
 import getHistory from 'react-router-global-history';
 
@@ -20,7 +20,7 @@ const sideNav = {
           </span>
         ),
         onClick: () => {
-          getHistory().push(getPath(`/match`));
+          getHistory().push(`/match`);
         }
       },
       {
@@ -31,7 +31,7 @@ const sideNav = {
           </span>
         ),
         onClick: () => {
-          getHistory().push(getPath(`/community`));
+          getHistory().push(`/community`);
         }
       },
       {
@@ -42,7 +42,7 @@ const sideNav = {
           </span>
         ),
         onClick: () => {
-          getHistory().push(getPath(`/trash`));
+          getHistory().push(`/trash`);
         }
       },
       {
@@ -53,7 +53,19 @@ const sideNav = {
           </span>
         ),
         onClick: () => {
-          getHistory().push(getPath(`/chat`));
+          getHistory().push(`/chat`);
+        }
+      },
+      {
+        label: (
+          <span>
+            <QueueIcon />
+            &nbsp;&nbsp;채팅방
+          </span>
+        ),
+        onClick: () => {
+          alert('개발중인 기능입니다');
+          // getHistory().push('/rooms');
         }
       },
       {
@@ -64,7 +76,7 @@ const sideNav = {
           </span>
         ),
         onClick: () => {
-          getHistory().push(getPath(`/center`));
+          getHistory().push(`/center`);
         }
       }
     ]

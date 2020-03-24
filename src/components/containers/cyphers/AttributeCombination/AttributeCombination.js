@@ -47,7 +47,7 @@ const AttributeCombination = ({ positionName, explain, attributes, uiKit }) => {
                     openDetailPopup(attribute);
                   }}
                   style={{
-                    width: '50px'
+                    width: '48px'
                   }}
                   img={openApiRes.getPositionIcon(attribute)}
                 />

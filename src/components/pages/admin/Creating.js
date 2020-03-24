@@ -162,6 +162,7 @@ class Creating extends Component {
                 uiKit.loading.end();
               } else {
                 uiKit.toaster.cooking('입력값은 모두 채워져야 합니다');
+                console.log(this.state);
               }
             }}
           >

@@ -27,25 +27,6 @@ class MagazineList extends Component {
           explain={'주요 정보를 빠르고 쉽게 받아보세요'}
         />
         <br />
-        <Optional onlyAdmin={true}>
-          <Section>
-            <h4>관리자 메뉴</h4>
-            <br />
-            <AlignLayout align={'right'}>
-              <Button
-                startIcon={<AddIcon />}
-                onClick={() => {
-                  history.push(`/magazine/write?category=magazine`);
-                }}
-                variant={'contained'}
-                color={'primary'}
-              >
-                새 매거진 등록
-              </Button>
-            </AlignLayout>
-          </Section>
-        </Optional>
-
         <Section>
           <Magazine />
         </Section>

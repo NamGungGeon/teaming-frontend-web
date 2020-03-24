@@ -44,6 +44,7 @@ class EventList extends Component {
           explain={'진행중인 모든 이벤트를 확인할 수 있습니다'}
           align={'left'}
         />
+        <br />
         <Section>
           <EventGallery history={this.props.history} />
         </Section>

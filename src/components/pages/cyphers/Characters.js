@@ -25,6 +25,7 @@ import RecommendItems from '../../containers/cyphers/RecommendItems/RecommendIte
 import CreateCypherComment from '../../containers/cyphers/CreateCypherComment/CreateCypherComment';
 import Spinner from '../../primitive/Spinner/Spinner';
 import { urlQuery } from '../../../utils/url';
+import CypherRanker from '../../containers/cyphers/CypherRanker/CypherRanker';
 
 class Characters extends Component {
   state = {
@@ -160,6 +161,9 @@ class Characters extends Component {
             <Divider />
             <RecommendItems nameEN={character.nameEN} />
             <br />
+            <Divider />
+            <br />
+            <CypherRanker characterId={character.characterId} />
             <Divider />
             <h3
               style={{

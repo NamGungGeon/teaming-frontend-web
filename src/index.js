@@ -11,7 +11,6 @@ import 'firebase/analytics';
 import reduxChunk from './redux/quick';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { getPath } from './utils/url';
 
 const store = createStore(reduxChunk);
 
@@ -35,7 +34,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <ReactRouterGlobalHistory />
-      <Route path={getPath('/')} component={App} />
+      <Route path={'/'} component={App} />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

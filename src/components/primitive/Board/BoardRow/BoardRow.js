@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './BoardRow.module.css';
 
-const BoardRow = ({ title, explains, exp_l, exp_r, thumbnail, onClick }) => {
+const BoardRow = ({ title, explains, thumbnail, onClick }) => {
   return (
     <div className={styles.wrapper} onClick={onClick}>
       <div className={styles.content}>

@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import TopNavigation from './components/containers/Navigation/TopNavigation';
 import React, { Component, Suspense } from 'react';
 import { quickConnect } from './redux/quick';
-import { getPath, urlQuery } from './utils/url';
+import { urlQuery } from './utils/url';
 import {
   Home,
   Chat,
@@ -138,33 +138,24 @@ class App extends Component {
                 <div className="ruler">
                   <Suspense fallback={<LoadingTopFixed />}>
                     <Switch>
-                      <Route exact path={getPath('/')} component={Home} />
-                      <Route path={getPath('/match')} component={Match} />
-                      <Route exact path={getPath('/chat')} component={Chat} />
-                      <Route path={getPath('/auth')} component={Auth} />
-                      <Route path={getPath('/trash')} component={Trash} />
-                      <Route path={getPath('/rooms')} component={Rooms} />
-                      <Route path={getPath('/mypage')} component={MyPage} />
-                      <Route path={getPath('/trade')} component={Trade} />
-                      <Route path={getPath('/privacy')} component={Privacy} />
-                      <Route path={getPath('/contact')} component={Contact} />
-                      <Route
-                        path={getPath('/community')}
-                        component={Community}
-                      />
-                      <Route
-                        path={getPath('/important/notices')}
-                        component={Notices}
-                      />
-                      <Route
-                        path={getPath('/important/events')}
-                        component={Events}
-                      />
-                      <Route path={getPath('/center')} component={Center} />
-                      <Route path={getPath('/cyphers')} component={Cyphers} />
-                      <Route path={getPath('/admin')} component={Admin} />
-                      <Route path={getPath('/magazine')} component={Magazine} />
-                      <Route path={getPath('/youtuber')} component={Youtuber} />
+                      <Route exact path={'/'} component={Home} />
+                      <Route path={'/match'} component={Match} />
+                      <Route exact path={'/chat'} component={Chat} />
+                      <Route path={'/auth'} component={Auth} />
+                      <Route path={'/trash'} component={Trash} />
+                      <Route path={'/rooms'} component={Rooms} />
+                      <Route path={'/mypage'} component={MyPage} />
+                      <Route path={'/trade'} component={Trade} />
+                      <Route path={'/privacy'} component={Privacy} />
+                      <Route path={'/contact'} component={Contact} />
+                      <Route path={'/community'} component={Community} />
+                      <Route path={'/important/notices'} component={Notices} />
+                      <Route path={'/important/events'} component={Events} />
+                      <Route path={'/center'} component={Center} />
+                      <Route path={'/cyphers'} component={Cyphers} />
+                      <Route path={'/admin'} component={Admin} />
+                      <Route path={'/magazine'} component={Magazine} />
+                      <Route path={'/youtuber'} component={Youtuber} />
                     </Switch>
                   </Suspense>
                   <div className={'mobile'}>
@@ -178,7 +169,7 @@ class App extends Component {
                       size={'large'}
                       startIcon={<SupervisedUserCircleIcon />}
                       onClick={() => {
-                        history.push(getPath('/admin'));
+                        history.push('/admin');
                       }}
                       color={'secondary'}
                       variant={'contained'}

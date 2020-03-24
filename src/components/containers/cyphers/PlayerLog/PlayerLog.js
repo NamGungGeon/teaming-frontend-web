@@ -9,6 +9,8 @@ import {
 import PageTitle from '../../../primitive/PageTitle/PageTitle';
 import Tabs from '../../../primitive/Tabs/Tabs/Tabs';
 import GameLog from '../GameLog/GameLog';
+import moment from 'moment';
+import { ResponsivePie } from '@nivo/pie';
 
 const PlayerLog = ({ uiKit, nickname, onFail }) => {
   const [playerId, setPlayerId] = useState();
@@ -18,19 +20,15 @@ const PlayerLog = ({ uiKit, nickname, onFail }) => {
   useEffect(() => {
     setPlayerInfo(null);
     setGames([]);
-
-    (async () => {
-      uiKit.loading.start();
-      await getPlayerId(nickname)
-        .then(response => {
-          console.log(nickname, response.data);
-          setPlayerId(response.data.player.playerId);
-        })
-        .catch(e => {
-          onFail(e);
-        });
-      uiKit.loading.end();
-    })();
+    uiKit.loading.start();
+    getPlayerId(nickname)
+      .then(response => {
+        console.log(nickname, response.data);
+        setPlayerId(response.data.player.playerId);
+      })
+      .catch(e => {
+        onFail(e);
+      });
 
     return () => {
       uiKit.destroyAll();
@@ -58,26 +56,33 @@ const PlayerLog = ({ uiKit, nickname, onFail }) => {
         });
 
       //get PlayerLog
-      ['normal'].map(type => {
-        getPlayerLog(playerId, type)
-          .then(response => {
-            const { rows } = response.data.matches;
-            console.log(nickname, rows);
-            setGames([
-              ...games,
-              ...rows.map(row => {
-                return {
+      (async () => {
+        const tempGames = [];
+        for (const type of ['normal', 'rating']) {
+          await getPlayerLog(playerId, type)
+            .then(response => {
+              const { rows } = response.data.matches;
+              console.log(nickname, rows);
+              rows.map(row => {
+                tempGames.push({
                   ...row,
                   gameTypeId: type
-                };
-              })
-            ]);
+                });
+              });
+            })
+            .catch(e => {
+              console.log(e);
+              onFail(e);
+            });
+        }
+        setGames(
+          tempGames.sort((a, b) => {
+            const dateFormat = 'YYYY[-]MM[-]DD hh:mm';
+            return moment(b.date, dateFormat).diff(moment(a.date, dateFormat));
           })
-          .catch(e => {
-            console.log(e);
-            onFail(e);
-          });
-      });
+        );
+        uiKit.loading.end();
+      })();
     }
   }, [playerId]);
   useEffect(() => {
@@ -85,6 +90,26 @@ const PlayerLog = ({ uiKit, nickname, onFail }) => {
   }, [games]);
 
   if (!playerInfo) return <div />;
+
+  const gameResultGraph = [
+    {
+      id: 'win',
+      label: '승리',
+      value: 0,
+      color: 'blue'
+    },
+    {
+      id: 'lose',
+      label: '패배',
+      value: 0,
+      color: 'red'
+    }
+  ].map(result => {
+    games.map(game => {
+      if (result.id === game.playInfo.result) result.value++;
+    });
+    return result;
+  });
   return (
     <>
       <Section>
@@ -93,6 +118,33 @@ const PlayerLog = ({ uiKit, nickname, onFail }) => {
           title={playerInfo.nickname}
           explain={`${playerInfo.grade}급`}
         />
+        <br />
+        <div
+          style={{
+            height: '200px'
+          }}
+        >
+          <ResponsivePie
+            data={gameResultGraph}
+            colors={['#bee0fb', '#ffd3dd']}
+            radialLabelsSkipAngle={10}
+            radialLabelsTextXOffset={6}
+            radialLabelsTextColor="#333333"
+            radialLabelsLinkOffset={0}
+            radialLabelsLinkDiagonalLength={16}
+            radialLabelsLinkHorizontalLength={24}
+            radialLabelsLinkStrokeWidth={1}
+            radialLabelsLinkColor={{ from: 'color' }}
+            sliceLabel={d => `${d.label} (${d.value}게임)`}
+            slicesLabelsSkipAngle={10}
+            slicesLabelsTextColor="black"
+            animate={true}
+            enableRadialLabels={false}
+            motionStiffness={90}
+            motionDamping={15}
+            padAngle={2}
+          />
+        </div>
       </Section>
       <br />
       <Tabs
