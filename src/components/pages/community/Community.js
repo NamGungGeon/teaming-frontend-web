@@ -20,19 +20,19 @@ const Community = ({ history, SideNavDispatcher }) => {
         {
           label: '자유게시판',
           onClick: () => {
-            history.go(`/community?category=general`);
+            history.push(`/community?category=general`);
           }
         },
         {
           label: '익명게시판',
           onClick: () => {
-            history.go(`/community?category=anonymous`);
+            history.push(`/community?category=anonymous`);
           }
         },
         {
           label: '화장실',
           onClick: () => {
-            history.go(`/community/trash`);
+            history.push(`/community/trash`);
           }
         }
       ],
@@ -41,28 +41,28 @@ const Community = ({ history, SideNavDispatcher }) => {
           label: '리그 오브 레전드',
           icon: lol,
           onClick: () => {
-            history.go(`/community?category=lol`);
+            history.push(`/community?category=lol`);
           }
         },
         {
           label: '사이퍼즈',
           icon: lol,
           onClick: () => {
-            history.go(`/community?category=cyphers`);
+            history.push(`/community?category=cyphers`);
           }
         },
         {
           label: '오버워치',
           icon: overwatch,
           onClick: () => {
-            history.go(`/community?category=overwatch`);
+            history.push(`/community?category=overwatch`);
           }
         },
         {
           label: '배틀그라운드',
           icon: battleground,
           onClick: () => {
-            history.go(`/community?category=pubg`);
+            history.push(`/community?category=pubg`);
           }
         }
       ]
