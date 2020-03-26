@@ -71,7 +71,7 @@ class Trash extends Component {
 
     uiKit.popup.make(
       <div>
-        <h4>배설</h4>
+        <h3>배설</h3>
         <br />
         <TextField
           fullWidth

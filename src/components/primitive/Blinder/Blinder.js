@@ -6,7 +6,8 @@ const Blinder = ({ isBlind, children }) => {
   return (
     <div
       className={classNames(styles.blinder, {
-        [styles.blinded]: isBlind
+        [styles.blinded]: isBlind,
+        [styles.opened]: !isBlind
       })}
     >
       {children}

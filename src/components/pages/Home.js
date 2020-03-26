@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import AlignLayout from '../layouts/AlignLayout/AlignLayout';
 import UsefulInformation from '../containers/UsefulInformation/UsefulInformation';
 import { quickConnect } from '../../redux/quick';
@@ -7,41 +7,37 @@ import HottestPosts from '../containers/HottestPosts/HottestPosts';
 import { pageDescription } from '../../utils/utils';
 import Window from '../primitive/Window/Window';
 
-class Home extends Component {
-  componentDidMount() {
+const Home = ({ history }) => {
+  useEffect(() => {
     window.scrollTo(0, 0);
     pageDescription();
-  }
+  }, []);
 
-  render() {
-    const { history } = this.props;
-
-    return (
-      <AlignLayout align="left">
-        <UsefulInformation />
-        <br />
-        <Window
-          title={
-            <span
-              style={{
-                cursor: 'pointer'
-              }}
-              onClick={() => {
-                history.push('/magazine');
-              }}
-            >
-              매거진
-            </span>
-          }
-        >
-          <Magazine max={4} />
-        </Window>
-        <br />
-        <HottestPosts />
-        <br />
-      </AlignLayout>
-    );
-  }
-}
+  return (
+    <AlignLayout align="left">
+      <UsefulInformation />
+      <br />
+      <Window
+        title={
+          <span
+            style={{
+              cursor: 'pointer'
+            }}
+            onClick={() => {
+              history.push('/magazine');
+            }}
+          >
+            매거진
+          </span>
+        }
+      >
+        <Magazine max={4} />
+      </Window>
+      <br />
+      <HottestPosts />
+      <br />
+    </AlignLayout>
+  );
+};
 
 export default quickConnect(Home);

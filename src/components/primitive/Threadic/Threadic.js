@@ -32,8 +32,8 @@ class Threadic extends Component {
     openComment: false
   };
 
-  handleCommentState = unfold => {
-    if (unfold) this.loadComments();
+  handleCommentState = async unfold => {
+    if (unfold && !this.state.comments) await this.loadComments();
 
     this.setState({
       ...this.state,
@@ -142,7 +142,7 @@ class Threadic extends Component {
     //open deleting comment popup
     uiKit.popup.make(
       <div>
-        <h5>정말 이 댓글을 삭제하시겠습니까?</h5>
+        <h3>정말 이 댓글을 삭제하시겠습니까?</h3>
         <br />
         <TextField
           size={'small'}
@@ -202,7 +202,7 @@ class Threadic extends Component {
     //open deleting comment popup
     uiKit.popup.make(
       <div>
-        <h5>댓글 수정</h5>
+        <h3>댓글 수정</h3>
         <br />
         <TextField
           fullWidth
@@ -218,6 +218,7 @@ class Threadic extends Component {
           }}
           placeholder={'작성 시 입력한 비밀번호를 입력하세요'}
         />
+        <br />
         <br />
         <Button
           onClick={async () => {
@@ -343,21 +344,27 @@ class Threadic extends Component {
             this.handleCommentState(!openComment);
           }}
         >
-          <h5>
+          <h4
+            style={{
+              marginBottom: '8px'
+            }}
+          >
             {user}
             <br />
-            <sub>{moment(createdAt, 'YYYY-MM-DDThh:mm:ss.SSS').fromNow()}</sub>
-          </h5>
-          <br />
+            <p className={'explain'}>
+              {moment(createdAt, 'YYYY-MM-DDThh:mm:ss.SSS').fromNow()}
+            </p>
+          </h4>
           <div>{content}</div>
         </div>
+        <br />
         <AlignLayout align={'right'}>
           <span
             onClick={() => {
               this.handleCommentState(true);
             }}
           >
-            <CommentIcon />
+            <CommentIcon className={styles.icon} />
             &nbsp;{comments ? comments.length : replies}
           </span>
           &nbsp;&nbsp;
@@ -375,12 +382,12 @@ class Threadic extends Component {
               );
             }}
           >
-            <ReportIcon />
+            <ReportIcon className={styles.icon} />
             &nbsp;신고
           </span>
           &nbsp;&nbsp;
           <span onClick={this.deleteTrash}>
-            <DeleteIcon />
+            <DeleteIcon className={styles.icon} />
             &nbsp;삭제
           </span>
         </AlignLayout>

@@ -1,12 +1,11 @@
 .wrapper {
-  padding: 8px;
   cursor: pointer;
-}
-.content {
   word-break: break-all;
 }
-
-.comments {
+.icon {
+  width: 18px;
+  height: 18px;
+  transform: translateY(2px);
 }
 .create {
   margin: 8px 0;

@@ -11,6 +11,7 @@ class Auth extends Component {
       <div>
         <Route exact path={'/auth/signin'} component={Signin} />
         <Route exact path={'/auth/signout'} component={SignOut} />
+        <Route exact path={'/auth/signup'} component={SignUp} />
         <Route exact path={'/auth/lost'} component={Lost} />
       </div>
     );

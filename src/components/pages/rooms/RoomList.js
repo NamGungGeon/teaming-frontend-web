@@ -185,9 +185,10 @@ const RoomList = ({ uiKit, history }) => {
                     alertEnter(room.roomId);
                   }}
                   style={{
+                    flex: 1,
                     width: '30%',
                     minWidth: '300px',
-                    margin: '8px 0'
+                    margin: '4px'
                   }}
                 >
                   <CardActionArea>
