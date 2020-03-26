@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import Threadic from '../../primitive/Threadic/Threadic';
-import PageTitle from '../../primitive/PageTitle/PageTitle';
-import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
-import { quickConnect } from '../../../redux/quick';
-
-import { createTrash, getTrashes } from '../../../http/tming';
-import { errMsg } from '../../../http/util';
 import Button from '@material-ui/core/Button';
 import { FaToiletPaper } from 'react-icons/fa';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { pageDescription } from '../../../utils/utils';
 import { TextField } from '@material-ui/core';
+import { pageDescription } from '../../../utils/utils';
+import { createTrash, getTrashes } from '../../../http/tming';
+import { errMsg } from '../../../http/util';
+import AlignLayout from '../../layouts/AlignLayout/AlignLayout';
+import PageTitle from '../../primitive/PageTitle/PageTitle';
+import Threadic from '../../primitive/Threadic/Threadic';
+import { quickConnect } from '../../../redux/quick';
 
 class Trash extends Component {
   state = {

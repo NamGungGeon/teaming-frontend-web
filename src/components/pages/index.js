@@ -8,7 +8,7 @@ const Events = React.lazy(() => import('./important/events/Events'));
 const Notices = React.lazy(() => import('./important/notices/Notices'));
 const Center = React.lazy(() => import('./center/Center'));
 const Magazine = React.lazy(() => import('./magazine/Magazine'));
-const Trash = React.lazy(() => import('./trash/Trash'));
+const Trash = React.lazy(() => import('./community/Trash'));
 const Rooms = React.lazy(() => import('./rooms/Rooms'));
 const Cyphers = React.lazy(() => import('./cyphers/Cyphers'));
 const Youtuber = React.lazy(() => import('./youtuber/Youtuber'));

@@ -4,7 +4,9 @@ import GamepadIcon from '@material-ui/icons/Gamepad';
 import PeopleIcon from '@material-ui/icons/People';
 import ChatIcon from '@material-ui/icons/Chat';
 import QueueIcon from '@material-ui/icons/Queue';
-import { FaToiletPaper } from 'react-icons/fa';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import EventIcon from '@material-ui/icons/Event';
+import CheckIcon from '@material-ui/icons/Check';
 import { MdBusinessCenter } from 'react-icons/md';
 import React from 'react';
 import getHistory from 'react-router-global-history';
@@ -37,12 +39,12 @@ const sideNav = {
       {
         label: (
           <span>
-            <FaToiletPaper style={{ fontSize: '24px' }} />
-            &nbsp;&nbsp;화장실
+            <ImportContactsIcon />
+            &nbsp;&nbsp;매거진
           </span>
         ),
         onClick: () => {
-          getHistory().push(`/trash`);
+          getHistory().push(`/magazine`);
         }
       },
       {
@@ -66,6 +68,30 @@ const sideNav = {
         onClick: () => {
           alert('개발중인 기능입니다');
           // getHistory().push('/rooms');
+        }
+      },
+
+      {
+        label: (
+          <span>
+            <CheckIcon />
+            &nbsp;&nbsp;공지사항
+          </span>
+        ),
+        onClick: () => {
+          getHistory().push(`/important/notices`);
+        }
+      },
+
+      {
+        label: (
+          <span>
+            <EventIcon />
+            &nbsp;&nbsp;이벤트
+          </span>
+        ),
+        onClick: () => {
+          getHistory().push(`/important/events`);
         }
       },
       {
