@@ -14,27 +14,15 @@ class Community extends Component {
   render() {
     return (
       <div>
+        <Route exact path={`/mypage/community/blocks`} component={Block} />
+        <Route exact path={`/mypage/community/friends`} component={Friends} />
+        <Route exact path={`/mypage/community/message`} component={Message} />
         <Route
           exact
-          path={`/mypage/community/blocks`}
-          component={Block}
-        />
-        <Route
-          exact
-          path={(`/mypage/community/friends`)}
-          component={Friends}
-        />
-        <Route
-          exact
-          path={(`/mypage/community/message`)}
-          component={Message}
-        />
-        <Route
-          exact
-          path={(`/mypage/community/notifications`)}
+          path={`/mypage/community/notifications`}
           component={Notifications}
         />
-        <Route path={(`/mypage/community/logs`)} component={Logs} />
+        <Route path={`/mypage/community/logs`} component={Logs} />
       </div>
     );
   }

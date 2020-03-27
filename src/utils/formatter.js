@@ -1,4 +1,3 @@
-
 export const formatToMoney = num => {
   if (num === 0) return '0';
 
@@ -20,4 +19,3 @@ export const formatFromMoney = money => {
   const num = money.replaceAll(',', '');
   return parseInt(num);
 };
-

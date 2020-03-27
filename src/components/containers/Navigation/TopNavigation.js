@@ -114,7 +114,7 @@ const TopNavigation = ({
             </span>
           </span>
           &nbsp;
-          <NavLink to={('/')}>
+          <NavLink to={'/'}>
             <img src={logo} alt="" className={styles.icon} />
           </NavLink>
         </span>

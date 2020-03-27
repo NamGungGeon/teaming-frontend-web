@@ -29,7 +29,7 @@ class Notice extends Component {
                   //ok removed!
                   uiKit.popup.destroy();
                   alert('삭제되었습니다');
-                  history.push((`/important/notices`));
+                  history.push(`/important/notices`);
                 })
                 .catch(e => {
                   uiKit.toaster.cooking(errMsg(e));

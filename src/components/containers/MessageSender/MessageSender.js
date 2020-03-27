@@ -72,7 +72,7 @@ const MessageSender = ({ uiKit, auth, id, username, onClose }) => {
 MessageSender.defaultProps = {
   username: '',
   id: '',
-  onClose: ()=>{},
+  onClose: () => {}
 };
 
 export default quickConnect(MessageSender);

@@ -64,7 +64,7 @@ class Event extends Component {
                   //ok removed!
                   uiKit.popup.destroy();
                   alert('삭제되었습니다');
-                  history.push((`/important/events`));
+                  history.push(`/important/events`);
                 })
                 .catch(e => {
                   uiKit.toaster.cooking(errMsg(e));

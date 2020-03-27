@@ -27,7 +27,7 @@ const UsefulInformation = () => {
               cursor: 'pointer'
             }}
             onClick={() => {
-              history.push((`/important/events`));
+              history.push(`/important/events`);
             }}
           >
             진행중인 이벤트
@@ -47,7 +47,7 @@ const UsefulInformation = () => {
               cursor: 'pointer'
             }}
             onClick={() => {
-              history.push((`/important/notices`));
+              history.push(`/important/notices`);
             }}
           >
             공지사항

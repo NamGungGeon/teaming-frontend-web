@@ -42,10 +42,7 @@ class Comment extends Component {
         >
           {!profile || typeof profile === 'string' ? (
             profile ? (
-              <img
-                src={profile ? profile : logo}
-                alt=""
-              />
+              <img src={profile ? profile : logo} alt="" />
             ) : (
               <IoIosPerson style={{ fontSize: '32px' }} />
             )
