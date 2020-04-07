@@ -8,8 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 const CreateRoom = ({
   onCreate: handleCreate,
   onCreateFail: handleCreateFail,
-  onCancel: handleCancel,
-  uiKit
+  onCancel: handleCancel
 }) => {
   const [title, setTitle] = useState('');
 
@@ -18,10 +17,11 @@ const CreateRoom = ({
       handleCreateFail('채팅방 이름은 3글자 이상이여야 합니다');
       return;
     }
-
-    // uiKit.loading.start();
     handleCreate(title);
-    // uiKit.loading.end();
+  };
+
+  const handleChangeTitle = event => {
+    setTitle(event.target.value);
   };
 
   return (
@@ -31,9 +31,7 @@ const CreateRoom = ({
       <TextField
         fullWidth
         placeholder="채팅방 제목을 입력하세요"
-        onChange={e => {
-          setTitle(e.target.value);
-        }}
+        onChange={handleChangeTitle}
       />
       <br />
       <br />

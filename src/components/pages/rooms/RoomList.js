@@ -20,8 +20,7 @@ const RoomList = ({
   onCreate: handleCreate,
   onJoin: handleJoin,
   rooms,
-  uiKit,
-  history
+  uiKit
 }) => {
   const sectionStyle = {
     display: 'flex',
@@ -107,13 +106,13 @@ const RoomList = ({
         <Section>
           <div style={sectionStyle}>
             {rooms.map(({ profile, title }) => {
-              console.log(profile);
-              console.log(title);
-
-              const tags = [
-                profile.username,
-                profile.gender === 'M' ? '남자' : '여자'
-              ];
+              const tags =
+                profile === 'ANONYMOUS'
+                  ? ['익명']
+                  : [
+                      profile.username,
+                      profile.gender === 'M' ? '남자' : '여자'
+                    ];
 
               return (
                 <Card onClick={handleCardClick} style={cardStyle}>

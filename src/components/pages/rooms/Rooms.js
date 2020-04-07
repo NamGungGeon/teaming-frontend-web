@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom';
 import Room from './Room';
 import { quickConnect } from '../../../redux/quick';
 
-const Rooms = ({ auth, uiKit }) => {
+const Rooms = ({ auth, history, uiKit }) => {
   const socket = useRef();
   const [rooms, setRooms] = useState([]);
 
@@ -29,12 +29,10 @@ const Rooms = ({ auth, uiKit }) => {
     );
 
     socket.current.on('JOINED_LOBBY', initialRooms => {
-      console.log(initialRooms);
       setRooms(initialRooms);
     });
 
     socket.current.on('ROOMS_LIST_UPDATED', updatedRooms => {
-      console.log(updatedRooms);
       setRooms(updatedRooms);
     });
 
@@ -47,11 +45,12 @@ const Rooms = ({ auth, uiKit }) => {
     socket.current.emit('CREATE_ROOM', title);
     socket.current.on('ROOM_CREATED', roomInfo => {
       uiKit.popup.destroy();
+      history.push(`/rooms/${roomInfo.id}`);
     });
   };
 
   const handleJoinRoom = roomID => {
-    //
+    socket.current.emit('JOIN_ROOM', roomID);
   };
 
   return (
