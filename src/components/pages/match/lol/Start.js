@@ -25,6 +25,7 @@ class Start extends Component {
       roomID: null,
       lastTime: 30
     };
+
     this.initState = {
       title: '매칭 서버에 접속 중',
       explain: '잠시만 기다려주세요',

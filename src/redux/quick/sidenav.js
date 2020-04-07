@@ -66,8 +66,7 @@ const sideNav = {
           </span>
         ),
         onClick: () => {
-          alert('개발중인 기능입니다');
-          // getHistory().push('/rooms');
+          getHistory().push('/rooms');
         }
       },
 

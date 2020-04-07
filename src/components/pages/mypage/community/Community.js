@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Message from './Message';
 import Notifications from './Notifications';
-import Logs from './logs/Logs';
+// import Logs from './logs/Logs';
 
 class Community extends Component {
   componentDidMount() {
@@ -22,7 +22,7 @@ class Community extends Component {
           path={`/mypage/community/notifications`}
           component={Notifications}
         />
-        <Route path={`/mypage/community/logs`} component={Logs} />
+        {/*<Route path={`/mypage/community/logs`} component={Logs} /> */}
       </div>
     );
   }
