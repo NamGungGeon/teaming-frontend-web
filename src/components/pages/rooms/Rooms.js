@@ -49,8 +49,10 @@ const Rooms = ({ auth, history, uiKit }) => {
     });
   };
 
-  const handleJoinRoom = roomID => {
+  const handleJoinRoom = roomID => event => {
     socket.current.emit('JOIN_ROOM', roomID);
+    uiKit.popup.destroy();
+    history.push(`/rooms/${roomID}`);
   };
 
   return (

@@ -35,7 +35,25 @@ const RoomList = ({
     margin: '4px'
   };
 
-  const alertEnter = roomId => {
+  const handleCreateError = error => {
+    uiKit.toaster.cooking(error);
+  };
+
+  const destroyPopup = () => {
+    uiKit.popup.destroy();
+  };
+
+  const handleCreateButtonClick = () => {
+    uiKit.popup.make(
+      <CreateRoom
+        onCreate={handleCreate}
+        onCreateFail={handleCreateError}
+        onCancel={destroyPopup}
+      />
+    );
+  };
+
+  const handleCardClick = roomId => event => {
     uiKit.popup.make(
       <div>
         <h3>이 채팅방에 입장하시겠습니까?</h3>
@@ -56,28 +74,6 @@ const RoomList = ({
         </AlignLayout>
       </div>
     );
-  };
-
-  const handleCreateError = error => {
-    uiKit.toaster.cooking(error);
-  };
-
-  const destroyPopup = () => {
-    uiKit.popup.destroy();
-  };
-
-  const handleCreateButtonClick = () => {
-    uiKit.popup.make(
-      <CreateRoom
-        onCreate={handleCreate}
-        onCreateFail={handleCreateError}
-        onCancel={destroyPopup}
-      />
-    );
-  };
-
-  const handleCardClick = roomId => {
-    alertEnter(roomId);
   };
 
   return (
@@ -105,7 +101,7 @@ const RoomList = ({
       {rooms.length > 0 && (
         <Section>
           <div style={sectionStyle}>
-            {rooms.map(({ profile, title }) => {
+            {rooms.map(({ id, title, profile }) => {
               const tags =
                 profile === 'ANONYMOUS'
                   ? ['익명']
@@ -115,7 +111,7 @@ const RoomList = ({
                     ];
 
               return (
-                <Card onClick={handleCardClick} style={cardStyle}>
+                <Card onClick={handleCardClick(id)} style={cardStyle}>
                   <CardActionArea>
                     <CardMedia
                       style={{ height: '128px' }}
