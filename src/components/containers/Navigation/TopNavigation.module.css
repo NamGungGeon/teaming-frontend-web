@@ -1,12 +1,17 @@
 nav.vertical {
   position: fixed;
   width: 100%;
+  left: 0;
+  top: 0;
   background: #ffffff;
   z-index: 999;
   box-shadow: 0px 0px 8px black;
 
   display: flex;
   justify-content: center;
+}
+nav.vertical.hide {
+  display: none;
 }
 nav.vertical * {
   color: #2b2d36;

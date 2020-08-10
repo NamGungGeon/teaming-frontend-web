@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { quickConnect } from '../../../redux/quick';
-import { Route } from 'react-router-dom';
-import Characters from './Characters';
-import PageTitle from '../../primitive/PageTitle/PageTitle';
 import { pageDescription } from '../../../utils/utils';
-import Attributes from './Attributes';
-import Players from './Players';
 
 class Cyphers extends Component {
   componentDidMount() {
@@ -46,6 +41,12 @@ class Cyphers extends Component {
           onClick: () => {
             history.push('/community?category=cyphers');
           }
+        },
+        {
+          label: '포스트',
+          onClick: () => {
+            history.push('/cyphers/posts');
+          }
         }
       ],
       다운로드: [
@@ -70,29 +71,21 @@ class Cyphers extends Component {
   render() {
     return (
       <div>
-        <Route
-          exact
-          path={'/cyphers'}
-          render={() => {
-            return (
-              <PageTitle
-                title={'사이퍼즈 서포터 X 티밍'}
-                explain={
-                  <div>
-                    <p>
-                      이 페이지는 <a href="https://cpsp.kr">https://cpsp.kr</a>
-                      로도 접속할 수 있습니다
-                    </p>
-                    좌측에서 필요한 메뉴를 선택하세요
-                  </div>
-                }
-              />
-            );
-          }}
-        />
-        <Route exact path={'/cyphers/characters'} component={Characters} />
-        <Route exact path={'/cyphers/attributes'} component={Attributes} />
-        <Route exact path={'/cyphers/players'} component={Players} />
+        <h3>더 이상 티밍에서 사이퍼즈 서포터를 이용할 수 없습니다</h3>
+        <br />
+        <h4>
+          계속하시려면{' '}
+          <a
+            href="https://cpsp.kr"
+            style={{
+              fontSize: '1.2rem',
+              color: 'blue !important'
+            }}
+          >
+            https://cpsp.kr (사이퍼즈 서포터 웹사이트)
+          </a>
+          로 이동하세요
+        </h4>
       </div>
     );
   }

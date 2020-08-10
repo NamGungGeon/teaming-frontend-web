@@ -39,7 +39,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "sudo scp -P 22 -r -i /Users/namgung-geon/key/lightsail-geon.pem /Users/namgung-geon/teaming-mvp/build/* ubuntu@15.165.81.186:/var/www/html/teaming-frontend"
   },
   "eslintConfig": {
     "extends": "react-app",

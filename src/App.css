@@ -6,6 +6,7 @@
   word-break: break-all;
   box-sizing: border-box;
 }
+
 a {
   color: inherit !important;
 }
@@ -106,8 +107,6 @@ tbody tr {
   transform: translate(1px, -8px);
 }
 .fullSizeDisplay {
-  position: absolute;
-  left: 0;
   width: 100%;
   min-height: calc(100% - 48px);
   text-align: center;

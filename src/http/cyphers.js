@@ -20,6 +20,9 @@ export const cyphersResource = {
   getClearThumbnail: nameEN => {
     return `${cyphersResource.url}/thumbnail/text/${nameEN}.jpg`;
   },
+  getCypherThumbnail: nameEN => {
+    return `${cyphersResource.url}/thumbnail/none/thum_login_${nameEN}.jpg`;
+  },
   getPositionIcon: position => {
     let name = position;
     switch (position) {
@@ -43,7 +46,7 @@ export const cyphersResource = {
   getTierIcon: tierName => {
     if (!tierName) return `${cyphersResource.url}/tier/unrank.png`;
 
-    return `${cyphersResource.url}/tier/${tierName}.png`;
+    return `${cyphersResource.url}/tier/${tierName.toLowerCase()}.png`;
   },
   getLegacyItemIcon: icoName => {
     if (icoName) {
@@ -162,4 +165,64 @@ export const getCharacterRanker = characterId => {
     `${openapi}/cy/ranking/characters/${characterId}/winCount`,
     'limit=5'
   );
+};
+
+export const getPosts = category => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/posts/`,
+    params: {
+      category
+    }
+  });
+};
+export const getPost = idx => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/posts/`,
+    params: {
+      idx
+    }
+  });
+};
+export const getPostEvaluate = ref_postId => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/posts/evaluate.php`,
+    params: {
+      ref_postId
+    }
+  });
+};
+export const evaluatePost = (ref_postId, evaluate) => {
+  const formData = new FormData();
+  formData.append('ref_postId', ref_postId);
+  formData.append('evaluate', evaluate);
+  return axios.request({
+    method: 'POST',
+    url: `${url}/posts/evaluate.php`,
+    data: formData
+  });
+};
+
+export const createErrorLog = (title, description) => {
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('description', description);
+  formData.append('version', 'user-web');
+  return axios.request({
+    method: 'POST',
+    url: `${url}/posts/`,
+    data: formData
+  });
+};
+
+export const getMatchup = nameKR => {
+  return axios.request({
+    method: 'GET',
+    url: `${url}/statistics/matchup.php`,
+    params: {
+      nameKR
+    }
+  });
 };

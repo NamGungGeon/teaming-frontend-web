@@ -60,7 +60,7 @@ const Reports = ({ auth, uiKit, history }) => {
         );
       })
       .catch(e => {
-        console.log(e);
+        console.error(e);
         uiKit.toaster.cooking(errMsg(e));
       });
     uiKit.loading.end();

@@ -141,7 +141,7 @@ class Read extends Component {
         });
       })
       .catch(e => {
-        console.log(e);
+        console.error(e);
         uiKit.toaster.cooking(errMsg(e));
       });
   };
@@ -168,7 +168,7 @@ class Read extends Component {
       })
       .catch(e => {
         uiKit.toaster.cooking(errMsg(e));
-        console.log(e);
+        console.error(e);
       });
   };
 
@@ -390,7 +390,7 @@ class Read extends Component {
           uiKit.toaster.cooking('수정 완료');
         })
         .catch(e => {
-          console.log(e);
+          console.error(e);
           uiKit.toaster.cooking(errMsg(e));
         });
       uiKit.loading.end();

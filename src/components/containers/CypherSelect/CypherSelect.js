@@ -16,8 +16,8 @@ const CypherSelect = ({ onUpdate, inits, popup, uiKit }) => {
         setCyphers(characters);
       })
       .catch(e => {
-        uiKit.toaster.cooking(e);
-        console.log(e);
+        uiKit.toaster.cooking(e.toString());
+        console.error(e);
       });
     return () => {
       uiKit.destroyAll();

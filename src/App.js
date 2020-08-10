@@ -39,14 +39,17 @@ import firebase from 'firebase/app';
 import 'firebase/messaging';
 import { registerFCM } from './http/tming';
 import { authorized } from './utils/utils';
-import LoadingTopFixed from './components/primitive/LoadingTopFixed/LoadingTopFixed';
 import HelpAppInstall from './components/containers/HelpAppInstall/HelpAppInstall';
+import Splash from './components/primitive/Splash/Splash';
+import FatalError from './components/primitive/FatalError/FatalError';
+import { createErrorLog } from './http/cyphers';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ready: false
+      ready: false,
+      fatalError: false
     };
     try {
       this.messaging = firebase.messaging();
@@ -56,6 +59,16 @@ class App extends Component {
     } catch (e) {
       console.log(e);
     }
+  }
+  componentDidCatch(error, info) {
+    console.error(error, info);
+    createErrorLog(error, info).catch(e => {
+      console.error(e);
+    });
+    this.setState({
+      ...this,
+      fatalError: true
+    });
   }
 
   async componentDidMount() {
@@ -113,15 +126,16 @@ class App extends Component {
 
   render() {
     const { config, history, uiKit } = this.props;
-    const { ready } = this.state;
+    const { ready, fatalError } = this.state;
 
     return (
       <div>
         <HocWrapper />
-        {ready && uiKit && (
+        {fatalError && <FatalError />}
+        {!fatalError && ready && uiKit && (
           <>
             <TopNavigation
-              history={this.props.history}
+              history={history}
               location={this.props.location}
             />
             <MobileSideNavigation />
@@ -136,7 +150,7 @@ class App extends Component {
                 className={'content'}
               >
                 <div className="ruler">
-                  <Suspense fallback={<LoadingTopFixed />}>
+                  <Suspense fallback={<Splash />}>
                     <Switch>
                       <Route exact path={'/'} component={Home} />
                       <Route path={'/match'} component={Match} />

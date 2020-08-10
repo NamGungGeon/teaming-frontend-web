@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import styles from './TopNavigation.module.css';
@@ -15,7 +15,6 @@ import ListIcon from '@material-ui/icons/List';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from '@material-ui/core/Tooltip';
 import Login from '../Login/Login';
-import getHistory from 'react-router-global-history';
 import Notifications from '../Notifications/Notifications';
 
 const TopNavigation = ({
@@ -23,9 +22,9 @@ const TopNavigation = ({
   uiKit,
   AuthDispatcher,
   config,
+  history,
   SideNavDispatcher
 }) => {
-  const history = getHistory();
   const { hideNav } = config;
   const quickMenus = [
     {
@@ -94,11 +93,15 @@ const TopNavigation = ({
     }
   ];
 
+  useEffect(() => {
+    console.log('topNavigation is mounted');
+    return () => {
+      console.log('topNavigation is unmounted');
+    };
+  }, []);
+
   return (
-    <nav
-      style={{ display: hideNav ? 'none' : 'flex' }}
-      className={classNames(styles.vertical)}
-    >
+    <nav className={classNames(styles.vertical, hideNav ? styles.hide : '')}>
       <div className={styles.ruler}>
         <span className={styles.left}>
           <span className={'mobile'}>
@@ -133,4 +136,16 @@ const TopNavigation = ({
   );
 };
 
-export default quickConnect(TopNavigation);
+export default quickConnect(
+  React.memo(TopNavigation, (prevProps, nextProps) => {
+    const { auth: prevAuth, hideNav: prevHideNav } = prevProps;
+    const { auth: nextAuth, hideNav: nextHideNav } = nextProps;
+    console.log(
+      'topNavigation is compared',
+      prevAuth === nextAuth && prevHideNav === nextHideNav,
+      prevProps,
+      nextProps
+    );
+    return prevAuth.id === nextAuth.id && prevHideNav === nextHideNav;
+  })
+);

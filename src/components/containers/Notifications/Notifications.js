@@ -29,6 +29,10 @@ class Notifications extends Component {
   componentWillUnmount() {
     console.log('notifications: i will be unmounted');
   }
+  //
+  // shouldComponentUpdate(nextProps, nextState, nextContext) {
+  //   return false;
+  // }
 
   render() {
     const { count } = this.state;

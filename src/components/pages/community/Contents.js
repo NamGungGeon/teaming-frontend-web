@@ -130,7 +130,7 @@ class Contents extends Component {
         });
       })
       .catch(e => {
-        console.log(e);
+        console.error(e);
         uiKit.toaster.cooking(errMsg(e));
       });
     uiKit.loading.end();

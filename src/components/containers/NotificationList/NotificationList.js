@@ -46,7 +46,8 @@ const NotificationList = ({ limit, filter, updated, uiKit, auth }) => {
   };
 
   useEffect(() => {
-    const timer = window.setInterval(refresh, 30 * 1000);
+    console.log('notificationList is mounted');
+    const timer = window.setInterval(refresh, 5 * 1000);
     refresh();
     (async () => {
       uiKit.loading.start();
